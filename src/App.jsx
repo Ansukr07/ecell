@@ -31,8 +31,7 @@ function App() {
 
   return (
     <PreloaderContext.Provider value={{ loading, setLoading }}>
-      <Navbar /> {/* Fixed outside of animated content */}
-      <div className="relative pt-0"> {/* Padding so content isn't hidden behind navbar */}
+      <div className="relative pt-0">
         <AnimatePresence mode="wait">
           {loading ? (
             <Preloader key="preloader" onComplete={handlePreloaderComplete} />
@@ -40,17 +39,23 @@ function App() {
             <motion.div
               key="content"
               initial={{ scale: 0.98, opacity: 0, filter: 'blur(10px)' }}
-              animate={{ scale: showContent ? 1 : 0.98, opacity: showContent ? 1 : 0, filter: showContent ? 'blur(0px)' : 'blur(10px)' }}
+              animate={{ 
+                scale: showContent ? 1 : 0.98, 
+                opacity: showContent ? 1 : 0, 
+                filter: showContent ? 'blur(0px)' : 'blur(10px)' 
+              }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className="min-h-screen"
             >
               <Router>
+                <Navbar />  {/* ✅ Navbar now inside Router */}
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/events/codered" element={<Codered />} />
                   <Route path="/alumni" element={<Alumni />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/failure story" element={<failure story />} />
                 </Routes>
               </Router>
             </motion.div>

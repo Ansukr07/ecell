@@ -14,15 +14,12 @@ export default function Navbar() {
     const controlNavbar = () => {
       if (typeof window !== 'undefined') {
         const currentScrollY = window.scrollY;
-        
-        // Show navbar when scrolling up or at the top
+
         if (currentScrollY < lastScrollY || currentScrollY < 10) {
           setIsVisible(true);
-        } 
-        // Hide navbar when scrolling down
-        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setIsVisible(false);
-          setIsOpen(false); // Close mobile menu when hiding
+          setIsOpen(false);
         }
 
         setLastScrollY(currentScrollY);
@@ -38,12 +35,15 @@ export default function Navbar() {
   return (
     <>
       {/* Google Fonts Import */}
-      <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-      
-      <nav 
+      <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+
+      <nav
         className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
-        }`} 
+        }`}
         style={{ fontFamily: 'Sora, sans-serif' }}
       >
         <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-3 flex items-center justify-between w-[95%] max-w-4xl transition-all duration-300 hover:shadow-3xl">
@@ -58,21 +58,11 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:block">
             <div className="ml-12 flex items-center space-x-8">
-              <a href="#" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Home
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                About
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Services
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#" className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 transform hover:-translate-y-0.5">
-                Contact
-              </a>
+              <a href="#home" className="nav-link">Home</a>
+              <a href="#gallery" className="nav-link">Gallery</a>
+              <a href="#about" className="nav-link">About</a>
+              <a href="#services" className="nav-link">Services</a>
+              <a href="#contact" className="contact-btn">Contact</a>
             </div>
           </div>
 
@@ -91,22 +81,53 @@ export default function Navbar() {
         {isOpen && (
           <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[95%] max-w-4xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl shadow-2xl md:hidden animate-in slide-in-from-top-2 duration-300">
             <div className="px-6 py-6 space-y-4">
-              <a href="#" className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Home
-              </a>
-              <a href="#" className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                About
-              </a>
-              <a href="#" className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Services
-              </a>
-              <a href="#" className="block w-full text-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 mt-4">
-                Contact
-              </a>
+              <a href="#home" className="mobile-link">Home</a>
+              <a href="#gallery" className="mobile-link">Gallery</a>
+              <a href="#failure story" className="mobile-link">Failure story</a>
+              <a href="#about" className="mobile-link">About</a>
+             
+              <a href="#contact" className="contact-btn block w-full text-center mt-4">Contact</a>
             </div>
           </div>
         )}
       </nav>
+
+      {/* Extra CSS for links */}
+      <style jsx>{`
+        .nav-link {
+          position: relative;
+          font-weight: 500;
+          font-size: 0.875rem;
+          color: #334155;
+          transition: all 0.3s;
+        }
+        .nav-link:hover {
+          color: #f97316;
+        }
+        .mobile-link {
+          display: block;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid #e2e8f0;
+          color: #334155;
+          transition: all 0.3s;
+        }
+        .mobile-link:hover {
+          color: #f97316;
+        }
+        .contact-btn {
+          background: linear-gradient(to right, #f97316, #ea580c);
+          color: white;
+          padding: 0.6rem 1.5rem;
+          border-radius: 0.75rem;
+          font-weight: 600;
+          transition: all 0.3s;
+        }
+        .contact-btn:hover {
+          background: linear-gradient(to right, #ea580c, #c2410c);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 10px rgba(249, 115, 22, 0.25);
+        }
+      `}</style>
     </>
   );
 }
