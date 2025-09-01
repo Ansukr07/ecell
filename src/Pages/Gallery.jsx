@@ -7,183 +7,43 @@ const Gallery = () => {
   
   // Sample gallery images with varying heights for masonry effect
   const galleryImages = [
-    {
-      id: 1,
-      src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=800&fit=crop",
-      alt: "Startup Event 1",
-      title: "Annual Startup Summit 2024",
-      height: "h-80"
-    },
-    {
-      id: 2,
-      src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=600&fit=crop",
-      alt: "Workshop Event",
-      title: "Entrepreneurship Workshop",
-      height: "h-64"
-    },
-    {
-      id: 3,
-      src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=500&fit=crop",
-      alt: "Team Meeting",
-      title: "E-Cell Team Meeting",
-      height: "h-72"
-    },
-    {
-      id: 4,
-      src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=450&fit=crop",
-      alt: "Innovation Lab",
-      title: "Innovation Lab Session",
-      height: "h-56"
-    },
-    {
-      id: 5,
-      src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=700&fit=crop",
-      alt: "Pitch Competition",
-      title: "Business Pitch Competition",
-      height: "h-96"
-    },
-    {
-      id: 6,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
-      alt: "Networking Event",
-      title: "Networking Session",
-      height: "h-60"
-    },
-    {
-      id: 7,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=650&fit=crop",
-      alt: "Conference",
-      title: "Entrepreneurship Conference",
-      height: "h-80"
-    },
-    {
-      id: 8,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=550&fit=crop",
-      alt: "Awards Ceremony",
-      title: "Annual Awards Ceremony",
-      height: "h-68"
-    },
-    {
-      id: 9,
-      src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
-      alt: "Team Collaboration",
-      title: "Team Brainstorming Session",
-      height: "h-52"
-    },
-    {
-      id: 10,
-      src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=750&fit=crop",
-      alt: "Presentation",
-      title: "Startup Presentation",
-      height: "h-88"
-    },
-    {
-      id: 11,
-      src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=480&fit=crop",
-      alt: "Workshop Session",
-      title: "Technical Workshop",
-      height: "h-64"
-    },
-    {
-      id: 12,
-      src: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=620&fit=crop",
-      alt: "Innovation Hub",
-      title: "Innovation Hub Activities",
-      height: "h-76"
-    },
-    {
-      id: 13,
-      src: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600&h=420&fit=crop",
-      alt: "Mentorship Session",
-      title: "Mentorship Program",
-      height: "h-56"
-    },
-    {
-      id: 14,
-      src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=680&fit=crop",
-      alt: "Strategic Planning",
-      title: "Strategic Planning Meeting",
-      height: "h-84"
-    },
-    {
-      id: 15,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=520&fit=crop",
-      alt: "Community Event",
-      title: "Community Networking",
-      height: "h-68"
-    },
-    {
-      id: 16,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=450&fit=crop",
-      alt: "Panel Discussion",
-      title: "Expert Panel Discussion",
-      height: "h-60"
-    },
-    {
-      id: 17,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=720&fit=crop",
-      alt: "Celebration",
-      title: "Achievement Celebration",
-      height: "h-80"
-    },
-    {
-      id: 18,
-      src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=380&fit=crop",
-      alt: "Research Session",
-      title: "Research & Development",
-      height: "h-52"
-    },
-    {
-      id: 19,
-      src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=600&fit=crop",
-      alt: "Demo Day",
-      title: "Demo Day Presentations",
-      height: "h-72"
-    },
-    {
-      id: 20,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=500&fit=crop",
-      alt: "Alumni Meet",
-      title: "Alumni Networking Event",
-      height: "h-64"
-    },
-    {
-      id: 21,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=780&fit=crop",
-      alt: "Global Summit",
-      title: "Global Entrepreneurship Summit",
-      height: "h-92"
-    },
-    {
-      id: 22,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=440&fit=crop",
-      alt: "Recognition Event",
-      title: "Excellence Recognition",
-      height: "h-58"
-    },
-    {
-      id: 23,
-      src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=660&fit=crop",
-      alt: "Investor Meet",
-      title: "Investor Meetup",
-      height: "h-76"
-    },
-    {
-      id: 24,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
-      alt: "Knowledge Share",
-      title: "Knowledge Sharing Session",
-      height: "h-56"
-    },
-    {
-      id: 25,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=580&fit=crop",
-      alt: "Future Leaders",
-      title: "Future Leaders Program",
-      height: "h-72"
-    }
+    { id: 1, src: "/gallery/image1.jpg", alt: "Event 1", height: "h-64" },
+    { id: 2, src: "/gallery/image2.jpg", alt: "Event 2", height: "h-60" },
+    { id: 3, src: "/gallery/image3.jpg", alt: "Event 3", height: "h-80" },
+    { id: 4, src: "/gallery/image4.jpg", alt: "Event 4",height: "h-60" },
+    { id: 5, src: "/gallery/image5.jpg", alt: "Event 5",  height: "h-70" },
+    { id: 6, src: "/gallery/image6.jpg", alt: "Event 6", height: "h-90" },
+    { id: 7, src: "/gallery/image7.jpg", alt: "Event 7", height: "h-68" },
+    { id: 8, src: "/gallery/image8.jpg", alt: "Event 8", height: "h-52" },
+    { id: 9, src: "/gallery/image9.jpg", alt: "Event 9",height: "h-50" },
+    
+    { id: 11, src: "/gallery/image11.jpg", alt: "Event 11", height: "h-84" },
+    { id: 12, src: "/gallery/image12.jpg", alt: "Event 12", height: "h-100" },
+    { id: 13, src: "/gallery/image13.jpg", alt: "Event 13", height: "h-80" },
+    { id: 14, src: "/gallery/image14.jpg", alt: "Event 14", height: "h-64" },
+    { id: 15, src: "/gallery/image15.jpg", alt: "Event 15", height: "h-130" },
+    { id: 16, src: "/gallery/image16.jpg", alt: "Event 16", height: "h-60" },
+    { id: 17, src: "/gallery/image17.jpg", alt: "Event 17",height: "h-75" },
+    { id: 18, src: "/gallery/image18.jpg", alt: "Event 18", height: "h-60" },
+    { id: 19, src: "/gallery/image19.jpg", alt: "Event 19", height: "h-85" },
+    { id: 20, src: "/gallery/image20.jpg", alt: "Event 20", height: "h-68" },
+    { id: 21, src: "/gallery/image21.jpg", alt: "Event 21",  height: "h-80" },
+    { id: 22, src: "/gallery/image22.jpg", alt: "Event 22",  height: "h-50" },
+    { id: 23, src: "/gallery/image23.jpg", alt: "Event 23", height: "h-60" },
+    { id: 24, src: "/gallery/image24.jpg", alt: "Event 24", height: "h-84" },
+    { id: 25, src: "/gallery/image25.jpg", alt: "Event 25",  height: "h-72" },
+    { id: 26, src: "/gallery/image26.jpg", alt: "Event 26",  height: "h-72" },
+    { id: 27, src: "/gallery/image27.jpg", alt: "Event 27",  height: "h-72" },
+    { id: 28, src: "/gallery/image28.jpg", alt: "Event 28",  height: "h-65" },
+    { id: 29, src: "/gallery/image29.jpg", alt: "Event 29", height: "h-72" },
+    { id: 30, src: "/gallery/image30.jpg", alt: "Event 30", height: "h-72" },
+    { id: 31, src: "/gallery/image31.jpg", alt: "Event 31",  height: "h-72" },
+    { id: 32, src: "/gallery/image32.jpg", alt: "Event 32", height: "h-72" },
+    { id: 33, src: "/gallery/image33.jpg", alt: "Event 33",  height: "h-72" },
+    { id: 34, src: "/gallery/image34.jpg", alt: "Event 34",  height: "h-72" },
+    { id: 35, src: "/gallery/image35.jpg", alt: "Event 35", height: "h-72" },
+    { id: 36, src: "/gallery/image36.jpg", alt: "Event 36",  height: "h-72" },
   ];
-
   const openLightbox = (image) => {
     setSelectedImage(image);
   };
