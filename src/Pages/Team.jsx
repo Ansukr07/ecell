@@ -35,7 +35,7 @@ import ansu from './assets/team/ansu.jpg';
 import bhavana from './assets/team/bhavana.jpg';
 import faizan from './assets/team/Faizan.jpg';
 import rishav from './assets/team/rishav.jpg';
-
+import talha from './assets/team/talha.jpg';
 
 const teamData = {
   "leadership": [
@@ -70,13 +70,12 @@ const teamData = {
     { "name": "Gaganjith R", "position": "Events & Ops", "image": gaganjith, "socials": { "linkedin": "", "github": "" } },
     { "name": "Hitesh R", "position": "Media & Marketing", "image": hitesh, "socials": { "linkedin": "", "github": "" } },
     { "name": "Shriya", "position": "Content", "image": shriya, "socials": { "linkedin": "", "github": "" } },
-    { "name": "Tirth Panchori", "position": "Design", "image": tirth, "socials": { "linkedin": "", "github": "" } }
-  ],
-  "viceHeads": [
+    { "name": "Tirth Panchori", "position": "Design", "image": tirth, "socials": { "linkedin": "", "github": "" } },
     { "name": "Milan S", "position": "Tech", "image": milan, "socials": { "linkedin": "", "github": "" } },
     { "name": "Bhanu Prasad", "position": "Media", "image": bhanu, "socials": { "linkedin": "", "github": "" } },
     { "name": "Akhilesh Pachnanda", "position": "Design", "image": akhilesh, "socials": { "linkedin": "", "github": "" } }
   ],
+  
   "associates": [
     { "name": "Ananya", "position": "Media", "image": ananya, "socials": {} },
     { "name": "Bhavana", "position": "Marketing", "image": bhavana, "socials": {} },
@@ -97,7 +96,9 @@ const teamData = {
     { "name": "Manal", "position": "Marketing", "image": manal, "socials": {} },
     { "name": "Raashi", "position": "Design", "image": raashi, "socials": {} },
     { "name": "Rishav", "position": "Event & Ops", "image": rishav, "socials": {} },
-    { "name": "Sathya Shivani", "position": "Corporate Relations", "image": sathyashivani, "socials": {} }
+    { "name": "Sathya Shivani", "position": "Corporate Relations", "image": sathyashivani, "socials": {} },
+    { "name": "Talha", "position": "Operations", "image": talha, "socials": {} }
+
   ]
 };
 
@@ -190,11 +191,11 @@ const TeamSection = ({ title, members, ribbonColor = "orange", isAssociate = fal
     <section className={`${isAssociate ? 'mb-16' : 'mb-24'}`}>
       <div className="text-center mb-16">
         <div className="flex items-center justify-center mb-6">
-          <IconComponent size={48} className="text-orange-400 mr-6" />
+          
           <h2 className="text-5xl md:text-6xl font-black text-white tracking-tighter">
             {title}
           </h2>
-          <IconComponent size={48} className="text-orange-400 ml-6" />
+
         </div>
         <div className="w-32 h-2 bg-gradient-to-r from-orange-500 via-amber-400 to-orange-500 mx-auto rounded-full"></div>
       </div>
@@ -250,7 +251,7 @@ const TeamPage = () => {
         <div className="text-center mb-32">
           <div className="flex items-center justify-center mb-8">
             <div className="w-20 h-1 bg-gradient-to-r from-transparent to-orange-500 mr-8"></div>
-            <Crown size={72} className="text-amber-400 mx-6 animate-pulse" />
+            
             <div className="w-20 h-1 bg-gradient-to-l from-transparent to-orange-500 ml-8"></div>
           </div>
           
@@ -258,12 +259,10 @@ const TeamPage = () => {
             TEAM
           </h1>
           <div className="text-4xl md:text-5xl font-black text-transparent bg-gradient-to-r from-orange-400 via-amber-400 to-orange-500 bg-clip-text mb-10 tracking-tight">
+            
+            
             E-CELL
-          </div>
-          <div className="flex items-center justify-center mb-8">
-            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-amber-400 rounded-full"></div>
-            <div className="w-3 h-3 bg-amber-400 rounded-full mx-6"></div>
-            <div className="w-24 h-1 bg-gradient-to-l from-orange-500 to-amber-400 rounded-full"></div>
+
           </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
             The innovators, creators, and entrepreneurs shaping tomorrow
@@ -281,13 +280,7 @@ const TeamPage = () => {
           members={teamData.heads}
           ribbonColor="orange"
         />
-        
-        <TeamSection 
-          title="VICE HEADS" 
-          members={teamData.viceHeads}
-          ribbonColor="blue"
-        />
-        
+       
         <TeamSection 
           title="ASSOCIATES" 
           members={teamData.associates}

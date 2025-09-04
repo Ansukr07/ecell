@@ -58,16 +58,20 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:block">
             <div className="ml-12 flex items-center space-x-8">
-              <a href="#" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
+              <a href="/" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
                 Home
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </a>
-              <a href="#" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                About
+              <a href="/Gallery" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
+                Gallery
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </a>
-              <a href="#" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Services
+              <a href="/team" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
+                Team
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="/Alumni" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
+                Alumni
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </a>
               <a href="#" className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 transform hover:-translate-y-0.5">

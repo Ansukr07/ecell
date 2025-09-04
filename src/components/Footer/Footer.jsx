@@ -1,5 +1,6 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
+import { px } from 'framer-motion';
 
 const Footer = () => {
   return (
@@ -34,9 +35,9 @@ const Footer = () => {
             
             {/* Brand Section */}
             <div className="space-y-8">
-              <div className="flex items-center">
-                <div className="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center mr-5 shadow-lg">
-                  <span className="text-white font-bold text-2xl">E</span>
+              <div className="flex items-center justify-center">
+                <div className='flex items-center justify-center '>
+                  <img src="./src/assets/ecellorange.png" alt="" width="70px"  />
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-3xl tracking-tight">E-CELL</h3>
@@ -48,17 +49,11 @@ const Footer = () => {
                 Empowering the next generation of entrepreneurs through innovation and collaboration.
               </p>
               
-              <div className="flex space-x-4">
-                <a href="#" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group">
-                  <Facebook size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
-                <a href="#" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group">
-                  <Twitter size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
-                <a href="#" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group">
+              <div className="flex space-x-4 justify-center">
+                <a href="https://www.instagram.com/ecell.bmsit" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group" target='blank'>
                   <Instagram size={20} className="group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="#" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group">
+                <a href="https://www.linkedin.com/company/ecellbmsit" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group" target='blank'>
                   <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
                 </a>
               </div>
@@ -71,15 +66,15 @@ const Footer = () => {
               <div>
                 <h4 className="text-white font-semibold mb-8 text-lg">Quick Links</h4>
                 <ul className="space-y-4">
-                  {['Home', 'Events', 'Programs', 'Team'].map((item) => (
-                    <li key={item}>
-                      <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200 font-medium">
-                        {item}
+                  {[{name:'Home', link:"/"}, {name:'Events', link:'/events'}, {name:'Alumni',link:'/Alumni'}, {name:'Team',link:'/team'}].map((item) => (
+                    <li key={item.name}>
+                      <a href={item.link} className="text-gray-400 hover:text-orange-400 transition-colors duration-200 font-medium">
+                        {item.name}
                       </a>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div>  
 
               {/* Contact */}
               <div>
@@ -100,7 +95,7 @@ const Footer = () => {
                     <div className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Mail size={16} className="text-gray-400" />
                     </div>
-                    <p className="text-gray-300 font-medium">contact@ecell.bmsit.ac.in</p>
+                    <p className="text-gray-300 font-medium">ecell@bmsit.in</p>
                   </div>
                 </div>
               </div>
