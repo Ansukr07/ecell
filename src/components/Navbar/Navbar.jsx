@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import logo from '../../assets/ecellorange.png';
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -48,11 +46,13 @@ export default function Navbar() {
           }`}
         style={{ fontFamily: 'Sora, sans-serif' }}
       >
-        <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-2 flex items-center justify-between w-[95%] max-w-7xl transition-all duration-300 hover:shadow-3xl">
+        <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-3 flex items-center justify-between w-[95%] max-w-7xl transition-all duration-300 hover:shadow-3xl">
 
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img src={logo} alt="E-Cell Logo" className="h-12 w-auto" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent tracking-tight">
+              E-CELL
+            </span>
           </div>
 
           {/* Desktop Menu */}
