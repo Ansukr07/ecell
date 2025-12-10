@@ -15,11 +15,11 @@ export default function Navbar() {
     const controlNavbar = () => {
       if (typeof window !== 'undefined') {
         const currentScrollY = window.scrollY;
-        
+
         // Show navbar when scrolling up or at the top
         if (currentScrollY < lastScrollY || currentScrollY < 10) {
           setIsVisible(true);
-        } 
+        }
         // Hide navbar when scrolling down
         else if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setIsVisible(false);
@@ -40,15 +40,14 @@ export default function Navbar() {
     <>
       {/* Google Fonts Import */}
       <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-      
-      <nav 
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
-        }`} 
+
+      <nav
+        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
+          }`}
         style={{ fontFamily: 'Sora, sans-serif' }}
       >
         <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-3 flex items-center justify-between w-[95%] max-w-4xl transition-all duration-300 hover:shadow-3xl">
-          
+
           {/* Logo */}
           <div className="flex-shrink-0">
             <span className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent tracking-tight">
