@@ -1,188 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
+
+// Image Imports
+import img1 from '../assets/image1.jpg';
+import img2 from '../assets/image2.jpg';
+import img3 from '../assets/image3.jpg';
+import img4 from '../assets/image4.jpg';
+import img5 from '../assets/image5.jpg';
+import img6 from '../assets/image6.jpg';
+import img7 from '../assets/image7.jpg';
+import img8 from '../assets/image8.jpg';
+import img9 from '../assets/image9.jpg';
+import img10 from '../assets/image10.jpg';
+import img11 from '../assets/image11.jpg';
+import img12 from '../assets/image12.jpg';
+import img13 from '../assets/image13.jpg';
+import img14 from '../assets/image14.jpg';
+import img15 from '../assets/image15.jpg';
+import img16 from '../assets/image16.jpg';
+import img17 from '../assets/image17.jpg';
+import img18 from '../assets/image18.jpg';
+import img19 from '../assets/image19.jpg';
+import img20 from '../assets/image20.jpg';
+import img21 from '../assets/image21.jpg';
+import img22 from '../assets/image22.jpg';
+import img23 from '../assets/image23.jpg';
+import img24 from '../assets/image24.jpg';
+import img25 from '../assets/image25.jpg';
+import img26 from '../assets/image26.jpg';
+import img27 from '../assets/image27.jpg';
+import img28 from '../assets/image28.jpg';
+import img29 from '../assets/image29.jpg';
+import img30 from '../assets/image30.jpg';
+import img31 from '../assets/image31.jpg';
+import img32 from '../assets/image32.jpg';
+import img33 from '../assets/image33.jpg';
+import img34 from '../assets/image34.jpg';
+import img35 from '../assets/image35.jpg';
+import img36 from '../assets/image36.JPG';
+import img37 from '../assets/image37.jpg';
+import img38 from '../assets/image38.jpg';
+import img39 from '../assets/image39.jpg';
+import img40 from '../assets/image40.jpg';
+import img41 from '../assets/image41.JPG';
+import img42 from '../assets/image42.JPG';
+import img43 from '../assets/image43.JPG';
+
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  
-  // Sample gallery images with varying heights for masonry effect
-  const galleryImages = [
-    {
-      id: 1,
-      src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=800&fit=crop",
-      alt: "Startup Event 1",
-      title: "Annual Startup Summit 2024",
-      height: "h-80"
-    },
-    {
-      id: 2,
-      src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=600&fit=crop",
-      alt: "Workshop Event",
-      title: "Entrepreneurship Workshop",
-      height: "h-64"
-    },
-    {
-      id: 3,
-      src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=500&fit=crop",
-      alt: "Team Meeting",
-      title: "E-Cell Team Meeting",
-      height: "h-72"
-    },
-    {
-      id: 4,
-      src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=450&fit=crop",
-      alt: "Innovation Lab",
-      title: "Innovation Lab Session",
-      height: "h-56"
-    },
-    {
-      id: 5,
-      src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=700&fit=crop",
-      alt: "Pitch Competition",
-      title: "Business Pitch Competition",
-      height: "h-96"
-    },
-    {
-      id: 6,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
-      alt: "Networking Event",
-      title: "Networking Session",
-      height: "h-60"
-    },
-    {
-      id: 7,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=650&fit=crop",
-      alt: "Conference",
-      title: "Entrepreneurship Conference",
-      height: "h-80"
-    },
-    {
-      id: 8,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=550&fit=crop",
-      alt: "Awards Ceremony",
-      title: "Annual Awards Ceremony",
-      height: "h-68"
-    },
-    {
-      id: 9,
-      src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
-      alt: "Team Collaboration",
-      title: "Team Brainstorming Session",
-      height: "h-52"
-    },
-    {
-      id: 10,
-      src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=750&fit=crop",
-      alt: "Presentation",
-      title: "Startup Presentation",
-      height: "h-88"
-    },
-    {
-      id: 11,
-      src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=480&fit=crop",
-      alt: "Workshop Session",
-      title: "Technical Workshop",
-      height: "h-64"
-    },
-    {
-      id: 12,
-      src: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=620&fit=crop",
-      alt: "Innovation Hub",
-      title: "Innovation Hub Activities",
-      height: "h-76"
-    },
-    {
-      id: 13,
-      src: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600&h=420&fit=crop",
-      alt: "Mentorship Session",
-      title: "Mentorship Program",
-      height: "h-56"
-    },
-    {
-      id: 14,
-      src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=680&fit=crop",
-      alt: "Strategic Planning",
-      title: "Strategic Planning Meeting",
-      height: "h-84"
-    },
-    {
-      id: 15,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=520&fit=crop",
-      alt: "Community Event",
-      title: "Community Networking",
-      height: "h-68"
-    },
-    {
-      id: 16,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=450&fit=crop",
-      alt: "Panel Discussion",
-      title: "Expert Panel Discussion",
-      height: "h-60"
-    },
-    {
-      id: 17,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=720&fit=crop",
-      alt: "Celebration",
-      title: "Achievement Celebration",
-      height: "h-80"
-    },
-    {
-      id: 18,
-      src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=380&fit=crop",
-      alt: "Research Session",
-      title: "Research & Development",
-      height: "h-52"
-    },
-    {
-      id: 19,
-      src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=600&fit=crop",
-      alt: "Demo Day",
-      title: "Demo Day Presentations",
-      height: "h-72"
-    },
-    {
-      id: 20,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=500&fit=crop",
-      alt: "Alumni Meet",
-      title: "Alumni Networking Event",
-      height: "h-64"
-    },
-    {
-      id: 21,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=780&fit=crop",
-      alt: "Global Summit",
-      title: "Global Entrepreneurship Summit",
-      height: "h-92"
-    },
-    {
-      id: 22,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=440&fit=crop",
-      alt: "Recognition Event",
-      title: "Excellence Recognition",
-      height: "h-58"
-    },
-    {
-      id: 23,
-      src: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=660&fit=crop",
-      alt: "Investor Meet",
-      title: "Investor Meetup",
-      height: "h-76"
-    },
-    {
-      id: 24,
-      src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
-      alt: "Knowledge Share",
-      title: "Knowledge Sharing Session",
-      height: "h-56"
-    },
-    {
-      id: 25,
-      src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=580&fit=crop",
-      alt: "Future Leaders",
-      title: "Future Leaders Program",
-      height: "h-72"
-    }
-  ];
+  const [shuffledImages, setShuffledImages] = useState([]);
+
+  useEffect(() => {
+    // Array of all images
+    const allImages = [
+      img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
+      img11, img12, img13, img14, img15, img16, img17, img18, img19, img20,
+      img21, img22, img23, img24, img25, img26, img27, img28, img29, img30,
+      img31, img32, img33, img34, img35, img36, img37, img38, img39, img40,
+      img41, img42, img43
+    ];
+
+    // Create gallery data objects
+    const galleryData = allImages.map((src, index) => ({
+      id: index + 1,
+      src: src,
+      alt: `E-Cell Gallery Image ${index + 1}`,
+      title: "E-Cell Moment"
+    }));
+
+    // Shuffle images
+    const shuffled = [...galleryData].sort(() => Math.random() - 0.5);
+    setShuffledImages(shuffled);
+  }, []);
 
   const openLightbox = (image) => {
     setSelectedImage(image);
@@ -193,23 +84,23 @@ const Gallery = () => {
   };
 
   const navigateImage = (direction) => {
-    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
+    const currentIndex = shuffledImages.findIndex(img => img.id === selectedImage.id);
     let newIndex;
-    
+
     if (direction === 'next') {
-      newIndex = (currentIndex + 1) % galleryImages.length;
+      newIndex = (currentIndex + 1) % shuffledImages.length;
     } else {
-      newIndex = currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
+      newIndex = currentIndex === 0 ? shuffledImages.length - 1 : currentIndex - 1;
     }
-    
-    setSelectedImage(galleryImages[newIndex]);
+
+    setSelectedImage(shuffledImages[newIndex]);
   };
 
   // Handle keyboard navigation
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyPress = (e) => {
       if (!selectedImage) return;
-      
+
       if (e.key === 'Escape') {
         closeLightbox();
       } else if (e.key === 'ArrowLeft') {
@@ -221,7 +112,7 @@ const Gallery = () => {
 
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [selectedImage]);
+  }, [selectedImage, shuffledImages]); // Added shuffledImages dependency
 
   return (
     <>
@@ -268,33 +159,34 @@ const Gallery = () => {
           }
         `}
       </style>
-      
-     <div className="min-h-screen bg-white py-16 px-4">
-  <Navbar />
-  <div className="max-w-7xl mx-auto pt-12"> {/* Add top padding here instead of <br/> */}
-    {/* Header Section */}
-    <div className="text-center mb-16">
-      <h1 className="font-georgia text-5xl md:text-6xl font-bold text-gray-900 mb-7">
-        Gallery
-      </h1>
-      <p className="font-sora text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-        Capturing moments of innovation, collaboration, and entrepreneurial spirit at our E-Cell events and activities.
-      </p>
-    </div>
+
+      <div className="min-h-screen bg-white py-16 px-4">
+        <Navbar />
+        <div className="max-w-7xl mx-auto pt-12">
+          {/* Header Section */}
+          <div className="text-center mb-16">
+            <h1 className="font-georgia text-5xl md:text-6xl font-bold text-gray-900 mb-7">
+              Gallery
+            </h1>
+            <p className="font-sora text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Capturing moments of innovation, collaboration, and entrepreneurial spirit at our E-Cell events and activities.
+            </p>
+          </div>
 
           {/* Masonry Gallery Grid */}
           <div className="masonry-grid">
-            {galleryImages.map((image) => (
+            {shuffledImages.map((image) => (
               <div
                 key={image.id}
                 className="masonry-item group relative overflow-hidden rounded-2xl bg-gray-100 cursor-pointer transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/20"
                 onClick={() => openLightbox(image)}
               >
-                <div className={`relative ${image.height} w-full`}>
+                <div className="relative w-full">
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" // h-auto preserves aspect ratio
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -303,7 +195,7 @@ const Gallery = () => {
                       </h3>
                     </div>
                   </div>
-                  
+
                   {/* Hover Indicator */}
                   <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
                     <div className="w-3 h-3 bg-white rounded-full"></div>
@@ -316,7 +208,7 @@ const Gallery = () => {
 
         {/* Lightbox Modal */}
         {selectedImage && (
-          <div 
+          <div
             className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
             onClick={closeLightbox}
           >
@@ -324,7 +216,7 @@ const Gallery = () => {
               {/* Close Button */}
               <button
                 onClick={closeLightbox}
-                className="absolute top-6 right-6 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-200 transform hover:scale-110"
+                className="absolute top-6 right-6 z-[60] bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-200 transform hover:scale-110"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -335,7 +227,7 @@ const Gallery = () => {
                   e.stopPropagation();
                   navigateImage('prev');
                 }}
-                className="absolute left-6 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-200 transform hover:scale-110"
+                className="absolute left-6 z-[60] bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-200 transform hover:scale-110"
               >
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
@@ -345,13 +237,13 @@ const Gallery = () => {
                   e.stopPropagation();
                   navigateImage('next');
                 }}
-                className="absolute right-6 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-200 transform hover:scale-110"
+                className="absolute right-6 z-[60] bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-200 transform hover:scale-110"
               >
                 <ChevronRight className="w-6 h-6 text-white" />
               </button>
 
               {/* Image Container */}
-              <div 
+              <div
                 className="relative max-h-full max-w-full"
                 onClick={(e) => e.stopPropagation()}
               >
