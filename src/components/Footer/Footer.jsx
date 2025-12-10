@@ -1,22 +1,23 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { px } from 'framer-motion';
 
 const Footer = () => {
   return (
     <>
       {/* Add Inter font for modern look */}
-      <link 
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" 
-        rel="stylesheet" 
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
       />
-      
+
       <footer className="relative bg-rgba(255,255,255,0.15)-900 text-white overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
         {/* Orange top border */}
         <div className="w-full h-2 bg-orange-500"></div>
-        
+
         {/* Grid Background */}
-        <div 
+        <div
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `
@@ -26,29 +27,29 @@ const Footer = () => {
             backgroundSize: '60px 60px'
           }}
         />
-        
+
         {/* Main Footer Content */}
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
-          
+
           {/* Main Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 mb-16">
-            
+
             {/* Brand Section */}
             <div className="space-y-8">
               <div className="flex items-center justify-center">
                 <div className='flex items-center justify-center '>
-                  <img src="./src/assets/ecellorange.png" alt="" width="70px"  />
+                  <img src="./src/assets/ecellorange.png" alt="" width="70px" />
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-3xl tracking-tight">E-CELL</h3>
                   <p className="text-gray-400 text-sm font-medium tracking-wider uppercase mt-1">BMSIT&M</p>
                 </div>
               </div>
-              
+
               <p className="text-gray-300 leading-relaxed text-lg max-w-md font-light">
                 Empowering the next generation of entrepreneurs through innovation and collaboration.
               </p>
-              
+
               <div className="flex space-x-4 justify-center">
                 <a href="https://www.instagram.com/ecell.bmsit" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group" target='blank'>
                   <Instagram size={20} className="group-hover:scale-110 transition-transform" />
@@ -61,20 +62,20 @@ const Footer = () => {
 
             {/* Quick Links & Contact */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-              
+
               {/* Quick Links */}
               <div>
                 <h4 className="text-white font-semibold mb-8 text-lg">Quick Links</h4>
                 <ul className="space-y-4">
-                  {[{name:'Home', link:"/"}, {name:'Events', link:'/events'}, {name:'Alumni',link:'/Alumni'}, {name:'Team',link:'/team'}].map((item) => (
+                  {[{ name: 'Home', link: "/" }, { name: 'Events', link: '/events' }, { name: 'Alumni', link: '/Alumni' }, { name: 'Team', link: '/team' }].map((item) => (
                     <li key={item.name}>
-                      <a href={item.link} className="text-gray-400 hover:text-orange-400 transition-colors duration-200 font-medium">
+                      <Link to={item.link} className="text-gray-400 hover:text-orange-400 transition-colors duration-200 font-medium">
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-              </div>  
+              </div>
 
               {/* Contact */}
               <div>
@@ -115,7 +116,7 @@ const Footer = () => {
                 Ideate • Innovate • Inspire
               </p>
             </div>
-            
+
             <div className="flex space-x-8">
               <a href="#" className="text-gray-500 hover:text-orange-400 transition-colors duration-200 font-medium">
                 Privacy Policy
