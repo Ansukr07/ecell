@@ -46,7 +46,7 @@ export default function Navbar() {
           }`}
         style={{ fontFamily: 'Sora, sans-serif' }}
       >
-        <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-3 flex items-center justify-between w-[95%] max-w-4xl transition-all duration-300 hover:shadow-3xl">
+        <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-3 flex items-center justify-between w-[95%] max-w-7xl transition-all duration-300 hover:shadow-3xl">
 
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -57,7 +57,7 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:block">
-            <div className="ml-12 flex items-center space-x-8">
+            <div className="ml-8 flex items-center space-x-8">
               <Link to="/" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
                 Home
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
@@ -74,9 +74,10 @@ export default function Navbar() {
                 Alumni
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
-              <a href="#" className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 transform hover:-translate-y-0.5">
+              <Link to="/contact" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
                 Contact
-              </a>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
+              </Link>
             </div>
           </div>
 
@@ -107,9 +108,9 @@ export default function Navbar() {
               <Link to="/Alumni" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
                 Alumni
               </Link>
-              <a href="#" onClick={() => setIsOpen(false)} className="block w-full text-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 mt-4">
+              <Link to="/contact" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         )}
