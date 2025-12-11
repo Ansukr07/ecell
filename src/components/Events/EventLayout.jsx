@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 
 const EventLayout = ({
@@ -199,7 +198,7 @@ const EventLayout = ({
 
             {/* Content Container */}
             <div className="relative z-10" style={{ fontFamily: 'Sora, sans-serif' }}>
-                <Navbar />
+                {/* Navbar removed as it is global */}
 
 
 

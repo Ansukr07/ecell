@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Navbar from '../components/Navbar/Navbar';
 import ali from "./assets/mdAli.jpeg";
 import meghana from "./assets/meghana.jpg";
 import suhas from "./assets/suhas.jpg";
@@ -149,15 +148,14 @@ const EcellAlumniPage = () => {
 
   const StatCard = ({ stat, index }) => {
     const isVisible = visibleCards.has(`stat-${stat.id}`);
-    
+
     return (
-      <div 
+      <div
         ref={(el) => registerCard(el, `stat-${stat.id}`)}
-        className={`text-center transform transition-all duration-1000 ease-out ${
-          isVisible 
-            ? 'translate-y-0 opacity-100' 
+        className={`text-center transform transition-all duration-1000 ease-out ${isVisible
+            ? 'translate-y-0 opacity-100'
             : 'translate-y-20 opacity-0'
-        }`}
+          }`}
         style={{ transitionDelay: `${stat.delay}ms` }}
       >
         <div className="relative group">
@@ -174,7 +172,7 @@ const EcellAlumniPage = () => {
           <div className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed whitespace-pre-line font-sans">
             {stat.label}
           </div>
-          
+
           {/* Floating accent */}
           <div className="absolute -top-4 -right-4 w-2 h-16 bg-gradient-to-b from-[#FD7722] to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
         </div>
@@ -185,52 +183,46 @@ const EcellAlumniPage = () => {
   const AlumniCard = ({ member, index }) => {
     const isVisible = visibleCards.has(`member-${member.id}`);
     const isHovered = hoveredCard === member.id;
-    
+
     return (
-      <div 
+      <div
         ref={(el) => registerCard(el, `member-${member.id}`)}
-        className={`relative group cursor-pointer transform transition-all duration-700 ease-out ${
-          isVisible 
-            ? 'translate-y-0 opacity-100' 
+        className={`relative group cursor-pointer transform transition-all duration-700 ease-out ${isVisible
+            ? 'translate-y-0 opacity-100'
             : 'translate-y-20 opacity-0'
-        }`}
+          }`}
         style={{ transitionDelay: `${index * 100}ms` }}
         onMouseEnter={() => setHoveredCard(member.id)}
         onMouseLeave={() => setHoveredCard(null)}
       >
-        <div className={`bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden border-2 transition-all duration-500 ${
-          isHovered 
-            ? 'border-[#FD7722] shadow-2xl shadow-[#FD7722]/20 scale-105' 
+        <div className={`bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden border-2 transition-all duration-500 ${isHovered
+            ? 'border-[#FD7722] shadow-2xl shadow-[#FD7722]/20 scale-105'
             : 'border-gray-700 hover:border-gray-600'
-        }`}>
+          }`}>
           {/* Image Container */}
           <div className="aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-gray-700 to-gray-800">
             <img
               src={member.image}
               alt={member.name}
-              className={`w-full h-full object-cover transition-all duration-700 ${
-                isHovered 
-                  ? 'scale-110 grayscale-0' 
+              className={`w-full h-full object-cover transition-all duration-700 ${isHovered
+                  ? 'scale-110 grayscale-0'
                   : 'scale-100 grayscale hover:grayscale-[50%]'
-              }`}
+                }`}
             />
-            
+
             {/* Overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-500 ${
-              isHovered ? 'opacity-40' : 'opacity-20'
-            }`}></div>
-            
+            <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-40' : 'opacity-20'
+              }`}></div>
+
             {/* Floating accent line */}
-            <div className={`absolute top-4 right-4 w-1 h-12 bg-gradient-to-b from-[#FD7722] to-transparent transition-opacity duration-500 ${
-              isHovered ? 'opacity-100' : 'opacity-0'
-            }`}></div>
+            <div className={`absolute top-4 right-4 w-1 h-12 bg-gradient-to-b from-[#FD7722] to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
+              }`}></div>
           </div>
 
           {/* Content */}
           <div className="p-8 relative">
-            <h3 className={`text-2xl lg:text-3xl font-bold mb-3 transition-colors duration-300 ${
-              isHovered ? 'text-[#FD7722]' : 'text-white'
-            } font-serif`}>
+            <h3 className={`text-2xl lg:text-3xl font-bold mb-3 transition-colors duration-300 ${isHovered ? 'text-[#FD7722]' : 'text-white'
+              } font-serif`}>
               {member.name}
             </h3>
             <p className="text-[#FD7722] font-semibold mb-2 text-xl font-sans">
@@ -239,11 +231,10 @@ const EcellAlumniPage = () => {
             <p className="text-gray-400 text-lg font-sans">
               {member.year}
             </p>
-            
+
             {/* Bottom accent line */}
-            <div className={`absolute bottom-0 left-8 right-8 h-0.5 bg-gradient-to-r from-[#FD7722] via-transparent to-[#FD7722] transition-opacity duration-500 ${
-              isHovered ? 'opacity-100' : 'opacity-0'
-            }`}></div>
+            <div className={`absolute bottom-0 left-8 right-8 h-0.5 bg-gradient-to-r from-[#FD7722] via-transparent to-[#FD7722] transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
+              }`}></div>
           </div>
         </div>
       </div>
@@ -253,25 +244,24 @@ const EcellAlumniPage = () => {
   return (
     <div className="bg-black text-white min-h-screen">
       {/* Header */}
-       <Navbar />
+      {/* Navbar removed as it is global */}
 
       {/* OUR ALUMNI BY THE NUMBERS */}
       <section className="py-24 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div 
+          <div
             ref={(el) => registerCard(el, 'section-title')}
-            className={`transform transition-all duration-1000 ease-out mb-20 ${
-              visibleCards.has('section-title') 
-                ? 'translate-y-0 opacity-100' 
+            className={`transform transition-all duration-1000 ease-out mb-20 ${visibleCards.has('section-title')
+                ? 'translate-y-0 opacity-100'
                 : 'translate-y-10 opacity-0'
-            }`}
+              }`}
           >
             <h2 className="text-2xl lg:text-3xl text-gray-300 uppercase tracking-[0.3em] text-center relative font-sans">
               Our Alumni by the numbers
               <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-[#FD7722] to-transparent mx-auto mt-4"></div>
             </h2>
           </div>
-          
+
           {/* Stats Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 lg:gap-16">
             {alumniData.stats.map((stat, index) => (
@@ -279,7 +269,7 @@ const EcellAlumniPage = () => {
             ))}
           </div>
         </div>
-        
+
         {/* Background decorative elements */}
         <div className="absolute top-1/4 left-8 w-1 h-32 bg-gradient-to-b from-[#FD7722] to-transparent opacity-10"></div>
         <div className="absolute bottom-1/4 right-8 w-1 h-32 bg-gradient-to-t from-[#FD7722] to-transparent opacity-10"></div>
@@ -288,17 +278,16 @@ const EcellAlumniPage = () => {
       {/* OUR ALUMNI TEAM */}
       <section className="py-24 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div 
+          <div
             ref={(el) => registerCard(el, 'team-title')}
-            className={`transform transition-all duration-1000 ease-out mb-20 ${
-              visibleCards.has('team-title') 
-                ? 'translate-y-0 opacity-100' 
+            className={`transform transition-all duration-1000 ease-out mb-20 ${visibleCards.has('team-title')
+                ? 'translate-y-0 opacity-100'
                 : 'translate-y-10 opacity-0'
-            }`}
+              }`}
           >
             <h2 className="text-5xl lg:text-7xl xl:text-8xl font-black text-center leading-tight font-serif">
               OUR <span className="text-[#FD7722]">ALUMNI</span><br />
-              NETWORK 
+              NETWORK
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#FD7722] to-transparent mx-auto mt-8"></div>
           </div>
@@ -312,8 +301,8 @@ const EcellAlumniPage = () => {
         </div>
       </section>
 
-  
-      <Footer/>
+
+      <Footer />
 
       {/* Custom CSS for animations */}
       <style jsx>{`

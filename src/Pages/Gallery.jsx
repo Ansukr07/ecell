@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 
 // Image Imports
@@ -161,7 +160,7 @@ const Gallery = () => {
       </style>
 
       <div className="min-h-screen bg-white py-16 px-4">
-        <Navbar />
+        {/* Navbar removed as it is global */}
         <div className="max-w-7xl mx-auto pt-12">
           {/* Header Section */}
           <div className="text-center mb-16">
