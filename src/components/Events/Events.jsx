@@ -30,7 +30,7 @@ const ECellEventsScroll = () => {
         setActiveIndex((prev) => (prev + 1) % events.length);
       }, 4000); // Slightly longer interval for better UX
     }
-    
+
     return () => {
       if (autoplayTimeoutRef.current) {
         clearTimeout(autoplayTimeoutRef.current);
@@ -42,29 +42,29 @@ const ECellEventsScroll = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (!scrollContainerRef.current) return;
-      
+
       const container = scrollContainerRef.current;
       const items = itemRefs.current;
-      
+
       let closestIndex = 0;
       let minDistance = Infinity;
-      
+
       items.forEach((item, index) => {
         if (!item) return;
         const itemRect = item.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-        
+
         const itemCenter = itemRect.top + itemRect.height / 2;
         const containerCenter = containerRect.top + containerRect.height / 2;
-        
+
         const distance = Math.abs(itemCenter - containerCenter);
-        
+
         if (distance < minDistance) {
           minDistance = distance;
           closestIndex = index % events.length;
         }
       });
-      
+
       if (closestIndex !== activeIndex) {
         setActiveIndex(closestIndex);
       }
@@ -81,10 +81,10 @@ const ECellEventsScroll = () => {
     // Pause autoplay temporarily when user interacts
     setIsPaused(true);
     setActiveIndex(index);
-    
+
     const componentPath = `/events/${event.name.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}`;
     window.open(componentPath, '_blank');
-    
+
     // Resume autoplay after interaction
     setTimeout(() => setIsPaused(false), 3000);
   };
@@ -92,17 +92,17 @@ const ECellEventsScroll = () => {
   const scrollToEvent = (index) => {
     setIsPaused(true);
     setActiveIndex(index);
-    
+
     const targetItem = itemRefs.current[index + events.length];
     if (targetItem && scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const itemRect = targetItem.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
-      
+
       const scrollTop = targetItem.offsetTop - container.offsetTop - (containerRect.height / 2) + (itemRect.height / 2);
       container.scrollTo({ top: scrollTop, behavior: 'smooth' });
     }
-    
+
     setTimeout(() => setIsPaused(false), 5000);
   };
 
@@ -117,7 +117,7 @@ const ECellEventsScroll = () => {
   const getItemStyles = (index) => {
     const actualIndex = index % events.length;
     const isActive = actualIndex === activeIndex;
-    
+
     return {
       transform: isActive ? 'scale(1.02)' : 'scale(0.92)',
       opacity: isActive ? 1 : 0.6,
@@ -147,15 +147,7 @@ const ECellEventsScroll = () => {
       </div>
 
       {/* View All Events Button */}
-      <button
-        onClick={() => navigate('/events')}
-        className="absolute top-6 left-6 bg-[#FD7722] hover:bg-[#FD7722]/80 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 z-20 flex items-center space-x-2"
-      >
-        <span>View All Events</span>
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </button>
+
 
       {/* Desktop Layout */}
       <div className="hidden lg:flex h-screen items-center">
@@ -179,7 +171,7 @@ const ECellEventsScroll = () => {
                 EVENTS
               </h3>
             </div>
-            
+
             {/* Active Event Display - Fixed Height for Stability */}
             <div className="mt-12">
               <div className="w-32 h-0.5 bg-gradient-to-r from-[#FD7722] to-transparent mb-8"></div>
@@ -202,13 +194,13 @@ const ECellEventsScroll = () => {
             <div className="text-5xl font-bold text-gray-600">CELL</div>
             <div className="text-7xl font-bold text-gray-600">HUB</div>
           </div>
-          
-          <div 
+
+          <div
             ref={scrollContainerRef}
             className="h-[85%] overflow-y-auto overflow-x-hidden scrollbar-hide w-full relative z-10"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            style={{ 
+            style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
             }}
@@ -226,7 +218,7 @@ const ECellEventsScroll = () => {
                     {event.displayName}
                   </h3>
                   <div className="mt-4 h-0.5 w-0 bg-[#FD7722] mx-auto group-hover:w-20 transition-all duration-500"></div>
-                  
+
                   {/* Hover Effect */}
                   <div className="absolute inset-0 -m-6 rounded-lg border border-transparent group-hover:border-[#FD7722]/20 group-hover:bg-[#FD7722]/5 transition-all duration-500 -z-10"></div>
                 </div>
@@ -266,12 +258,12 @@ const ECellEventsScroll = () => {
 
         {/* Scrollable Events */}
         <div className="flex-1 min-h-0">
-          <div 
+          <div
             ref={scrollContainerRef}
             className="h-full overflow-y-auto overflow-x-hidden scrollbar-hide px-4"
             onTouchStart={handleMouseEnter}
             onTouchEnd={handleMouseLeave}
-            style={{ 
+            style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
             }}
@@ -289,7 +281,7 @@ const ECellEventsScroll = () => {
                     {event.displayName}
                   </h3>
                   <div className="mt-3 h-0.5 w-0 bg-[#FD7722] mx-auto group-hover:w-16 transition-all duration-500"></div>
-                  
+
                   {/* Hover Effect */}
                   <div className="absolute inset-0 -m-4 rounded-lg border border-transparent group-hover:border-[#FD7722]/20 group-hover:bg-[#FD7722]/5 transition-all duration-500 -z-10"></div>
                 </div>
@@ -305,9 +297,8 @@ const ECellEventsScroll = () => {
         className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors duration-300 z-20"
       >
         <div className="flex items-center space-x-2 text-xs font-medium">
-          <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-            isAutoplay ? 'bg-[#FD7722]' : 'bg-red-500'
-          }`}></div>
+          <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${isAutoplay ? 'bg-[#FD7722]' : 'bg-red-500'
+            }`}></div>
           <span style={{ fontFamily: 'Inter, sans-serif' }}>{isAutoplay ? 'AUTO' : 'MANUAL'}</span>
         </div>
       </button>

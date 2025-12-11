@@ -12,7 +12,7 @@ const Footer = () => {
         rel="stylesheet"
       />
 
-      <footer className="relative bg-rgba(255,255,255,0.15)-900 text-white overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
+      <footer className="relative bg-black text-white overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
         {/* Orange top border */}
         <div className="w-full h-2 bg-orange-500"></div>
 

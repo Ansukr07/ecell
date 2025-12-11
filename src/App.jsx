@@ -6,6 +6,12 @@ import Navbar from './components/Navbar/Navbar';
 import Alumni from './Pages/Alumni';
 import Gallery from './Pages/Gallery';
 import Codered from './components/Events/Codered';
+import Advert from './components/Events/Advert1';
+import Spl from './components/Events/Spl';
+import CaseCrackers from './components/Events/CaseCrackers';
+import Chitting from './components/Events/Chitting';
+import PanelDiscussion from './components/Events/PanelDisscussion';
+import Ripoff from './components/Events/Ripoff';
 import Team from './Pages/Team';
 import Preloader from './components/Preloader/Preloader';
 import './App.css';
@@ -47,7 +53,13 @@ function App() {
               >
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/events/codered" element={<Codered />} />
+                  <Route path="/events/codered25" element={<Codered />} />
+                  <Route path="/events/advert10" element={<Advert />} />
+                  <Route path="/events/spl" element={<Spl />} />
+                  <Route path="/events/casecrackers" element={<CaseCrackers />} />
+                  <Route path="/events/chitting" element={<Chitting />} />
+                  <Route path="/events/paneldiscussion" element={<PanelDiscussion />} />
+                  <Route path="/events/ripoff" element={<Ripoff />} />
                   <Route path="/alumni" element={<Alumni />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/gallery" element={<Gallery />} />
