@@ -96,9 +96,9 @@ export default function WordOfTheDay() {
                         </div>
 
                         {/* Card Body */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px]">
+                        <div className="flex flex-col lg:flex-row min-h-[400px]">
                             {/* Explanation */}
-                            <div className="p-8 md:p-12 lg:border-r border-neutral-800 flex flex-col justify-center">
+                            <div className="w-full lg:w-1/2 p-8 md:p-12 lg:border-r border-neutral-800 flex flex-col justify-start text-left items-start">
                                 <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-widest mb-6">Deep Dive</h3>
                                 <div className="text-neutral-400 leading-relaxed text-base">
                                     {latestWord.explanation.split('\n').map((para, i) => (
@@ -118,21 +118,35 @@ export default function WordOfTheDay() {
                             </div>
 
                             {/* Single Image */}
-                            <div className="relative overflow-hidden">
-                                {latestWord.imageUrl ? (
-                                    <>
-                                        <img
-                                            src={latestWord.imageUrl}
-                                            alt={latestWord.title}
-                                            className="w-full h-full object-cover min-h-[300px]"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                                    </>
-                                ) : (
-                                    <div className="w-full h-full min-h-[300px] flex items-center justify-center bg-neutral-900">
-                                        <p className="text-neutral-600">No image available</p>
-                                    </div>
-                                )}
+                            {/* Right Column: Image + Example */}
+                            <div className="w-full lg:w-1/2 flex flex-col min-h-[500px] lg:min-h-0 bg-neutral-900 border-l border-neutral-800">
+                                {/* Image Section (Takes remaining space) */}
+                                <div className="relative flex-1 min-h-[250px] overflow-hidden group">
+                                    {latestWord.imageUrl ? (
+                                        <>
+                                            <img
+                                                src={latestWord.imageUrl}
+                                                alt={latestWord.title}
+                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                                        </>
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
+                                            <p className="text-neutral-600">No image available</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Example Section (Fixed bottom or auto height) */}
+                                <div className="p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                                    <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-3 text-center">
+                                        Example
+                                    </h3>
+                                    <p className="text-neutral-400 text-sm leading-relaxed italic">
+                                        "{latestWord.example ? latestWord.example : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}"
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
