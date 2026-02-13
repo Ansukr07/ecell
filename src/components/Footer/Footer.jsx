@@ -1,134 +1,319 @@
-import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { px } from 'framer-motion';
+import { Instagram, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
 
-const Footer = () => {
+// ─── Spring Wave Canvas ─────────────────────────────────────────────────────────
+const SpringWaveCanvas = () => {
+  const canvasRef = useRef(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const isVisibleRef = useRef(false);
+  const animFrameRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Physics-based spring points
+    const COLS = 60;
+    const ROWS = 20;
+    const points = [];
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        points.push({
+          x: (c / (COLS - 1)) * width,
+          y: (r / (ROWS - 1)) * height,
+          baseX: (c / (COLS - 1)),
+          baseY: (r / (ROWS - 1)),
+          vx: 0, vy: 0,
+          dx: 0, dy: 0,
+        });
+      }
+    }
+
+    // Observer
+    const obs = new IntersectionObserver(([e]) => {
+      isVisibleRef.current = e.isIntersecting;
+    }, { threshold: 0.05 });
+    obs.observe(canvas);
+
+    // Mouse tracking
+    const handleMouse = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
+    };
+    canvas.addEventListener('mousemove', handleMouse);
+
+    let time = 0;
+    const SPRING = 0.015;
+    const DAMPING = 0.92;
+    const MOUSE_RADIUS = 180;
+    const MOUSE_STRENGTH = 12;
+
+    const animate = () => {
+      animFrameRef.current = requestAnimationFrame(animate);
+      if (!isVisibleRef.current) return;
+
+      time += 0.008;
+      resize();
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+
+      // Update points
+      for (let i = 0; i < points.length; i++) {
+        const p = points[i];
+        const targetX = p.baseX * width;
+        const targetY = p.baseY * height;
+
+        // Organic wave displacement
+        const wave1 = Math.sin(p.baseX * 4 + time * 1.2) * Math.cos(p.baseY * 3 + time * 0.8) * 6;
+        const wave2 = Math.cos(p.baseX * 2.5 - time * 0.9) * Math.sin(p.baseY * 5 + time * 1.1) * 4;
+        const wave3 = Math.sin((p.baseX + p.baseY) * 3 + time * 0.6) * 3;
+
+        p.dx = wave1 + wave2;
+        p.dy = wave3 + wave1 * 0.5;
+
+        // Mouse interaction
+        const ddx = targetX + p.dx - mx;
+        const ddy = targetY + p.dy - my;
+        const dist = Math.sqrt(ddx * ddx + ddy * ddy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          const force = (1 - dist / MOUSE_RADIUS) * MOUSE_STRENGTH;
+          p.dx += (ddx / dist) * force;
+          p.dy += (ddy / dist) * force;
+        }
+
+        // Spring back
+        p.vx += (p.dx - (p.x - targetX)) * SPRING;
+        p.vy += (p.dy - (p.y - targetY)) * SPRING;
+        p.vx *= DAMPING;
+        p.vy *= DAMPING;
+        p.x = targetX + (p.x - targetX) + p.vx;
+        p.y = targetY + (p.y - targetY) + p.vy;
+      }
+
+      // Draw
+      ctx.clearRect(0, 0, width, height);
+
+      // Background gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+      bgGrad.addColorStop(0, '#7c2d12');    // deep burnt orange
+      bgGrad.addColorStop(0.3, '#9a3412');  // warm rust
+      bgGrad.addColorStop(0.6, '#c2410c');  // rich orange
+      bgGrad.addColorStop(1, '#ea580c');    // vibrant orange
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Draw mesh lines
+      for (let r = 0; r < ROWS - 1; r++) {
+        for (let c = 0; c < COLS - 1; c++) {
+          const i = r * COLS + c;
+          const p0 = points[i];
+          const p1 = points[i + 1];
+          const p2 = points[i + COLS];
+          const p3 = points[i + COLS + 1];
+
+          // Subtle mesh fill
+          const brightness = 0.03 + Math.sin(p0.baseX * 6 + time) * 0.015 + Math.cos(p0.baseY * 4 + time * 0.7) * 0.01;
+          ctx.fillStyle = `rgba(255, 200, 120, ${brightness})`;
+          ctx.beginPath();
+          ctx.moveTo(p0.x, p0.y);
+          ctx.lineTo(p1.x, p1.y);
+          ctx.lineTo(p3.x, p3.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.closePath();
+          ctx.fill();
+
+          // Horizontal lines
+          if (r % 3 === 0) {
+            const alpha = 0.04 + Math.sin(c * 0.3 + time) * 0.02;
+            ctx.strokeStyle = `rgba(255, 180, 100, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(p1.x, p1.y);
+            ctx.stroke();
+          }
+
+          // Vertical lines
+          if (c % 3 === 0) {
+            const alpha = 0.04 + Math.cos(r * 0.3 + time) * 0.02;
+            ctx.strokeStyle = `rgba(255, 180, 100, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Flowing highlight bands
+      for (let b = 0; b < 3; b++) {
+        const bandY = height * (0.2 + b * 0.3) + Math.sin(time * 0.5 + b * 2) * height * 0.08;
+        const bandGrad = ctx.createLinearGradient(0, bandY - 60, 0, bandY + 60);
+        bandGrad.addColorStop(0, 'rgba(251, 146, 60, 0)');
+        bandGrad.addColorStop(0.5, `rgba(251, 146, 60, ${0.06 + Math.sin(time + b) * 0.03})`);
+        bandGrad.addColorStop(1, 'rgba(251, 146, 60, 0)');
+        ctx.fillStyle = bandGrad;
+        ctx.fillRect(0, bandY - 60, width, 120);
+      }
+
+      // Vignette
+      const vigGrad = ctx.createRadialGradient(width / 2, height / 2, height * 0.2, width / 2, height / 2, width * 0.8);
+      vigGrad.addColorStop(0, 'rgba(0,0,0,0)');
+      vigGrad.addColorStop(1, 'rgba(0,0,0,0.25)');
+      ctx.fillStyle = vigGrad;
+      ctx.fillRect(0, 0, width, height);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animFrameRef.current);
+      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('mousemove', handleMouse);
+      obs.disconnect();
+    };
+  }, []);
+
   return (
-    <>
-      {/* Add Inter font for modern look */}
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ display: 'block' }}
+    />
+  );
+};
 
-      <footer className="relative bg-black text-white overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
-        {/* Orange top border */}
-        <div className="w-full h-2 bg-orange-500"></div>
+// ─── Footer Component ───────────────────────────────────────────────────────────
+const Footer = () => {
+  const navLinks = [
+    { name: 'About', to: '/' },
+    { name: 'Events', to: '/events' },
+    { name: 'Word of the Day', to: '/word-of-the-day' },
+    { name: 'Team', to: '/team' },
+    { name: 'Contact', to: '/' },
+  ];
 
-        {/* Grid Background */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(156,163,175,3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(156,163,175,3) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px'
-          }}
-        />
+  const socials = [
+    { icon: Instagram, href: 'https://www.instagram.com/ecell.bmsit', label: 'Instagram' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/ecellbmsit', label: 'LinkedIn' },
+    { icon: Twitter, href: '#', label: 'X (Twitter)' },
+  ];
 
-        {/* Main Footer Content */}
-        <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
+  return (
+    <footer className="relative overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <SpringWaveCanvas />
+      </div>
 
-          {/* Main Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 mb-16">
+      {/* Content */}
+      <div className="relative z-10">
 
-            {/* Brand Section */}
-            <div className="space-y-8">
-              <div className="flex items-center justify-center">
-                <div className='flex items-center justify-center '>
-                  <img src="./src/assets/ecellorange.png" alt="" width="70px" />
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-3xl tracking-tight">E-CELL</h3>
-                  <p className="text-gray-400 text-sm font-medium tracking-wider uppercase mt-1">BMSIT&M</p>
-                </div>
-              </div>
+        {/* Big Statement */}
+        <div className="px-6 sm:px-10 lg:px-16 pt-20 pb-16">
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white/95 tracking-tighter leading-[0.95] max-w-4xl">
+            IDEATE.
+            <br />
+            <span className="text-white/60">INNOVATE. INSPIRE.</span>
+          </h2>
+        </div>
 
-              <p className="text-gray-300 leading-relaxed text-lg max-w-md font-light">
-                Empowering the next generation of entrepreneurs through innovation and collaboration.
-              </p>
+        {/* Divider */}
+        <div className="mx-6 sm:mx-10 lg:mx-16 h-px bg-white/15" />
 
-              <div className="flex space-x-4 justify-center">
-                <a href="https://www.instagram.com/ecell.bmsit" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group" target='blank'>
-                  <Instagram size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
-                <a href="https://www.linkedin.com/company/ecellbmsit" className="w-12 h-12 bg-gray-800 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all duration-300 group" target='blank'>
-                  <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
+        {/* Main Grid */}
+        <div className="px-6 sm:px-10 lg:px-16 py-14 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+
+          {/* Left: Brand */}
+          <div className="space-y-5">
+            <div className="flex items-center gap-3">
+              <img src="./src/assets/ecellorange.png" alt="E-Cell Logo" className="w-10 h-10 brightness-0 invert opacity-90" />
+              <div>
+                <h3 className="text-white font-bold text-xl tracking-tight leading-none">E-CELL</h3>
+                <p className="text-white/50 text-[11px] font-semibold tracking-[0.2em] uppercase">BMSIT&M</p>
               </div>
             </div>
-
-            {/* Quick Links & Contact */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-
-              {/* Quick Links */}
-              <div>
-                <h4 className="text-white font-semibold mb-8 text-lg">Quick Links</h4>
-                <ul className="space-y-4">
-                  {[{ name: 'Home', link: "/" }, { name: 'Events', link: '/events' }, { name: 'Alumni', link: '/Alumni' }, { name: 'Team', link: '/team' }].map((item) => (
-                    <li key={item.name}>
-                      <Link to={item.link} className="text-gray-400 hover:text-orange-400 transition-colors duration-200 font-medium">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Contact */}
-              <div>
-                <h4 className="text-white font-semibold mb-8 text-lg">Contact</h4>
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
-                      <MapPin size={16} className="text-gray-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-300 font-medium leading-relaxed">
-                        BMSIT&M<br />
-                        <span className="text-gray-400 text-sm">Bengaluru, Karnataka</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Mail size={16} className="text-gray-400" />
-                    </div>
-                    <p className="text-gray-300 font-medium">ecell@bmsit.in</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="text-white/70 text-sm leading-relaxed max-w-xs text-left">
+              Empowering the next generation of entrepreneurs through innovation, mentorship, and collaboration.
+            </p>
           </div>
 
-          {/* Divider */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
+          {/* Center: Navigation */}
+          <div>
+            <h4 className="text-white/40 text-[11px] font-bold tracking-[0.2em] uppercase mb-5">Navigate</h4>
+            <ul className="space-y-3">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.to}
+                    className="text-white/80 hover:text-white text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 group"
+                    style={{ color: 'rgba(255,255,255,0.8)' }}
+                  >
+                    {link.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-[-4px] group-hover:opacity-60 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Bottom Section */}
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
-            <div className="text-center sm:text-left">
-              <p className="text-gray-400 font-medium mb-2">
-                © 2025 E-CELL BMSIT&M
-              </p>
-              <p className="text-gray-500 text-sm font-light tracking-wider">
-                Ideate • Innovate • Inspire
-              </p>
+          {/* Right: Social + Contact */}
+          <div>
+            <h4 className="text-white/40 text-[11px] font-bold tracking-[0.2em] uppercase mb-5">Connect</h4>
+            <div className="flex gap-3 mb-6 justify-center">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 group backdrop-blur-sm"
+                  aria-label={s.label}
+                >
+                  <s.icon className="w-4 h-4 text-white/80 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
+                </a>
+              ))}
             </div>
-
-            <div className="flex space-x-8">
-              <a href="#" className="text-gray-500 hover:text-orange-400 transition-colors duration-200 font-medium">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-500 hover:text-orange-400 transition-colors duration-200 font-medium">
-                Terms
-              </a>
-            </div>
+            <a
+              href="mailto:ecell@bmsit.in"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white/90 text-sm font-medium transition-all duration-300"
+            >
+              <Mail className="w-4 h-4" />
+              ecell@bmsit.in
+            </a>
           </div>
         </div>
-      </footer>
-    </>
+
+        {/* Bottom Bar */}
+        <div className="mx-6 sm:mx-10 lg:mx-16 h-px bg-white/10" />
+        <div className="px-6 sm:px-10 lg:px-16 py-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-white/40 text-xs font-medium">
+            © 2025 E-Cell BMSIT&M · Ideate · Innovate · Inspire
+          </p>
+          <p className="text-white/30 text-xs">
+            Built with passion in ECELL BMSIT&M
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 };
 
