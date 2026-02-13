@@ -3,6 +3,44 @@ import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
 import ecellLogo from '../../assets/ecellorange.png';
 
+// ─── Spring Bands (AngelList-style elastic layers) ──────────────────────────────
+const SpringBands = ({ position = 'top' }) => {
+  const bands = [
+    { color: 'rgba(124, 45, 18, 0.15)', height: 10, delay: 0 },
+    { color: 'rgba(124, 45, 18, 0.25)', height: 12, delay: 0.05 },
+    { color: 'rgba(154, 52, 18, 0.35)', height: 14, delay: 0.1 },
+    { color: 'rgba(154, 52, 18, 0.5)', height: 16, delay: 0.15 },
+    { color: 'rgba(194, 65, 12, 0.65)', height: 18, delay: 0.2 },
+    { color: 'rgba(194, 65, 12, 0.8)', height: 20, delay: 0.25 },
+    { color: 'rgba(234, 88, 12, 0.9)', height: 22, delay: 0.3 },
+    { color: 'rgba(234, 88, 12, 1)', height: 24, delay: 0.35 },
+  ];
+
+  const orderedBands = position === 'top' ? bands : [...bands].reverse();
+
+  return (
+    <div className="relative w-full">
+      {orderedBands.map((band, i) => (
+        <div
+          key={i}
+          className="w-full"
+          style={{
+            height: `${band.height}px`,
+            backgroundColor: band.color,
+            animation: `springBounce 3s ease-in-out ${band.delay}s infinite`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes springBounce {
+          0%, 100% { transform: scaleY(1); }
+          50% { transform: scaleY(1.15); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 // ─── Spring Wave Canvas ─────────────────────────────────────────────────────────
 const SpringWaveCanvas = () => {
   const canvasRef = useRef(null);
@@ -220,8 +258,11 @@ const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
+      {/* Spring Bands Top */}
+      <SpringBands position="top" />
+
       {/* Animated Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" style={{ top: '130px', bottom: '130px' }}>
         <SpringWaveCanvas />
       </div>
 
@@ -315,6 +356,9 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+      {/* Spring Bands Bottom */}
+      <SpringBands position="bottom" />
     </footer>
   );
 };
