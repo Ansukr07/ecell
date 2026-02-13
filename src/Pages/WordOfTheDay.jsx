@@ -179,30 +179,30 @@ export default function WordOfTheDay() {
                             {/* Single Image */}
                             {/* Right Column: Image + Example */}
                             <div className="w-full lg:w-1/2 flex flex-col min-h-[500px] lg:min-h-0 bg-neutral-900 border-l border-neutral-800">
-                                {/* Image Section (Takes remaining space) */}
-                                <div className="relative flex-1 min-h-[250px] overflow-hidden group">
+                                {/* Image Section (natural height) */}
+                                <div className="relative overflow-hidden group">
                                     {latestWord.imageUrl ? (
                                         <>
                                             <img
                                                 src={latestWord.imageUrl}
                                                 alt={latestWord.title}
-                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                                         </>
                                     ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
+                                        <div className="h-[250px] flex items-center justify-center bg-neutral-900">
                                             <p className="text-neutral-600">No image available</p>
                                         </div>
                                     )}
                                 </div>
 
-                                {/* Example Section (Fixed bottom or auto height) */}
-                                <div className="p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                                {/* Example Section (fills remaining space, centered) */}
+                                <div className="flex-1 flex flex-col items-center justify-center p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
                                     <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-3 text-center">
                                         Example
                                     </h3>
-                                    <p className="text-neutral-400 text-sm leading-relaxed italic">
+                                    <p className="text-neutral-400 text-sm leading-relaxed italic text-center">
                                         "{latestWord.example ? latestWord.example : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}"
                                     </p>
                                 </div>
