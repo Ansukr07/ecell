@@ -80,7 +80,7 @@ export default function WordOfTheDay() {
     if (!latestWord) {
         return (
             <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center">
-                <h1 className="text-4xl font-black mb-4 tracking-tighter">WORD OF THE DAY</h1>
+                <h1 className="text-4xl font-black mb-4 tracking-tighter ">WORD OF THE DAY</h1>
                 <p className="text-neutral-500 mb-8">No words verified yet. Check back soon!</p>
                 <Link to="/" className="px-6 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors">
                     Back Home
@@ -251,8 +251,8 @@ export default function WordOfTheDay() {
                                                     {day ? (
                                                         <button
                                                             onClick={() => handleDateClick(day)}
-                                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all
-                                                                ${isSelected(day) ? 'bg-white/20 text-white scale-110 shadow-lg z-10 ring-1 ring-white/50' : isToday(day) ? 'text-white bg-white/10 ring-1 ring-white/30' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}
+                                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0
+                                                                ${isSelected(day) ? 'bg-white/20 text-white scale-110 shadow-lg z-10 ring-1 ring-white/50' : isToday(day) ? 'text-white bg-white/10 ring-1 ring-white/30' : 'text-neutral-400 hover:text-orange-400 hover:bg-neutral-800'}
                                                             `}
                                                         >
                                                             {day}
@@ -290,17 +290,24 @@ export default function WordOfTheDay() {
                                                 className="group"
                                             >
                                                 <Link to={`/word-of-the-day/${word._id}`} className="block cursor-pointer">
-                                                    <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative bg-neutral-800 border border-neutral-800 group-hover:border-neutral-600 transition-colors">
-                                                        <img
-                                                            src={word.imageUrl}
-                                                            alt={word.title}
-                                                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
-                                                        />
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
-                                                        <div className="absolute bottom-4 left-4 right-4">
-                                                            <span className="text-xs font-mono text-neutral-400 mb-1 block">{word.date}</span>
-                                                            <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors leading-tight mb-1">{word.title}</h3>
-                                                            <p className="text-xs text-neutral-500 line-clamp-2">{word.definition}</p>
+                                                    <div className="rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 group-hover:border-neutral-600 transition-colors">
+                                                        {/* Image */}
+                                                        <div className="aspect-[16/10] relative overflow-hidden">
+                                                            <img
+                                                                src={word.imageUrl}
+                                                                alt={word.title}
+                                                                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                                                            />
+                                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                                                        </div>
+                                                        {/* Info */}
+                                                        <div className="p-5">
+                                                            <span className="text-[11px] font-mono text-neutral-500 mb-2 block">{word.date} • {word.category}</span>
+                                                            <h3 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors leading-tight mb-2">{word.title}</h3>
+                                                            <p className="text-sm text-neutral-400 line-clamp-2 mb-4">{word.definition}</p>
+                                                            <span className="text-xs font-bold text-white/60 group-hover:text-white uppercase tracking-wider transition-colors">
+                                                                Read More →
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </Link>
