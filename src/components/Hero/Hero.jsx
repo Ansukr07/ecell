@@ -7,6 +7,7 @@ import img3 from './assets/img3.jpg';
 import bmsitLogo from '../../assets/bmsit.png';
 import bicepLogo from '../../assets/bicep.png';
 import ecellLogo from '../../assets/ecell1.png';
+import ecellOrLogo from '../../assets/ecellor.png';
 
 const cardConfig = [
   {
@@ -170,11 +171,11 @@ const ECellHero = () => {
           <img src={bmsitLogo} alt="BMSIT Logo" className="h-14 w-14" />
           <img src={bicepLogo} alt="BICEP Logo" className="h-14 w-14" />
 
-          {/* Logo 3 (mobile only) */}
+          {/* E-Cell Orange Logo (mobile only) */}
           <img
-            src="https://via.placeholder.com/50x50?text=Logo+3"
-            alt="Logo 3"
-            className="h-10 w-auto lg:hidden"
+            src={ecellOrLogo}
+            alt="E-Cell Logo"
+            className="h-14 w-14 lg:hidden"
           />
         </div>
 

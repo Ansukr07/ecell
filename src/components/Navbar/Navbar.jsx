@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import logo from '../../assets/ecellorange.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,9 +9,12 @@ export default function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
 
+  // Hide navbar on admin routes
   if (location.pathname.startsWith('/admin')) {
     return null;
   }
+
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -41,84 +45,88 @@ export default function Navbar() {
     }
   }, [lastScrollY]);
 
+  const navItems = [
+    { to: '/', label: 'Home' },
+    { to: '/Gallery', label: 'Gallery' },
+    { to: '/team', label: 'Team' },
+    { to: '/Alumni', label: 'Alumni' },
+    { to: '/word-of-the-day', label: 'Word of the Day' }
+  ];
+
   return (
     <>
-      {/* Google Fonts Import */}
-      <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
       <nav
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
-          }`}
-        style={{ fontFamily: 'Sora, sans-serif' }}
+        className={`fixed z-[99999] transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
+          } md:top-6 md:left-1/2 md:-translate-x-1/2 top-4 right-4`}
+        style={{
+          fontFamily: 'Sora, sans-serif',
+          opacity: lastScrollY < 50 ? 0 : 1,
+          pointerEvents: lastScrollY < 50 ? 'none' : 'auto'
+        }}
       >
-        <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl px-8 py-3 flex items-center justify-between w-[95%] max-w-7xl transition-all duration-300 hover:shadow-3xl">
+        {/* Desktop & Mobile Container */}
+        <div className="relative">
+          {/* Main Navbar */}
+          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2.5 flex items-center gap-2 shadow-2xl shadow-slate-500/10 w-fit mx-auto">
 
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <span className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent tracking-tight">
-              E-CELL
-            </span>
-          </div>
+            {/* Logo - Desktop Only */}
+            <Link to="/" className="hidden md:flex flex-shrink-0 group">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 p-1.5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+                <img
+                  src={logo}
+                  alt="E-CELL Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:block">
-            <div className="ml-8 flex items-center space-x-8">
-              <Link to="/" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Home
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link to="/Gallery" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Gallery
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link to="/team" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Team
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link to="/Alumni" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Alumni
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link to="/word-of-the-day" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group whitespace-nowrap">
-                Word of the Day
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${location.pathname === item.to
+                    ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/20'
+                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                    }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+            {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="p-3 rounded-xl text-slate-700 dark:text-slate-300 hover:text-orange-500 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none transition-all duration-300 border border-slate-200 dark:border-slate-700"
+              className="md:hidden p-2 rounded-full text-white hover:bg-white/10 transition-all duration-300"
+              aria-label="Toggle menu"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
-        </div>
 
-        {/* Mobile Menu Dropdown */}
-        {isOpen && (
-          <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[95%] max-w-4xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/20 dark:border-slate-700/50 rounded-2xl shadow-2xl md:hidden animate-in slide-in-from-top-2 duration-300">
-            <div className="px-6 py-6 space-y-4">
-              <Link to="/" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Home
-              </Link>
-              <Link to="/Gallery" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Gallery
-              </Link>
-              <Link to="/team" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Team
-              </Link>
-              <Link to="/Alumni" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Alumni
-              </Link>
-              <Link to="/word-of-the-day" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Word of the Day
-              </Link>
+          {/* Mobile Dropdown Menu */}
+          {isOpen && (
+            <div className="md:hidden absolute top-full left-0 right-0 mt-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-slate-500/10 animate-in slide-in-from-top-2 duration-300">
+              <div className="p-3 space-y-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setIsOpen(false)}
+                    className={`block px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${location.pathname === item.to
+                      ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/20'
+                      : 'text-gray-300 hover:text-white hover:bg-white/5'
+                      }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </nav>
     </>
   );
