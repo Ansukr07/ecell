@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
+import ecellLogo from '../../assets/ecellorange.png';
 
 // ─── Spring Wave Canvas ─────────────────────────────────────────────────────────
 const SpringWaveCanvas = () => {
@@ -245,7 +246,7 @@ const Footer = () => {
           {/* Left: Brand */}
           <div className="space-y-5">
             <div className="flex items-center gap-3">
-              <img src="./src/assets/ecellorange.png" alt="E-Cell Logo" className="w-10 h-10 brightness-0 invert opacity-90" />
+              <img src={ecellLogo} alt="E-Cell Logo" className="w-10 h-10 brightness-0 invert opacity-90" />
               <div>
                 <h3 className="text-white font-bold text-xl tracking-tight leading-none">E-CELL</h3>
                 <p className="text-white/50 text-[11px] font-semibold tracking-[0.2em] uppercase">BMSIT&M</p>
@@ -295,6 +296,7 @@ const Footer = () => {
             <a
               href="mailto:ecell@bmsit.in"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white/90 text-sm font-medium transition-all duration-300"
+              style={{ color: 'rgba(255,255,255,0.9)' }}
             >
               <Mail className="w-4 h-4" />
               ecell@bmsit.in
