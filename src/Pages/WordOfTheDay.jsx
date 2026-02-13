@@ -283,13 +283,13 @@ export default function WordOfTheDay() {
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         {filteredWords.map((word, idx) => (
                                             <motion.div
-                                                key={word.id}
+                                                key={word._id}
                                                 initial={{ opacity: 0, y: 20 }}
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: idx * 0.05 }}
                                                 className="group"
                                             >
-                                                <Link to={`/word-of-the-day/${word.id}`} className="block cursor-pointer">
+                                                <Link to={`/word-of-the-day/${word._id}`} className="block cursor-pointer">
                                                     <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative bg-neutral-800 border border-neutral-800 group-hover:border-neutral-600 transition-colors">
                                                         <img
                                                             src={word.imageUrl}

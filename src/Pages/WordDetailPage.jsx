@@ -2,16 +2,56 @@ import { useParams, Link } from 'react-router-dom';
 import { useWord } from '../context/WordContext';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { TextGenerateEffect } from '../components/ui/text-generate-effect';
 import { BackgroundRippleEffect } from '../components/ui/background-ripple-effect';
 
+const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
+
 export default function WordDetailPage() {
     const { id } = useParams();
-    const { getWordById } = useWord();
-    const word = getWordById(id);
+    const { getWordById, loading } = useWord();
+    const [word, setWord] = useState(null);
+    const [fetchingWord, setFetchingWord] = useState(true);
 
     useEffect(() => { window.scrollTo(0, 0); }, []);
+
+    useEffect(() => {
+        // First try from context
+        const contextWord = getWordById(id);
+        if (contextWord) {
+            setWord(contextWord);
+            setFetchingWord(false);
+            return;
+        }
+
+        // If context is still loading, wait
+        if (loading) return;
+
+        // If not in context, fetch directly from API
+        const fetchWord = async () => {
+            try {
+                const res = await fetch(`${API_URL}/api/words/${id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setWord(data);
+                }
+            } catch (err) {
+                console.error('Failed to fetch word:', err);
+            } finally {
+                setFetchingWord(false);
+            }
+        };
+        fetchWord();
+    }, [id, loading, getWordById]);
+
+    if (loading || fetchingWord) {
+        return (
+            <div className="min-h-screen bg-black text-white flex items-center justify-center">
+                <div className="text-neutral-500 text-lg">Loading...</div>
+            </div>
+        );
+    }
 
     if (!word) {
         return (

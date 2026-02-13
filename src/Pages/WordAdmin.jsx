@@ -148,7 +148,7 @@ export default function WordAdmin() {
                                     <div className="p-8 text-center text-white">No words added yet. Start by adding one!</div>
                                 ) : (
                                     words.slice().reverse().map((word) => (
-                                        <div key={word.id} className="p-4 flex items-center justify-between hover:bg-neutral-800/50 transition-colors group">
+                                        <div key={word._id} className="p-4 flex items-center justify-between hover:bg-neutral-800/50 transition-colors group">
                                             <div className="flex-1 min-w-0 mr-4">
                                                 <div className="flex items-center gap-2 mb-1">
                                                     <h3 className="font-bold text-white truncate">{word.title}</h3>
