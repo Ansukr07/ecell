@@ -99,9 +99,7 @@ export default function WordOfTheDay() {
 
             {/* Navigation */}
             <nav className="fixed top-0 left-0 w-full z-[60] p-6 mix-blend-difference">
-                <Link to="/" className="flex items-center gap-2 text-white font-medium hover:opacity-70 transition-opacity">
-                    <ArrowLeft className="w-5 h-5" /> Back to E-Cell
-                </Link>
+
             </nav>
 
             {/* ============================================ */}

@@ -79,8 +79,8 @@ export default function Navbar() {
                 Alumni
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
-              <Link to="/contact" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group">
-                Contact
+              <Link to="/word-of-the-day" className="text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-sm tracking-wide relative group whitespace-nowrap">
+                Word of the Day
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
             </div>
@@ -113,8 +113,8 @@ export default function Navbar() {
               <Link to="/Alumni" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
                 Alumni
               </Link>
-              <Link to="/contact" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                Contact
+              <Link to="/word-of-the-day" onClick={() => setIsOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 font-medium text-base py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                Word of the Day
               </Link>
             </div>
           </div>

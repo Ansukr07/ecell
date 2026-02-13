@@ -3,121 +3,6 @@ import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
 import ecellLogo from '../../assets/ecellorange.png';
 
-// ─── Spring Bands (AngelList-style elastic layers with Scroll Physics) ───
-const SpringBands = ({ position = 'top' }) => {
-  const canvasRef = useRef(null);
-  const scrollRef = useRef(0);
-  const velocityRef = useRef(0);
-  const rafRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width, height;
-
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.parentElement.getBoundingClientRect();
-      width = rect.width;
-      height = 120; // Enough space for displacement
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = '100%';
-      canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Bands configuration - Light to Dark Orange
-    const bands = [
-      { color: '#fdba74', tension: 0.15, friction: 0.95, baseHeight: 10, y: 0, vel: 0 }, // Light orange
-      { color: '#fb923c', tension: 0.12, friction: 0.94, baseHeight: 25, y: 0, vel: 0 },
-      { color: '#f97316', tension: 0.10, friction: 0.93, baseHeight: 40, y: 0, vel: 0 },
-      { color: '#ea580c', tension: 0.08, friction: 0.92, baseHeight: 55, y: 0, vel: 0 },
-      { color: '#c2410c', tension: 0.06, friction: 0.91, baseHeight: 70, y: 0, vel: 0 }, // Dark orange
-    ];
-
-    if (position === 'bottom') {
-      bands.reverse();
-    }
-
-    // Scroll handling
-    let lastScroll = window.scrollY;
-    const onScroll = () => {
-      const currentScroll = window.scrollY;
-      const delta = currentScroll - lastScroll;
-      velocityRef.current = delta * 0.5; // Sensitivity
-      lastScroll = currentScroll;
-    };
-    window.addEventListener('scroll', onScroll);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Dampen global velocity
-      velocityRef.current *= 0.9;
-
-      bands.forEach((band, i) => {
-        // Spring physics
-        const targetY = 0;
-        const force = -band.tension * (band.y - targetY);
-        const damping = -band.friction * band.vel; // Wrong physics formula here?
-
-        // Apply scroll force to velocity (staggered)
-        const scrollForce = velocityRef.current * (1 - i * 0.1);
-
-        // Correct spring physics: accel = force / mass. Here simple verlet-ish.
-        // acceleration
-        const accel = (targetY - band.y) * band.tension;
-
-        // Add scroll impact
-        if (Math.abs(scrollForce) > 0.1) {
-          band.vel += scrollForce * 0.2;
-        }
-
-        band.vel += accel;
-        band.vel *= band.friction;
-        band.y += band.vel;
-
-        // Draw curved band
-        ctx.beginPath();
-        ctx.fillStyle = band.color;
-
-        const yOffset = position === 'top' ? band.baseHeight : height - band.baseHeight;
-        const curveStrength = band.y; // The displacement
-
-        // Draw shape
-        ctx.moveTo(0, position === 'top' ? 0 : height);
-        ctx.lineTo(0, yOffset);
-
-        // Quadratic curve for "string" effect
-        ctx.quadraticCurveTo(width / 2, yOffset + curveStrength * (position === 'top' ? 1 : -1), width, yOffset);
-
-        ctx.lineTo(width, position === 'top' ? 0 : height);
-        ctx.closePath();
-        ctx.fill();
-      });
-
-      rafRef.current = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [position]);
-
-  return (
-    <div className="relative w-full h-[120px] overflow-hidden pointer-events-none" style={{ marginTop: position === 'bottom' ? '-1px' : '0', marginBottom: position === 'top' ? '-1px' : '0' }}>
-      <canvas ref={canvasRef} />
-    </div>
-  );
-};
-
 // ─── Spring Wave Canvas ─────────────────────────────────────────────────────────
 const SpringWaveCanvas = () => {
   const canvasRef = useRef(null);
@@ -335,11 +220,8 @@ const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden" style={{ fontFamily: 'Sora, sans-serif' }}>
-      {/* Spring Bands Top */}
-      <SpringBands position="top" />
-
       {/* Animated Background */}
-      <div className="absolute inset-0" style={{ top: '130px', bottom: '130px' }}>
+      <div className="absolute inset-0">
         <SpringWaveCanvas />
       </div>
 
@@ -433,9 +315,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-
-      {/* Spring Bands Bottom */}
-      <SpringBands position="bottom" />
     </footer>
   );
 };
