@@ -37,8 +37,12 @@ export const WordProvider = ({ children }) => {
         return sorted.slice(1);
     };
 
+    const getWordById = (id) => {
+        return words.find(word => String(word.id) === String(id)) || null;
+    };
+
     return (
-        <WordContext.Provider value={{ words, addWord, updateWord, deleteWord, getLatestWord, getPreviousWords }}>
+        <WordContext.Provider value={{ words, addWord, updateWord, deleteWord, getLatestWord, getPreviousWords, getWordById }}>
             {children}
         </WordContext.Provider>
     );

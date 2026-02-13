@@ -15,6 +15,7 @@ import Ripoff from './components/Events/Ripoff';
 import Team from './Pages/Team';
 import Preloader from './components/Preloader/Preloader';
 import WordOfTheDay from './Pages/WordOfTheDay.jsx';
+import WordDetailPage from './Pages/WordDetailPage.jsx';
 import WordAdmin from './Pages/WordAdmin.jsx';
 import { WordProvider } from './context/WordContext';
 import './App.css';
@@ -58,6 +59,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/word-of-the-day" element={<WordOfTheDay />} />
+                    <Route path="/word-of-the-day/:id" element={<WordDetailPage />} />
                     <Route path="/admin/word-of-the-day" element={<WordAdmin />} />
                     <Route path="/events/codered25" element={<Codered />} />
                     <Route path="/events/advert10" element={<Advert />} />

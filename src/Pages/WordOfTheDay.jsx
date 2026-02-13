@@ -1,8 +1,8 @@
 import { useWord } from '../context/WordContext';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ChevronLeft, ChevronRight, Calendar as CalendarIcon, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { TextGenerateEffect } from '../components/ui/text-generate-effect';
 import { BackgroundRippleEffect } from '../components/ui/background-ripple-effect';
 
@@ -17,6 +17,60 @@ export default function WordOfTheDay() {
     // NO opacity fade — title stays fully visible and goes behind the card
     const { scrollY } = useScroll();
     const titleY = useTransform(scrollY, [0, 800], [0, -400]);
+
+    // --- Calendar Logic ---
+    const [viewDate, setViewDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const changeMonth = (offset) => {
+        const newDate = new Date(viewDate);
+        newDate.setMonth(newDate.getMonth() + offset);
+        setViewDate(newDate);
+    };
+
+    const hasWordOnDate = (day) => {
+        const dateStr = `${viewDate.getFullYear()}-${String(viewDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return previousWords.some(w => w.date === dateStr) || (latestWord?.date === dateStr);
+    };
+
+    const isSelected = (day) => {
+        if (!selectedDate) return false;
+        const dateStr = `${viewDate.getFullYear()}-${String(viewDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return selectedDate === dateStr;
+    };
+
+    const handleDateClick = (day) => {
+        const dateStr = `${viewDate.getFullYear()}-${String(viewDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        if (selectedDate === dateStr) {
+            setSelectedDate(null); // Deselect
+        } else {
+            setSelectedDate(dateStr);
+        }
+    };
+
+    const getDaysInMonth = () => {
+        const year = viewDate.getFullYear();
+        const month = viewDate.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 = Sunday
+        const days = [];
+
+        // Empty slots for previous month
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            days.push(null);
+        }
+        // Days of current month
+        for (let i = 1; i <= daysInMonth; i++) {
+            days.push(i);
+        }
+        return days;
+    };
+
+    const filteredWords = selectedDate
+        ? previousWords.filter(w => w.date === selectedDate)
+        : previousWords;
+
+    // --- End Calendar Logic ---
 
     if (!latestWord) {
         return (
@@ -89,7 +143,7 @@ export default function WordOfTheDay() {
                                 </h2>
                                 <TextGenerateEffect
                                     words={latestWord.definition}
-                                    className="text-xl md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed"
+                                    className="text-xl md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed" style={{ textAlign: "center" }}
                                     duration={2}
                                 />
                             </div>
@@ -152,46 +206,118 @@ export default function WordOfTheDay() {
                     </div>
                 </motion.div>
 
-                {/* Previous Words */}
-                <section className="py-24 bg-black border-t border-neutral-900 mt-20">
+                {/* Archive Section (Calendar + List) */}
+                <section className="py-24 bg-black border-t border-neutral-900 mt-20 relative z-20">
                     <div className="max-w-7xl mx-auto px-6">
-                        <div className="flex justify-between items-end mb-16">
-                            <div>
-                                <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-2">Previous Words</h2>
-                                <p className="text-neutral-500">Explore the archive of entrepreneurial knowledge.</p>
-                            </div>
-                            <button className="hidden md:block text-sm font-bold border-b border-white pb-1 hover:opacity-70 transition-opacity">View Archive</button>
-                        </div>
+                        <div className="flex flex-col md:flex-row gap-12">
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                            {previousWords.length > 0 ? (
-                                previousWords.slice(0, 4).map((word, idx) => (
-                                    <motion.div
-                                        key={word.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: idx * 0.1 }}
-                                        className="group cursor-pointer"
-                                    >
-                                        <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative bg-neutral-800">
-                                            <img
-                                                src={word.imageUrl}
-                                                alt={word.title}
-                                                className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-                                            <div className="absolute bottom-4 left-4 right-4">
-                                                <span className="text-xs font-mono text-neutral-400 mb-1 block">{word.date}</span>
-                                                <h3 className="text-xl font-bold text-white group-hover:text-neutral-200 transition-colors leading-tight">{word.title}</h3>
+                            {/* Left: Calendar Stickky */}
+                            <div className="w-full md:w-1/3">
+                                <div className="sticky top-24">
+                                    <h2 className="text-3xl font-black tracking-tighter mb-2">Archive</h2>
+                                    <p className="text-neutral-500 mb-8 text-sm">Filter words by date.</p>
+
+                                    <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 backdrop-blur-sm">
+
+                                        {/* Calendar Header */}
+                                        <div className="flex items-center justify-between mb-6">
+                                            <h3 className="font-bold text-white">
+                                                {viewDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                                            </h3>
+                                            <div className="flex gap-1">
+                                                <button onClick={() => changeMonth(-1)} className="p-1 hover:bg-neutral-800 rounded-md transition-colors">
+                                                    <ChevronLeft className="w-5 h-5 text-neutral-400" />
+                                                </button>
+                                                <button onClick={() => changeMonth(1)} className="p-1 hover:bg-neutral-800 rounded-md transition-colors">
+                                                    <ChevronRight className="w-5 h-5 text-neutral-400" />
+                                                </button>
                                             </div>
                                         </div>
-                                    </motion.div>
-                                ))
-                            ) : (
-                                <div className="col-span-4 py-20 text-center border border-dashed border-neutral-800 rounded-xl text-neutral-600">
-                                    No previous words found.
+
+                                        {/* Days Grid */}
+                                        <div className="grid grid-cols-7 gap-2 text-center mb-2">
+                                            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
+                                                <div key={d} className="text-xs font-bold text-neutral-600">{d}</div>
+                                            ))}
+                                        </div>
+                                        <div className="grid grid-cols-7 gap-2">
+                                            {getDaysInMonth().map((day, idx) => (
+                                                <div key={idx} className="aspect-square flex items-center justify-center relative">
+                                                    {day ? (
+                                                        <button
+                                                            onClick={() => handleDateClick(day)}
+                                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all relative
+                                                                ${isSelected(day) ? 'bg-white text-black scale-110 shadow-lg z-10' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}
+                                                            `}
+                                                        >
+                                                            {day}
+                                                            {/* Dot indicator for existing words */}
+                                                            {hasWordOnDate(day) && !isSelected(day) && (
+                                                                <span className="absolute bottom-1 w-1 h-1 bg-blue-500 rounded-full"></span>
+                                                            )}
+                                                        </button>
+                                                    ) : (
+                                                        <span />
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Active Filter Indicator */}
+                                        {selectedDate && (
+                                            <div className="mt-6 pt-4 border-t border-neutral-800 flex justify-between items-center animate-in fade-in slide-in-from-top-2">
+                                                <span className="text-xs text-neutral-400">Filtering by: <span className="text-white font-bold">{selectedDate}</span></span>
+                                                <button onClick={() => setSelectedDate(null)} className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1">
+                                                    <X className="w-3 h-3" /> Clear
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            )}
+                            </div>
+
+                            {/* Right: Word List */}
+                            <div className="w-full md:w-2/3">
+                                {filteredWords.length > 0 ? (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        {filteredWords.map((word, idx) => (
+                                            <motion.div
+                                                key={word.id}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: idx * 0.05 }}
+                                                className="group"
+                                            >
+                                                <Link to={`/word-of-the-day/${word.id}`} className="block cursor-pointer">
+                                                    <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative bg-neutral-800 border border-neutral-800 group-hover:border-neutral-600 transition-colors">
+                                                        <img
+                                                            src={word.imageUrl}
+                                                            alt={word.title}
+                                                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+                                                        <div className="absolute bottom-4 left-4 right-4">
+                                                            <span className="text-xs font-mono text-neutral-400 mb-1 block">{word.date}</span>
+                                                            <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors leading-tight mb-1">{word.title}</h3>
+                                                            <p className="text-xs text-neutral-500 line-clamp-2">{word.definition}</p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="h-64 flex flex-col items-center justify-center border border-dashed border-neutral-800 rounded-2xl text-neutral-600">
+                                        <CalendarIcon className="w-8 h-8 mb-3 opacity-20" />
+                                        <p>No words found for this date.</p>
+                                        {selectedDate && (
+                                            <button onClick={() => setSelectedDate(null)} className="mt-4 text-sm text-white underline decoration-neutral-700 hover:decoration-white underline-offset-4">
+                                                View all words
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </section>
