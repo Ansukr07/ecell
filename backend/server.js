@@ -1,10 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { body, validationResult } = require('express-validator');
 require('dotenv').config();
+
+const Word = require('./models/Word');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,11 +15,16 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://localhost:3000'],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Rate limiting - 5 submissions per hour per IP
 const submissionLimiter = rateLimit({
@@ -61,12 +69,12 @@ const validateStorySubmission = [
     .trim()
     .isLength({ min: 2, max: 100 })
     .withMessage('Name must be between 2 and 100 characters'),
-  
+
   body('email')
     .isEmail()
     .normalizeEmail()
     .withMessage('Please provide a valid email address'),
-  
+
   body('story')
     .trim()
     .isLength({ min: 50, max: 5000 })
@@ -157,15 +165,15 @@ This email was sent from the E-Cell BMSIT Failure Story submission form.
 
 // Routes
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
+  res.json({
+    status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'Failure Story Backend'
   });
 });
 
 // Submit failure story
-app.post('/api/submit-story', 
+app.post('/api/submit-story',
   submissionLimiter,
   validateStorySubmission,
   async (req, res) => {
@@ -251,7 +259,7 @@ app.post('/api/submit-story',
 
     } catch (error) {
       console.error('Error submitting story:', error);
-      
+
       // Don't expose internal errors to client
       res.status(500).json({
         success: false,
@@ -260,6 +268,73 @@ app.post('/api/submit-story',
     }
   }
 );
+
+// ===== WORD OF THE DAY CRUD ROUTES =====
+
+// GET all words (sorted by date descending)
+app.get('/api/words', async (req, res) => {
+  try {
+    const words = await Word.find().sort({ date: -1 });
+    res.json(words);
+  } catch (error) {
+    console.error('Error fetching words:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch words' });
+  }
+});
+
+// GET single word by ID
+app.get('/api/words/:id', async (req, res) => {
+  try {
+    const word = await Word.findById(req.params.id);
+    if (!word) {
+      return res.status(404).json({ success: false, error: 'Word not found' });
+    }
+    res.json(word);
+  } catch (error) {
+    console.error('Error fetching word:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch word' });
+  }
+});
+
+// POST create new word
+app.post('/api/words', async (req, res) => {
+  try {
+    const word = new Word(req.body);
+    const saved = await word.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    console.error('Error creating word:', error);
+    res.status(500).json({ success: false, error: 'Failed to create word' });
+  }
+});
+
+// PUT update word
+app.put('/api/words/:id', async (req, res) => {
+  try {
+    const word = await Word.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!word) {
+      return res.status(404).json({ success: false, error: 'Word not found' });
+    }
+    res.json(word);
+  } catch (error) {
+    console.error('Error updating word:', error);
+    res.status(500).json({ success: false, error: 'Failed to update word' });
+  }
+});
+
+// DELETE word
+app.delete('/api/words/:id', async (req, res) => {
+  try {
+    const word = await Word.findByIdAndDelete(req.params.id);
+    if (!word) {
+      return res.status(404).json({ success: false, error: 'Word not found' });
+    }
+    res.json({ success: true, message: 'Word deleted' });
+  } catch (error) {
+    console.error('Error deleting word:', error);
+    res.status(500).json({ success: false, error: 'Failed to delete word' });
+  }
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

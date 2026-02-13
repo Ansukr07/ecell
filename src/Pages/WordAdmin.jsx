@@ -55,18 +55,18 @@ export default function WordAdmin() {
         setIsEditing(true);
     };
 
-    const handleDeleteClick = (id) => {
+    const handleDeleteClick = async (id) => {
         if (window.confirm('Are you sure you want to delete this word?')) {
-            deleteWord(id);
+            await deleteWord(id);
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (currentWord) {
-            updateWord(currentWord.id, formData);
+            await updateWord(currentWord._id, formData);
         } else {
-            addWord(formData);
+            await addWord(formData);
         }
         setIsEditing(false);
         setFormData(initialFormState);
@@ -163,7 +163,7 @@ export default function WordAdmin() {
                                                 <button onClick={() => handleEditClick(word)} className="p-2 text-white hover:text-white hover:bg-white/10 rounded-lg transition-colors">
                                                     <Edit className="w-4 h-4" />
                                                 </button>
-                                                <button onClick={() => handleDeleteClick(word.id)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors">
+                                                <button onClick={() => handleDeleteClick(word._id)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors">
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
                                             </div>

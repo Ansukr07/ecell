@@ -48,6 +48,11 @@ export default function WordOfTheDay() {
         }
     };
 
+    const isToday = (day) => {
+        const now = new Date();
+        return day === now.getDate() && viewDate.getMonth() === now.getMonth() && viewDate.getFullYear() === now.getFullYear();
+    };
+
     const getDaysInMonth = () => {
         const year = viewDate.getFullYear();
         const month = viewDate.getMonth();
@@ -246,15 +251,11 @@ export default function WordOfTheDay() {
                                                     {day ? (
                                                         <button
                                                             onClick={() => handleDateClick(day)}
-                                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all relative
-                                                                ${isSelected(day) ? 'bg-white text-black scale-110 shadow-lg z-10' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}
+                                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all
+                                                                ${isSelected(day) ? 'bg-white/20 text-white scale-110 shadow-lg z-10 ring-1 ring-white/50' : isToday(day) ? 'text-white bg-white/10 ring-1 ring-white/30' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}
                                                             `}
                                                         >
                                                             {day}
-                                                            {/* Dot indicator for existing words */}
-                                                            {hasWordOnDate(day) && !isSelected(day) && (
-                                                                <span className="absolute bottom-1 w-1 h-1 bg-blue-500 rounded-full"></span>
-                                                            )}
                                                         </button>
                                                     ) : (
                                                         <span />

@@ -1,33 +1,71 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const WordContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export const useWord = () => useContext(WordContext);
 
 export const WordProvider = ({ children }) => {
-    const [words, setWords] = useState(() => {
-        const saved = localStorage.getItem('wordOfTheDayData');
-        return saved ? JSON.parse(saved) : [];
-    });
+    const [words, setWords] = useState([]);
+    const [loading, setLoading] = useState(true);
 
+    // Fetch all words from API on mount
     useEffect(() => {
-        localStorage.setItem('wordOfTheDayData', JSON.stringify(words));
-    }, [words]);
+        fetchWords();
+    }, []);
 
-    const addWord = (newWord) => {
-        setWords(prev => [...prev, { ...newWord, id: Date.now(), createdAt: new Date().toISOString() }]);
+    const fetchWords = async () => {
+        try {
+            const res = await fetch(`${API_URL}/api/words`);
+            const data = await res.json();
+            setWords(data);
+        } catch (error) {
+            console.error('Failed to fetch words:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const updateWord = (id, updatedData) => {
-        setWords(prev => prev.map(word => word.id === id ? { ...word, ...updatedData } : word));
+    const addWord = async (newWord) => {
+        try {
+            const res = await fetch(`${API_URL}/api/words`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newWord),
+            });
+            const saved = await res.json();
+            setWords(prev => [saved, ...prev]);
+            return saved;
+        } catch (error) {
+            console.error('Failed to add word:', error);
+        }
     };
 
-    const deleteWord = (id) => {
-        setWords(prev => prev.filter(word => word.id !== id));
+    const updateWord = async (id, updatedData) => {
+        try {
+            const res = await fetch(`${API_URL}/api/words/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedData),
+            });
+            const updated = await res.json();
+            setWords(prev => prev.map(word => word._id === id ? updated : word));
+            return updated;
+        } catch (error) {
+            console.error('Failed to update word:', error);
+        }
+    };
+
+    const deleteWord = async (id) => {
+        try {
+            await fetch(`${API_URL}/api/words/${id}`, { method: 'DELETE' });
+            setWords(prev => prev.filter(word => word._id !== id));
+        } catch (error) {
+            console.error('Failed to delete word:', error);
+        }
     };
 
     const getLatestWord = () => {
-        // innovative sorting to get the latest word based on date
         const sorted = [...words].sort((a, b) => new Date(b.date) - new Date(a.date));
         return sorted[0] || null;
     };
@@ -38,11 +76,11 @@ export const WordProvider = ({ children }) => {
     };
 
     const getWordById = (id) => {
-        return words.find(word => String(word.id) === String(id)) || null;
+        return words.find(word => word._id === id) || null;
     };
 
     return (
-        <WordContext.Provider value={{ words, addWord, updateWord, deleteWord, getLatestWord, getPreviousWords, getWordById }}>
+        <WordContext.Provider value={{ words, loading, addWord, updateWord, deleteWord, getLatestWord, getPreviousWords, getWordById, fetchWords }}>
             {children}
         </WordContext.Provider>
     );
