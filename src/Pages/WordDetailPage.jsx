@@ -16,6 +16,15 @@ export default function WordDetailPage() {
 
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
+    // Detect mobile for responsive adjustments
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+
     useEffect(() => {
         // First try from context
         const contextWord = getWordById(id);
@@ -70,11 +79,11 @@ export default function WordDetailPage() {
 
             {/* Full-page interactive grid background */}
             <div className="fixed inset-0 z-0 overflow-hidden">
-                <BackgroundRippleEffect rows={35} cols={45} />
+                <BackgroundRippleEffect rows={isMobile ? 20 : 35} cols={isMobile ? 12 : 45} />
             </div>
 
             {/* Navigation */}
-            <nav className="fixed top-0 left-0 w-full z-[60] p-6 mix-blend-difference">
+            <nav className="fixed top-0 left-0 w-full z-[60] p-4 md:p-6 mix-blend-difference">
                 <Link to="/word-of-the-day" className="flex items-center gap-2 text-white font-medium hover:opacity-70 transition-opacity">
                     <ArrowLeft className="w-5 h-5" /> Back to Archive
                 </Link>
@@ -88,33 +97,51 @@ export default function WordDetailPage() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="max-w-5xl mx-auto"
                 >
-                    <div className="bg-black/85 backdrop-blur-lg border border-neutral-800 rounded-3xl overflow-hidden shadow-[0_-20px_80px_rgba(0,0,0,0.7)]">
+                    <div className="bg-black/85 backdrop-blur-lg border border-neutral-800 rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_-20px_80px_rgba(0,0,0,0.7)]">
 
                         {/* Card Header */}
-                        <div className="p-8 md:p-12 lg:p-16 border-b border-neutral-800 relative">
+                        <div className="p-5 md:p-12 lg:p-16 border-b border-neutral-800 relative">
                             <div className="relative z-10">
-                                <span className="inline-block px-4 py-1.5 bg-white/10 rounded-full text-xs font-bold tracking-widest uppercase mb-6 text-white/80">
+                                <span className="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-white/10 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase mb-4 md:mb-6 text-white/80">
                                     {word.date} &bull; {word.category}
                                 </span>
-                                <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6">
+                                <h2 className="text-3xl md:text-5xl lg:text-8xl font-black tracking-tighter text-white mb-3 md:mb-6">
                                     {word.title}
                                 </h2>
                                 <TextGenerateEffect
                                     words={word.definition}
-                                    className="text-xl md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed"
+                                    className="text-sm md:text-xl lg:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed"
                                     duration={2}
                                 />
                             </div>
                         </div>
 
+                        {/* Mobile-only image — shown right after definition */}
+                        <div className="lg:hidden relative overflow-hidden max-h-[180px] border-b border-neutral-800">
+                            {word.imageUrl ? (
+                                <>
+                                    <img
+                                        src={word.imageUrl}
+                                        alt={word.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                                </>
+                            ) : (
+                                <div className="h-[120px] flex items-center justify-center bg-neutral-900">
+                                    <p className="text-neutral-600 text-sm">No image available</p>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Card Body */}
-                        <div className="flex flex-col lg:flex-row min-h-[400px]">
+                        <div className="flex flex-col lg:flex-row min-h-[250px] md:min-h-[400px]">
                             {/* Explanation */}
-                            <div className="w-full lg:w-1/2 p-8 md:p-12 lg:border-r border-neutral-800 flex flex-col justify-start text-left items-start">
-                                <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-widest mb-6">Deep Dive</h3>
-                                <div className="text-neutral-400 leading-relaxed text-base">
+                            <div className="w-full lg:w-1/2 p-5 md:p-8 lg:p-12 lg:border-r border-neutral-800 flex flex-col justify-start text-left items-start">
+                                <h3 className="text-xs md:text-sm font-bold text-neutral-500 uppercase tracking-widest mb-4 md:mb-6">Deep Dive</h3>
+                                <div className="text-neutral-400 leading-relaxed text-xs md:text-sm">
                                     {word.explanation.split('\n').map((para, i) => (
-                                        <p key={i} className="mb-4">{para}</p>
+                                        <p key={i} className="mb-3 md:mb-4">{para}</p>
                                     ))}
                                 </div>
                                 {word.readMoreUrl && (
@@ -122,17 +149,17 @@ export default function WordDetailPage() {
                                         href={word.readMoreUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-neutral-200 transition-colors self-start"
+                                        className="inline-flex items-center gap-2 mt-4 md:mt-6 px-5 py-2.5 md:px-6 md:py-3 bg-white text-black text-sm md:text-base font-bold rounded-lg hover:bg-neutral-200 transition-colors self-start"
                                     >
                                         Read More <ExternalLink className="w-4 h-4" />
                                     </a>
                                 )}
                             </div>
 
-                            {/* Right Column: Image + Example */}
-                            <div className="w-full lg:w-1/2 flex flex-col min-h-[500px] lg:min-h-0 bg-neutral-900 border-l border-neutral-800">
-                                {/* Image Section (natural height) */}
-                                <div className="relative overflow-hidden group">
+                            {/* Right Column: Image (desktop only) + Example */}
+                            <div className="w-full lg:w-1/2 flex flex-col bg-neutral-900 border-t lg:border-t-0 lg:border-l border-neutral-800">
+                                {/* Image — hidden on mobile (already shown above), visible on desktop */}
+                                <div className="hidden lg:block relative overflow-hidden group">
                                     {word.imageUrl ? (
                                         <>
                                             <img
@@ -144,17 +171,17 @@ export default function WordDetailPage() {
                                         </>
                                     ) : (
                                         <div className="h-[250px] flex items-center justify-center bg-neutral-900">
-                                            <p className="text-neutral-600">No image available</p>
+                                            <p className="text-neutral-600 text-sm">No image available</p>
                                         </div>
                                     )}
                                 </div>
 
-                                {/* Example Section (fills remaining space, centered) */}
-                                <div className="flex-1 flex flex-col items-center justify-center p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
-                                    <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-3 text-center">
+                                {/* Example Section — content-fit, no wasted space */}
+                                <div className="flex flex-col items-center justify-center p-4 md:p-8 lg:flex-1 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                                    <h3 className="text-[10px] md:text-xs font-bold text-white uppercase tracking-widest mb-2 md:mb-3 text-center">
                                         Example
                                     </h3>
-                                    <p className="text-neutral-400 text-sm leading-relaxed italic text-center">
+                                    <p className="text-neutral-400 text-xs md:text-sm leading-relaxed italic text-center">
                                         "{word.example ? word.example : "No example provided for this word."}"
                                     </p>
                                 </div>
