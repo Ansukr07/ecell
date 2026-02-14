@@ -116,7 +116,7 @@ export default function WordOfTheDay() {
             {/* Scrolls up via JS translateY (no fade).      */}
             {/* Lower z-index so it goes BEHIND the card.    */}
             {/* ============================================ */}
-            <div className="relative h-screen flex items-center justify-center" style={{ zIndex: 1 }}>
+            <div className="relative h-[70vh] md:h-screen flex items-center justify-center pt-[15vh] md:pt-0 pb-0 md:pb-0" style={{ zIndex: 1 }}>
                 <motion.div
                     style={{ y: titleY }}
                     className="relative z-10 w-full flex flex-col items-center justify-center px-4"
@@ -132,7 +132,7 @@ export default function WordOfTheDay() {
             {/* Higher z-index covers the title.             */}
             {/* Semi-transparent bg so title peeks through.  */}
             {/* ============================================ */}
-            <div className="relative -mt-[25vh] md:-mt-[30vh]" style={{ zIndex: 10 }}>
+            <div className="relative -mt-[17vh]" style={{ zIndex: 10 }}>
 
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
@@ -141,7 +141,7 @@ export default function WordOfTheDay() {
                     transition={{ duration: 0.7, ease: "easeOut" }}
                     className="max-w-5xl mx-auto px-3 md:px-6"
                 >
-                    <div className="bg-black/85 backdrop-blur-lg border border-neutral-800 rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_-20px_80px_rgba(0,0,0,0.7)]">
+                    <div className="bg-black/65 backdrop-blur-sm border border-neutral-800 rounded-2xl shadow-[0_-20px_80px_rgba(0,0,0,0.7)] md:rounded-3xl overflow-hidden shadow-[0_-20px_80px_rgba(0,0,0,0.7)]">
 
                         {/* Card Header */}
                         <div className="p-5 md:p-12 lg:p-16 border-b border-neutral-800 relative">

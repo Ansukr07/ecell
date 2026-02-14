@@ -97,7 +97,7 @@ export default function WordDetailPage() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="max-w-5xl mx-auto"
                 >
-                    <div className="bg-black/85 backdrop-blur-lg border border-neutral-800 rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_-20px_80px_rgba(0,0,0,0.7)]">
+                    <div className="bg-black/65 backdrop-blur-2xl border border-neutral-800 rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_-20px_80px_rgba(0,0,0,0.7)]">
 
                         {/* Card Header */}
                         <div className="p-5 md:p-12 lg:p-16 border-b border-neutral-800 relative">
