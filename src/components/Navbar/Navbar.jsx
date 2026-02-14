@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/ecellorange.png';
+import { PreloaderContext } from '../../App';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
+  const { loading } = useContext(PreloaderContext);
 
   // Hide navbar on admin routes
   if (location.pathname.startsWith('/admin')) {
     return null;
   }
-
-
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -25,11 +25,15 @@ export default function Navbar() {
       if (typeof window !== 'undefined') {
         const currentScrollY = window.scrollY;
 
-        // Show navbar when scrolling up or at the top
-        if (currentScrollY < lastScrollY || currentScrollY < 10) {
+        // If preloader is still running, hide navbar
+        if (loading) {
+          setIsVisible(false);
+        }
+        // After preloader: show at top or when scrolling up
+        else if (currentScrollY < 100 || currentScrollY < lastScrollY) {
           setIsVisible(true);
         }
-        // Hide navbar when scrolling down
+        // Hide navbar when scrolling down (after 100px)
         else if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setIsVisible(false);
           setIsOpen(false); // Close mobile menu when hiding
@@ -41,9 +45,11 @@ export default function Navbar() {
 
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', controlNavbar);
+      // Run once on mount to set initial state
+      controlNavbar();
       return () => window.removeEventListener('scroll', controlNavbar);
     }
-  }, [lastScrollY]);
+  }, [lastScrollY, loading]);
 
   const navItems = [
     { to: '/', label: 'Home' },
@@ -59,9 +65,7 @@ export default function Navbar() {
         className={`fixed z-[99999] transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
           } md:top-6 md:left-1/2 md:-translate-x-1/2 top-4 right-4`}
         style={{
-          fontFamily: 'Sora, sans-serif',
-          opacity: lastScrollY < 50 ? 0 : 1,
-          pointerEvents: lastScrollY < 50 ? 'none' : 'auto'
+          fontFamily: 'Sora, sans-serif'
         }}
       >
         {/* Desktop & Mobile Container */}
