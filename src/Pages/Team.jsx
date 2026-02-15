@@ -80,11 +80,11 @@ const teamData = {
     { "name": "Ananya", "position": "Media", "image": ananya, "socials": {} },
     { "name": "Bhavana", "position": "Marketing", "image": bhavana, "socials": {} },
     { "name": "Dhyeya", "position": "Operations", "image": Dhyeya, "socials": {} },
-    { "name": "Divyashree", "position": "Operations", "image": divyashree, "socials": {} },
+    
     { "name": "Jasvanti", "position": "Design", "image": jasvanti, "socials": {} },
     { "name": "Krishna", "position": "Marketing", "image": krishna, "socials": {} },
     { "name": "Faizan Khan", "position": "Marketing", "image": faizan, "socials": {} },
-    { "name": "Parathana Dillip", "position": "Corporate Relations", "image": parathana, "socials": {} },
+    
     { "name": "Ansu Kumar", "position": "Tech", "image": ansu, "socials": {} },
     { "name": "Anvita", "position": "Marketing", "image": anvita, "socials": {} },
     { "name": "Arush", "position": "Corporate Relations", "image": arush, "socials": {} },
