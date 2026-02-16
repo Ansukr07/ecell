@@ -1,5 +1,5 @@
-const connectDB = require('./_db');
-const Word = require('./_Word');
+const connectDB = require('../_db');
+const Word = require('../_Word');
 
 module.exports = async function handler(req, res) {
     // CORS headers
