@@ -149,8 +149,8 @@ export default function WordDetailPage() {
                                     )}
                                 </div>
 
-                                {/* Example Section (tight height) */}
-                                <div className="flex flex-col items-center justify-center p-6 md:p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                                {/* Example Section (tight height on mobile, centered on desktop) */}
+                                <div className="lg:flex-1 flex flex-col items-center justify-center p-6 md:p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
                                     <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-3 text-center">
                                         Example
                                     </h3>
