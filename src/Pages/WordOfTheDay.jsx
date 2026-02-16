@@ -138,7 +138,7 @@ export default function WordOfTheDay() {
                         <div className="p-8 md:p-12 lg:p-16 border-b border-neutral-800 relative">
 
                             <div className="relative z-10">
-                                <span className="inline-block px-4 py-1.5 bg-white/10 rounded-full text-xs font-bold tracking-widest uppercase mb-6 text-white/80">
+                                <span className="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-white/10 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6 text-white/80">
                                     {latestWord.date} &bull; {latestWord.category}
                                 </span>
                                 <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6">
@@ -157,7 +157,7 @@ export default function WordOfTheDay() {
                             {/* Explanation */}
                             <div className="w-full lg:w-1/2 p-8 md:p-12 lg:border-r border-neutral-800 flex flex-col justify-start text-left items-start">
                                 <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-widest mb-6">Deep Dive</h3>
-                                <div className="text-neutral-400 leading-relaxed text-base">
+                                <div className="text-[15px] text-neutral-400 leading-relaxed text-base">
                                     {latestWord.explanation.split('\n').map((para, i) => (
                                         <p key={i} className="mb-4">{para}</p>
                                     ))}
