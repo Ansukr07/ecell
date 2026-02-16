@@ -146,14 +146,14 @@ export default function WordOfTheDay() {
                                 </h2>
                                 <TextGenerateEffect
                                     words={latestWord.definition}
-                                    className="text-xl md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed" style={{ textAlign: "center" }}
+                                    className="text-xs md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed" style={{ textAlign: "center" }}
                                     duration={2}
                                 />
                             </div>
                         </div>
 
                         {/* Card Body */}
-                        <div className="flex flex-col lg:flex-row min-h-[400px]">
+                        <div className="flex flex-col-reverse lg:flex-row lg:min-h-[400px]">
                             {/* Explanation */}
                             <div className="w-full lg:w-1/2 p-8 md:p-12 lg:border-r border-neutral-800 flex flex-col justify-start text-left items-start">
                                 <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-widest mb-6">Deep Dive</h3>
@@ -176,7 +176,7 @@ export default function WordOfTheDay() {
 
                             {/* Single Image */}
                             {/* Right Column: Image + Example */}
-                            <div className="w-full lg:w-1/2 flex flex-col min-h-[500px] lg:min-h-0 bg-neutral-900 border-l border-neutral-800">
+                            <div className="w-full lg:w-1/2 flex flex-col bg-neutral-900 border-l border-neutral-800">
                                 {/* Image Section (natural height) */}
                                 <div className="relative overflow-hidden group">
                                     {latestWord.imageUrl ? (
@@ -195,8 +195,8 @@ export default function WordOfTheDay() {
                                     )}
                                 </div>
 
-                                {/* Example Section (fills remaining space, centered) */}
-                                <div className="flex-1 flex flex-col items-center justify-center p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                                {/* Example Section (tight height) */}
+                                <div className="flex flex-col items-center justify-center p-6 md:p-8 border-t border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
                                     <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-3 text-center">
                                         Example
                                     </h3>
