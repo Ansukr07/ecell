@@ -18,10 +18,8 @@ const ShareFailureStory = () => {
     title: "Microsoft Co-founder"
   };
 
-  // Backend API URL - update this to match your backend deployment
-  const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://your-backend-url.com' 
-    : 'http://localhost:3001';
+  // Backend API URL - empty string in production so it uses the same Vercel domain
+  const API_BASE_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -362,10 +360,9 @@ const ShareFailureStory = () => {
                   </div>
                 )}
 
-                {/* Rate Limit Info */}
+                {/* Info */}
                 <div className="text-sm text-gray-600 text-center" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  <p>📧 You'll receive a confirmation email after submission</p>
-                  <p className="mt-1">⏱️ Maximum 5 submissions per hour to prevent spam</p>
+                  <p>⏱️ Maximum 5 submissions per hour to prevent spam</p>
                 </div>
 
               </div>

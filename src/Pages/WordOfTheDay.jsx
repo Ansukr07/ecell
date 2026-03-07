@@ -220,8 +220,7 @@ export default function WordOfTheDay() {
                                     <h2 className="text-3xl font-black tracking-tighter mb-2">Archive</h2>
                                     <p className="text-neutral-500 mb-8 text-sm">Filter words by date.</p>
 
-                                    <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 backdrop-blur-sm">
-
+                                    <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-4 md:p-6 backdrop-blur-sm">
                                         {/* Calendar Header */}
                                         <div className="flex items-center justify-between mb-6">
                                             <h3 className="font-bold text-white">
@@ -238,19 +237,19 @@ export default function WordOfTheDay() {
                                         </div>
 
                                         {/* Days Grid */}
-                                        <div className="grid grid-cols-7 gap-2 text-center mb-2">
+                                        <div className="grid grid-cols-7 gap-2 md:gap-4 text-center mb-2">
                                             {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
                                                 <div key={d} className="text-xs font-bold text-neutral-600">{d}</div>
                                             ))}
                                         </div>
-                                        <div className="grid grid-cols-7 gap-2">
+                                        <div className="grid grid-cols-7 gap-2 md:gap-4">
                                             {getDaysInMonth().map((day, idx) => (
                                                 <div key={idx} className="aspect-square flex items-center justify-center relative">
                                                     {day ? (
                                                         <button
                                                             onClick={() => handleDateClick(day)}
-                                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0
-                                                                ${isSelected(day) ? 'bg-white/20 text-white scale-110 shadow-lg z-10 ring-1 ring-white/50' : isToday(day) ? 'text-white bg-white/10 ring-1 ring-white/30' : 'text-neutral-400 hover:text-orange-400 hover:bg-neutral-800'}
+                                                            className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-[10px] md:text-sm font-medium transition-all outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0
+                                                                ${isSelected(day) ? 'bg-white/20 text-white md:scale-110 shadow-sm md:shadow-lg z-10 ring-1 ring-white/50' : isToday(day) ? 'text-white bg-white/10 ring-1 ring-white/30' : 'text-neutral-400 hover:text-orange-400 hover:bg-neutral-800'}
                                                             `}
                                                         >
                                                             {day}
