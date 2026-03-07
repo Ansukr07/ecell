@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { TextGenerateEffect } from '../components/ui/text-generate-effect';
 import { BackgroundRippleEffect } from '../components/ui/background-ripple-effect';
 
-const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
+const API_URL = '';
 
 export default function WordDetailPage() {
     const { id } = useParams();

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const WordContext = createContext();
-const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
+const API_URL = '';
 
 export const useWord = () => useContext(WordContext);
 
@@ -17,6 +17,9 @@ export const WordProvider = ({ children }) => {
     const fetchWords = async () => {
         try {
             const res = await fetch(`${API_URL}/api/words`);
+            if (!res.ok) {
+                throw new Error(`Server error: ${res.status}`);
+            }
             const data = await res.json();
             setWords(data);
         } catch (error) {

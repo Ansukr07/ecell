@@ -18,8 +18,8 @@ const ShareFailureStory = () => {
     title: "Microsoft Co-founder"
   };
 
-  // Backend API URL - empty string in production so it uses the same Vercel domain
-  const API_BASE_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
+  // Backend API URL - uses relative path, proxied by Vite in dev, same domain on Vercel
+  const API_BASE_URL = '';
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
