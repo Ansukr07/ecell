@@ -25,3 +25,6 @@ dist-ssr
 
 # Agents
 .agents
+
+# Environment
+.env
