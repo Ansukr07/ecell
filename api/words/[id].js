@@ -1,7 +1,7 @@
-const connectDB = require('../_db');
-const Word = require('../_Word');
+import connectDB from '../_db.js';
+import Word from '../_Word.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
@@ -37,4 +37,4 @@ module.exports = async function handler(req, res) {
         console.error('API error:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
-};
+}

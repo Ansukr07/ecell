@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 let cached = global._mongooseConnection;
 
@@ -17,4 +17,4 @@ async function connectDB() {
     return cached.conn;
 }
 
-module.exports = connectDB;
+export default connectDB;

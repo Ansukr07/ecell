@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const wordSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true },
@@ -11,4 +11,4 @@ const wordSchema = new mongoose.Schema({
     example: { type: String, default: '' },
 }, { timestamps: true });
 
-module.exports = mongoose.models.Word || mongoose.model('Word', wordSchema);
+export default mongoose.models.Word || mongoose.model('Word', wordSchema);

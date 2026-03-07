@@ -1,5 +1,5 @@
-const connectDB = require('./_db');
-const mongoose = require('mongoose');
+import connectDB from './_db.js';
+import mongoose from 'mongoose';
 
 // FailureStory schema
 const failureStorySchema = new mongoose.Schema({
@@ -29,7 +29,7 @@ const validateBody = ({ name, email, story }) => {
   return errors;
 };
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -76,4 +76,4 @@ module.exports = async function handler(req, res) {
       error: 'Failed to submit story. Please try again later.',
     });
   }
-};
+}
