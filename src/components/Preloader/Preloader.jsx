@@ -62,11 +62,11 @@ const Preloader = ({ onComplete }) => {
     const t1 = setTimeout(() => setStep(2), 1500); // 1.5s: Reveal words horizontally
     const t2 = setTimeout(() => setStep(3), 2800); // 2.8s: Slide words BELOW (stack vertically)
     const t3 = setTimeout(() => setStep(4), 4800); // 4.8s: Split down middle & reveal portrait
-    const t4 = setTimeout(() => setStep(5), 8500); // 8.5s: Fade out entire preloader
+    const t4 = setTimeout(() => setStep(5), 9500); // 9.5s: Fade out entire preloader
     const t5 = setTimeout(() => {
       setStep(6);
       if (onComplete) onComplete();
-    }, 9000); // 9.0s: Unmount and transition
+    }, 10000); // 10.0s: Unmount and transition
     
     return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
   }, [onComplete]);
@@ -77,7 +77,7 @@ const Preloader = ({ onComplete }) => {
     if (step >= 4) {
       const flashInterval = setInterval(() => {
         setImageIndex(prev => (prev + 1) % images.length);
-      }, 400);
+      }, 600);
       return () => clearInterval(flashInterval);
     }
   }, [step]);
