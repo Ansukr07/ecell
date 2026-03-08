@@ -83,9 +83,9 @@ export default function WordOfTheDay() {
                     style={{ y: titleY }}
                     className="relative z-10 w-full flex flex-col items-center justify-center px-4"
                 >
-                    <span className="block text-[16vw] font-black text-white leading-[0.85] tracking-[-0.04em] text-center">WORD</span>
-                    <span className="block text-[10vw] font-black text-white leading-[0.85] tracking-[-0.04em] text-center">OF THE</span>
-                    <span className="block text-[16vw] font-black text-white leading-[0.85] tracking-[-0.04em] text-center">DAY</span>
+                    <span className="block text-[24vw] md:text-[16vw] font-black text-white leading-[0.85] tracking-[-0.04em] text-center" style={{ fontFamily: "'Nhass', sans-serif" }}>WORD</span>
+                    <span className="block text-[15vw] md:text-[10vw] font-black text-white leading-[0.85] tracking-[-0.04em] text-center" style={{ fontFamily: "'Nhass', sans-serif" }}>OF THE</span>
+                    <span className="block text-[24vw] md:text-[16vw] font-black text-white leading-[0.85] tracking-[-0.04em] text-center" style={{ fontFamily: "'Nhass', sans-serif" }}>DAY</span>
                 </motion.div>
             </div>
 
@@ -112,7 +112,10 @@ export default function WordOfTheDay() {
                                 <span className="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-white/10 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6 text-white/80">
                                     {latestWord.date} &bull; {latestWord.category}
                                 </span>
-                                <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6">
+                                <h2
+                                    className="text-[52px] leading-tight md:text-8xl font-black tracking-tighter text-white mb-6"
+                                    style={{ fontFamily: "'Nhass', sans-serif" }}
+                                >
                                     {latestWord.title}
                                 </h2>
                                 <TextGenerateEffect

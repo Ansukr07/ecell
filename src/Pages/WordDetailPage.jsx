@@ -96,7 +96,10 @@ export default function WordDetailPage() {
                                 <span className="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-white/10 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6 text-white/80">
                                     {word.date} &bull; {word.category}
                                 </span>
-                                <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6">
+                                <h2
+                                    className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6"
+                                    style={{ fontFamily: "'Nhass', sans-serif" }}
+                                >
                                     {word.title}
                                 </h2>
                                 <TextGenerateEffect
