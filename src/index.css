@@ -1,6 +1,12 @@
 /* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600&display=swap');
 
+@font-face {
+  font-family: 'Robit';
+  src: url('./Pages/assets/Robit.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 :root {

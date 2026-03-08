@@ -183,7 +183,7 @@ export default function WordOfTheDay() {
                         >
                             {[...Array(4)].map((_, i) => (
                                 <span key={i} className="text-[13vw] md:text-[11vw] font-black text-white tracking-tighter leading-none pr-[4vw] select-none">
-                                    Featured Words©&nbsp;
+                                    Featured Words&nbsp;
                                 </span>
                             ))}
                         </motion.div>
@@ -191,9 +191,11 @@ export default function WordOfTheDay() {
 
                     <div className="max-w-7xl mx-auto px-5 md:px-8">
 
-                        {/* Filter button row */}
+                        {/* Filter row */}
                         <div className="flex justify-end mb-8" ref={filterRef}>
                             <div className="relative">
+
+                                {/* Trigger button */}
                                 <button
                                     onClick={() => setFilterOpen(o => !o)}
                                     className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${selectedDate ? 'bg-white text-black' : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'}`}
@@ -205,63 +207,53 @@ export default function WordOfTheDay() {
                                     }
                                 </button>
 
+                                {/* Custom dropdown panel */}
                                 {filterOpen && (
                                     <motion.div
-                                        initial={{ opacity: 0, y: 4 }}
+                                        initial={{ opacity: 0, y: 6 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="absolute right-0 top-full mt-2 w-44 bg-neutral-900 border border-neutral-700 rounded-xl overflow-hidden shadow-2xl z-50 max-h-56 overflow-y-auto"
+                                        className="absolute right-0 top-full mt-2 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl z-50 overflow-hidden"
                                     >
-                                        <button
-                                            onClick={() => { setSelectedDate(null); setFilterOpen(false); }}
-                                            className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors ${!selectedDate ? 'text-white bg-white/5' : 'text-neutral-400 hover:text-white hover:bg-white/5'}`}
-                                        >
-                                            All dates
-                                        </button>
-                                        {availableDates.map(date => (
+                                        {/* Text input to type a date */}
+                                        <div className="px-3 pt-3 pb-2">
+                                            <input
+                                                type="text"
+                                                placeholder="YYYY-MM-DD"
+                                                value={selectedDate || ''}
+                                                onChange={(e) => setSelectedDate(e.target.value || null)}
+                                                className="w-full bg-neutral-800 text-white text-xs px-3 py-2 rounded-lg outline-none border border-neutral-700 focus:border-white/40 placeholder-neutral-600 font-mono"
+                                            />
+                                        </div>
+                                        <div className="h-px bg-neutral-800 mx-3" />
+                                        {/* Available dates list */}
+                                        <div className="max-h-44 overflow-y-auto py-1">
                                             <button
-                                                key={date}
-                                                onClick={() => { setSelectedDate(date); setFilterOpen(false); }}
-                                                className={`w-full text-left px-4 py-2.5 text-xs transition-colors ${selectedDate === date ? 'text-black font-bold bg-white' : 'text-neutral-400 hover:text-white hover:bg-white/5'}`}
+                                                onClick={() => { setSelectedDate(null); setFilterOpen(false); }}
+                                                className={`w-full text-left px-4 py-2 text-xs transition-colors ${!selectedDate ? 'text-white font-semibold bg-white/5' : 'text-neutral-400 hover:text-white hover:bg-white/5'}`}
                                             >
-                                                {date}
+                                                All dates
                                             </button>
-                                        ))}
+                                            {availableDates.map(date => (
+                                                <button
+                                                    key={date}
+                                                    onClick={() => { setSelectedDate(date); setFilterOpen(false); }}
+                                                    className={`w-full text-left px-4 py-2 text-xs font-mono transition-colors ${selectedDate === date ? 'text-black font-bold bg-white' : 'text-neutral-400 hover:text-white hover:bg-white/5'}`}
+                                                >
+                                                    {date}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </motion.div>
                                 )}
+
                             </div>
                         </div>
 
                         {/* Cards Grid */}
                         {filteredWords.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-                                {filteredWords.map((word, idx) => (
-                                    <motion.div
-                                        key={word._id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: idx * 0.07 }}
-                                        className="group"
-                                    >
-                                        <Link to={`/word-of-the-day/${word._id}`} className="block">
-                                            {/* Square image with hover effects */}
-                                            <div className="relative aspect-square overflow-hidden rounded-xl mb-3 cursor-pointer">
-                                                <img
-                                                    src={word.imageUrl}
-                                                    alt={word.title}
-                                                    className="object-cover w-full h-full transition-all duration-500 group-hover:grayscale group-hover:scale-105"
-                                                />
-                                                {/* Dark overlay on hover */}
-                                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
-                                            </div>
-
-                                            {/* Text below */}
-                                            <h3 className="text-xl md:text-2xl font-black text-white leading-tight tracking-tight mb-1 group-hover:text-neutral-300 transition-colors duration-300">
-                                                {word.title}
-                                            </h3>
-                                            <p className="text-sm text-neutral-500">{word.category}</p>
-                                        </Link>
-                                    </motion.div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+                                {filteredWords.map((word) => (
+                                    <WordCard key={word._id} word={word} />
                                 ))}
                             </div>
                         ) : (
@@ -278,5 +270,48 @@ export default function WordOfTheDay() {
             </div>{/* closes zIndex:10 wrapper */}
 
         </div>
+    );
+}
+
+/* ── Word card — Roboto font, no blob ── */
+function WordCard({ word }) {
+    return (
+        <Link
+            to={`/word-of-the-day/${word._id}`}
+            className="group block"
+        >
+            {/* Image */}
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-5">
+                <img
+                    src={word.imageUrl}
+                    alt={word.title}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+            </div>
+
+            {/* Title */}
+            <h3
+                style={{ fontFamily: "'Robit', sans-serif" }}
+                className="text-left text-[22px] md:text-[25px] font-semibold text-white leading-[1.25] tracking-tight mb-2 group-hover:text-neutral-400 transition-colors duration-300"
+            >
+                {word.title}
+            </h3>
+
+            {/* Category */}
+            <p
+                style={{ fontFamily: "'Robit', sans-serif" }}
+                className="text-left text-[14px] text-neutral-500 font-normal mb-3"
+            >
+                {word.category}
+            </p>
+
+            {/* Read more */}
+            <span
+                style={{ fontFamily: "'Robit', sans-serif" }}
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white/70 group-hover:text-white group-hover:gap-2.5 transition-all duration-300"
+            >
+                Read more <span className="text-base">→</span>
+            </span>
+        </Link>
     );
 }
