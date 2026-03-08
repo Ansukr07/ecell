@@ -13,6 +13,15 @@ export default function WordOfTheDay() {
 
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
+    // Responsive marquee speed
+    const [marqueeDuration, setMarqueeDuration] = useState(18);
+    useEffect(() => {
+        const handleResize = () => setMarqueeDuration(window.innerWidth < 768 ? 2.5 : 18);
+        handleResize(); // init
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     // Track scroll to move title upward (simulating natural scroll)
     // NO opacity fade — title stays fully visible and goes behind the card
     const { scrollY } = useScroll();
@@ -179,11 +188,19 @@ export default function WordOfTheDay() {
                         <motion.div
                             className="flex whitespace-nowrap"
                             animate={{ x: ['0%', '-50%'] }}
-                            transition={{ repeat: Infinity, ease: 'linear', duration: 18 }}
+                            transition={{
+                                repeat: Infinity,
+                                ease: 'linear',
+                                duration: marqueeDuration
+                            }}
                         >
                             {[...Array(4)].map((_, i) => (
-                                <span key={i} className="text-[13vw] md:text-[11vw] font-black text-white tracking-tighter leading-none pr-[4vw] select-none">
-                                    Featured Words&nbsp;
+                                <span
+                                    key={i}
+                                    className="text-[13vw] md:text-[11vw] font-black text-white tracking-tighter leading-none pr-[4vw] select-none"
+                                    style={{ fontFamily: "'Nhass', sans-serif" }}
+                                >
+                                    Featured Words@&nbsp;
                                 </span>
                             ))}
                         </motion.div>
@@ -251,7 +268,7 @@ export default function WordOfTheDay() {
 
                         {/* Cards Grid */}
                         {filteredWords.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-6 sm:gap-10 md:gap-14">
                                 {filteredWords.map((word) => (
                                     <WordCard key={word._id} word={word} />
                                 ))}
@@ -278,7 +295,7 @@ function WordCard({ word }) {
     return (
         <Link
             to={`/word-of-the-day/${word._id}`}
-            className="group block"
+            className="group block border-b border-neutral-800 pb-10 sm:border-0 sm:pb-0 last:border-0"
         >
             {/* Image */}
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-5">
