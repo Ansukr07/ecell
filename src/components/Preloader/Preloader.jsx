@@ -94,17 +94,10 @@ const Preloader = ({ onComplete }) => {
   // Slideshow logic
   const [imageIndex, setImageIndex] = useState(0);
   useEffect(() => {
-    if (step >= 4) {
-      let count = 0;
+    if (step >= 3) {
       const flashInterval = setInterval(() => {
-        count++;
-        // Exactly cycle through 4 images, then stop the interval
-        if (count < images.length) {
-          setImageIndex(count);
-        } else {
-          clearInterval(flashInterval);
-        }
-      }, 600);
+        setImageIndex(prev => (prev + 1) % images.length);
+      }, 300);
       return () => clearInterval(flashInterval);
     }
   }, [step]);
