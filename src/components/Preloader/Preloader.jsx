@@ -128,7 +128,7 @@ const Preloader = ({ onComplete }) => {
     >
       {/* LEFT TICKER STRIP */}
       <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 md:w-20 bg-[#080808] border-r border-[#1a1a1a] flex items-center justify-center pointer-events-none z-30">
-        <div className="rotate-[-90deg] whitespace-nowrap flex text-[#777777] font-sans text-[12px] sm:text-[14px] md:text-base font-medium tracking-[0.25em] uppercase">
+        <div className="rotate-[-90deg] whitespace-nowrap flex text-[#777777] font-sans text-[9px] sm:text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase">
           <motion.div className="flex gap-4" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, ease: "linear", duration: 30 }}>
             <span className="pr-4 leading-none">{tickerString}</span>
             <span className="pr-4 leading-none">{tickerString}</span>
@@ -138,7 +138,7 @@ const Preloader = ({ onComplete }) => {
 
       {/* RIGHT TICKER STRIP */}
       <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 md:w-20 bg-[#080808] border-l border-[#1a1a1a] flex items-center justify-center pointer-events-none z-30">
-        <div className="rotate-[90deg] whitespace-nowrap flex text-[#777777] font-sans text-[12px] sm:text-[14px] md:text-base font-medium tracking-[0.25em] uppercase">
+        <div className="rotate-[90deg] whitespace-nowrap flex text-[#777777] font-sans text-[9px] sm:text-[11px] md:text-xs font-medium tracking-[0.25em] uppercase">
           <motion.div className="flex gap-4" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, ease: "linear", duration: 30 }}>
             <span className="pr-4 leading-none">{tickerString}</span>
             <span className="pr-4 leading-none">{tickerString}</span>
@@ -160,7 +160,7 @@ const Preloader = ({ onComplete }) => {
                 <motion.div
                   layout
                   key={row.id}
-                  className={`flex ${step >= 3 ? 'flex-col space-y-0 sm:-space-y-2 md:-space-y-4 lg:-space-y-3' : 'flex-row gap-0'} items-center justify-center font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[30px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none text-center`}
+                  className={`flex ${step >= 3 ? 'flex-col space-y-0 sm:-space-y-2 md:-space-y-4 lg:-space-y-3' : 'flex-row gap-0'} items-center justify-center font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none text-center`}
                 >
 
                   {/* Word 1: GLOBAL */}
@@ -205,7 +205,7 @@ const Preloader = ({ onComplete }) => {
             >
               <motion.div
                 layoutId="global-text"
-                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[30px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
+                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
               >
                 E-CELL
               </motion.div>
@@ -234,7 +234,7 @@ const Preloader = ({ onComplete }) => {
 
               <motion.div
                 layoutId="money-text"
-                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[30px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
+                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
               >
                 BMSIT&M
               </motion.div>
