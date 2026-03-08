@@ -153,8 +153,8 @@ const EcellAlumniPage = () => {
       <div
         ref={(el) => registerCard(el, `stat-${stat.id}`)}
         className={`text-center transform transition-all duration-1000 ease-out ${isVisible
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-20 opacity-0'
+          ? 'translate-y-0 opacity-100'
+          : 'translate-y-20 opacity-0'
           }`}
         style={{ transitionDelay: `${stat.delay}ms` }}
       >
@@ -188,16 +188,16 @@ const EcellAlumniPage = () => {
       <div
         ref={(el) => registerCard(el, `member-${member.id}`)}
         className={`relative group cursor-pointer transform transition-all duration-700 ease-out ${isVisible
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-20 opacity-0'
+          ? 'translate-y-0 opacity-100'
+          : 'translate-y-20 opacity-0'
           }`}
         style={{ transitionDelay: `${index * 100}ms` }}
         onMouseEnter={() => setHoveredCard(member.id)}
         onMouseLeave={() => setHoveredCard(null)}
       >
         <div className={`bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden border-2 transition-all duration-500 ${isHovered
-            ? 'border-[#FD7722] shadow-2xl shadow-[#FD7722]/20 scale-105'
-            : 'border-gray-700 hover:border-gray-600'
+          ? 'border-[#FD7722] shadow-2xl shadow-[#FD7722]/20 scale-105'
+          : 'border-gray-700 hover:border-gray-600'
           }`}>
           {/* Image Container */}
           <div className="aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-gray-700 to-gray-800">
@@ -205,8 +205,8 @@ const EcellAlumniPage = () => {
               src={member.image}
               alt={member.name}
               className={`w-full h-full object-cover transition-all duration-700 ${isHovered
-                  ? 'scale-110 grayscale-0'
-                  : 'scale-100 grayscale hover:grayscale-[50%]'
+                ? 'scale-110 grayscale-0'
+                : 'scale-100 grayscale hover:grayscale-[50%]'
                 }`}
             />
 
@@ -252,8 +252,8 @@ const EcellAlumniPage = () => {
           <div
             ref={(el) => registerCard(el, 'section-title')}
             className={`transform transition-all duration-1000 ease-out mb-20 ${visibleCards.has('section-title')
-                ? 'translate-y-0 opacity-100'
-                : 'translate-y-10 opacity-0'
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-10 opacity-0'
               }`}
           >
             <h2 className="text-2xl lg:text-3xl text-gray-300 uppercase tracking-[0.3em] text-center relative font-sans">
@@ -281,8 +281,8 @@ const EcellAlumniPage = () => {
           <div
             ref={(el) => registerCard(el, 'team-title')}
             className={`transform transition-all duration-1000 ease-out mb-20 ${visibleCards.has('team-title')
-                ? 'translate-y-0 opacity-100'
-                : 'translate-y-10 opacity-0'
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-10 opacity-0'
               }`}
           >
             <h2 className="text-5xl lg:text-7xl xl:text-8xl font-black text-center leading-tight font-serif">
@@ -302,7 +302,7 @@ const EcellAlumniPage = () => {
       </section>
 
 
-      <Footer />
+
 
       {/* Custom CSS for animations */}
       <style jsx>{`

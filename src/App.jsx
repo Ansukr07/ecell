@@ -27,11 +27,8 @@ function App() {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-      setTimeout(() => setShowContent(true), 100);
-    }, 4000);
-    return () => clearTimeout(timer);
+    // Rely exclusively on the `<Preloader onComplete={...} />` callback
+    // instead of an arbitrary 4s timeout.
   }, []);
 
   const handlePreloaderComplete = () => {

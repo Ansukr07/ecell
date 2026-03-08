@@ -1,350 +1,216 @@
-import { useEffect, useState } from 'react';
-import logoSrc from "../../assets/ecell1.png"; // Adjust the path to your logo image
-const Preloader = ({ onComplete }) => {
-  const [progress, setProgress] = useState(0);
-  const [isDone, setIsDone] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Using local assets as placeholders for the cinematic slideshow
+import img1 from "../../assets/image1.jpg";
+import img2 from "../../assets/image2.jpg";
+import img3 from "../../assets/image3.jpg";
+import img4 from "../../assets/image40.jpg";
+
+const images = [img1, img2, img3, img4];
+
+const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ£$€¥₪¤₹₽";
+
+const ScrambleText = ({ targetText, isReady }) => {
+  const [text, setText] = useState(
+    targetText.split("").map(() => scrambleChars[Math.floor(Math.random() * scrambleChars.length)]).join("")
+  );
 
   useEffect(() => {
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + 1;
-        if (next >= 100) {
-          clearInterval(progressInterval);
-          setTimeout(() => {
-            setIsExiting(true);
-            setTimeout(() => {
-              setIsDone(true);
-              if (onComplete) onComplete();
-            }, 1000);
-          }, 500);
-        }
-        return next;
-      });
-    }, 30);
+    let interval;
+    if (isReady) {
+      let start = Date.now();
+      const scrambleDuration = 400;
 
-    return () => clearInterval(progressInterval);
+      interval = setInterval(() => {
+        let now = Date.now();
+        let progress = (now - start) / scrambleDuration;
+
+        if (progress >= 1) {
+          setText(targetText);
+          clearInterval(interval);
+        } else {
+          let scrambled = targetText.split("").map((c, i) => {
+            if (progress > (i / targetText.length)) return c;
+            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+          }).join("");
+          setText(scrambled);
+        }
+      }, 30);
+    } else {
+      interval = setInterval(() => {
+        setText(targetText.split("").map(() => scrambleChars[Math.floor(Math.random() * scrambleChars.length)]).join(""));
+      }, 50);
+    }
+    return () => clearInterval(interval);
+  }, [targetText, isReady]);
+
+  return <span>{text}</span>;
+}
+
+const Preloader = ({ onComplete }) => {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const t0 = setTimeout(() => setStep(1), 500);  // 0.5s: Scramble locks
+    const t1 = setTimeout(() => setStep(2), 1200); // 1.2s: Reveal words horizontally
+    const t2 = setTimeout(() => setStep(3), 2200); // 2.2s: Slide words BELOW (stack vertically)
+    const t3 = setTimeout(() => setStep(4), 3800); // 3.8s: Split down middle & reveal portrait
+    const t4 = setTimeout(() => setStep(5), 7000); // 7.0s: Fade out entire preloader
+    const t5 = setTimeout(() => {
+      setStep(6);
+      if (onComplete) onComplete();
+    }, 7500); // 7.5s: Unmount and transition
+
+    return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
   }, [onComplete]);
 
-  if (isDone) return null;
+  // Slideshow logic
+  const [imageIndex, setImageIndex] = useState(0);
+  useEffect(() => {
+    if (step >= 4) {
+      const flashInterval = setInterval(() => {
+        setImageIndex(prev => (prev + 1) % images.length);
+      }, 400);
+      return () => clearInterval(flashInterval);
+    }
+  }, [step]);
+
+  if (step === 6) return null;
+
+  const rows = [
+    { id: 1, w1: "E-CELL", w2: "INNOVATE" },
+    { id: 2, w1: "E-CELL", w2: "IDEATE" },
+    { id: 3, w1: "E-CELL", w2: "INSPIRE" },
+  ];
+
+  const tickerString = "INNOVATE \u00A0 \u2022 \u00A0 IDEATE \u00A0 \u2022 \u00A0 INSPIRE \u00A0 \u2022 \u00A0 ENTREPRENEURSHIP \u00A0 \u2022 \u00A0 STARTUPS \u00A0 \u2022 \u00A0 LEADERSHIP \u00A0 \u2022 \u00A0 ";
 
   return (
-    <>
-      <style jsx>{`
-        .preloader {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          background: #0f172a;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          z-index: 9999;
-          overflow: hidden;
-          transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .preloader.exiting {
-          transform: scale(20);
-          opacity: 0;
-        }
-
-        .content {
-          text-align: center;
-          position: relative;
-          z-index: 2;
-        }
-
-        .brand {
-          margin-bottom: 3rem;
-          animation: slideUp 1.2s ease-out;
-        }
-        .brand-icon, .icon-outer, .icon-inner { display: none; }
-
-        .brand-icon {
-          width: 80px;
-          height: 80px;
-          margin: 0 auto 1.5rem;
-          position: relative;
-        }
-         .brand-logo {
-          width: 120px;
-          height: auto;
-          display: block;
-          margin: 0 auto 1.5rem;
-          animation: logoPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-          0%, 100% { transform: scale(1); }
-          50%     { transform: scale(1.05); }
-        }
-
-        /* Optionally adjust text */
-        .brand-text {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #e2e8f0;
-          letter-spacing: 0.2em;
-          margin-bottom: 0.5rem;
-        }
-      
-
-        .icon-outer {
-          width: 100%;
-          height: 100%;
-          border: 3px solid #1e40af;
-          border-radius: 20px;
-          position: relative;
-          animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        .icon-inner {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 40px;
-          height: 40px;
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-          border-radius: 8px;
-          animation: iconFloat 3s ease-in-out infinite;
-        }
-
-        .brand-text {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #e2e8f0;
-          letter-spacing: 0.2em;
-          margin-bottom: 0.5rem;
-        }
-
-        .brand-subtitle {
-          font-size: 0.9rem;
-          color: #64748b;
-          font-weight: 400;
-          letter-spacing: 0.1em;
-        }
-
-        .loading-section {
-          margin-top: 4rem;
-        }
-
-        .loading-text {
-          font-size: 1.1rem;
-          color: #94a3b8;
-          margin-bottom: 2rem;
-          font-weight: 500;
-          animation: textFade 2s ease-in-out infinite;
-        }
-
-        .progress-container {
-          width: 300px;
-          margin: 0 auto;
-        }
-
-        .progress-track {
-          width: 100%;
-          height: 6px;
-          background: #1e293b;
-          border-radius: 3px;
-          overflow: hidden;
-          position: relative;
-          margin-bottom: 1rem;
-          border: 1px solid #334155;
-        }
-
-        .progress-bar {
-          height: 100%;
-          background: linear-gradient(90deg, #f97316, #ea580c, #f97316);
-          background-size: 200% 100%;
-          border-radius: 3px;
-          width: ${progress}%;
-          transition: width 0.3s ease;
-          animation: shimmer 2s linear infinite;
-          position: relative;
-        }
-
-        .progress-bar::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 20px;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-          animation: sweep 2s ease-in-out infinite;
-        }
-
-        .progress-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .progress-label {
-          font-size: 0.85rem;
-          color: #64748b;
-          font-weight: 500;
-        }
-
-        .progress-number {
-          font-size: 1rem;
-          color: #f97316;
-          font-weight: 700;
-          font-family: 'Courier New', monospace;
-        }
-
-        .dots {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-        }
-
-        .dot {
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          background: #1e40af;
-          border-radius: 50%;
-          opacity: 0;
-          animation: dotFloat 4s linear infinite;
-        }
-
-        .dot:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .dot:nth-child(2) { left: 20%; top: 80%; animation-delay: 0.5s; }
-        .dot:nth-child(3) { left: 80%; top: 30%; animation-delay: 1s; }
-        .dot:nth-child(4) { left: 70%; top: 70%; animation-delay: 1.5s; }
-        .dot:nth-child(5) { left: 30%; top: 60%; animation-delay: 2s; }
-        .dot:nth-child(6) { left: 90%; top: 50%; animation-delay: 2.5s; }
-
-        .background-grid {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0.03;
-          background-image: 
-            linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px);
-          background-size: 50px 50px;
-          animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes iconPulse {
-          0%, 100% { 
-            transform: scale(1);
-            border-color: #1e40af;
-          }
-          50% { 
-            transform: scale(1.05);
-            border-color: #3b82f6;
-          }
-        }
-
-        @keyframes iconFloat {
-          0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-          50% { transform: translate(-50%, -50%) rotate(5deg); }
-        }
-
-        @keyframes textFade {
-          0%, 100% { opacity: 0.7; }
-          50% { opacity: 1; }
-        }
-
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-
-        @keyframes sweep {
-          0% { transform: translateX(-100%); opacity: 0; }
-          50% { opacity: 1; }
-          100% { transform: translateX(500%); opacity: 0; }
-        }
-
-        @keyframes dotFloat {
-          0% { 
-            opacity: 0;
-            transform: translateY(0) scale(0.5);
-          }
-          25% {
-            opacity: 1;
-            transform: translateY(-20px) scale(1);
-          }
-          75% {
-            opacity: 1;
-            transform: translateY(-40px) scale(1);
-          }
-          100% { 
-            opacity: 0;
-            transform: translateY(-60px) scale(0.5);
-          }
-        }
-
-        @keyframes gridMove {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(50px, 50px); }
-        }
-
-        @media (max-width: 768px) {
-          .brand-text {
-            font-size: 1.25rem;
-          }
-          .progress-container {
-            width: 250px;
-          }
-          .brand-icon {
-            width: 60px;
-            height: 60px;
-          }
-          .icon-inner {
-            width: 30px;
-            height: 30px;
-          }
-        }
-      `}</style>
-
-      <div className={`preloader ${isExiting ? 'exiting' : ''}`}>
-        <div className="background-grid"></div>
-        
-        <div className="dots">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="dot"></div>
-          ))}
+    <motion.div
+      className="fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center overflow-hidden"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: step === 5 ? 0 : 1 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
+      {/* LEFT TICKER STRIP */}
+      <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-[#080808] border-r border-[#1a1a1a] flex items-center justify-center pointer-events-none z-30">
+        <div className="rotate-[-90deg] whitespace-nowrap flex text-[#777777] font-sans text-[8px] sm:text-[10px] md:text-sm font-medium tracking-[0.25em] uppercase">
+          <motion.div className="flex gap-4" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, ease: "linear", duration: 30 }}>
+            <span className="pr-4 leading-none">{tickerString}</span>
+            <span className="pr-4 leading-none">{tickerString}</span>
+          </motion.div>
         </div>
+      </div>
 
-        <div className="content">
-          <div className="brand">
-             <img src={logoSrc} alt="E-Cell Logo" className="brand-logo" />
-              
-              </div>
-            </div>
-            <div className="brand-text">Entrepreneurship Cell </div>
-            <div className="brand-subtitle">IDEATE INNOVATE INSPIRE</div>
-          </div>
+      {/* RIGHT TICKER STRIP */}
+      <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-[#080808] border-l border-[#1a1a1a] flex items-center justify-center pointer-events-none z-30">
+        <div className="rotate-[90deg] whitespace-nowrap flex text-[#777777] font-sans text-[8px] sm:text-[10px] md:text-sm font-medium tracking-[0.25em] uppercase">
+          <motion.div className="flex gap-4" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, ease: "linear", duration: 30 }}>
+            <span className="pr-4 leading-none">{tickerString}</span>
+            <span className="pr-4 leading-none">{tickerString}</span>
+          </motion.div>
+        </div>
+      </div>
 
-        
-  
-      
-   
-    </>
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 flex items-center justify-center w-full px-12 h-screen">
+
+        <AnimatePresence>
+          {step < 4 && (
+            <motion.div
+              className="flex flex-col items-center gap-6 sm:gap-10 md:gap-14 justify-center absolute w-full h-full"
+              exit={{ opacity: 0, scale: 1.1, filter: "blur(5px)" }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {rows.map((row) => (
+                <motion.div
+                  layout
+                  key={row.id}
+                  className={`flex ${step >= 3 ? 'flex-col -space-y-1 sm:-space-y-2 md:-space-y-4 lg:-space-y-3' : 'flex-row gap-0'} items-center justify-center font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-[80px] leading-none text-center`}
+                >
+
+                  {/* Word 1: GLOBAL */}
+                  <motion.div
+                    layout
+                    layoutId={row.id === 2 ? "global-text" : undefined}
+                    className="whitespace-nowrap text-[#B8C0C2]"
+                  >
+                    <ScrambleText targetText={row.w1} isReady={step >= 1} />
+                  </motion.div>
+
+                  {/* Word 2: PAYMENTS / MONEY / TRANSFERS */}
+                  <motion.div
+                    layout
+                    className="whitespace-nowrap overflow-hidden flex items-center justify-center"
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={step >= 2 ? { width: "auto", opacity: 1 } : { width: 0, opacity: 0 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <motion.div
+                      layout
+                      layoutId={row.id === 2 ? "money-text" : undefined}
+                      className={step >= 3 ? "pl-0" : "pl-3 sm:pl-5"}
+                    >
+                      {row.w2}
+                    </motion.div>
+                  </motion.div>
+
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {step >= 4 && (
+            <motion.div
+              className="flex flex-col items-center justify-center gap-8 md:gap-12 absolute w-full h-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            >
+              <motion.div
+                layoutId="global-text"
+                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-[80px] leading-none z-20"
+              >
+                E-CELL
+              </motion.div>
+
+              {/* Image Slideshow Frame */}
+              <motion.div
+                initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+                animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                className="w-[200px] h-[300px] sm:w-[260px] sm:h-[380px] lg:w-[320px] lg:h-[460px] bg-[#111111] relative z-10 rounded-[30px] sm:rounded-[40px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-center"
+                style={{ aspectRatio: "2/3" }}
+              >
+                <AnimatePresence mode="popLayout">
+                  <motion.img
+                    key={imageIndex}
+                    src={images[imageIndex]}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="w-full h-full object-cover absolute inset-0 rounded-[30px] sm:rounded-[40px]"
+                    alt="fintech sequence"
+                  />
+                </AnimatePresence>
+              </motion.div>
+
+              <motion.div
+                layoutId="money-text"
+                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-[80px] leading-none z-20"
+              >
+                BMSIT&M
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+    </motion.div>
   );
 };
 
