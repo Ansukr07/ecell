@@ -52,16 +52,22 @@ const Preloader = ({ onComplete }) => {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const t0 = setTimeout(() => setStep(1), 500);  // 0.5s: Scramble locks
-    const t1 = setTimeout(() => setStep(2), 1200); // 1.2s: Reveal words horizontally
-    const t2 = setTimeout(() => setStep(3), 2200); // 2.2s: Slide words BELOW (stack vertically)
-    const t3 = setTimeout(() => setStep(4), 3800); // 3.8s: Split down middle & reveal portrait
-    const t4 = setTimeout(() => setStep(5), 7000); // 7.0s: Fade out entire preloader
+    // Eagerly preload images directly into the browser cache on mount
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    const t0 = setTimeout(() => setStep(1), 600);  // 0.6s: Scramble locks
+    const t1 = setTimeout(() => setStep(2), 1500); // 1.5s: Reveal words horizontally
+    const t2 = setTimeout(() => setStep(3), 2800); // 2.8s: Slide words BELOW (stack vertically)
+    const t3 = setTimeout(() => setStep(4), 4800); // 4.8s: Split down middle & reveal portrait
+    const t4 = setTimeout(() => setStep(5), 8500); // 8.5s: Fade out entire preloader
     const t5 = setTimeout(() => {
       setStep(6);
       if (onComplete) onComplete();
-    }, 7500); // 7.5s: Unmount and transition
-
+    }, 9000); // 9.0s: Unmount and transition
+    
     return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
   }, [onComplete]);
 
@@ -150,7 +156,7 @@ const Preloader = ({ onComplete }) => {
                     <motion.div
                       layout
                       layoutId={row.id === 2 ? "money-text" : undefined}
-                      className={step >= 3 ? "pl-0" : "pl-3 sm:pl-5"}
+                      className={step >= 3 ? "pl-0  " : "pl-3 sm:pl-5"}
                     >
                       {row.w2}
                     </motion.div>
