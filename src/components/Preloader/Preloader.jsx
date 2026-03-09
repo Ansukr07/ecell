@@ -199,7 +199,8 @@ const Preloader = ({ onComplete }) => {
             >
               <motion.div
                 layoutId="global-text"
-                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
+                className="tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
+                style={{ fontFamily: "'Nhass', sans-serif" }}
               >
                 E-CELL
               </motion.div>
@@ -216,8 +217,8 @@ const Preloader = ({ onComplete }) => {
                   <motion.img
                     key={imageIndex}
                     src={images[imageIndex]}
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 1.4 }}
+                    animate={{ opacity: 1, scale: 1.3 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
                     className="w-full h-full object-cover absolute inset-0 rounded-[30px] sm:rounded-[40px]"
@@ -228,7 +229,8 @@ const Preloader = ({ onComplete }) => {
 
               <motion.div
                 layoutId="money-text"
-                className="font-sans tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
+                className="tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
+                style={{ fontFamily: "'Nhass', sans-serif" }}
               >
                 BMSIT&M
               </motion.div>
