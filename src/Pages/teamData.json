@@ -1,178 +1,41 @@
 {
   "leadership": [
     {
-      "name": "Maxson Matthew",
+      "name": "Maxson Mathew",
       "position": "President",
       "image": "./assets/team/maxson.JPG",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    }
-  ],
-  "mentor": [
+      "socials": {}
+    },
     {
-      "name": "Mohit Monnappa",
+      "name": "Mohit Monnappa T N",
       "position": "Mentor",
       "image": "./assets/team/mohit.jpeg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    }
-  ],
-  "vicePresidents": [
+      "socials": {}
+    },
     {
       "name": "Nishitha Bodipati",
       "position": "Vice President",
       "image": "./assets/team/nishitha.jpeg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
+      "socials": {}
     },
     {
-      "name": "Vaibhav P",
+      "name": "Vaibhav Balakundi",
       "position": "Vice President",
       "image": "./assets/team/vaibhav.jpg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
+      "socials": {}
     }
   ],
-  "heads": [
+  "tech_team": [
     {
       "name": "Atul Kumar",
       "position": "Tech Head",
       "image": "./assets/team/atul.jpg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
+      "socials": {}
     },
     {
-      "name": "Fardeen K",
-      "position": "Corporate Relations Head",
-      "image": "./assets/team/fardeen.jpeg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    },
-    {
-      "name": "Gaganjith R",
-      "position": "Events & Ops Head",
-      "image": "./assets/team/gaganjith.jpg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    },
-    {
-      "name": "Hitesh R",
-      "position": "Media & Marketing Head",
-      "image": "./assets/team/hitesh.jpeg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    },
-    {
-      "name": "Shriya",
-      "position": "Content Head",
-      "image": "./assets/team/shriya.jpg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    },
-    {
-      "name": "Tirth Panchori",
-      "position": "Design Head",
-      "image": "./assets/team/tirth.jpg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    }
-  ],
-  "viceHeads": [
-    {
-      "name": "Milan S",
+      "name": "Milan",
       "position": "Tech Vice Head",
       "image": "./assets/team/milan.jpg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    },
-    {
-      "name": "Bhanu Prasad",
-      "position": "Media Vice Head",
-      "image": "./assets/team/bhanu.JPG",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    },
-    {
-      "name": "Akhilesh Pachnanda",
-      "position": "Design Vice Head",
-      "image": "./assets/team/akhilesh.jpeg",
-      "socials": {
-        "linkedin": "",
-        "github": ""
-      }
-    }
-  ],
-  "associates": [
-    {
-      "name": "Ananya",
-      "position": "Media Associate",
-      "image": "./assets/team/ananya.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Bhavana",
-      "position": "Marketing Associate",
-      "image": "./assets/team/bhavana.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Dhyeya",
-      "position": "Operations Associate",
-      "image": "./assets/team/Dhyeya.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Divyashree",
-      "position": "Operations Associate",
-      "image": "./assets/team/divyashree.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Jasvanti",
-      "position": "Design Associate",
-      "image": "./assets/team/jasvanti.jpeg",
-      "socials": {}
-    },
-    {
-      "name": "Krishna",
-      "position": "Marketing Associate",
-      "image": "./assets/team/krishna.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Faizan Khan",
-      "position": "Marketing Associate",
-      "image": "./assets/team/Faizan.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Parathana Dillip",
-      "position": "Corporate Relations Associate",
-      "image": "./assets/team/parathana.jpeg",
       "socials": {}
     },
     {
@@ -182,69 +45,175 @@
       "socials": {}
     },
     {
-      "name": "Anvita",
-      "position": "Marketing Associate",
-      "image": "./assets/team/anvita.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Arush",
-      "position": "Corporate Relations Associate",
-      "image": "./assets/team/arush.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Ashutosh",
-      "position": "Content Associate",
-      "image": "./assets/team/ashutosh.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Deepthi Jain",
-      "position": "Event & Ops Associate",
-      "image": "./assets/team/deepthijain.jpg",
-      "socials": {}
-    },
-    {
-      "name": "Gagan HS",
-      "position": "Operations Associate",
-      "image": "./assets/team/gaganhs.jpeg",
-      "socials": {}
-    },
-    {
-      "name": "Jayakeerthi",
-      "position": "Content Associate",
-      "image": "./assets/team/jayakeerthi.jpg",
-      "socials": {}
-    },
-    {
       "name": "Krish Jain",
       "position": "Tech Associate",
       "image": "./assets/team/krishjain.jpg",
       "socials": {}
+    }
+  ],
+  "design_team": [
+    {
+      "name": "Tirth Panchori",
+      "position": "Design Head",
+      "image": "./assets/team/tirth.jpg",
+      "socials": {}
     },
     {
-      "name": "Manal",
+      "name": "Akhilesh Pachnanda",
+      "position": "Design Vice Head",
+      "image": "./assets/team/akhilesh.jpeg",
+      "socials": {}
+    },
+    {
+      "name": "Jasvanti M",
+      "position": "Design Associate",
+      "image": "./assets/team/jasvanti.jpeg",
+      "socials": {}
+    },
+    {
+      "name": "Raashi A",
+      "position": "Design Associate",
+      "image": "./assets/team/raashi.jpg",
+      "socials": {}
+    }
+  ],
+  "media_marketing": [
+    {
+      "name": "Hitesh R",
+      "position": "Media Head",
+      "image": "./assets/team/hitesh.jpeg",
+      "socials": {}
+    },
+    {
+      "name": "Bhanu Prasad N",
+      "position": "Media Vice Head",
+      "image": "./assets/team/bhanu.JPG",
+      "socials": {}
+    },
+    {
+      "name": "Gagan H S",
+      "position": "Marketing Associate",
+      "image": "./assets/team/gaganhs.jpeg",
+      "socials": {}
+    },
+    {
+      "name": "Manal Gupta",
       "position": "Marketing Associate",
       "image": "./assets/team/manal.png",
       "socials": {}
     },
     {
-      "name": "Raashi",
-      "position": "Design Associate",
-      "image": "./assets/team/raashi.jpg",
+      "name": "Ujwal U",
+      "position": "Marketing Associate",
+      "image": "./assets/team/ujwal.png",
+      "socials": {}
+    },
+    {
+      "name": "Ananya Akkihal",
+      "position": "Media Associate",
+      "image": "./assets/team/ananya.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Faizan Khan",
+      "position": "Marketing Associate",
+      "image": "./assets/team/Faizan.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Anvita Singh",
+      "position": "Marketing Associate",
+      "image": "./assets/team/anvita.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Bhavana",
+      "position": "Marketing Associate",
+      "image": "./assets/team/bhavana.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Krishna Kulkarni",
+      "position": "Marketing Associate",
+      "image": "./assets/team/krishna.jpg",
+      "socials": {}
+    }
+  ],
+  "events_ops": [
+    {
+      "name": "Gaganjith R",
+      "position": "Events Head",
+      "image": "./assets/team/gaganjith.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Dhyeya Talupula",
+      "position": "Ops Associate",
+      "image": "./assets/team/Dhyeya.jpg",
+      "socials": {}
+    },
+    {
+      "name": "P Deepthi Jain",
+      "position": "Event/Ops Associate",
+      "image": "./assets/team/deepthijain.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Mohammed Talha",
+      "position": "Event/Ops Associate",
+      "image": "./assets/team/talha.jpg",
       "socials": {}
     },
     {
       "name": "Rishav",
-      "position": "Event & Ops Associate",
+      "position": "Event/Ops Associate",
       "image": "./assets/team/rishav.jpg",
+      "socials": {}
+    }
+  ],
+  "corporate_relations": [
+    {
+      "name": "Fardeen Khan K",
+      "position": "Corporate Relations Head",
+      "image": "./assets/team/fardeen.jpeg",
+      "socials": {}
+    },
+    {
+      "name": "Arush Singh",
+      "position": "Corporate Relations Associate",
+      "image": "./assets/team/arush.jpg",
       "socials": {}
     },
     {
       "name": "Sathya Shivani",
       "position": "Corporate Relations Associate",
       "image": "./assets/team/sathyashivani.jpeg",
+      "socials": {}
+    }
+  ],
+  "content_team": [
+    {
+      "name": "Shriya Chowdary",
+      "position": "Content Head",
+      "image": "./assets/team/shriya.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Ashutosh Bhatt",
+      "position": "Content Associate",
+      "image": "./assets/team/ashutosh.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Jayakeerthy N J",
+      "position": "Content Associate",
+      "image": "./assets/team/jayakeerthi.jpg",
+      "socials": {}
+    },
+    {
+      "name": "Parikshith S",
+      "position": "Content Associate",
+      "image": "./assets/team/parikshit.png",
       "socials": {}
     }
   ]

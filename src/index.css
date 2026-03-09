@@ -15,6 +15,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'SuisseIntl';
+  src: url('./Pages/assets/suisse-intl.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
