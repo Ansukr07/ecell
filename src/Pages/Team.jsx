@@ -128,9 +128,9 @@ const TeamPage = () => {
 
               {/* THE TEAM headline — sits behind image */}
               <motion.h1
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 200 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                 className="relative z-0 w-full select-none tracking-tighter"
               >
                 <span
@@ -143,9 +143,8 @@ const TeamPage = () => {
 
               {/* Group photo — absolutely positioned OVER the text */}
               <motion.div
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                 className="absolute z-10 w-[100%] sm:w-[98%] md:w-[95%] lg:w-[85%] max-w-[1400px] left-1/2 transform -translate-x-1/2 pointer-events-none mt-[8vw] sm:mt-[6vw] md:mt-[60px] lg:mt-[80px]"
               >
                 <img
