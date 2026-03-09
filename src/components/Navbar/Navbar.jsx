@@ -11,6 +11,18 @@ export default function Navbar() {
   const location = useLocation();
   const { loading } = useContext(PreloaderContext);
 
+  // Prevent scrolling when full screen mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   // Hide navbar on admin routes
   if (location.pathname.startsWith('/admin')) {
     return null;
@@ -110,28 +122,36 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Dropdown Menu */}
-          {isOpen && (
-            <div className="md:hidden absolute top-full left-0 right-0 mt-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-slate-500/10 animate-in slide-in-from-top-2 duration-300">
-              <div className="p-3 space-y-1">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${location.pathname === item.to
-                      ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/20'
-                      : 'text-gray-300 hover:text-white hover:bg-white/5'
-                      }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </nav>
+
+      {/* Mobile Full Screen Menu */}
+      <div 
+        className={`md:hidden fixed inset-0 z-[99998] bg-black/95 backdrop-blur-3xl transition-all duration-500 ease-in-out flex flex-col items-center justify-center ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        style={{ fontFamily: 'Sora, sans-serif' }}
+      >
+        <div 
+          className={`flex flex-col items-center space-y-6 w-full max-w-sm px-8 transition-transform duration-500 delay-100 ${
+            isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}
+        >
+          {navItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              onClick={() => setIsOpen(false)}
+              className={`block w-full text-center px-6 py-4 rounded-2xl text-xl font-medium transition-all duration-300 ${location.pathname === item.to
+                ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/20 scale-105'
+                : 'text-gray-300 hover:text-white hover:bg-white/10'
+                }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
