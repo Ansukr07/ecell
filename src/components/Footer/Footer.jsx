@@ -18,17 +18,23 @@ const DesktopFooter = () => {
         <div className="w-[30%] flex flex-col justify-between border-r border-[#1f1f1f]" style={{ padding: '40px 48px 32px 48px' }}>
           {/* Top: logo + tagline + description */}
           <div>
-            <div className="flex items-center gap-4 mb-6">
-              {/* Logo circle */}
-              <div className="flex-shrink-0 w-[54px] h-[54px] rounded-full bg-white flex items-center justify-center overflow-hidden border border-white">
-                <img src={ecellLogoDesktop} alt="E-Cell Logo" className="w-[80%] h-[80%] object-contain" />
-              </div>
-              <div className="leading-tight mt-1 flex flex-col justify-center">
-                <p className="text-white text-[18px] tracking-[0.08em] uppercase">ENTREPRENEURSHIP CELL</p>
-                <p className="text-white/60 text-[18px] tracking-[0.06em] uppercase mt-1">// BMSIT&M</p>
+            <div className="flex items-center gap-5 mb-8">
+              {/* Sleek monochromatic logo (removes ugly white circle) */}
+              <img
+                src={ecellLogoDesktop}
+                alt="E-Cell Logo"
+                className="w-[58px] h-[58px] object-contain brightness-0 invert opacity-90"
+              />
+              <div className="flex flex-col justify-center">
+                <h3 className="text-white text-[20px] lg:text-[22px] tracking-[-0.02em] leading-[1.15] uppercase">
+                  ENTREPRENEURSHIP CELL
+                </h3>
+                <p className="text-white/50 text-[14px] tracking-[0.2em] font-medium uppercase mt-1">
+                  BMSIT&M
+                </p>
               </div>
             </div>
-            <p className="text-[#888] text-[16px] leading-[1.65] max-w-[340px]">
+            <p className="text-[#888] text-[16.5px] leading-[1.7] max-w-[350px]">
               Empowering the next generation of entrepreneurs through innovation, mentorship, and collaboration.
             </p>
           </div>
