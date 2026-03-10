@@ -1,7 +1,7 @@
 @font-face {
-  font-family: 'Switzer-Black';
-  src: url('../../Pages/assets/Fonts/WEB/fonts/Switzer-Black.ttf') format('truetype');
-  font-weight: 900;
+  font-family: 'Switzer-Light';
+  src: url('../../Pages/assets/Fonts/WEB/fonts/Switzer-Light.ttf') format('truetype');
+  font-weight: normal;
   font-display: swap;
   font-style: normal;
 }
@@ -51,6 +51,30 @@ footer a:focus {
 
 .footer-nav-link:hover {
   color: #000000;
+}
+
+/* ─── Link Underline LTR Animation ──────────────────────────────────────────── */
+.underline-hover-ltr {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.underline-hover-ltr::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom left;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.underline-hover-ltr:hover::after {
+  transform: scaleX(1);
 }
 
 

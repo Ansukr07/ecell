@@ -10,34 +10,35 @@ import ecellLogoDesktop from '../../assets/ecell.png';
 
 const DesktopFooter = () => {
   return (
-    <footer className="w-full bg-black text-white hidden md:flex flex-col font-sans transition-all duration-300">
+    <footer className="w-full bg-black text-white hidden md:flex flex-col transition-all duration-300" style={{ fontFamily: 'Switzer-Light, sans-serif' }}>
       {/* Top Section */}
       <div className="flex w-full min-h-[400px] border-b border-[#222]">
 
-        {/* Left Column */}
-        <div className="w-[30%] pt-10 pb-[30px] pl-[50px] pr-10 flex flex-col justify-between border-r border-[#222]">
+        {/* ── Left Column ── */}
+        <div className="w-[30%] flex flex-col justify-between border-r border-[#1f1f1f]" style={{ padding: '40px 48px 32px 48px' }}>
+          {/* Top: logo + tagline + description */}
           <div>
-            <div className="flex items-start gap-4 mb-4 mt-2">
-              {/* E-Cell Real Logo */}
-              <div className="flex flex-col border border-white rounded-full bg-white text-black w-[46px] h-[46px] items-center justify-center relative flex-shrink-0 overflow-hidden">
-                <img src={ecellLogoDesktop} alt="E-Cell Logo" className="w-[85%] h-[85%] object-contain" />
+            <div className="flex items-center gap-4 mb-6">
+              {/* Logo circle */}
+              <div className="flex-shrink-0 w-[54px] h-[54px] rounded-full bg-white flex items-center justify-center overflow-hidden border border-white">
+                <img src={ecellLogoDesktop} alt="E-Cell Logo" className="w-[80%] h-[80%] object-contain" />
               </div>
-              <div className="text-[14px] font-semibold tracking-wide leading-snug uppercase mt-1">
-                ENTREPRENEURSHIP CELL<br />
-                <span className="text-white/80">// BMSIT&M</span>
+              <div className="leading-tight mt-1 flex flex-col justify-center">
+                <p className="text-white text-[18px] tracking-[0.08em] uppercase">ENTREPRENEURSHIP CELL</p>
+                <p className="text-white/60 text-[18px] tracking-[0.06em] uppercase mt-1">// BMSIT&M</p>
               </div>
             </div>
-            <p className="text-[#a0a0a0] text-[13px] leading-[1.6] mt-6 max-w-[95%]">
-              Empowering the next generation of<br />
-              entrepreneurs through innovation, mentorship,<br />
-              and collaboration.
+            <p className="text-[#888] text-[16px] leading-[1.65] max-w-[340px]">
+              Empowering the next generation of entrepreneurs through innovation, mentorship, and collaboration.
             </p>
           </div>
 
-          <div className="text-[#a0a0a0] text-[15px] flex flex-col gap-[2px]">
-            <p>Dodaballapur Main Road, Avalahalli, Yelahanka<br />Bengaluru 560064</p>
-            <a href="mailto:ecell@bmsit.in" className="hover:text-white transition-colors mt-2">ecell@bmsit.in</a>
-            <div className="flex gap-[18px] mt-[10px]">
+          {/* Bottom: address + email + icons */}
+          <div className="flex flex-col gap-[3px]">
+            <p className="text-[#888] text-[18px] leading-[1.5] cursor-pointer hover:text-white transition-colors underline-hover-ltr">Dodaballapur Main Rd, Yelahanka</p>
+            <p className="text-[#888] text-[18px] leading-[1.5] cursor-pointer hover:text-white transition-colors underline-hover-ltr">Bengaluru 560064</p>
+            <a href="mailto:ecell@bmsit.in" className="text-[#888] text-[18px] mt-[4px] leading-[1.5] hover:text-white transition-colors underline-hover-ltr">ecell@bmsit.in</a>
+            <div className="flex gap-[16px] mt-[10px]">
               <a href="https://www.instagram.com/ecell.bmsit" target="_blank" rel="noopener noreferrer"><Instagram className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>
               <a href="https://www.linkedin.com/company/ecellbmsit" target="_blank" rel="noopener noreferrer"><Linkedin className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>
               <a href="#" target="_blank" rel="noopener noreferrer"><Twitter className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>
@@ -61,10 +62,10 @@ const DesktopFooter = () => {
               style={{ padding: '38px 48px', '--link-hover-color': link.hoverColor }}
             >
               <div className="flex items-center gap-[10px]">
-                <span className="text-[14px] uppercase" style={{ fontFamily: 'Switzer-Black, sans-serif', letterSpacing: '0.04em' }}>
+                <span className="text-[14px] font-weight: 600 uppercase" style={{ letterSpacing: '0.04em' }}>
                   {link.name}
                 </span>
-                <ArrowUpRight className="w-[14px] h-[14px] font-bold" strokeWidth={2} />
+                <ArrowUpRight className="w-[18px] h-[18px]" strokeWidth={2} />
               </div>
             </Link>
           ))}
@@ -72,20 +73,25 @@ const DesktopFooter = () => {
           <div className="flex-1 bg-black" />
         </div>
 
-        {/* Right Column */}
-        <div className="w-[35%] pt-[36px] pb-[30px] pl-[50px] pr-[50px] flex flex-col justify-between relative">
-          <div>
-            <h2 className="text-[30px] md:text-[34px] lg:text-[38px] tracking-[-0.02em] mb-4 leading-[1.05] font-light text-white">
-              Ready to ignite your<br />entrepreneurial journey?
+        {/* ── Right Column ── */}
+        <div className="w-[35%] flex flex-col justify-between" style={{ padding: '40px 48px 32px 48px' }}>
+          {/* Top: CTA / Vision */}
+          <div className="flex-1 flex flex-col items-center justify-center text-center -mt-8">
+            <h2
+              className="text-[44px] lg:text-[54px] xl:text-[64px] font-black text-white/95 tracking-tighter leading-[0.95] mb-6"
+              style={{ fontFamily: 'Sora, sans-serif' }}
+            >
+              IDEATE.
+              <br />
+              <span className="text-white/60">INNOVATE. INSPIRE.</span>
             </h2>
-            <p className="text-[#a0a0a0] text-[15px] leading-relaxed max-w-[340px]">
-              Join our community of innovators and start<br />building the future today.
-            </p>
+
           </div>
 
-          <div className="flex justify-between items-end text-[11px] text-[#888] uppercase tracking-wider w-full">
-            <span>E-CELL BMSIT&M © 2026</span>
-            <span>BUILT WITH PASSION</span>
+          {/* Bottom: copyright row */}
+          <div className="flex items-center justify-between">
+            <span className="text-[#555] text-[10.5px] uppercase tracking-[0.12em]">E-CELL BMSIT&M © 2026</span>
+
           </div>
         </div>
       </div>
