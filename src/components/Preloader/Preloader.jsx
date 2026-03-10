@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Using local assets as placeholders for the cinematic slideshow
-import img1 from "../../assets/image1.jpg";
-import img2 from "../../assets/image2.jpg";
-import img3 from "../../assets/image3.jpg";
-
-
-const images = [img1, img2, img3];
-
 const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ£$€¥₪¤₹₽";
 
 const ScrambleText = ({ targetText, isReady }) => {
@@ -50,59 +42,22 @@ const ScrambleText = ({ targetText, isReady }) => {
 
 const Preloader = ({ onComplete }) => {
   const [step, setStep] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
-    let loadedCount = 0;
-    images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === images.length) setImagesLoaded(true);
-      };
-      img.onerror = () => {
-        // Fallback so it doesn't get stuck forever
-        loadedCount++;
-        if (loadedCount === images.length) setImagesLoaded(true);
-      };
-    });
+    const t0 = setTimeout(() => setStep(1), 300);  // Scramble locks
+    const t1 = setTimeout(() => setStep(2), 800); // Reveal words horizontally
+    const t2 = setTimeout(() => setStep(3), 1400); // Slide words BELOW (stack vertically)
 
-    // Fallback: start anyway after 3 seconds if images are still loading too slowly
-    const fallback = setTimeout(() => setImagesLoaded(true), 3000);
-    return () => clearTimeout(fallback);
-  }, []);
-
-  useEffect(() => {
-    if (!imagesLoaded) return; // Wait for images to load into the browser
-
-    const t0 = setTimeout(() => setStep(1), 600);  // 0.6s: Scramble locks
-    const t1 = setTimeout(() => setStep(2), 1500); // 1.5s: Reveal words horizontally
-    const t2 = setTimeout(() => setStep(3), 2800); // 2.8s: Slide words BELOW (stack vertically)
-    const t3 = setTimeout(() => setStep(4), 4800); // 4.8s: Split down middle & reveal portrait
-
-    // Exactly 4 image flashes of 600ms = 2400ms. 4800 + 2400 = 7200ms
-    const t4 = setTimeout(() => setStep(5), 7200); // 7.2s: Fade out entire preloader
-    const t5 = setTimeout(() => {
-      setStep(6);
+    const t3 = setTimeout(() => setStep(4), 2200); // Fade out entire preloader
+    const t4 = setTimeout(() => {
+      setStep(5);
       if (onComplete) onComplete();
-    }, 7700); // 7.7s: Unmount and transition
+    }, 2800); // Unmount and transition
 
-    return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
-  }, [imagesLoaded, onComplete]);
+    return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+  }, [onComplete]);
 
-  // Slideshow logic
-  const [imageIndex, setImageIndex] = useState(0);
-  useEffect(() => {
-    if (step >= 3) {
-      const flashInterval = setInterval(() => {
-        setImageIndex(prev => (prev + 1) % images.length);
-      }, 300);
-      return () => clearInterval(flashInterval);
-    }
-  }, [step]);
-
-  if (step === 6) return null;
+  if (step === 5) return null;
 
   const rows = [
     { id: 1, w1: "E-CELL", w2: "INNOVATE" },
@@ -116,7 +71,7 @@ const Preloader = ({ onComplete }) => {
     <motion.div
       className="fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center overflow-hidden"
       initial={{ opacity: 1 }}
-      animate={{ opacity: step === 5 ? 0 : 1 }}
+      animate={{ opacity: step === 4 ? 0 : 1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       {/* LEFT TICKER STRIP */}
@@ -185,55 +140,6 @@ const Preloader = ({ onComplete }) => {
 
                 </motion.div>
               ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {step >= 4 && (
-            <motion.div
-              className="flex flex-col items-center justify-center gap-8 md:gap-12 absolute w-full h-full"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            >
-              <motion.div
-                layoutId="global-text"
-                className="tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
-                style={{ fontFamily: "'Nhass', sans-serif" }}
-              >
-                E-CELL
-              </motion.div>
-
-              {/* Image Slideshow Frame */}
-              <motion.div
-                initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
-                animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                className="w-[200px] h-[300px] sm:w-[260px] sm:h-[380px] lg:w-[320px] lg:h-[460px] bg-[#111111] relative z-10 rounded-[30px] sm:rounded-[40px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-center"
-                style={{ aspectRatio: "2/3" }}
-              >
-                <AnimatePresence mode="popLayout">
-                  <motion.img
-                    key={imageIndex}
-                    src={images[imageIndex]}
-                    initial={{ opacity: 0, scale: 1.4 }}
-                    animate={{ opacity: 1, scale: 1.3 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-full h-full object-cover absolute inset-0 rounded-[30px] sm:rounded-[40px]"
-                    alt="fintech sequence"
-                  />
-                </AnimatePresence>
-              </motion.div>
-
-              <motion.div
-                layoutId="money-text"
-                className="tracking-tight sm:tracking-tighter text-white font-semibold text-[36px] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[80px] sm:leading-none z-20"
-                style={{ fontFamily: "'Nhass', sans-serif" }}
-              >
-                BMSIT&M
-              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
