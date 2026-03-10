@@ -2,140 +2,95 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
 import './Footer.css'; // Import custom animations and layout styles
-import ecellLogoDesktop from '../../assets/ecell1.png'; // E-Cell logo
 import ecellLogoMobile from '../../assets/ecellorange.png';
-
-// ─── Desktop Helper ────────────────────────────────────────────────────────────
-const WavyLightPath = ({ intense }) => (
-    <div className={`wavy-light-path ${intense ? 'intense' : ''}`}>
-        <svg preserveAspectRatio="none" viewBox="0 0 1000 40">
-            <path d="M0,20 Q125,5 250,20 T500,20 T750,20 T1000,20" />
-            <path d="M0,20 Q125,35 250,20 T500,20 T750,20 T1000,20" style={{ opacity: 0.5 }} />
-        </svg>
-    </div>
-);
+import '../../Pages/assets/Fonts/WEB/css/switzer.css';
 
 // ─── Desktop Footer Component ──────────────────────────────────────────────────
+import ecellLogoDesktop from '../../assets/ecell.png';
+
 const DesktopFooter = () => {
-    return (
-        <footer className="nebula-footer w-full relative font-[300]">
+  return (
+    <footer className="w-full bg-black text-white hidden md:flex flex-col font-sans transition-all duration-300">
+      {/* Top Section */}
+      <div className="flex w-full min-h-[400px] border-b border-[#222]">
 
-            {/* EXACT SVG BACKGROUND CUTOUT */}
-            <div className="relative w-full overflow-hidden" style={{ height: '301.4px', backgroundColor: '#ffffff', zIndex: 0 }}>
-                {/* 
-                    Using the exact provided coordinates scaled to a viewBox of 1366
-                    Start (0, 198.6) to (293.3, 198.6)
-                    Curve to (683, 396.4)
-                    Curve to (1366-293.3, 198.6) = (1072.7, 198.6)
-                    Line to (1366, 198.6)
-                */}
-                <svg
-                    viewBox="0 198.6 1366 301.4"
-                    preserveAspectRatio="xMidYMin slice"
-                    className="w-full h-full"
-                >
-                    <path
-                        d="M 0 198.6
-                           L 293.3 198.6
-                           Q 488 198.6 683 396.4
-                           Q 878 198.6 1072.7 198.6
-                           L 1366 198.6
-                           L 1366 500
-                           L 0 500 Z"
-                        fill="#030810" // The deep dark color from the image
-                    />
-                </svg>
+        {/* Left Column */}
+        <div className="w-[30%] pt-10 pb-[30px] pl-[50px] pr-10 flex flex-col justify-between border-r border-[#222]">
+          <div>
+            <div className="flex items-start gap-4 mb-4 mt-2">
+              {/* E-Cell Real Logo */}
+              <div className="flex flex-col border border-white rounded-full bg-white text-black w-[46px] h-[46px] items-center justify-center relative flex-shrink-0 overflow-hidden">
+                <img src={ecellLogoDesktop} alt="E-Cell Logo" className="w-[85%] h-[85%] object-contain" />
+              </div>
+              <div className="text-[14px] font-semibold tracking-wide leading-snug uppercase mt-1">
+                ENTREPRENEURSHIP CELL<br />
+                <span className="text-white/80">// BMSIT&M</span>
+              </div>
             </div>
-            {/* MIDDLE SECTION - NAVIGATION & CONTACT */}
-            <div className="relative z-20 max-w-[1200px] mx-auto px-10 flex flex-col md:flex-row justify-between items-start gap-12 md:gap-4 mb-16 -mt-[100px]">
-                
-                {/* Left Side Links */}
-                <div className="flex-1 text-sm leading-[2.2] text-left flex flex-col items-start gap-2 font-sans text-[14px] font-medium tracking-wide mt-12 w-full">
-                    <Link to="/" className="text-white/60 hover:text-white transition-all duration-300" style={{ color: 'rgba(255,255,255,0.6)' }} onMouseEnter={(e) => e.target.style.color = 'white'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}>Home</Link>
-                    <Link to="/about" className="text-white/60 hover:text-white transition-all duration-300" style={{ color: 'rgba(255,255,255,0.6)' }} onMouseEnter={(e) => e.target.style.color = 'white'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}>About Us</Link>
-                    <Link to="/events" className="text-white/60 hover:text-white transition-all duration-300" style={{ color: 'rgba(255,255,255,0.6)' }} onMouseEnter={(e) => e.target.style.color = 'white'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}>Events</Link>
-                    <Link to="/gallery" className="text-white/60 hover:text-white transition-all duration-300" style={{ color: 'rgba(255,255,255,0.6)' }} onMouseEnter={(e) => e.target.style.color = 'white'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}>Gallery</Link>
-                    <Link to="/team" className="text-white/60 hover:text-white transition-all duration-300" style={{ color: 'rgba(255,255,255,0.6)' }} onMouseEnter={(e) => e.target.style.color = 'white'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}>Our Team</Link>
-                </div>
+            <p className="text-[#a0a0a0] text-[13px] leading-[1.6] mt-6 max-w-[95%]">
+              Empowering the next generation of<br />
+              entrepreneurs through innovation, mentorship,<br />
+              and collaboration.
+            </p>
+          </div>
 
-                {/* Center Contact */}
-                <div className="flex-1 flex flex-col items-center justify-start text-center z-30 mt-12 w-full">
-                    <div className="floating-text-btn pt-4 px-4 pb-0 cursor-default">
-                        CONTACT US
-                    </div>
-                    {/* Tiny energy line underneath */}
-                    <div className="w-[80px] h-[1px] bg-white/30 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-                </div>
-
-                {/* Right Side Address (BICEP) */}
-                <div className="flex-1 text-sm leading-[2.2] text-right md:text-right flex flex-col items-end gap-1 font-sans text-[14px] font-medium tracking-wide mt-12 w-full text-white/60">
-                    <p className="font-semibold text-white/70 uppercase mb-1 tracking-wider">BICEP</p>
-                    <p>BMS Institute of Technology</p>
-                    <p>and Management</p>
-                    <p>Avalahalli, Yelahanka</p>
-                    <p>Bengaluru, Karnataka 560064</p>
-                </div>
+          <div className="text-[#a0a0a0] text-[15px] flex flex-col gap-[2px]">
+            <p>Dodaballapur Main Road, Avalahalli, Yelahanka<br />Bengaluru 560064</p>
+            <a href="mailto:ecell@bmsit.in" className="hover:text-white transition-colors mt-2">ecell@bmsit.in</a>
+            <div className="flex gap-[18px] mt-[10px]">
+              <a href="https://www.instagram.com/ecell.bmsit" target="_blank" rel="noopener noreferrer"><Instagram className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>
+              <a href="https://www.linkedin.com/company/ecellbmsit" target="_blank" rel="noopener noreferrer"><Linkedin className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>
+              <a href="#" target="_blank" rel="noopener noreferrer"><Twitter className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>
             </div>
+          </div>
+        </div>
 
-            {/* LIGHT PATH DIVIDER 1 */}
-            <div className="max-w-[1200px] mx-auto px-4">
-                <WavyLightPath intense={false} />
-            </div>
+        {/* ── Middle Column: Nav Links ── */}
+        <div className="w-[35%] flex flex-col border-r border-[#1f1f1f]">
+          {[
+            { name: 'ABOUT', to: '/', hoverColor: '#FFCC00' },
+            { name: 'EVENTS', to: '/events', hoverColor: '#001AFF' },
+            { name: 'WORD OF THE DAY', to: '/word-of-the-day', hoverColor: '#00E5FF' },
+            { name: 'TEAM', to: '/team', hoverColor: '#FF6600' },
+            { name: 'CONTACT', to: '/', hoverColor: '#FF00FF' },
+          ].map((link, idx) => (
+            <Link
+              key={idx}
+              to={link.to}
+              className="group flex items-center justify-between border-b border-[#1f1f1f] text-white transition-colors duration-250 footer-nav-link"
+              style={{ padding: '38px 48px', '--link-hover-color': link.hoverColor }}
+            >
+              <div className="flex items-center gap-[10px]">
+                <span className="text-[14px] uppercase" style={{ fontFamily: 'Switzer-Black, sans-serif', letterSpacing: '0.04em' }}>
+                  {link.name}
+                </span>
+                <ArrowUpRight className="w-[14px] h-[14px] font-bold" strokeWidth={2} />
+              </div>
+            </Link>
+          ))}
+          {/* Fill remaining height */}
+          <div className="flex-1 bg-black" />
+        </div>
 
-            {/* SOCIAL LINKS (Floating & Glowing) */}
-            <div className="relative z-20 max-w-[800px] mx-auto px-4 flex flex-col sm:flex-row justify-between items-center my-6 gap-6 sm:gap-0 font-sans text-[13px] tracking-wide">
-                {['INSTAGRAM', 'FACEBOOK', 'TWITTER', 'YOUTUBE'].map((social, idx) => (
-                    <a
-                        key={social}
-                        href="#"
-                        className="text-white/60 transition-all duration-300"
-                        style={{ color: 'rgba(255,255,255,0.6)' }}
-                        onMouseEnter={(e) => { e.target.style.color = 'white'; e.target.style.textShadow = '0 0 10px rgba(255,255,255,0.8)'; }}
-                        onMouseLeave={(e) => { e.target.style.color = 'rgba(255,255,255,0.6)'; e.target.style.textShadow = 'none'; }}
-                    >
-                        {social}
-                    </a>
-                ))}
-            </div>
+        {/* Right Column */}
+        <div className="w-[35%] pt-[36px] pb-[30px] pl-[50px] pr-[50px] flex flex-col justify-between relative">
+          <div>
+            <h2 className="text-[30px] md:text-[34px] lg:text-[38px] tracking-[-0.02em] mb-4 leading-[1.05] font-light text-white">
+              Ready to ignite your<br />entrepreneurial journey?
+            </h2>
+            <p className="text-[#a0a0a0] text-[15px] leading-relaxed max-w-[340px]">
+              Join our community of innovators and start<br />building the future today.
+            </p>
+          </div>
 
-            {/* LIGHT PATH DIVIDER 2 (Intense near the logo source) */}
-            <div className="max-w-[1000px] mx-auto px-4 relative">
-                {/* Central energy burst source behind logo */}
-                <div className="absolute left-1/2 bottom-[-80px] transform -translate-x-1/2 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,transparent_60%)] animate-pulse border-none pointer-events-none" />
-
-                <WavyLightPath intense={true} />
-            </div>
-
-            {/* BOTTOM BAR & LOGO RADIANT ENERGY */}
-            <div className="relative z-30 max-w-[1200px] mx-auto px-10 pb-12 pt-8 flex justify-between items-center gap-4 text-[10px] uppercase tracking-[0.15em] text-white/60">
-
-                {/* Left Side */}
-                <div className="flex-1 text-left hover:text-white/90 transition-colors cursor-default">
-                    © 2026 E-Cell BMSIT. All rights reserved.
-                </div>
-
-                {/* Center Logo - Radiant Source */}
-                <div className="flex-1 flex justify-center items-center relative h-[80px]">
-                    {/* The radiant E-Cell logo */}
-                    <img
-                        src={ecellLogoDesktop}
-                        alt="E-Cell Logo"
-                        className="w-16 h-16 object-contain animate-radiate select-none"
-                        style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.6))" }}
-                    />
-                </div>
-
-                {/* Right Side Tagline */}
-                <div className="flex-1 text-right tracking-[0.2em] font-medium hidden sm:block">
-                    INNOVATE.IDEATE.INSPIRE
-                </div>
-            </div>
-
-            {/* Ambient Base Light (Fanning out from bottom center) */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-screen h-[400px] bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.06)_0%,rgba(200,180,160,0.02)_40%,transparent_70%)] pointer-events-none z-0" />
-
-        </footer>
-    );
+          <div className="flex justify-between items-end text-[11px] text-[#888] uppercase tracking-wider w-full">
+            <span>E-CELL BMSIT&M © 2026</span>
+            <span>BUILT WITH PASSION</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 // ─── Spring Wave Canvas (Mobile) ─────────────────────────────────────────────────────────
@@ -425,14 +380,14 @@ const MobileFooter = () => {
               ))}
             </div>
             <div className="flex justify-center md:justify-start">
-                <a
-                  href="mailto:ecell@bmsit.in"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white/90 text-sm font-medium transition-all duration-300"
-                  style={{ color: 'rgba(255,255,255,0.9)' }}
-                >
-                  <Mail className="w-4 h-4" />
-                  ecell@bmsit.in
-                </a>
+              <a
+                href="mailto:ecell@bmsit.in"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white/90 text-sm font-medium transition-all duration-300"
+                style={{ color: 'rgba(255,255,255,0.9)' }}
+              >
+                <Mail className="w-4 h-4" />
+                ecell@bmsit.in
+              </a>
             </div>
           </div>
         </div>
@@ -454,16 +409,16 @@ const MobileFooter = () => {
 
 // ─── Main Footer ───────────────────────────────────────────────────────────────
 const Footer = () => {
-    return (
-        <>
-            <div className="hidden md:block">
-                <DesktopFooter />
-            </div>
-            <div className="block md:hidden">
-                <MobileFooter />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="hidden md:block">
+        <DesktopFooter />
+      </div>
+      <div className="block md:hidden">
+        <MobileFooter />
+      </div>
+    </>
+  );
 };
 
 export default Footer;
