@@ -422,14 +422,14 @@ const MobileFooter = () => {
 // ─── Main Footer ───────────────────────────────────────────────────────────────
 const Footer = () => {
   return (
-    <>
+    <div id="footer">
       <div className="hidden md:block">
         <DesktopFooter />
       </div>
       <div className="block md:hidden">
         <MobileFooter />
       </div>
-    </>
+    </div>
   );
 };
 

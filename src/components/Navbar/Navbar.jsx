@@ -3,9 +3,12 @@ import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/ecellorange.png';
 import { PreloaderContext } from '../../App';
+import PhoneMenu from './PhoneMenu';
+import './PhoneMenu.css';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isInstantClose, setIsInstantClose] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
@@ -29,6 +32,9 @@ export default function Navbar() {
   }
 
   const toggleMenu = () => {
+    if (!isOpen) {
+      setIsInstantClose(false); // Reset to slow animation when opening
+    }
     setIsOpen(!isOpen);
   };
 
@@ -65,9 +71,9 @@ export default function Navbar() {
 
   const navItems = [
     { to: '/', label: 'Home' },
-    { to: '/Gallery', label: 'Gallery' },
+    { to: '/gallery', label: 'Gallery' },
     { to: '/team', label: 'Team' },
-    { to: '/Alumni', label: 'Alumni' },
+    { to: '/alumni', label: 'Alumni' },
     { to: '/word-of-the-day', label: 'Word of the Day' }
   ];
 
@@ -83,7 +89,7 @@ export default function Navbar() {
         {/* Desktop & Mobile Container */}
         <div className="relative">
           {/* Main Navbar */}
-          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2.5 flex items-center gap-2 shadow-2xl shadow-slate-500/10 w-fit mx-auto">
+          <div className="md:bg-black/40 md:backdrop-blur-xl md:border md:border-white/10 md:rounded-full px-4 py-2.5 flex items-center gap-2 w-fit mx-auto bg-transparent border-none">
 
             {/* Logo - Desktop Only */}
             <Link to="/" className="hidden md:flex flex-shrink-0 group">
@@ -103,7 +109,7 @@ export default function Navbar() {
                   key={item.to}
                   to={item.to}
                   className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${location.pathname === item.to
-                    ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/20'
+                    ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white'
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
                 >
@@ -115,43 +121,26 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 rounded-full text-white hover:bg-white/10 transition-all duration-300"
+              className={`md:hidden hamburger-toggle ${isOpen ? 'active' : ''}`}
               aria-label="Toggle menu"
+              style={{
+                color: isOpen || ['/team', '/gallery', '/Gallery'].includes(location.pathname) ? '#1a1a1a' : 'white'
+              }}
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <div className="hamburger-line"></div>
+              <div className="hamburger-line"></div>
             </button>
           </div>
-
         </div>
       </nav>
 
       {/* Mobile Full Screen Menu */}
-      <div 
-        className={`md:hidden fixed inset-0 z-[99998] bg-black/95 backdrop-blur-3xl transition-all duration-500 ease-in-out flex flex-col items-center justify-center ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        style={{ fontFamily: 'Sora, sans-serif' }}
-      >
-        <div 
-          className={`flex flex-col items-center space-y-6 w-full max-w-sm px-8 transition-transform duration-500 delay-100 ${
-            isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              onClick={() => setIsOpen(false)}
-              className={`block w-full text-center px-6 py-4 rounded-2xl text-xl font-medium transition-all duration-300 ${location.pathname === item.to
-                ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/20 scale-105'
-                : 'text-gray-300 hover:text-white hover:bg-white/10'
-                }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </div>
+      <PhoneMenu
+        isOpen={isOpen}
+        toggleMenu={toggleMenu}
+        isInstantClose={isInstantClose}
+        setIsInstantClose={setIsInstantClose}
+      />
     </>
   );
 }
