@@ -34,7 +34,7 @@ const TeamMemberCard = ({ member }) => {
         <img
           src={imageSrc}
           alt={member.name}
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:grayscale group-hover:grayscale-0 group-hover:scale-[1.03]"
         />
 
         {/* Subdued shadow overlay to slightly darken the image on hover if desired */}
