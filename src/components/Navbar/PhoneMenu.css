@@ -118,18 +118,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
-    width: 40px;
-    /* Increased from 32px */
+    align-items: center;
+    width: 48px;
     height: 48px;
-    /* Increased height for better interaction */
-    background: transparent;
+    background: #1a1a1a;
     border: none;
+    border-radius: 12px;
     cursor: pointer;
     padding: 0;
     z-index: 99999;
     outline: none;
-    box-shadow: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -137,8 +137,18 @@
 .hamburger-toggle:active,
 .hamburger-toggle:hover {
     outline: none;
-    box-shadow: none !important;
-    background: transparent !important;
+    background: #2a2a2a;
+    transform: scale(1.05);
+}
+
+.hamburger-toggle.active {
+    background: transparent;
+    box-shadow: none;
+}
+
+.hamburger-toggle.active:hover {
+    background: transparent;
+    transform: none;
 }
 
 @media (min-width: 768px) {
@@ -148,18 +158,15 @@
 }
 
 .hamburger-line {
-    width: 36px;
-    /* Increased from 28px */
-    height: 2.5px;
-    /* Thinner line for a more premium look, but larger width */
-    /* Slightly thicker for better visibility */
+    width: 28px;
+    /* Slightly reduced for better fit in box */
+    height: 2px;
     background-color: currentColor;
-    margin: 4px 0;
-    /* Adjusted margin */
-    /* Reduced margin for tighter "X" */
+    margin: 3px 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: none !important;
     filter: none !important;
+    border-radius: 2px;
 }
 
 .hamburger-line.short {
@@ -167,11 +174,11 @@
 }
 
 .hamburger-toggle.active .hamburger-line:first-child {
-    transform: translateY(5.25px) rotate(45deg);
+    transform: translateY(4px) rotate(45deg);
 }
 
 .hamburger-toggle.active .hamburger-line:last-child {
-    transform: translateY(-5.25px) rotate(-45deg);
+    transform: translateY(-4px) rotate(-45deg);
 }
 
 /* Logo in Menu */

@@ -21,11 +21,22 @@ const PhoneMenu = ({ isOpen, toggleMenu, isInstantClose, setIsInstantClose }) =>
   const handleLinkClick = (e, item) => {
     if (item.isScroll) {
       e.preventDefault();
-      setIsInstantClose(false);
-      toggleMenu();
-      const footer = document.getElementById('footer');
-      if (footer) {
-        footer.scrollIntoView({ behavior: 'smooth' });
+
+      if (location.pathname !== '/') {
+        // Navigate to Home first
+        setLoading(true);
+        setIsInstantClose(true);
+        toggleMenu();
+        // Simple window navigation to triggers Home page mount logic
+        window.location.href = '/#footer';
+      } else {
+        // Already on home, just scroll
+        setIsInstantClose(false);
+        toggleMenu();
+        const footer = document.getElementById('footer');
+        if (footer) {
+          footer.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     } else {
       // Check if routing to a new page

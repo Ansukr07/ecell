@@ -81,7 +81,7 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed z-[99999] transition-all duration-500 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
-          } md:top-6 md:left-1/2 md:-translate-x-1/2 top-4 right-4`}
+          } md:top-6 md:left-1/2 md:-translate-x-1/2 top-6 right-4`}
         style={{
           fontFamily: 'Sora, sans-serif'
         }}
@@ -124,7 +124,7 @@ export default function Navbar() {
               className={`md:hidden hamburger-toggle ${isOpen ? 'active' : ''}`}
               aria-label="Toggle menu"
               style={{
-                color: isOpen || ['/team', '/gallery', '/Gallery'].includes(location.pathname) ? '#1a1a1a' : 'white'
+                color: isOpen ? '#1a1a1a' : 'white'
               }}
             >
               <div className="hamburger-line"></div>
