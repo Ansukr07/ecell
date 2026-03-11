@@ -22,6 +22,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('./Pages/assets/din-pro-font/DIN Pro 400.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DIN Pro';
+  src: url('./Pages/assets/din-pro-font/DIN Pro Bold 700.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

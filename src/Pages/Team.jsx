@@ -126,7 +126,7 @@ const TeamPage = () => {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full min-h-screen flex flex-col justify-between">
 
           {/* Main hero block */}
-          <main className="w-full flex flex-col items-center justify-start mt-12 md:mt-24 lg:mt-32 mb-40 md:mb-56 px-4">
+          <main className="w-full flex flex-col items-center justify-start mt-24 md:mt-32 lg:mt-40 mb-24 md:mb-56 px-4">
             <div className="relative w-full text-center flex flex-col items-center">
 
               {/* THE TEAM headline — sits behind image */}
@@ -134,10 +134,10 @@ const TeamPage = () => {
                 initial={{ opacity: 0, y: 200 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="relative z-0 w-full select-none tracking-tighter"
+                className="relative z-0 w-full select-none tracking-tighter text-center flex justify-center"
               >
                 <span
-                  className="text-[17vw] sm:text-[15vw] md:text-[140px] lg:text-[180px] xl:text-[220px] font-black uppercase text-[#ff3b1f] leading-[0.8] whitespace-nowrap block"
+                  className="text-[18.5vw] sm:text-[15vw] md:text-[140px] lg:text-[180px] xl:text-[220px] font-black uppercase text-[#ff3b1f] leading-[0.8] whitespace-nowrap"
                   style={{ fontFamily: "'Inter', 'Nhass', system-ui, sans-serif", fontWeight: 900 }}
                 >
                   THE TEAM
@@ -148,7 +148,7 @@ const TeamPage = () => {
               <motion.div
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute z-10 w-[100%] sm:w-[98%] md:w-[95%] lg:w-[85%] max-w-[1400px] left-1/2 transform -translate-x-1/2 pointer-events-none mt-[10vw] sm:mt-[6vw] md:mt-[60px] lg:mt-[80px]"
+                className="absolute z-10 w-[115%] sm:w-[98%] md:w-[95%] lg:w-[85%] max-w-[1400px] left-1/2 transform -translate-x-1/2 pointer-events-none mt-[8vw] sm:mt-[6vw] md:mt-[60px] lg:mt-[80px]"
               >
                 <img
                   src={teamImage}
@@ -158,6 +158,31 @@ const TeamPage = () => {
               </motion.div>
             </div>
           </main>
+
+          {/* New Mobile Content to match reference image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="md:hidden flex flex-col items-start text-left px-4 mt-12 mb-24 relative z-10"
+            style={{ fontFamily: "'DIN Pro', sans-serif" }}
+          >
+            <p className="text-xl mb-2 font-medium">
+              <span className="text-[#ff3b1f]">Together,</span> <span className="text-gray-700">we design better</span>
+            </p>
+
+            <h2
+              className="text-4xl font-bold text-black mb-6 tracking-tight uppercase"
+              style={{ fontFamily: "'DIN Pro', sans-serif", fontWeight: 700 }}
+            >
+              MEET OUR TEAM
+            </h2>
+
+            <p className="text-gray-600 text-[0.95rem] leading-relaxed mt-2 max-w-[95%] text-left">
+              At E-Cell BMSIT, our process is built on collaboration, exploration, and precision. Every project begins with understanding — diving deep into the vision, the site's unique characteristics, and the functional needs of the space.
+            </p>
+          </motion.div>
 
         </div>
       </div>
@@ -173,7 +198,7 @@ const TeamPage = () => {
           }}
         />
 
-        <div className="max-w-[1400px] mx-auto px-6 md:px-20 lg:px-40 relative z-10 w-full flex flex-col items-start pt-24">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-20 lg:px-40 relative z-10 w-full flex flex-col items-start pt-18">
 
           {/* 1. Leadership */}
           <TeamSectionGroup title="Leadership" members={teamData.leadership} showDivider={false} />
