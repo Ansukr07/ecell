@@ -34,7 +34,7 @@ const TeamMemberCard = ({ member }) => {
         <img
           src={imageSrc}
           alt={member.name}
-          className="absolute inset-0 w-full h-full object-cover grayscale brightness-85 contrast-115 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
         />
 
         {/* Subdued shadow overlay to slightly darken the image on hover if desired */}
@@ -47,7 +47,7 @@ const TeamMemberCard = ({ member }) => {
       <div className="flex flex-col w-full text-left mt-2">
         {/* Massive 2-line name using Robit font */}
         <h3
-          className="text-[#e2e2e2] text-2xl sm:text-3xl lg:text-3xl xl:text-4xl tracking-wide leading-[1.1] mb-4 group-hover:text-[rgb(215,2,90)] transition-colors duration-300"
+          className="text-[#e2e2e2] text-xl sm:text-2xl lg:text-3xl xl:text-4xl tracking-wide leading-[1.1] mb-4 group-hover:text-[rgb(215,2,90)] transition-colors duration-300"
           style={{ fontFamily: "'Robit', sans-serif" }}
         >
           <span className="block">{firstName}</span>
@@ -69,17 +69,20 @@ const TeamMemberCard = ({ member }) => {
 /* ─────────────────────────────────────────
    TEAM SECTION GROUP
 ───────────────────────────────────────── */
-const TeamSectionGroup = ({ title, members, isLast }) => {
+const TeamSectionGroup = ({ title, members, isLast, showDivider = true }) => {
   if (!members || members.length === 0) return null;
   return (
-    <div className={`${isLast ? 'mb-0' : 'mb-32 lg:mb-34'} w-full`}>
+    <div className={`${isLast ? 'mb-0' : 'mb-20 md:mb-32 lg:mb-34'} w-full`}>
+      {/* Subtle Divider Line */}
+      {showDivider && <div className="w-full h-[1px] bg-white/10 mb-12" />}
+
       <h2
-        className="text-white text-4xl md:text-6xl lg:text-7xl font-bold uppercase mb-16 tracking-tighter"
+        className="text-white text-3xl md:text-6xl lg:text-7xl font-bold uppercase mb-10 md:mb-16 tracking-tighter"
         style={{ fontFamily: "'Nhass', sans-serif" }}
       >
         {title}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-16 lg:gap-x-10 lg:gap-y-20">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-16 lg:gap-x-10 lg:gap-y-20">
         {members.map((member, idx) => (
           <motion.div
             key={idx}
@@ -145,7 +148,7 @@ const TeamPage = () => {
               <motion.div
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute z-10 w-[100%] sm:w-[98%] md:w-[95%] lg:w-[85%] max-w-[1400px] left-1/2 transform -translate-x-1/2 pointer-events-none mt-[8vw] sm:mt-[6vw] md:mt-[60px] lg:mt-[80px]"
+                className="absolute z-10 w-[100%] sm:w-[98%] md:w-[95%] lg:w-[85%] max-w-[1400px] left-1/2 transform -translate-x-1/2 pointer-events-none mt-[10vw] sm:mt-[6vw] md:mt-[60px] lg:mt-[80px]"
               >
                 <img
                   src={teamImage}
@@ -170,10 +173,10 @@ const TeamPage = () => {
           }}
         />
 
-        <div className="max-w-[1400px] mx-auto px-2 md:px-6 relative z-10 w-full flex flex-col items-start pt-24">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-20 lg:px-40 relative z-10 w-full flex flex-col items-start pt-24">
 
           {/* 1. Leadership */}
-          <TeamSectionGroup title="Leadership" members={teamData.leadership} />
+          <TeamSectionGroup title="Leadership" members={teamData.leadership} showDivider={false} />
 
           {/* 2. Tech Team */}
           <TeamSectionGroup title="Tech Team" members={teamData.tech_team} />
