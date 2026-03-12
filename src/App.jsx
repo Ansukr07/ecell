@@ -6,7 +6,7 @@ import Preloader from './components/Preloader/Preloader';
 import { WordProvider } from './context/WordContext';
 import './App.css';
 
-const Home = lazy(() => import('./Pages/Home'));
+import Home from './Pages/Home';
 const Alumni = lazy(() => import('./Pages/Alumni'));
 const Gallery = lazy(() => import('./Pages/Gallery'));
 const Codered = lazy(() => import('./components/Events/Codered'));
@@ -75,7 +75,7 @@ function App() {
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="min-h-screen"
               >
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 border-4 border-gray-200 border-t-black rounded-full animate-spin"></div></div>}>
+                <Suspense fallback={<div className="min-h-screen"></div>}>
                   <Routes location={displayLocation}>
                     <Route path="/" element={<Home />} />
                     <Route path="/word-of-the-day" element={<WordOfTheDay />} />
