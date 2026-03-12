@@ -34,6 +34,7 @@ const TeamMemberCard = ({ member }) => {
         <img
           src={imageSrc}
           alt={member.name}
+          loading="lazy"
           className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:grayscale group-hover:grayscale-0 group-hover:scale-[1.03]"
         />
 
@@ -153,6 +154,7 @@ const TeamPage = () => {
                 <img
                   src={teamImage}
                   alt="E-Cell BMSIT Team"
+                  loading="lazy"
                   className="w-full h-auto object-contain filter grayscale contrast-125 drop-shadow-2xl"
                 />
               </motion.div>

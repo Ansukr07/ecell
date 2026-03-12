@@ -5,7 +5,7 @@ const EventCard = ({ event }) => {
   return (
     <div className="event-card">
       <div className="event-card-image">
-        <img src={event.image} alt={event.title} />
+        <img src={event.image} alt={event.title} loading="lazy" />
         <div className="event-card-date">
           <span>{event.date.split(',')[0]}</span>
         </div>

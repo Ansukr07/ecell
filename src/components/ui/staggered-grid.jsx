@@ -22,6 +22,7 @@ export const StaggeredGrid = ({ images, bentoItems, centerText }) => {
                         <img
                             src={bentoItems[0].image}
                             alt={bentoItems[0].title}
+                            loading="lazy"
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute bottom-6 left-6 z-20">
@@ -57,6 +58,7 @@ export const StaggeredGrid = ({ images, bentoItems, centerText }) => {
                     <img
                         src={item.image}
                         alt={item.title}
+                        loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity"
                     />
                     <div className="absolute bottom-4 left-4 z-20">
@@ -76,7 +78,7 @@ export const StaggeredGrid = ({ images, bentoItems, centerText }) => {
                     className="col-span-1 row-span-1 rounded-xl overflow-hidden relative"
                     whileHover={{ scale: 1.02 }}
                 >
-                    <img src={src} alt="Gallery" className="w-full h-full object-cover" />
+                    <img src={src} alt="Gallery" loading="lazy" className="w-full h-full object-cover" />
                 </motion.div>
             ))}
 

@@ -71,6 +71,7 @@ const AlumniCard = ({ member, index }) => {
           <img
             src={member.image}
             alt={member.name}
+            loading="lazy"
             className={`w-full h-full object-cover transition-all duration-700 ${isHovered
               ? 'scale-110 grayscale-0'
               : 'scale-100 grayscale hover:grayscale-[50%]'

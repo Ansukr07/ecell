@@ -38,7 +38,6 @@ import img32 from '../assets/image32.jpg';
 import img33 from '../assets/image33.jpg';
 import img34 from '../assets/image34.jpg';
 import img35 from '../assets/image35.jpg';
-import img36 from '../assets/image36.JPG';
 import img37 from '../assets/image37.jpg';
 import img38 from '../assets/image38.jpg';
 import img39 from '../assets/image39.jpg';
@@ -57,7 +56,7 @@ const Gallery = () => {
       img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
       img11, img12, img13, img14, img15, img16, img17, img18, img19, img20,
       img21, img22, img23, img24, img25, img26, img27, img28, img29, img30,
-      img31, img32, img33, img34, img35, img36, img37, img38, img39, img40,
+      img31, img32, img33, img34, img35, img37, img38, img39, img40,
       img41, img42, img43
     ];
 

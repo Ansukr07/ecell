@@ -305,6 +305,7 @@ function WordCard({ word }) {
                 <img
                     src={word.imageUrl}
                     alt={word.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
             </div>
