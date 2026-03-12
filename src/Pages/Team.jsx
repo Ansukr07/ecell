@@ -124,7 +124,7 @@ const TeamPage = () => {
           }}
         />
 
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full min-h-screen flex flex-col justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full flex flex-col">
 
           {/* Main hero block */}
           <main className="w-full flex flex-col items-center justify-start mt-32 md:mt-32 lg:mt-40 mb-12 md:mb-24 lg:mb-56 px-4">
@@ -167,7 +167,7 @@ const TeamPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="md:hidden flex flex-col items-start text-left px-4 mt-12 mb-10 relative z-10"
+            className="md:hidden flex flex-col items-start text-left px-4 mt-[55vw] sm:mt-[45vw] mb-10 relative z-10"
             style={{ fontFamily: "'DIN Pro', sans-serif" }}
           >
             <p className="text-xl mb-2 font-medium">
