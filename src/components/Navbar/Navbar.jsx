@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/ecellorange.png';
+import logo from '../../assets/ecell1.png';
 import { PreloaderContext } from '../../App';
 import PhoneMenu from './PhoneMenu';
 import './PhoneMenu.css';
@@ -93,7 +93,7 @@ export default function Navbar() {
 
             {/* Logo - Desktop Only */}
             <Link to="/" className="hidden md:flex flex-shrink-0 group">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 p-1.5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 p-1.5 ">
                 <img
                   src={logo}
                   alt="E-CELL Logo"

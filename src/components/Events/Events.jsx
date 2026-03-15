@@ -189,11 +189,7 @@ const ECellEventsScroll = () => {
         {/* Right Panel - Scrollable Events */}
         <div className="w-[45%] h-screen flex items-center justify-center relative">
           {/* Background Text */}
-          <div className="absolute inset-0 flex flex-col justify-center items-center space-y-16 opacity-15">
-            <div className="text-7xl font-bold text-gray-600">E</div>
-            <div className="text-5xl font-bold text-gray-600">CELL</div>
-            <div className="text-7xl font-bold text-gray-600">HUB</div>
-          </div>
+
 
           <div
             ref={scrollContainerRef}
