@@ -1,34 +1,87 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
-const MAX_ITEM_HEIGHT = 380;
-const GAP = 20;
-const DRAG_SPEED = 0.55;
-const INERTIA = 0.88;
+const NUM_COLS = 5;
+const GAP = 80;
 
+const COL_WIDTH = 260;         // fixed column width — portrait: tall, landscape: short
+const MODULE_WIDTH = NUM_COLS * COL_WIDTH + (NUM_COLS - 1) * GAP;
+const DRAG_SPEED = 0.5;
+const INERTIA = 0.86;
+
+/**
+ * Fixed-column masonry layout.
+ *  - All columns have the same width.
+ *  - Portrait images are tall, landscape images are short (natural aspect ratio).
+ *  - Columns are filled to the same height (padding with cycled images)
+ *    so the infinite tile wraps seamlessly with no empty strips.
+ */
 function buildLayout(images) {
-  const COLS = Math.max(4, Math.ceil(Math.sqrt(images.length)));
-  const cols = Array.from({ length: COLS }, () => ({ items: [], height: 0, width: 0 }));
+  if (!images.length) return { items: [], moduleW: MODULE_WIDTH, moduleH: 0 };
 
-  images.forEach((img) => {
-    const scale = Math.min(1, MAX_ITEM_HEIGHT / img.naturalHeight);
-    const w = Math.round(img.naturalWidth * scale);
-    const h = Math.round(img.naturalHeight * scale);
-    const shortest = cols.reduce((a, b) => (a.height <= b.height ? a : b));
-    shortest.items.push({ src: img.src, w, h, y: shortest.height });
-    shortest.height += h + GAP;
-    if (w > shortest.width) shortest.width = w;
+  // Pre-compute each image's column-width display dimensions
+  const sized = images.map((img) => {
+    const h = Math.round((img.naturalHeight / img.naturalWidth) * COL_WIDTH);
+    return { src: img.src, w: COL_WIDTH, h };
   });
 
-  let xCursor = 0;
+  // Distribute images across columns round-robin
+  const cols = Array.from({ length: NUM_COLS }, () => []);
+  sized.forEach((item, i) => cols[i % NUM_COLS].push({ ...item }));
+
+  // Compute raw column heights
+  const colH = (col) => col.reduce((s, it) => s + it.h + GAP, 0) - GAP;
+
+  // We need to loop images in columns until they are roughly the same height,
+  // but to make them tile perfectly without uneven gaps, every column must be EXACTLY the same height.
+  // First, pad shorter columns roughly up to maxH.
+  let maxH = Math.max(...cols.map(colH));
+
   cols.forEach((col) => {
-    col.items.forEach((it) => { it.x = xCursor; });
-    xCursor += col.width + GAP;
+    let idx = 0;
+    // pad until the column is close to maxH
+    while (colH(col) < maxH - (COL_WIDTH / 2)) {
+      const it = sized[idx % sized.length];
+      col.push({ ...it });
+      idx++;
+    }
   });
 
-  const moduleW = xCursor;
-  const moduleH = Math.max(...cols.map((c) => c.height));
-  const items = cols.flatMap((col) => col.items);
-  return { items, moduleW, moduleH };
+  // Now maxH might have increased if a pushed image was very tall
+  maxH = Math.max(...cols.map(colH));
+
+  // Exactly stretch images in each column so every column precisely equals maxH
+  cols.forEach((col) => {
+    const currentH = col.reduce((sum, item) => sum + item.h, 0);
+    const targetH = maxH - (col.length - 1) * GAP;
+
+    // Distribute ratio to match exact height
+    const ratio = targetH / currentH;
+    col.forEach((item) => {
+      item.h = Math.round(item.h * ratio);
+    });
+
+    // Fix rounding errors in exact pixel counts by giving remainder to the last item
+    const newTotalH = col.reduce((sum, item) => sum + item.h, 0);
+    if (newTotalH !== targetH) {
+      col[col.length - 1].h += targetH - newTotalH;
+    }
+  });
+
+  const moduleH = maxH + GAP;
+
+
+  // Assign absolute x / y positions
+  const items = [];
+  cols.forEach((col, ci) => {
+    const x = ci * (COL_WIDTH + GAP);
+    let y = 0;
+    col.forEach((item) => {
+      items.push({ ...item, x, y });
+      y += item.h + GAP;
+    });
+  });
+
+  return { items, moduleW: MODULE_WIDTH, moduleH };
 }
 
 export default function InfiniteMasonryGallery({ images }) {
@@ -205,7 +258,6 @@ export default function InfiniteMasonryGallery({ images }) {
           transition: box-shadow 0.2s ease;
         }
         .img-gallery-item:hover {
-          box-shadow: 0 10px 40px rgba(0,0,0,0.8);
           z-index: 10;
         }
         .img-gallery-item img {
