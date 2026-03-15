@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 const NUM_COLS = 5;
-const GAP = 80;
+const GAP = 60;
 
 const COL_WIDTH = 260;         // fixed column width — portrait: tall, landscape: short
 const MODULE_WIDTH = NUM_COLS * COL_WIDTH + (NUM_COLS - 1) * GAP;
@@ -212,8 +212,8 @@ export default function InfiniteMasonryGallery({ images }) {
   if (!layout) return null;
 
   const { items, moduleW, moduleH } = layout;
-  const repsX = Math.ceil(window.innerWidth / moduleW) + 3;
-  const repsY = Math.ceil(window.innerHeight / moduleH) + 3;
+  const repsX = Math.ceil(window.innerWidth / moduleW) + 2;
+  const repsY = Math.ceil(window.innerHeight / moduleH) + 2;
 
   const tiles = [];
   for (let ty = -1; ty < repsY; ty++) {
@@ -254,8 +254,10 @@ export default function InfiniteMasonryGallery({ images }) {
           position: absolute;
           border-radius: 6px;
           overflow: hidden;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-          transition: box-shadow 0.2s ease;
+          transition: transform 0.2s ease;
+          will-change: transform;
+          transform: translateZ(0); 
+          backface-visibility: hidden;
         }
         .img-gallery-item:hover {
           z-index: 10;
