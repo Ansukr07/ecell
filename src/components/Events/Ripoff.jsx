@@ -1,23 +1,32 @@
 import React from 'react';
-import { Users, Scissors, Calendar, Clock } from 'lucide-react';
-import EventLayout from './EventLayout';
+import EventPageLayout from './EventPageLayout';
 
 const Ripoff = () => {
-    const eventStats = [
-        { icon: Users, label: 'Designers', value: '60' },
-    ];
+  const highlights = [
+    'Unleash your inner designer with reimagined products',
+    'Better utility, design, or sustainability focus',
+    'Unique competition challenging participants to rip off and improve',
+  ];
 
-    return (
-        <EventLayout
-            title="RIP OFF"
-            description="Unleash your inner designer! A unique competition challenging participants to 'rip off' existing products and reimagine them with better utility, design, or sustainability."
+  const galleryImages = [
+    'https://images.unsplash.com/photo-1561070791-2526d31cc5b5?w=500&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1586717799252-22dcc255f70d?w=500&h=300&fit=crop',
+  ];
 
-            highlights={highlights}
-
-            themeColor="orange"
-            backgroundGradient="from-slate-900 via-gray-900 to-black"
-        />
-    );
+  return (
+    <EventPageLayout
+      title="RIP"
+      titleLine2="OFF"
+      eventSubtitle="Design competition"
+      eventDetail="Reimagine products • 60 designers"
+      mainStatValue="60"
+      mainStatLabel="Designers"
+      statDetail=""
+      highlights={highlights}
+      galleryImages={galleryImages}
+    />
+  );
 };
 
 export default Ripoff;

@@ -1,12 +1,15 @@
 import React from 'react';
 import './Events.css';
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, accentColor }) => {
   return (
     <div className="event-card">
       <div className="event-card-image">
         <img src={event.image} alt={event.title} loading="lazy" />
-        <div className="event-card-date">
+        <div
+          className="event-card-date"
+          style={accentColor ? { backgroundColor: accentColor } : undefined}
+        >
           <span>{event.date.split(',')[0]}</span>
         </div>
       </div>
