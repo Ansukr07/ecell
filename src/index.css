@@ -43,6 +43,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Boreck';
+  src: url('./Pages/assets/Fonts/Boreck Display Font/Boreck Display/BoreckDisplay-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

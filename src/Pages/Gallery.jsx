@@ -118,17 +118,14 @@ const Gallery = () => {
         `}
       </style>
 
-      <div className="min-h-screen bg-white py-16 px-4">
+      <div className="min-h-screen bg-white pt-32 pb-16 md:pt-23 px-4">
         {/* Navbar removed as it is global */}
-        <div className="max-w-7xl mx-auto pt-12">
+        <div className="max-w-7xl mx-auto pt-8 md:pt-16">
           {/* Header Section */}
-          <div className="text-center mb-16">
-            <h1 className="font-georgia text-5xl md:text-6xl font-bold text-gray-900 mb-7">
+          <div className="text-center mb-16 md:mb-24">
+            <h1 className="text-[5.5rem] sm:text-8xl md:text-[16vw] text-black tracking-[0.05em] uppercase leading-none" style={{ fontFamily: 'Boreck' }}>
               Gallery
             </h1>
-            <p className="font-sora text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Capturing moments of innovation, collaboration, and entrepreneurial spirit at our E-Cell events and activities.
-            </p>
           </div>
 
           {/* Masonry Gallery Grid */}
@@ -145,7 +142,7 @@ const Gallery = () => {
                     className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" // h-auto preserves aspect ratio
                     loading="lazy"
                   />
-                  
+
                 </div>
               </div>
             ))}
