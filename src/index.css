@@ -97,7 +97,7 @@ button:hover {
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
 }
 
 @media (prefers-color-scheme: light) {
@@ -107,11 +107,11 @@ button:focus-visible {
   }
 
   a:hover {
-    color: #747bff;
+    color: white;
   }
 
   button {
-    background-color: #f9f9f9;
+    background-color: black;
   }
 }
 

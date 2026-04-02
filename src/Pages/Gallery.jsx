@@ -1,6 +1,4 @@
-import React, { useMemo } from 'react';
-import NoiseBackground from '../components/NoiseBackground';
-import InfiniteMasonryGallery from '../components/InfiniteMasonryGallery';
+import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer/Footer';
 
 // Image Imports
@@ -48,18 +46,115 @@ import img42 from '../assets/image42.JPG';
 import img43 from '../assets/image43.JPG';
 
 const Gallery = () => {
-  const images = useMemo(() => [
-    img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
-    img11, img12, img13, img14, img15, img16, img17, img18, img19, img20,
-    img21, img22, img23, img24, img25, img26, img27, img28, img29, img30,
-    img31, img32, img33, img34, img35, img37, img38, img39, img40,
-    img41, img42, img43
-  ], []);
+  const [shuffledImages, setShuffledImages] = useState([]);
+
+  useEffect(() => {
+    // Array of all images
+    const allImages = [
+      img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
+      img11, img12, img13, img14, img15, img16, img17, img18, img19, img20,
+      img21, img22, img23, img24, img25, img26, img27, img28, img29, img30,
+      img31, img32, img33, img34, img35, img37, img38, img39, img40,
+      img41, img42, img43
+    ];
+
+    // Create gallery data objects
+    const galleryData = allImages.map((src, index) => ({
+      id: index + 1,
+      src: src,
+      alt: `E-Cell Gallery Image ${index + 1}`,
+      title: "E-Cell Moment"
+    }));
+
+    // Shuffle images
+    const shuffled = [...galleryData].sort(() => Math.random() - 0.5);
+    setShuffledImages(shuffled);
+  }, []);
+
 
   return (
     <>
-      <NoiseBackground />
-      <InfiniteMasonryGallery images={images} />
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
+          
+          .font-georgia {
+            font-family: Georgia, 'Times New Roman', serif;
+          }
+          
+          .font-sora {
+            font-family: 'Sora', sans-serif;
+          }
+          
+          .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+          }
+          
+          @media (min-width: 640px) {
+            .masonry-grid {
+              column-count: 2;
+            }
+          }
+          
+          @media (min-width: 1024px) {
+            .masonry-grid {
+              column-count: 3;
+            }
+          }
+          
+          @media (min-width: 1280px) {
+            .masonry-grid {
+              column-count: 4;
+            }
+          }
+          
+          .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            width: 100%;
+          }
+        `}
+      </style>
+
+      <div className="min-h-screen bg-white py-16 px-4">
+        {/* Navbar removed as it is global */}
+        <div className="max-w-7xl mx-auto pt-12">
+          {/* Header Section */}
+          <div className="text-center mb-16">
+            <h1 className="font-georgia text-5xl md:text-6xl font-bold text-gray-900 mb-7">
+              Gallery
+            </h1>
+            <p className="font-sora text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Capturing moments of innovation, collaboration, and entrepreneurial spirit at our E-Cell events and activities.
+            </p>
+          </div>
+
+          {/* Masonry Gallery Grid */}
+          <div className="masonry-grid">
+            {shuffledImages.map((image) => (
+              <div
+                key={image.id}
+                className="masonry-item group relative overflow-hidden rounded-2xl bg-gray-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/20"
+              >
+                <div className="relative w-full">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" // h-auto preserves aspect ratio
+                    loading="lazy"
+                  />
+                  
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
+      </div>
+      <Footer />
     </>
   );
 };
