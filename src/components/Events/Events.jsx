@@ -1,317 +1,133 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Search, ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ECellEventsScroll = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoplay, setIsAutoplay] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const scrollContainerRef = useRef(null);
-  const itemRefs = useRef([]);
-  const autoplayTimeoutRef = useRef(null);
-  const navigate = useNavigate();
+  const [showFlagships, setShowFlagships] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
+  // Sync scroll on load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Restored Organization E-Cell Original Payload
   const events = [
-    { name: "CODERED'25", displayName: "CODERED'25" },
-    { name: "ADVERT1.0", displayName: "ADVERT 1.0" },
-    { name: "SPL", displayName: "SPL" },
-    { name: "CASE CRACKERS", displayName: "CASE CRACKERS" },
-    { name: "CHITTING", displayName: "CHITTING" },
-    { name: "PANEL DISCUSSION", displayName: "PANEL DISCUSSION" },
-    { name: "RIP OFF", displayName: "RIP OFF" }
+    { name: "CODERED'25", displayName: "CODERED'25", description: "The ultimate coding showdown and 24-hour hackathon.", date: "01 \u2014 05.12.2025", location: "@BMSIT Campus", tags: ["#Hackathon", "#Coding", "#Tech"], imgSeed: "12", isFlagship: true },
+    { name: "ADVERT1.0", displayName: "ADVERT 1.0", description: "Marketing and strategy competition exploring real-world campaigns.", date: "04.06.2025", location: "@BMSIT Seminar Hall", tags: ["#Marketing", "#Ads", "#Strategy"], imgSeed: "28", isFlagship: false },
+    { name: "SPL", displayName: "SPL", description: "Premier sports league tournament fostering teamwork and competition.", date: "08.05.2025", location: "@BMSIT Ground", tags: ["#Sports", "#League", "#Network"], imgSeed: "43", isFlagship: true },
+    { name: "CASE CRACKERS", displayName: "CASE CRACKERS", description: "Interactive workshops exploring corporate innovation setups.", date: "30.04.2025", location: "@BMSIT Seminar Hall", tags: ["#Business", "#CaseStudy"], imgSeed: "50", isFlagship: false },
+    { name: "CHITTING", displayName: "CHITTING", description: "Open debate surrounding municipal technical upgrades.", date: "15.08.2025", location: "@Campus", tags: ["#Debate", "#Discussion"], imgSeed: "66", isFlagship: false },
+    { name: "PANEL DISCUSSION", displayName: "PANEL DISCUSSION", description: "Panel of local founders discussing ecosystem challenges.", date: "22.10.2025", location: "@Main Auditorium", tags: ["#Talks", "#Founders"], imgSeed: "78", isFlagship: false },
+    { name: "RIP OFF", displayName: "RIP OFF", description: "Ideation and pitch competition for early prototypes.", date: "10.12.2025", location: "@Creative Lab", tags: ["#Ideation", "#Startup"], imgSeed: "85", isFlagship: false }
   ];
 
-  // Create extended events for smooth infinite scroll
-  const extendedEvents = [...events, ...events, ...events];
+  const filteredEvents = events.filter(e => 
+    (showFlagships ? e.isFlagship : true) && 
+    (e.displayName.toLowerCase().includes(searchQuery.toLowerCase()) || 
+     e.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
+     e.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
+  );
 
-  // Smooth autoplay with pause functionality
-  useEffect(() => {
-    if (isAutoplay && !isPaused) {
-      autoplayTimeoutRef.current = setTimeout(() => {
-        setActiveIndex((prev) => (prev + 1) % events.length);
-      }, 4000); // Slightly longer interval for better UX
-    }
-
-    return () => {
-      if (autoplayTimeoutRef.current) {
-        clearTimeout(autoplayTimeoutRef.current);
-      }
-    };
-  }, [activeIndex, isAutoplay, isPaused, events.length]);
-
-  // Handle scroll-based active index detection - Fixed for laptop
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!scrollContainerRef.current) return;
-
-      const container = scrollContainerRef.current;
-      const items = itemRefs.current;
-
-      let closestIndex = 0;
-      let minDistance = Infinity;
-
-      items.forEach((item, index) => {
-        if (!item) return;
-        const itemRect = item.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-
-        const itemCenter = itemRect.top + itemRect.height / 2;
-        const containerCenter = containerRect.top + containerRect.height / 2;
-
-        const distance = Math.abs(itemCenter - containerCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index % events.length;
-        }
-      });
-
-      if (closestIndex !== activeIndex) {
-        setActiveIndex(closestIndex);
-      }
-    };
-
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll, { passive: true });
-      return () => container.removeEventListener('scroll', handleScroll);
-    }
-  }, [events.length, activeIndex]);
-
-  const handleEventClick = (event, index) => {
-    // Pause autoplay temporarily when user interacts
-    setIsPaused(true);
-    setActiveIndex(index);
-
-    const componentPath = `/events/${event.name.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}`;
+  const handleEventClick = (event) => {
+    const componentPath = `/events/${event.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
     window.open(componentPath, '_blank');
-
-    // Resume autoplay after interaction
-    setTimeout(() => setIsPaused(false), 3000);
-  };
-
-  const scrollToEvent = (index) => {
-    setIsPaused(true);
-    setActiveIndex(index);
-
-    const targetItem = itemRefs.current[index + events.length];
-    if (targetItem && scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const itemRect = targetItem.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-
-      const scrollTop = targetItem.offsetTop - container.offsetTop - (containerRect.height / 2) + (itemRect.height / 2);
-      container.scrollTo({ top: scrollTop, behavior: 'smooth' });
-    }
-
-    setTimeout(() => setIsPaused(false), 5000);
-  };
-
-  const handleMouseEnter = () => {
-    setIsPaused(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsPaused(false);
-  };
-
-  const getItemStyles = (index) => {
-    const actualIndex = index % events.length;
-    const isActive = actualIndex === activeIndex;
-
-    return {
-      transform: isActive ? 'scale(1.02)' : 'scale(0.92)',
-      opacity: isActive ? 1 : 0.6,
-      filter: isActive ? 'none' : 'grayscale(40%)',
-    };
-  };
-
-  // Consistent display formatting - Fixed for original style
-  const formatEventName = (name) => {
-    if (name === "ADVERT 1.0") return ["ADVERT", "1.0"];
-    if (name === "CASE CRACKERS") return ["CASE", "CRACKERS"];
-    if (name === "PANEL DISCUSSION") return ["PANEL", "DISCUSSION"];
-    if (name === "RIP OFF") return ["RIP", "OFF"];
-    return [name];
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative" style={{ fontFamily: 'Sora, sans-serif' }} id='events'>
-      {/* Google Fonts */}
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-      {/* Subtle background effects */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-transparent to-[#FD7722]/5"></div>
-        <div className="absolute top-1/4 right-1/4 w-2 h-2 bg-[#FD7722] rounded-full opacity-60"></div>
-        <div className="absolute bottom-1/3 left-1/5 w-1 h-1 bg-[#FD7722] rounded-full opacity-40"></div>
+    <div className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-16 px-4 md:px-8 xl:px-12" style={{ fontFamily: 'Inter, sans-serif' }} id="events">
+
+      {/* Massive Header & Search */}
+      <div className="w-full flex flex-col">
+        <h1
+          className="text-white tracking-tighter leading-none mb-4 font-medium text-left"
+          style={{ fontSize: '166.4px', letterSpacing: '-0.04em' }}
+        >
+          Events
+        </h1>
+
+        {/* Search Bar - Flush layout mirroring screenshot border styles */}
+        <div className="w-full border border-[#222] bg-transparent flex items-center p-3 transition-colors duration-300 focus-within:border-white focus-within:ring-0">
+          <Search className="text-[#444] w-10 h-10 ml-2 mr-4" strokeWidth={1.5} />
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-transparent border-none outline-none text-4xl text-white placeholder-[#333] font-normal tracking-tight"
+          />
+        </div>
       </div>
 
-      {/* View All Events Button */}
+      {/* Main Layout 2 Columns */}
+      <div className="w-full flex flex-col lg:flex-row gap-4 gap-y-8 mt-4 items-start">
 
+        {/* Left Column - Flagships Toggle */}
+        <div className="w-full lg:w-[280px] flex-shrink-0">
+          <div className="bg-[#4d4d4d] p-4 px-5 flex items-center justify-between cursor-pointer" onClick={() => setShowFlagships(!showFlagships)}>
+            <span className="text-sm font-medium text-white tracking-tight">Flagship Events</span>
 
-      {/* Desktop Layout */}
-      <div className="hidden lg:flex h-screen items-center">
-        {/* Left Panel - Fixed Content */}
-        <div className="w-[55%] flex items-center justify-center pl-20 xl:pl-24">
-          <div className="text-left">
-            <div className="mb-8">
-              <h2 className="text-sm font-medium tracking-[0.3em] text-gray-400 mb-6 uppercase" style={{ fontFamily: 'Georgia, serif' }}>
-                Check out
-              </h2>
-              <h3 className="text-5xl xl:text-6xl font-bold text-white leading-tight mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-                E-Cell's
-              </h3>
-              <h3 className="text-5xl xl:text-6xl font-bold text-white leading-tight mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-                Cool
-              </h3>
-              <h3 className="text-5xl xl:text-6xl font-bold text-white leading-tight mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-                & Fun
-              </h3>
-              <h3 className="text-6xl xl:text-7xl font-bold text-[#FD7722] leading-tight italic" style={{ fontFamily: 'Georgia, serif' }}>
-                EVENTS
-              </h3>
+            {/* iOS-Style Toggle Switch */}
+            <div className={`w-10 h-5 rounded-full relative transition-colors duration-300 ease-in-out ${showFlagships ? 'bg-[#999]' : 'bg-[#777]'}`}>
+              <div className={`w-[16px] h-[16px] rounded-full bg-white shadow-sm absolute top-[2px] transition-transform duration-300 ease-in-out ${showFlagships ? 'left-[22px]' : 'left-0.5'}`} />
             </div>
+          </div>
+        </div>
 
-            {/* Active Event Display - Fixed Height for Stability */}
-            <div className="mt-12">
-              <div className="w-32 h-0.5 bg-gradient-to-r from-[#FD7722] to-transparent mb-8"></div>
-              <div className="min-h-[8rem] flex flex-col justify-center"> {/* Fixed height container */}
-                <h1 className="text-7xl xl:text-8xl font-black text-[#FD7722] leading-none transition-all duration-500" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  {formatEventName(events[activeIndex].displayName).map((word, i) => (
-                    <div key={i} className="leading-none">{word}</div>
-                  ))}
-                </h1>
+        {/* Right Column - Event Cards */}
+        <div className="w-full flex-1 flex flex-col space-y-4">
+          {filteredEvents.length === 0 ? (
+            <div className="p-8 text-[#888] font-light text-xl border border-[#333] tracking-tight">No events found containing "{searchQuery}".</div>
+          ) : filteredEvents.map((event, idx) => (
+            <div
+              key={idx}
+              onClick={() => handleEventClick(event)}
+              className="group flex flex-col sm:flex-row w-full sm:w-[1125px] cursor-pointer bg-[#292929] hover:bg-[#656565] transition-colors duration-300 overflow-hidden relative"
+            >
+              {/* Image Block: Absolute Dimensions 256x256 */}
+              <div className="w-[256px] h-[256px] flex-shrink-0 bg-black overflow-hidden relative hidden sm:block">
+                {/* Dynamically seeded image replacement to ensure diverse block visuals */}
+                <img src={`https://picsum.photos/id/${event.imgSeed}/256/256`} alt={event.name} className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-screen opacity-90 group-hover:grayscale-0 transition-all duration-700" />
+              </div>
+
+              {/* Content Area: Explicit 869x256 size constraints as requested */}
+              <div className="p-5 px-6 flex flex-col justify-between w-full sm:w-[869px] h-[256px]">
+
+                {/* Top Metadata Row */}
+                <div className="flex flex-row items-center justify-between w-full">
+                  <div className="flex flex-row items-center gap-3 text-[13px] tracking-tight">
+                    <span className="border border-white text-white px-2 py-[2px]">{event.date}</span>
+                    <span className="text-white ml-1">{event.location}</span>
+                  </div>
+
+                  {/* Right Tags */}
+                  <div className="flex flex-row gap-2 text-[13px] text-[#b48cff] tracking-tight">
+                    {event.tags.map((tag, tIdx) => (
+                      <span key={tIdx}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Event Description & Title Bottom Anchored */}
+                <div className="mt-auto mb-2 relative flex flex-col items-start text-left w-full">
+                  <h3 className="text-[36px] font-normal tracking-tight text-white mb-0 leading-tight text-left">
+                    {event.displayName}
+                  </h3>
+                  <p className="text-[#888] text-[15px] font-normal tracking-tight max-w-2xl mt-1 text-left">
+                    {event.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Diagonal Arrow UI Icon */}
+              <div className="absolute right-4 bottom-4 md:right-8 md:bottom-8 text-white opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 group-hover:translate-x-2 transition-all duration-500">
+                <ArrowUpRight strokeWidth={1} className="w-12 h-12 md:w-16 md:h-16 lg:w-[70px] lg:h-[70px]" />
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Right Panel - Scrollable Events */}
-        <div className="w-[45%] h-screen flex items-center justify-center relative">
-          {/* Background Text */}
-
-
-          <div
-            ref={scrollContainerRef}
-            className="h-[85%] overflow-y-auto overflow-x-hidden scrollbar-hide w-full relative z-10"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
-          >
-            <div className="flex flex-col items-center justify-center py-8 space-y-8">
-              {extendedEvents.map((event, index) => (
-                <div
-                  key={`${event.name}-${index}`}
-                  ref={(el) => itemRefs.current[index] = el}
-                  className="text-center cursor-pointer transition-all duration-700 ease-out group relative"
-                  style={getItemStyles(index)}
-                  onClick={() => handleEventClick(event, index % events.length)}
-                >
-                  <h3 className="text-3xl xl:text-4xl font-bold text-white hover:text-[#FD7722] transition-all duration-500 group-hover:scale-110" style={{ fontFamily: 'Sora, sans-serif' }}>
-                    {event.displayName}
-                  </h3>
-                  <div className="mt-4 h-0.5 w-0 bg-[#FD7722] mx-auto group-hover:w-20 transition-all duration-500"></div>
-
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 -m-6 rounded-lg border border-transparent group-hover:border-[#FD7722]/20 group-hover:bg-[#FD7722]/5 transition-all duration-500 -z-10"></div>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Mobile Layout */}
-      <div className="lg:hidden h-screen flex flex-col">
-        {/* Header */}
-        <div className="flex-shrink-0 pt-8 pb-4 px-4">
-          <div className="text-center">
-            <h2 className="text-xs font-medium tracking-[0.2em] text-gray-400 mb-4 uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Check out our
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-[#FD7722] italic mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Very Cool EVENTS
-            </h3>
-          </div>
-        </div>
-
-        {/* Active Event Display - Fixed Height */}
-        <div className="flex-shrink-0 py-6 px-4">
-          <div className="text-center">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-[#FD7722] to-transparent mx-auto mb-4"></div>
-            <div className="min-h-[6rem] flex flex-col justify-center"> {/* Fixed height container */}
-              <h1 className="text-5xl md:text-6xl font-black text-white leading-tight transition-all duration-500" style={{ fontFamily: 'Inter, sans-serif' }}>
-                {formatEventName(events[activeIndex].displayName).map((word, i) => (
-                  <div key={i}>{word}</div>
-                ))}
-              </h1>
-            </div>
-          </div>
-        </div>
-
-        {/* Scrollable Events */}
-        <div className="flex-1 min-h-0">
-          <div
-            ref={scrollContainerRef}
-            className="h-full overflow-y-auto overflow-x-hidden scrollbar-hide px-4"
-            onTouchStart={handleMouseEnter}
-            onTouchEnd={handleMouseLeave}
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
-          >
-            <div className="flex flex-col items-center py-4 space-y-6">
-              {extendedEvents.map((event, index) => (
-                <div
-                  key={`${event.name}-${index}`}
-                  ref={(el) => itemRefs.current[index] = el}
-                  className="text-center cursor-pointer transition-all duration-700 ease-out group relative w-full max-w-xs"
-                  style={getItemStyles(index)}
-                  onClick={() => handleEventClick(event, index % events.length)}
-                >
-                  <h3 className="text-2xl md:text-3xl font-bold text-white hover:text-[#FD7722] transition-all duration-500" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    {event.displayName}
-                  </h3>
-                  <div className="mt-3 h-0.5 w-0 bg-[#FD7722] mx-auto group-hover:w-16 transition-all duration-500"></div>
-
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 -m-4 rounded-lg border border-transparent group-hover:border-[#FD7722]/20 group-hover:bg-[#FD7722]/5 transition-all duration-500 -z-10"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Controls */}
-      <button
-        onClick={() => setIsAutoplay(!isAutoplay)}
-        className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors duration-300 z-20"
-      >
-        <div className="flex items-center space-x-2 text-xs font-medium">
-          <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${isAutoplay ? 'bg-[#FD7722]' : 'bg-red-500'
-            }`}></div>
-          <span style={{ fontFamily: 'Inter, sans-serif' }}>{isAutoplay ? 'AUTO' : 'MANUAL'}</span>
-        </div>
-      </button>
-
-      {/* Gradient Overlays - More subtle */}
-      <div className="absolute top-0 right-0 lg:w-[45%] w-full h-16 bg-gradient-to-b from-black to-transparent pointer-events-none z-10"></div>
-      <div className="absolute bottom-0 right-0 lg:w-[45%] w-full h-16 bg-gradient-to-t from-black to-transparent pointer-events-none z-10"></div>
-
-      <style jsx>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </div>
   );
 };
