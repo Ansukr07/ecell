@@ -78,7 +78,7 @@ const TeamSectionGroup = ({ title, members, isLast, showDivider = true }) => {
       {showDivider && <div className="w-full h-[1px] bg-white/10 mb-12" />}
 
       <h2
-        className="text-white text-3xl md:text-6xl lg:text-7xl font-bold uppercase mb-10 md:mb-16 tracking-tighter"
+        className="text-white text-3xl md:text-6xl lg:text-7xl font-bold uppercase mt-16 md:mt-24 mb-16 md:mb-28 tracking-tighter"
         style={{ fontFamily: "'Nhass', sans-serif" }}
       >
         {title}
@@ -114,7 +114,7 @@ const TeamPage = () => {
     <div className="font-sans selection:bg-[#ff3b1f] selection:text-white">
 
       {/* ════════════ HERO SECTION (original light design) ════════════ */}
-      <div className="min-h-screen bg-[#f4f4f4] relative overflow-hidden pb-20">
+      <div className="min-h-screen bg-[#f4f4f4] relative overflow-hidden pb-8 md:pb-20">
 
         {/* Grain overlay */}
         <div
@@ -167,7 +167,7 @@ const TeamPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="md:hidden flex flex-col items-start text-left px-4 mt-[55vw] sm:mt-[45vw] mb-10 relative z-10"
+            className="md:hidden flex flex-col items-start text-left px-4 mt-[35vw] sm:mt-[30vw] mb-0 relative z-10"
             style={{ fontFamily: "'DIN Pro', sans-serif" }}
           >
             <p className="text-xl mb-2 font-medium">
@@ -200,7 +200,7 @@ const TeamPage = () => {
           }}
         />
 
-        <div className="max-w-[1400px] mx-auto px-6 md:px-20 lg:px-40 relative z-10 w-full flex flex-col items-start pt-12 md:pt-18">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-20 lg:px-40 relative z-10 w-full flex flex-col items-start pt-6 md:pt-18">
 
           {/* 1. Leadership */}
           <TeamSectionGroup title="Leadership" members={teamData.leadership} showDivider={false} />
