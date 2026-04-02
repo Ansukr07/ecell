@@ -113,7 +113,7 @@ const ECellHero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black lg:bg-transparent relative overflow-hidden" >
+    <div className="min-h-screen bg-black relative overflow-hidden" >
 
 
       <motion.div
