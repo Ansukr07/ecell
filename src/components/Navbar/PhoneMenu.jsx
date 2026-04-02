@@ -63,8 +63,8 @@ const PhoneMenu = ({ isOpen, toggleMenu, isInstantClose, setIsInstantClose }) =>
           animate={{ y: 0 }}
           exit={{ y: '-100%' }}
           transition={{
-            duration: isInstantClose ? 0.01 : 1.0,
-            ease: [0.33, 1, 0.68, 1]
+            duration: isInstantClose ? 0.01 : 0.4,
+            ease: "easeInOut"
           }}
         >
           <div className="menu-logo">
