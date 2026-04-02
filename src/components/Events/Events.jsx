@@ -35,13 +35,21 @@ const ECellEventsScroll = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-16 px-4 md:px-8 xl:px-12" style={{ fontFamily: 'Inter, sans-serif' }} id="events">
+    <div className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-6 md:pt-12 px-4 md:px-8 xl:px-12" style={{ fontFamily: 'Inter, sans-serif' }} id="events">
 
       {/* Massive Header & Search */}
       <div className="w-full flex flex-col">
+        <style>
+          {`
+            .events-main-title { font-size: 70px; }
+            @media (min-width: 640px) { .events-main-title { font-size: 100px; } }
+            @media (min-width: 768px) { .events-main-title { font-size: 130px; } }
+            @media (min-width: 1024px) { .events-main-title { font-size: 166.4px; } }
+          `}
+        </style>
         <h1
-          className="text-white tracking-tighter leading-none mb-4 font-medium text-left"
-          style={{ fontSize: '166.4px', letterSpacing: '-0.04em' }}
+          className="events-main-title text-white tracking-tighter leading-none mb-4 font-medium text-left"
+          style={{ letterSpacing: '-0.04em' }}
         >
           Events
         </h1>
@@ -63,8 +71,8 @@ const ECellEventsScroll = () => {
       <div className="w-full flex flex-col lg:flex-row gap-4 gap-y-8 mt-4 items-start">
 
         {/* Left Column - Flagships Toggle */}
-        <div className="w-full lg:w-[280px] flex-shrink-0">
-          <div className="bg-[#4d4d4d] p-4 px-5 flex items-center justify-between cursor-pointer" onClick={() => setShowFlagships(!showFlagships)}>
+        <div className="w-full lg:w-[280px] flex-shrink-0 lg:sticky lg:top-32 self-start z-10">
+          <div className="bg-[#4d4d4d] p-4 px-5 flex items-center justify-between cursor-pointer shadow-lg" onClick={() => setShowFlagships(!showFlagships)}>
             <span className="text-sm font-medium text-white tracking-tight">Flagship Events</span>
 
             {/* iOS-Style Toggle Switch */}
@@ -97,7 +105,7 @@ const ECellEventsScroll = () => {
                 <div className="flex flex-row items-center justify-between w-full">
                   <div className="flex flex-row items-center gap-3 text-[13px] tracking-tight">
                     <span className="border border-white text-white px-2 py-[2px]">{event.date}</span>
-                    <span className="text-white ml-1">{event.location}</span>
+                    <span className="hidden sm:inline text-white ml-1">{event.location}</span>
                   </div>
 
                   {/* Right Tags */}

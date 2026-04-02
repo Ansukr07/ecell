@@ -70,8 +70,8 @@ function App() {
             ) : (
               <motion.div
                 key="content"
-                initial={{ scale: 0.98, opacity: 0, filter: 'blur(10px)' }}
-                animate={{ scale: showContent ? 1 : 0.98, opacity: showContent ? 1 : 0, filter: showContent ? 'blur(0px)' : 'blur(10px)' }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: showContent ? 1 : 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="min-h-screen"
               >
