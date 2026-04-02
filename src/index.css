@@ -36,6 +36,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Quera';
+  src: url('./Pages/assets/Fonts/quera-font/Quera-DEMO-BF68be80d1aceec.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

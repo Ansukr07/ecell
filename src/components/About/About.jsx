@@ -52,10 +52,10 @@ const AboutSection = () => {
       />
       {/* 1. Full-height Scroll-reveal Section */}
       <section className="flex items-center justify-center px-6 md:px-12 pt-16 pb-6 md:pb-8">
-        <div className="max-w-6xl text-left">
+        <div className="max-w-6xl text-left" style={{ fontFamily: 'Quera' }}>
           <ScrollRevealText
             text="At E-CELL, we're a movement dedicated to helping students move forward. From discovering the perfect idea to building thriving startups, we make every step in entrepreneurship a positive one."
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-medium tracking-tight leading-[1.35] md:leading-[1.3]"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl tracking-wide leading-[1.35] md:leading-[1.3]"
           />
         </div>
       </section>
@@ -118,13 +118,13 @@ const AboutSection = () => {
 
           {/* Right: Text Content directly below image */}
           <div className="space-y-10 text-left">
-            <p className="text-xl md:text-3xl lg:text-4xl font-medium leading-[1.4]">
+            <p className="text-xl md:text-3xl lg:text-4xl leading-[1.4] tracking-wide" style={{ fontFamily: 'Quera' }}>
               <ScrollRevealText
                 text="Founded on the belief that innovation should be empowering for everyone involved, E-CELL combines innovative tools, a student-centered approach, and a collaborative model to redefine what a modern cell can be."
                 className=""
               />
             </p>
-            <p className="text-lg md:text-2xl font-light italic text-gray-400 leading-relaxed md:leading-loose">
+            <p className="text-lg md:text-2xl italic text-gray-400 leading-relaxed md:leading-loose tracking-wide" style={{ fontFamily: 'Quera' }}>
               <ScrollRevealText
                 text="Today, we're proud to support countless students on their entrepreneurial journeys."
                 className=""
