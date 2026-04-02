@@ -148,10 +148,10 @@ const ECellHero = () => {
         className="absolute inset-0 opacity-[0.4]"
         animate={{
           background: [
-            'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)',
-            'radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 60%)',
-            'radial-gradient(circle at 40% 60%, rgba(255,255,255,0.12) 0%, transparent 60%)',
-            'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)'
+            'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%)',
+            'radial-gradient(circle at 80% 90%, rgba(255,255,255,0.15) 0%, transparent 60%)',
+            'radial-gradient(circle at 40% 70%, rgba(255,255,255,0.12) 0%, transparent 60%)',
+            'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%)'
           ]
         }}
         transition={{
@@ -296,11 +296,10 @@ const ECellHero = () => {
               to build tomorrow's game-changing ventures.
             </p>
           </div>
-
         </div>
       </div>
-
-
+      {/* Seamless Transition Gradient explicitly fading the grid out into solid black for the next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-40 lg:h-48 bg-gradient-to-b from-transparent via-black/60 to-black pointer-events-none z-10" />
     </div>
   );
 };
