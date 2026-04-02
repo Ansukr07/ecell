@@ -38,7 +38,7 @@ const ScrollRevealText = ({ text, className }) => {
 const AboutSection = () => {
   return (
     <div className="bg-black text-white font-sora relative">
-      <div 
+      <div
         className="absolute top-0 left-0 w-full h-[40vh] opacity-10 pointer-events-none z-0 mix-blend-overlay"
         style={{
           backgroundImage: `
@@ -51,50 +51,32 @@ const AboutSection = () => {
         }}
       />
       {/* 1. Full-height Scroll-reveal Section */}
-      <section className="min-h-[40vh] md:min-h-[60vh] flex items-center justify-center px-6 md:px-24 pt-32 pb-12 md:pb-16">
+      <section className="flex items-center justify-center px-6 md:px-12 pt-16 pb-6 md:pb-8">
         <div className="max-w-6xl text-left">
           <ScrollRevealText
             text="At E-CELL, we're a movement dedicated to helping students move forward. From discovering the perfect idea to building thriving startups, we make every step in entrepreneurship a positive one."
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-medium leading-[1.3] md:leading-[1.25]"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-medium tracking-tight leading-[1.35] md:leading-[1.3]"
           />
         </div>
       </section>
 
-      {/* 2. Mid Section (Split Layout) */}
-      <section className="py-12 md:py-16 px-6 md:px-24 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
-        <div className="md:col-span-4 flex flex-col justify-start">
-          <h2 className="text-sm md:text-base uppercase tracking-[0.3em] font-semibold text-gray-400 mb-6 font-mono">
+      {/* 2. Unified Content Section */}
+      <section className="pt-4 pb-24 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-stretch">
+
+        {/* Left Column: Heading + Floating Images */}
+        <div className="md:col-span-4 flex flex-col justify-between pt-2 pb-15">
+          <h2 className="text-sm md:text-base uppercase tracking-[0.3em] font-semibold text-gray-400 mb-12 font-mono">
             Who We Are
           </h2>
-        </div>
-        <div className="md:col-span-8">
-          <motion.div
-            initial={{ clipPath: 'inset(0 0 0 100%)' }}
-            whileInView={{ clipPath: 'inset(0 0 0 0)' }}
-            viewport={{ once: true, margin: "0px" }}
-            transition={{ duration: 1.8, ease: "anticipate" }}
-            className="relative overflow-hidden aspect-[4/3] md:aspect-[16/9] group bg-neutral-900 rounded-lg"
-          >
-            <img
-              alt="E-CELL Team Collaboration"
-              className="w-full h-full object-cover group-hover: transition-all duration-1000 hover:scale-105"
-              src={groupImg}
-            />
-          </motion.div>
-        </div>
-      </section>
 
-      {/* 3. Bottom Section (Reversed Layout) */}
-      <section className="py-16 md:py-24 px-6 md:px-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 items-center">
-          {/* Left: Editorial Image Composition */}
-          <div className="relative order-2 md:order-1 mt-12 md:mt-0 pl-12 md:pl-20 sm:pl-16">
+          {/* Left Images (Positioned at the bottom of the left column to align with text) */}
+          <div className="relative w-[80%] md:w-full mt-12 md:mt-auto">
             <motion.div
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               whileInView={{ clipPath: 'inset(0 0 0 0)' }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 1.8, ease: "anticipate" }}
-              className="aspect-[3/4] bg-neutral-900 w-full ml-auto overflow-hidden rounded-lg z-0 relative"
+              className="aspect-[3/4] bg-neutral-900 w-full overflow-hidden rounded-lg z-0 relative"
             >
               <img
                 alt="Collaborative innovation"
@@ -107,7 +89,7 @@ const AboutSection = () => {
               whileInView={{ clipPath: 'inset(0 0 0 0)' }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 1.8, ease: "anticipate" }}
-              className="absolute -bottom-16 left-0 md:left-4 w-2/3 aspect-square border-[8px] md:border-[12px] border-black shadow-2xl overflow-hidden rounded-lg z-10"
+              className="absolute -bottom-12 -right-8 md:-bottom-16 md:-right-6 w-2/3 aspect-square border-[8px] md:border-[12px] border-black shadow-2xl overflow-hidden rounded-lg z-10"
             >
               <img
                 alt="Student workspace"
@@ -116,9 +98,26 @@ const AboutSection = () => {
               />
             </motion.div>
           </div>
+        </div>
 
-          {/* Right: Text Content */}
-          <div className="order-1 md:order-2 space-y-12 text-left">
+        {/* Right Column: Group Image + Paragraphs */}
+        <div className="md:col-span-7 md:col-start-6 lg:col-span-6 lg:col-start-7 flex flex-col pt-8 md:pt-0">
+          <motion.div
+            initial={{ clipPath: 'inset(0 0 0 100%)' }}
+            whileInView={{ clipPath: 'inset(0 0 0 0)' }}
+            viewport={{ once: true, margin: "0px" }}
+            transition={{ duration: 1.8, ease: "anticipate" }}
+            className="relative overflow-hidden aspect-[4/3] md:aspect-[16/9] w-full group bg-neutral-900 rounded-lg mb-12 md:mb-20"
+          >
+            <img
+              alt="E-CELL Team Collaboration"
+              className="w-full h-full object-cover group-hover: transition-all duration-1000 hover:scale-105"
+              src={groupImg}
+            />
+          </motion.div>
+
+          {/* Right: Text Content directly below image */}
+          <div className="space-y-10 text-left">
             <p className="text-xl md:text-3xl lg:text-4xl font-medium leading-[1.4]">
               <ScrollRevealText
                 text="Founded on the belief that innovation should be empowering for everyone involved, E-CELL combines innovative tools, a student-centered approach, and a collaborative model to redefine what a modern cell can be."
