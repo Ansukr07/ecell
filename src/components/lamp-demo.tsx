@@ -68,13 +68,37 @@ export function IdeaSectionHeader() {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/submit-idea', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ email: '', name: '', idea: '' });
+        setErrors({});
+      } else {
+        setSubmitStatus('error');
+        if (data.details) {
+          const newErrors: Record<string, string> = {};
+          data.details.forEach((err: any) => {
+            newErrors[err.path] = err.msg;
+          });
+          setErrors(newErrors);
+        }
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ email: '', name: '', idea: '' });
-      setErrors({});
-    }, 1500);
+    }
   };
 
   const getStatusMessage = () => {
@@ -106,15 +130,8 @@ export function IdeaSectionHeader() {
     <div className="w-full bg-black relative z-10 text-white font-sans">
       <LampContainer>
         <motion.h1
-          initial={{ opacity: 0.5, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            ease: "easeInOut",
-          }}
           style={{ fontFamily: 'ClashDisplay, sans-serif', wordSpacing: '0.4em' }}
-          className="mt-8 bg-gradient-to-br from-white to-neutral-400 py-4 bg-clip-text text-center text-5xl tracking-[0.15em] text-transparent md:text-8xl"
+          className="mt-8 bg-gradient-to-br from-white to-neutral-400 py-4 bg-clip-text text-center text-2xl sm:text-5xl tracking-[0.1em] sm:tracking-[0.15em] text-transparent md:text-8xl opacity-100 translate-y-0"
         >
           BUILD YOUR IDEA
         </motion.h1>
@@ -123,13 +140,13 @@ export function IdeaSectionHeader() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="text-center text-neutral-400 max-w-xl mt-4 text-xl"
+          className="hidden md:block text-center text-neutral-400 max-w-xl mt-4 text-xl"
         >
           Turn your idea into reality with the right guidance and support.
         </motion.p>
       </LampContainer>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 -mt-32 lg:-mt-64 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 md:-mt-32 lg:-mt-64 relative z-20">
         <div className="flex flex-col lg:flex-row gap-16">
 
           {/* Value Prop Section (Adapted from Quote side) */}

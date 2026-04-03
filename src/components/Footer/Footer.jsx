@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Instagram, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
 import './Footer.css'; // Import custom animations and layout styles
 import ecellLogoMobile from '../../assets/ecellorange.png';
@@ -421,8 +421,14 @@ const MobileFooter = () => {
 
 // ─── Main Footer ───────────────────────────────────────────────────────────────
 const Footer = () => {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
+
   return (
     <div id="footer">
+      {isLandingPage && (
+        <div className="w-full h-px bg-white/10" />
+      )}
       <div className="hidden md:block">
         <DesktopFooter />
       </div>

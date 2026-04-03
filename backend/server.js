@@ -9,6 +9,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const Word = require('./models/Word');
+const Idea = require('./models/Idea');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -80,6 +81,24 @@ const validateStorySubmission = [
     .trim()
     .isLength({ min: 50, max: 5000 })
     .withMessage('Story must be between 50 and 5000 characters'),
+];
+
+// Idea validation middleware
+const validateIdeaSubmission = [
+  body('name')
+    .trim()
+    .isLength({ min: 2, max: 100 })
+    .withMessage('Name must be between 2 and 100 characters'),
+
+  body('email')
+    .isEmail()
+    .normalizeEmail()
+    .withMessage('Please provide a valid email address'),
+
+  body('idea')
+    .trim()
+    .isLength({ min: 50, max: 5000 })
+    .withMessage('Idea must be between 50 and 5000 characters'),
 ];
 
 // Sanitize HTML content
@@ -265,6 +284,48 @@ app.post('/api/submit-story',
       res.status(500).json({
         success: false,
         error: 'Failed to submit story. Please try again later.'
+      });
+    }
+  }
+);
+
+// Submit startup idea
+app.post('/api/submit-idea',
+  submissionLimiter,
+  validateIdeaSubmission,
+  async (req, res) => {
+    try {
+      // Check validation results
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          success: false,
+          error: 'Validation failed',
+          details: errors.array()
+        });
+      }
+
+      const { name, email, idea } = req.body;
+
+      // Save to database
+      const newIdea = new Idea({
+        name,
+        email,
+        idea
+      });
+
+      await newIdea.save();
+
+      res.json({
+        success: true,
+        message: 'Idea submitted successfully! Thank you for sharing your vision.'
+      });
+
+    } catch (error) {
+      console.error('Error submitting idea:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to submit idea. Please try again later.'
       });
     }
   }
