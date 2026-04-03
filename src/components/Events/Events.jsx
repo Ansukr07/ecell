@@ -22,11 +22,11 @@ const ECellEventsScroll = () => {
     { name: "RIP OFF", displayName: "RIP OFF", description: "Ideation and pitch competition for early prototypes.", date: "10.12.2025", location: "@Creative Lab", tags: ["#Ideation", "#Startup"], imgSeed: "85", isFlagship: false }
   ];
 
-  const filteredEvents = events.filter(e => 
-    (showFlagships ? e.isFlagship : true) && 
-    (e.displayName.toLowerCase().includes(searchQuery.toLowerCase()) || 
-     e.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
-     e.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
+  const filteredEvents = events.filter(e =>
+    (showFlagships ? e.isFlagship : true) &&
+    (e.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
   );
 
   const handleEventClick = (event) => {
@@ -35,7 +35,7 @@ const ECellEventsScroll = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-6 md:pt-12 px-4 md:px-8 xl:px-12" style={{ fontFamily: 'Inter, sans-serif' }} id="events">
+    <div className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-6 md:pt-12 px-4 md:px-8 xl:px-12 border-t-0 -mt-[1px] md:mt-0" style={{ fontFamily: 'Inter, sans-serif' }} id="events">
 
       {/* Massive Header & Search */}
       <div className="w-full flex flex-col">

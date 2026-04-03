@@ -37,9 +37,9 @@ const ScrollRevealText = ({ text, className }) => {
 
 const AboutSection = () => {
   return (
-    <div className="bg-black text-white font-sora relative">
+    <div className="bg-black text-white font-sora relative border-y-0 -mt-[1px] md:mt-0">
       <div
-        className="absolute top-0 left-0 w-full h-[40vh] opacity-10 pointer-events-none z-0 mix-blend-overlay"
+        className="absolute top-1 left-0 w-full h-[40vh] opacity-10 pointer-events-none z-0 mix-blend-overlay"
         style={{
           backgroundImage: `
             linear-gradient(currentColor 1px, transparent 1px),
