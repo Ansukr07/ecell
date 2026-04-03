@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import groupImg from '../../assets/group.png';
+import video1 from '../../assets/video1.mp4';
 
 const ScrollRevealText = ({ text, className }) => {
   const words = text.split(" ");
@@ -63,38 +64,28 @@ const AboutSection = () => {
       {/* 2. Unified Content Section */}
       <section className="pt-4 pb-24 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-stretch">
 
-        {/* Left Column: Heading + Floating Images */}
+        {/* Left Column: Heading + Video Frame */}
         <div className="md:col-span-4 flex flex-col justify-between pt-2 pb-15">
           <h2 className="text-sm md:text-base uppercase tracking-[0.3em] font-semibold text-gray-400 mb-12 font-mono">
             Who We Are
           </h2>
 
-          {/* Left Images (Positioned at the bottom of the left column to align with text) */}
-          <div className="relative w-[80%] md:w-full mt-12 md:mt-auto">
+          {/* Left Video Frame (Positioned at the bottom of the left column to align with text) */}
+          <div className="relative w-full max-w-[450px] mx-auto md:max-w-none md:w-full mt-8 md:mt-auto">
             <motion.div
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               whileInView={{ clipPath: 'inset(0 0 0 0)' }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 1.8, ease: "anticipate" }}
-              className="aspect-[3/4] bg-neutral-900 w-full overflow-hidden rounded-lg z-0 relative"
+              className="aspect-[4/5] md:aspect-[3/4] bg-neutral-900 w-full overflow-hidden rounded-2xl z-0 relative shadow-2xl border border-white/5"
             >
-              <img
-                alt="Collaborative innovation"
+              <video
+                src={video1}
                 className="w-full h-full object-cover saturate-50 hover:saturate-100 transition-all duration-1000"
-                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ clipPath: 'inset(0 100% 0 0)' }}
-              whileInView={{ clipPath: 'inset(0 0 0 0)' }}
-              viewport={{ once: true, margin: "0px" }}
-              transition={{ duration: 1.8, ease: "anticipate" }}
-              className="absolute -bottom-12 -right-8 md:-bottom-16 md:-right-6 w-2/3 aspect-square border-[8px] md:border-[12px] border-black shadow-2xl overflow-hidden rounded-lg z-10"
-            >
-              <img
-                alt="Student workspace"
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                autoPlay
+                loop
+                muted
+                playsInline
               />
             </motion.div>
           </div>
