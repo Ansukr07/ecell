@@ -3,8 +3,9 @@ import { useEffect } from 'react';
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
 import Events from '../components/Events/Events';
-import FailureStory from '../components/FailureStory/FailureStory';
 import Footer from '../components/Footer/Footer';
+import { IdeaSectionHeader } from '../components/lamp-demo';
+
 
 const Home = () => {
   useEffect(() => {
@@ -54,7 +55,7 @@ const Home = () => {
         <Hero />
         <About />
         <Events />
-        <FailureStory />
+        <IdeaSectionHeader />
         <Footer />
       </div>
     </>

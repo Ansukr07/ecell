@@ -50,6 +50,19 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('./Pages/assets/Fonts/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('./Pages/assets/Fonts/SpaceGrotesk_Complete/Fonts/OTF/SpaceGrotesk-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
