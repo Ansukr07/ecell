@@ -405,8 +405,8 @@ const Spl2 = () => {
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: "28%",
-              left: "83%",
+              top: "42%",
+              left: "84%",
               width: "16rem",
               transform: "rotate(15deg)",
               pointerEvents: "none",
@@ -503,7 +503,7 @@ const Spl2 = () => {
             </div>
 
             {/* Card 2: Stats Block */}
-            <div className="md:col-span-4 flex flex-col gap-12 justify-center">
+            <div className="md:col-span-4 flex flex-col gap-20 justify-center">
               <div
                 style={{
                   backgroundColor: "#d4f000",
@@ -589,117 +589,6 @@ const Spl2 = () => {
                 >
                   Cash Prize Pool
                 </p>
-              </div>
-            </div>
-
-            {/* Card 3: Mentorship */}
-            <div
-              className="md:col-span-4"
-              style={{
-                backgroundColor: "#e2e2e2",
-                border: "4px solid #1a1c1c",
-                padding: "2rem",
-                boxShadow: "8px 8px 0px 0px rgba(26,28,28,1)",
-              }}
-            >
-              <span
-                className="material-symbols-outlined"
-                style={{
-                  fontSize: "3rem",
-                  color: "#bb0058",
-                  marginBottom: "1rem",
-                  display: "block",
-                  fontVariationSettings: "'FILL' 1",
-                }}
-              >
-                groups
-              </span>
-              <h4
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 900,
-                  fontSize: "1.875rem",
-                  textTransform: "uppercase",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                ELITE MENTORSHIP
-              </h4>
-              <p
-                style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontSize: "1.125rem",
-                }}
-              >
-                Get direct access to investors who don't just write checks—they
-                build legacies.
-              </p>
-            </div>
-
-            {/* Card 4: Winner's Circle */}
-            <div
-              className="md:col-span-8"
-              style={{
-                backgroundColor: "#1a1c1c",
-                padding: "4px",
-                border: "4px solid #1a1c1c",
-                boxShadow: "8px 8px 0px 0px rgba(187,0,88,1)",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  height: "100%",
-                  backgroundColor: "#f9f9f9",
-                  padding: "2rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "2rem",
-                  alignItems: "center",
-                }}
-                className="md:flex-row"
-              >
-                <div
-                  style={{
-                    width: "8rem",
-                    height: "8rem",
-                    backgroundColor: "#586400",
-                    flexShrink: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    className="material-symbols-outlined"
-                    style={{ fontSize: "3.75rem", color: "#d4f000" }}
-                  >
-                    trophy
-                  </span>
-                </div>
-                <div>
-                  <h4
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 900,
-                      fontSize: "1.875rem",
-                      textTransform: "uppercase",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    The Winner's Circle
-                  </h4>
-                  <p
-                    style={{
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
-                      fontSize: "1.125rem",
-                    }}
-                  >
-                    Every participant gets exclusive access to the E-cell
-                    BMSIT&amp;M incubation network and cloud credits worth over
-                    $5k.
-                  </p>
-                </div>
               </div>
             </div>
           </div>
