@@ -5,13 +5,14 @@ import helmetSvg from "./assets/spl2/helmet.svg";
 import obj2Svg from "./assets/spl2/obj_2.svg";
 import obj4Svg from "./assets/spl2/obj_4.svg";
 
-const PixelDivider = ({ topColor, bgColor }) => {
+const PixelDivider = ({ topColor, bgColor, style, className }) => {
   // SVG with falling squares, fill matches the upper section (topColor)
   const fillColor = encodeURIComponent(topColor || "#1a1c1c");
   const svg = `data:image/svg+xml,%3Csvg width='80' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 h80 v10 h-80 Z M0,10 h10 v10 h-10 Z M20,10 h20 v10 h-20 Z M50,10 h10 v10 h-10 Z M70,10 h10 v10 h-10 Z M10,20 h10 v10 h-10 Z M40,20 h10 v10 h-10 Z M60,20 h10 v10 h-10 Z M20,30 h10 v10 h-10 Z M70,30 h10 v10 h-10 Z' fill='${fillColor}'/%3E%3C/svg%3E`;
 
   return (
     <div
+      className={`spl-pixel-divider ${className || ""}`.trim()}
       style={{
         width: "100%",
         height: "80px", // 2x height
@@ -20,6 +21,7 @@ const PixelDivider = ({ topColor, bgColor }) => {
         backgroundRepeat: "repeat-x",
         backgroundPosition: "top left",
         backgroundSize: "160px 80px", // 2x scale = HUGE pixels
+        ...style,
       }}
     />
   );
@@ -65,8 +67,54 @@ const Spl2 = () => {
         }
       `}</style>
 
+      <style>{`
+        @media (max-width: 767px) {
+          .spl2-root img[src$=".svg"] {
+            display: none !important;
+          }
+
+          .spl2-root .spl2-cta-group {
+            flex-direction: row;
+            gap: 0.5rem;
+            width: 100%;
+          }
+
+          .spl2-root .spl2-cta-button {
+            width: auto !important;
+            height: 3rem !important;
+            min-width: 0;
+            flex: 1 1 0;
+            font-size: 0.72rem !important;
+          }
+
+          .spl2-root .spl2-cta-button > span {
+            gap: 0.35rem !important;
+          }
+
+          .spl2-root .spl2-cta-button .material-symbols-outlined {
+            font-size: 1rem !important;
+          }
+
+          .spl2-root .spl2-footer-links {
+            width: 100%;
+            justify-content: flex-start !important;
+            flex-wrap: nowrap !important;
+            gap: 1rem !important;
+          }
+
+          .spl2-root .spl2-footer-faq {
+            margin-left: auto;
+          }
+
+          .spl2-root .spl2-footer-divider {
+            margin-top: -4px !important;
+            box-shadow: 0 -2px 0 #0046fa;
+          }
+        }
+      `}</style>
+
       <div
-        className="overflow-x-hidden"
+        className="overflow-x-hidden spl2-root"
         style={{
           fontFamily: "'Plus Jakarta Sans', sans-serif",
           backgroundColor: "#f9f9f9",
@@ -225,10 +273,11 @@ const Spl2 = () => {
             <div style={{ marginTop: "1rem", marginBottom: "1rem" }} />
 
             {/* CTA Buttons */}
-            <div className="flex flex-col md:flex-row gap-8 w-full md:w-auto items-center justify-center">
+            <div className="spl2-cta-group flex flex-col md:flex-row gap-8 w-full md:w-auto items-center justify-center">
               {/* Register */}
               <button
                 type="button"
+                className="spl2-cta-button"
                 style={{
                   position: "relative",
                   width: "18rem",
@@ -279,6 +328,7 @@ const Spl2 = () => {
 
               {/* View Rules */}
               <button
+                className="spl2-cta-button"
                 style={{
                   position: "relative",
                   width: "18rem",
@@ -372,7 +422,11 @@ const Spl2 = () => {
         </main>
 
         {/* ─── PIXEL TRANSITION ─────────────────────────────────────────────── */}
-        <PixelDivider topColor="#1a1c1c" bgColor="#f9f9f9" />
+        <PixelDivider
+          topColor="#1a1c1c"
+          bgColor="#f9f9f9"
+          style={{ marginTop: "-2px", marginBottom: "-2px" }}
+        />
 
         {/* ─── BENTO SECTION ────────────────────────────────────────────────── */}
         <section
@@ -595,7 +649,11 @@ const Spl2 = () => {
         </section>
 
         {/* ─── RULES & DETAILS ────────────────────────────────────────────── */}
-        <PixelDivider topColor="#f9f9f9" bgColor="#e2e2e2" />
+        <PixelDivider
+          topColor="#f9f9f9"
+          bgColor="#e2e2e2"
+          style={{ marginTop: "-2px", marginBottom: "-2px" }}
+        />
         <section
           id="how-it-works"
           style={{
@@ -695,7 +753,11 @@ const Spl2 = () => {
         </section>
 
         {/* ─── FAQS ──────────────────────────────────────────────────────── */}
-        <PixelDivider topColor="#e2e2e2" bgColor="#0046fa" />
+        <PixelDivider
+          topColor="#e2e2e2"
+          bgColor="#0046fa"
+          style={{ marginTop: "-2px", marginBottom: "-2px" }}
+        />
         <section
           id="burning-questions"
           style={{
@@ -799,7 +861,12 @@ const Spl2 = () => {
         </section>
 
         {/* ─── FOOTER ───────────────────────────────────────────────────────── */}
-        <PixelDivider topColor="#0046fa" bgColor="#d4f000" />
+        <PixelDivider
+          className="spl2-footer-divider"
+          topColor="#0046fa"
+          bgColor="#d4f000"
+          style={{ marginTop: "-2px", marginBottom: "-2px" }}
+        />
         <footer
           style={{
             width: "100%",
@@ -825,6 +892,7 @@ const Spl2 = () => {
             STARTUP PREMIER LEAGUE 2.0
           </div>
           <div
+            className="spl2-footer-links"
             style={{
               display: "flex",
               flexWrap: "wrap",
@@ -839,6 +907,7 @@ const Spl2 = () => {
               <a
                 key={item.label}
                 href={item.href}
+                className={item.label === "FAQ's" ? "spl2-footer-faq" : ""}
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
