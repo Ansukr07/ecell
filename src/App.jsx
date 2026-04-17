@@ -12,6 +12,7 @@ const Gallery = lazy(() => import('./Pages/Gallery'));
 const Codered = lazy(() => import('./components/Events/Codered'));
 const Advert = lazy(() => import('./components/Events/Advert1'));
 const Spl = lazy(() => import('./components/Events/Spl'));
+const Spl2 = lazy(() => import('./components/Events/Spl2'));
 const CaseCrackers = lazy(() => import('./components/Events/CaseCrackers'));
 const Chitting = lazy(() => import('./components/Events/Chitting'));
 const PanelDiscussion = lazy(() => import('./components/Events/PanelDisscussion'));
@@ -84,6 +85,7 @@ function App() {
                     <Route path="/events/codered25" element={<Codered />} />
                     <Route path="/events/advert10" element={<Advert />} />
                     <Route path="/events/spl" element={<Spl />} />
+                    <Route path="/events/spl2" element={<Spl2 />} />
                     <Route path="/events/casecrackers" element={<CaseCrackers />} />
                     <Route path="/events/chitting" element={<Chitting />} />
                     <Route path="/events/paneldiscussion" element={<PanelDiscussion />} />
