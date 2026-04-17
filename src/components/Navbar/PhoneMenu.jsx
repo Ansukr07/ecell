@@ -1,41 +1,47 @@
-import React, { useContext } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
-import { PreloaderContext } from '../../App';
-import logo from '../../assets/ecell.png';
-import './PhoneMenu.css';
+import React, { useContext } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import { PreloaderContext } from "../../App";
+import logo from "../../assets/ecell.png";
+import "./PhoneMenu.css";
 
-const PhoneMenu = ({ isOpen, toggleMenu, isInstantClose, setIsInstantClose }) => {
+const PhoneMenu = ({
+  isOpen,
+  toggleMenu,
+  isInstantClose,
+  setIsInstantClose,
+}) => {
   const location = useLocation();
   const { setLoading } = useContext(PreloaderContext);
 
   const displayItems = [
-    { label: 'Home', to: '/' },
-    { label: 'Gallery', to: '/gallery' },
-    { label: 'Team', to: '/team' },
-    { label: 'Alumni', to: '/alumni' },
-    { label: 'Word of the Day', to: '/word-of-the-day' },
-    { label: 'Contact Us', to: '#footer', isScroll: true }
+    { label: "Home", to: "/" },
+    { label: "Gallery", to: "/gallery" },
+    { label: "Team", to: "/team" },
+    { label: "Alumni", to: "/alumni" },
+    { label: "Word of the Day", to: "/word-of-the-day" },
+    { label: "SPL 2.0", to: "/events/spl2" },
+    { label: "Contact Us", to: "#footer", isScroll: true },
   ];
 
   const handleLinkClick = (e, item) => {
     if (item.isScroll) {
       e.preventDefault();
 
-      if (location.pathname !== '/') {
+      if (location.pathname !== "/") {
         // Navigate to Home first
         setLoading(true);
         setIsInstantClose(true);
         toggleMenu();
         // Simple window navigation to triggers Home page mount logic
-        window.location.href = '/#footer';
+        window.location.href = "/#footer";
       } else {
         // Already on home, just scroll
         setIsInstantClose(false);
         toggleMenu();
-        const footer = document.getElementById('footer');
+        const footer = document.getElementById("footer");
         if (footer) {
-          footer.scrollIntoView({ behavior: 'smooth' });
+          footer.scrollIntoView({ behavior: "smooth" });
         }
       }
     } else {
@@ -59,12 +65,12 @@ const PhoneMenu = ({ isOpen, toggleMenu, isInstantClose, setIsInstantClose }) =>
       {isOpen && (
         <motion.div
           className="phone-menu-overlay"
-          initial={{ y: '-100%' }}
+          initial={{ y: "-100%" }}
           animate={{ y: 0 }}
-          exit={{ y: '-100%' }}
+          exit={{ y: "-100%" }}
           transition={{
             duration: isInstantClose ? 0.01 : 0.4,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         >
           <div className="menu-logo">
