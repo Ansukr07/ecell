@@ -106,6 +106,11 @@ const Spl2 = () => {
             margin-left: auto;
           }
 
+          .spl2-root .spl2-footer-title {
+            width: 100%;
+            text-align: center;
+          }
+
           .spl2-root .spl2-footer-divider {
             margin-top: -4px !important;
             box-shadow: 0 -2px 0 #0046fa;
@@ -880,6 +885,7 @@ const Spl2 = () => {
           }}
         >
           <div
+            className="spl2-footer-title"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 900,
