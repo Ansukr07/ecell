@@ -1,6 +1,8 @@
 import React from 'react';
-import peoplePng from './assets/spl2/people.png';
-import stumpsPng from './assets/spl2/stumps.png';
+import rightSvg from './assets/spl2/right.svg';
+import leftSvg from './assets/spl2/left.svg';
+import helmetSvg from './assets/spl2/helmet.svg';
+
 
 const Spl2 = () => {
   return (
@@ -49,24 +51,55 @@ const Spl2 = () => {
 
           {/* Floating Images substituting SVGs */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-            
-            {/* Stumps - Top Left */}
-            <img 
-              src={stumpsPng} 
-              alt="Stumps" 
-              className="absolute top-[10%] left-[-2%] md:left-[8%] w-40 md:w-64 transform -rotate-12 transition-transform duration-1000 ease-in-out hover:scale-105" 
-              style={{ filter: 'drop-shadow(8px 8px 0px #1a1c1c)' }}
-            />
-            
-            {/* People - Bottom Right */}
-            <img 
-              src={peoplePng} 
-              alt="People cheering" 
-              className="absolute bottom-[10%] right-[-5%] md:right-[5%] w-72 md:w-[28rem] transform rotate-6 transition-transform duration-1000 ease-in-out hover:scale-105" 
-              style={{ filter: 'drop-shadow(10px 10px 0px #bb0058)' }}
+
+            {/* Stumps — bottom-left, peeking in from the edge */}
+            <img
+              src={leftSvg}
+              alt="Stumps"
+              style={{
+                position: 'absolute',
+                bottom: '2%',
+                left: '-2%',
+                width: '32rem',
+                transform: 'rotate(10deg)',
+                filter: 'drop-shadow(8px 8px 0px #1a1c1c)',
+              }}
             />
 
+            {/* People — bottom-right, large to fill the right gap */}
+            <img
+              src={rightSvg}
+              alt="People cheering"
+              style={{
+                position: 'absolute',
+                bottom: '0%',
+                right: '-3%',
+                width: '32rem',
+                transform: 'rotate(-4deg)',
+                filter: 'drop-shadow(10px 10px 0px #bb0058)',
+              }}
+            />
+
+            {/* Helmet — adjust position/rotation/size freely below */}
+
           </div>
+
+          {/* Helmet — above all text, adjust freely */}
+          <img
+            src={helmetSvg}
+            alt="Cricket Helmet"
+            style={{
+              position: 'absolute',
+              top: '12%',          /* ← move up/down */
+              right: '28%',        /* ← move left/right */
+              width: '12rem',      /* ← resize */
+              transform: 'rotate(40deg)',  /* ← rotate */
+              filter: 'none',
+              zIndex: 50,
+              pointerEvents: 'none',
+              transition: 'transform 0.3s ease',
+            }}
+          />
 
           {/* Central Content */}
           <div className="relative z-10 flex flex-col items-center text-center max-w-6xl w-full">
@@ -96,42 +129,42 @@ const Spl2 = () => {
             {/* Main Title Block */}
             <div className="flex flex-col items-center gap-1 md:gap-3" style={{ marginBottom: '1rem', marginTop: '1.5rem' }}>
               <h1 className="flex flex-col items-center" style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, textTransform: 'uppercase', fontStyle: 'italic', letterSpacing: '-0.02em', lineHeight: 1 }}>
-                <span 
-                  className="inline-block" 
-                  style={{ 
-                    backgroundColor: '#0046fa', color: '#ffffff', 
-                    padding: '0.5rem 1.5rem', 
-                    border: '4px solid #1a1c1c', 
-                    boxShadow: '8px 8px 0px 0px #1a1c1c', 
-                    transform: 'rotate(-2deg)', 
+                <span
+                  className="inline-block"
+                  style={{
+                    backgroundColor: '#0046fa', color: '#ffffff',
+                    padding: '0.5rem 1.5rem',
+                    border: '4px solid #1a1c1c',
+                    boxShadow: '8px 8px 0px 0px #1a1c1c',
+                    transform: 'rotate(-2deg)',
                     fontSize: 'clamp(3rem, 8vw, 6rem)',
                     marginBottom: '0.5rem',
                     zIndex: 2
                   }}>
                   STARTUP
                 </span>
-                <span 
-                  className="inline-block" 
-                  style={{ 
-                    backgroundColor: '#d4f000', color: '#1a1c1c', 
-                    padding: '0.5rem 2rem', 
-                    border: '4px solid #1a1c1c', 
-                    boxShadow: '8px 8px 0px 0px #bb0058', 
-                    transform: 'rotate(1deg)', 
+                <span
+                  className="inline-block"
+                  style={{
+                    backgroundColor: '#d4f000', color: '#1a1c1c',
+                    padding: '0.5rem 2rem',
+                    border: '4px solid #1a1c1c',
+                    boxShadow: '8px 8px 0px 0px #bb0058',
+                    transform: 'rotate(1deg)',
                     fontSize: 'clamp(3.5rem, 9vw, 7rem)',
                     marginBottom: '0.5rem',
                     zIndex: 3
                   }}>
                   PREMIER
                 </span>
-                <span 
-                  className="inline-block relative" 
-                  style={{ 
-                    backgroundColor: '#f9f9f9', color: '#1a1c1c', 
-                    padding: '0.5rem 1.5rem', 
-                    border: '4px solid #1a1c1c', 
-                    boxShadow: '8px 8px 0px 0px #0046fa', 
-                    transform: 'rotate(-1deg)', 
+                <span
+                  className="inline-block relative"
+                  style={{
+                    backgroundColor: '#f9f9f9', color: '#1a1c1c',
+                    padding: '0.5rem 1.5rem',
+                    border: '4px solid #1a1c1c',
+                    boxShadow: '8px 8px 0px 0px #0046fa',
+                    transform: 'rotate(-1deg)',
                     fontSize: 'clamp(2.5rem, 7vw, 5rem)',
                     zIndex: 1
                   }}>
@@ -312,7 +345,7 @@ const Spl2 = () => {
             <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#1a1c1c', textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1, marginBottom: '4rem', textAlign: 'center' }}>
               HOW IT WORKS.
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {[
                 { step: '01', title: 'Team Formation', desc: 'Gather your squad of 2-4 members. Every great legacy starts with a solid foundation. Make sure you have a balanced mix of tech, business, and design brains.' },
@@ -339,7 +372,7 @@ const Spl2 = () => {
                 BURNING QUESTIONS.
               </h2>
             </div>
-            
+
             <div className="flex flex-col gap-6">
               {[
                 { q: 'Who can participate?', a: 'Any college student with a valid ID card. You don\'t need to be from BMSIT to conquer the league.' },
