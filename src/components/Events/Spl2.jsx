@@ -4,6 +4,9 @@ import leftSvg from "./assets/spl2/left.svg";
 import helmetSvg from "./assets/spl2/helmet.svg";
 import obj2Svg from "./assets/spl2/obj_2.svg";
 import obj4Svg from "./assets/spl2/obj_4.svg";
+import moneyPng from "./assets/spl2/money.png";
+import stocksPng from "./assets/spl2/stocks.png";
+import uniSvg from "./assets/spl2/uni.svg";
 
 const PixelDivider = ({ topColor, bgColor, style, className }) => {
   // SVG with falling squares, fill matches the upper section (topColor)
@@ -480,7 +483,7 @@ const Spl2 = () => {
           >
             {/* Card 1: Large Feature */}
             <div
-              className="md:col-span-8 flex flex-col justify-between"
+              className="md:col-span-9 flex flex-col justify-between"
               style={{
                 backgroundColor: "#bb0058",
                 border: "4px solid #1a1c1c",
@@ -508,7 +511,7 @@ const Spl2 = () => {
                   style={{
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 900,
-                    fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                    fontSize: "clamp(2rem, 4.8vw, 3.6rem)",
                     color: "#ffffff",
                     textTransform: "uppercase",
                     fontStyle: "italic",
@@ -522,7 +525,7 @@ const Spl2 = () => {
                 <p
                   style={{
                     fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontSize: "1.25rem",
+                    fontSize: "1.05rem",
                     color: "rgba(255,255,255,0.9)",
                     maxWidth: "36rem",
                     textAlign: "center",
@@ -563,13 +566,12 @@ const Spl2 = () => {
                   }}
                 >
                   <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRzrEZCFGipQOu4SF8qcp2XRFRW8mCrr1BRBTrnp6y-Juqfen0Tqw-9foGpZjTkbsdRcqbqJf6YzZ5pG8GSYwvVOh9ZBQepAe2Z62x5gzlUJGcTljlShej6MZv94-cUSpVzzwWnWbClYcgLEf9sjKL8P7U23Jh53BDFmPl33wM1UvPVNPZVcxuqd3MlId7F_GilusAJa-ckXEy3vl5cpyJVpWIfkPM-cMmHeA7Hqp2OeAoXSZGnHw6Un7yLeRnQUd6Tj0Lf1HCEt4"
+                    src={moneyPng}
                     alt="Students collaborating on startup strategy"
                     style={{
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      filter: "grayscale(1) contrast(1.25)",
                     }}
                   />
                 </div>
@@ -577,17 +579,18 @@ const Spl2 = () => {
             </div>
 
             {/* Card 2: Stats Block */}
-            <div className="md:col-span-4 flex flex-col gap-20 justify-center">
+            <div className="md:col-span-3 grid grid-cols-1 md:grid-rows-2 gap-5">
               <div
                 style={{
                   backgroundColor: "#d4f000",
                   border: "4px solid #1a1c1c",
-                  padding: "1.5rem",
                   boxShadow: "6px 6px 0px 0px rgba(26,28,28,1)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
+                  alignItems: "stretch",
                   textAlign: "center",
+                  height: "21rem",
+                  overflow: "hidden",
                   transform: "rotate(1deg)",
                   transition: "transform 0.2s ease",
                 }}
@@ -598,39 +601,70 @@ const Spl2 = () => {
                   (e.currentTarget.style.transform = "rotate(1deg)")
                 }
               >
-                <h3
+                <div
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 900,
-                    fontSize: "3.75rem",
-                    color: "#1a1c1c",
-                    marginBottom: "0.5rem",
+                    width: "100%",
+                    height: "50%",
+                    borderBottom: "3px solid #1a1c1c",
+                    backgroundColor: "rgba(255,255,255,0.22)",
                   }}
                 >
-                  3
-                </h3>
-                <p
+                  <img
+                    src={uniSvg}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+                <div
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 900,
-                    fontSize: "1.25rem",
-                    textTransform: "uppercase",
-                    color: "#586400",
+                    height: "50%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "1rem 1rem 1.15rem",
                   }}
                 >
-                  Power Rounds
-                </p>
+                  <h3
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 900,
+                      fontSize: "3rem",
+                      color: "#1a1c1c",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    3
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 900,
+                      fontSize: "1rem",
+                      textTransform: "uppercase",
+                      color: "#586400",
+                    }}
+                  >
+                    Power Rounds
+                  </p>
+                </div>
               </div>
               <div
                 style={{
                   backgroundColor: "#0046fa",
                   border: "4px solid #1a1c1c",
-                  padding: "1.5rem",
                   boxShadow: "6px 6px 0px 0px rgba(26,28,28,1)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
+                  alignItems: "stretch",
                   textAlign: "center",
+                  height: "21rem",
+                  overflow: "hidden",
                   transform: "rotate(-2deg)",
                   transition: "transform 0.2s ease",
                 }}
@@ -641,28 +675,58 @@ const Spl2 = () => {
                   (e.currentTarget.style.transform = "rotate(-2deg)")
                 }
               >
-                <h3
+                <div
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 900,
-                    fontSize: "3.75rem",
-                    color: "#ffffff",
-                    marginBottom: "0.5rem",
+                    width: "100%",
+                    height: "50%",
+                    borderBottom: "3px solid #1a1c1c",
+                    backgroundColor: "rgba(255,255,255,0.18)",
                   }}
                 >
-                  20k
-                </h3>
-                <p
+                  <img
+                    src={stocksPng}
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+                <div
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 900,
-                    fontSize: "1.25rem",
-                    textTransform: "uppercase",
-                    color: "#dde1ff",
+                    height: "50%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "1rem 1rem 1.15rem",
                   }}
                 >
-                  PRIZE POOL
-                </p>
+                  <h3
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 900,
+                      fontSize: "3rem",
+                      color: "#ffffff",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    20k
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 900,
+                      fontSize: "1rem",
+                      textTransform: "uppercase",
+                      color: "#dde1ff",
+                    }}
+                  >
+                    PRIZE POOL
+                  </p>
+                </div>
               </div>
             </div>
           </div>
