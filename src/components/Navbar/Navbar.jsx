@@ -75,7 +75,7 @@ export default function Navbar() {
     { to: "/team", label: "Team" },
     { to: "/alumni", label: "Alumni" },
     { to: "/word-of-the-day", label: "Word of the Day" },
-    { to: "/events/spl2", label: "SPL 2.0" },
+    { to: "/events/spl3", label: "SPL 3.0" },
   ];
 
   return (

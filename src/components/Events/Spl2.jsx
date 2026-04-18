@@ -269,7 +269,7 @@ const Spl2 = () => {
                     zIndex: 1,
                   }}
                 >
-                  LEAGUE 2.0
+                  LEAGUE 3.0
                 </span>
               </h1>
             </div>
@@ -415,7 +415,7 @@ const Spl2 = () => {
                         whiteSpace: "nowrap",
                       }}
                     >
-                      NO RULES. ALL POWER.
+                      QUIZ. AUCTION. STRATEGIZE.
                     </span>
                     <span style={{ color: "#bb0058", fontSize: "1.5rem" }}>
                       ●
@@ -502,7 +502,7 @@ const Spl2 = () => {
                     display: "inline-block",
                   }}
                 >
-                  The Arena
+                  About SPL 3.0
                 </span>
                 <h2
                   style={{
@@ -516,8 +516,8 @@ const Spl2 = () => {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  BID SMART. <br />
-                  PLAY SMARTER.
+                  THINK LIKE A FOUNDER. <br />
+                  WIN LIKE AN INVESTOR.
                 </h2>
                 <p
                   style={{
@@ -529,10 +529,25 @@ const Spl2 = () => {
                     margin: "0 auto",
                   }}
                 >
-                  Enter the ultimate startup auction. Build your team, bid with
-                  strategy, and dominate the league. Only the best rise as
-                  champions.
+                  SPL 3.0 is an inter-college business simulation competition
+                  designed to test your ability to think like an entrepreneur,
+                  investor, and strategist. The format combines quizzes,
+                  auctions, and startup strategy building for a real-world
+                  business experience.
                 </p>
+                <ul
+                  style={{
+                    marginTop: "1.5rem",
+                    maxWidth: "36rem",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    textAlign: "left",
+                    color: "#ffffff",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontSize: "1rem",
+                    lineHeight: 1.6,
+                  }}
+                ></ul>
               </div>
               <div style={{ marginTop: "3rem" }}>
                 <div
@@ -549,7 +564,7 @@ const Spl2 = () => {
                 >
                   <img
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRzrEZCFGipQOu4SF8qcp2XRFRW8mCrr1BRBTrnp6y-Juqfen0Tqw-9foGpZjTkbsdRcqbqJf6YzZ5pG8GSYwvVOh9ZBQepAe2Z62x5gzlUJGcTljlShej6MZv94-cUSpVzzwWnWbClYcgLEf9sjKL8P7U23Jh53BDFmPl33wM1UvPVNPZVcxuqd3MlId7F_GilusAJa-ckXEy3vl5cpyJVpWIfkPM-cMmHeA7Hqp2OeAoXSZGnHw6Un7yLeRnQUd6Tj0Lf1HCEt4"
-                    alt="Entrepreneurs on a cricket pitch"
+                    alt="Students collaborating on startup strategy"
                     style={{
                       width: "100%",
                       height: "100%",
@@ -592,7 +607,7 @@ const Spl2 = () => {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  50+
+                  3
                 </h3>
                 <p
                   style={{
@@ -603,7 +618,7 @@ const Spl2 = () => {
                     color: "#586400",
                   }}
                 >
-                  Teams Battle
+                  Power Rounds
                 </p>
               </div>
               <div
@@ -635,7 +650,7 @@ const Spl2 = () => {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  ₹20K
+                  20k
                 </h3>
                 <p
                   style={{
@@ -646,7 +661,7 @@ const Spl2 = () => {
                     color: "#dde1ff",
                   }}
                 >
-                  Cash Prize Pool
+                  PRIZE POOL
                 </p>
               </div>
             </div>
@@ -681,25 +696,25 @@ const Spl2 = () => {
                 textAlign: "center",
               }}
             >
-              HOW IT WORKS.
+              EVENT STRUCTURE.
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {[
                 {
                   step: "01",
-                  title: "Team Formation",
-                  desc: "Gather your squad of 2-4 members. Every great legacy starts with a solid foundation. Make sure you have a balanced mix of tech, business, and design brains.",
+                  title: "Qualifier Round",
+                  desc: "All registered teams compete in quizzes, rapid-fire questions, and mini challenges. Rankings are based on accuracy and response time, and top teams move ahead. Think speed plus knowledge under pressure.",
                 },
                 {
                   step: "02",
-                  title: "The Auction",
-                  desc: "Experience the thrill of an IPL-style real-time auction. Bid on critical resources, features, and advantages using virtual currency. Strategy is everything.",
+                  title: "Company Auction Round",
+                  desc: "Qualified teams enter a live auction simulation and bid on companies with different strengths, risks, and potential. With limited budgets, every decision shapes the strength and balance of your portfolio.",
                 },
                 {
                   step: "03",
-                  title: "The Pitch",
-                  desc: "Build your prototype and face the ruthless investors. You have exactly 5 minutes to convince the panel why your empire deserves the ultimate crown.",
+                  title: "Startup Strategy Round",
+                  desc: "Finalists build a startup plan using their acquired companies. Teams must focus on scalability, market fit, and innovation, then present a clear strategy to judges where creativity and execution matter most.",
                 },
               ].map((rule, idx) => (
                 <div
@@ -787,7 +802,7 @@ const Spl2 = () => {
                   zIndex: 10,
                 }}
               >
-                BURNING QUESTIONS.
+                EVENT DETAILS + FAQ.
               </h2>
             </div>
 
@@ -795,19 +810,23 @@ const Spl2 = () => {
               {[
                 {
                   q: "Who can participate?",
-                  a: "Any college student with a valid ID card. You don't need to be from BMSIT to conquer the league.",
+                  a: "SPL 3.0 is open to all colleges. Team size is 2 to 4 members, and basic business knowledge is helpful but not required.",
                 },
                 {
-                  q: "Do I need a technical background?",
-                  a: "Not at all! A successful startup needs hustlers, designers, and visionaries just as much as it needs coders.",
+                  q: "When and where is SPL 3.0 happening?",
+                  a: "Date: 25th April 2026. Time: 10:30 AM onwards. Venue: BSN Auditorium, 2nd Floor, C.V. Raman Block.",
                 },
                 {
-                  q: "What is the registration fee?",
-                  a: "The registration fee is ₹250 per team. An absolute steal for the amount of value, networking, and prizes you get.",
+                  q: "How will winners be selected?",
+                  a: "Top 3 teams will be chosen based on overall performance across all rounds, strategic thinking, adaptability, feasibility of ideas, and presentation clarity.",
                 },
                 {
-                  q: "Will food be provided?",
-                  a: "Yes! We run on caffeine and good food. Energy drinks, snacks, and meals will be provided during the intensive hacking phases.",
+                  q: "Why should I participate?",
+                  a: "You will experience a real-world startup simulation, understand how investors think, improve high-pressure decision-making, network with students from multiple colleges, and compete for prizes and recognition.",
+                },
+                {
+                  q: "What does the full event flow look like?",
+                  a: "The journey runs through three rounds: a qualifier screening, a live company auction simulation, and a final startup strategy presentation.",
                 },
               ].map((faq, idx) => (
                 <details
@@ -895,7 +914,7 @@ const Spl2 = () => {
               fontStyle: "italic",
             }}
           >
-            STARTUP PREMIER LEAGUE 2.0
+            STARTUP PREMIER LEAGUE 3.0
           </div>
           <div
             className="spl2-footer-links"
@@ -907,7 +926,7 @@ const Spl2 = () => {
             }}
           >
             {[
-              { label: "Rules", href: "#how-it-works" },
+              { label: "Rounds", href: "#how-it-works" },
               { label: "FAQ's", href: "#burning-questions" },
             ].map((item) => (
               <a
@@ -943,7 +962,7 @@ const Spl2 = () => {
               color: "#000000",
             }}
           >
-            © 2026 SPL 2.0 — NO RULES. ALL POWER.
+            © 2026 SPL 3.0 - QUIZ. AUCTION. STRATEGIZE.
           </div>
         </footer>
       </div>

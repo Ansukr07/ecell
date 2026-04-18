@@ -108,8 +108,8 @@ function App() {
                     <Route path="/events/codered25" element={<Codered />} />
                     <Route path="/events/advert10" element={<Advert />} />
                     <Route path="/events/spl" element={<Spl />} />
-                    <Route path="/events/spl2" element={<Spl2 />} />
-                    <Route path="/spl2" element={<Spl2 />} />
+                    <Route path="/events/spl3" element={<Spl2 />} />
+                    <Route path="/spl3" element={<Spl2 />} />
                     <Route
                       path="/events/casecrackers"
                       element={<CaseCrackers />}
