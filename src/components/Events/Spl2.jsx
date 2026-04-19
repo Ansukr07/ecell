@@ -72,7 +72,7 @@ const Spl2 = () => {
 
       <style>{`
         @media (max-width: 767px) {
-          .spl2-root img[src$=".svg"] {
+          .spl2-root img[src$=".svg"]:not(.spl-keep-mobile) {
             display: none !important;
           }
 
@@ -610,6 +610,7 @@ const Spl2 = () => {
                   }}
                 >
                   <img
+                    className="spl-keep-mobile"
                     src={uniSvg}
                     alt=""
                     aria-hidden="true"
@@ -958,75 +959,172 @@ const Spl2 = () => {
         <footer
           style={{
             width: "100%",
-            padding: "2rem 2.5rem",
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "1.5rem",
             backgroundColor: "#d4f000",
+            padding: "5rem 1.5rem 3rem",
+            position: "relative",
+            zIndex: 10,
           }}
         >
-          <div
-            className="spl2-footer-title"
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 900,
-              fontSize: "1.125rem",
-              color: "#000000",
-              textTransform: "uppercase",
-              fontStyle: "italic",
-            }}
-          >
-            STARTUP PREMIER LEAGUE 3.0
-          </div>
-          <div
-            className="spl2-footer-links"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: "2rem",
-            }}
-          >
-            {[
-              { label: "Rounds", href: "#how-it-works" },
-              { label: "FAQ's", href: "#burning-questions" },
-            ].map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={item.label === "FAQ's" ? "spl2-footer-faq" : ""}
+          <div className="max-w-7xl mx-auto flex flex-col gap-12">
+            {/* Top section: CTA & Socials */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+              <div>
+                <h2
+                  style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 900,
+                    fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                    color: "#1a1c1c",
+                    textTransform: "uppercase",
+                    lineHeight: 1,
+                    marginBottom: "1rem",
+                  }}
+                >
+                  IDEATE. INNOVATE. <br /> INSPIRE.
+                </h2>
+                <p
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontSize: "1.25rem",
+                    color: "#1a1c1c",
+                    fontWeight: 600,
+                  }}
+                >
+                  Follow E-Cell BMSIT&M for updates and announcements.
+                </p>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex gap-4 flex-wrap w-full md:w-auto md:flex-nowrap">
+                {[
+                  {
+                    name: "Website",
+                    url: "https://ecell-bmsitm.vercel.app/",
+                    className:
+                      "w-full md:w-auto order-first md:order-none text-center block",
+                  },
+                  {
+                    name: "Instagram",
+                    url: "https://instagram.com/ecell_bmsit",
+                    className:
+                      "flex-1 md:w-auto md:flex-none text-center block",
+                  },
+                  {
+                    name: "LinkedIn",
+                    url: "https://www.linkedin.com/company/e-cell-bmsit-m/",
+                    className:
+                      "flex-1 md:w-auto md:flex-none text-center block",
+                  },
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={social.className}
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 800,
+                      fontSize: "1rem",
+                      textTransform: "uppercase",
+                      color: "#ffffff",
+                      backgroundColor: "#1a1c1c",
+                      padding: "0.75rem 1.5rem",
+                      border: "3px solid #1a1c1c",
+                      boxShadow: "6px 6px 0px 0px #0046fa",
+                      textDecoration: "none",
+                      transition: "transform 0.15s, box-shadow 0.15s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translate(4px, 4px)";
+                      e.currentTarget.style.boxShadow =
+                        "2px 2px 0px 0px #0046fa";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translate(0px, 0px)";
+                      e.currentTarget.style.boxShadow =
+                        "6px 6px 0px 0px #0046fa";
+                    }}
+                  >
+                    {social.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div
+              style={{
+                width: "100%",
+                height: "4px",
+                backgroundColor: "#1a1c1c",
+              }}
+            />
+
+            {/* Bottom section: Links & Copyright */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+              <div
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 900,
+                  fontSize: "1.25rem",
+                  color: "#1a1c1c",
+                  textTransform: "uppercase",
+                  fontStyle: "italic",
+                }}
+              >
+                STARTUP PREMIER LEAGUE 3.0
+              </div>
+
+              <div className="flex gap-6 flex-wrap justify-center">
+                {[
+                  { label: "Register", href: "#" },
+                  { label: "FAQ's", href: "#burning-questions" },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      fontSize: "1rem",
+                      letterSpacing: "0.05em",
+                      color: "#1a1c1c",
+                      textDecoration: "none",
+                      paddingBottom: "2px",
+                      backgroundImage:
+                        "linear-gradient(to right, #1a1c1c 100%, #1a1c1c 100%)",
+                      backgroundSize: "0% 3px",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "left bottom",
+                      transition: "background-size 0.3s ease",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundSize = "100% 3px")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundSize = "0% 3px")
+                    }
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+
+              <div
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
                   textTransform: "uppercase",
                   fontSize: "0.875rem",
-                  letterSpacing: "0.1em",
-                  color: "rgba(0,0,0,0.8)",
-                  textDecoration: "none",
-                  transition: "color 0.15s",
+                  letterSpacing: "0.05em",
+                  color: "#1a1c1c",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#bb0058")}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(0,0,0,0.8)")
-                }
               >
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <div
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              fontSize: "0.875rem",
-              letterSpacing: "0.1em",
-              color: "#000000",
-            }}
-          >
-            © 2026 SPL 3.0 - QUIZ. AUCTION. STRATEGIZE.
+                © 2026 E-CELL BMSIT&M. ALL RIGHTS RESERVED.
+              </div>
+            </div>
           </div>
         </footer>
       </div>
