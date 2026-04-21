@@ -2,8 +2,7 @@ import React from "react";
 import rightSvg from "./assets/spl2/right.svg";
 import leftSvg from "./assets/spl2/left.svg";
 import helmetSvg from "./assets/spl2/helmet.svg";
-import obj2Svg from "./assets/spl2/obj_2.svg";
-import obj4Svg from "./assets/spl2/obj_4.svg";
+
 import moneyPng from "./assets/spl2/money.png";
 import stocksPng from "./assets/spl2/stocks.png";
 import uniSvg from "./assets/spl2/uni.svg";
@@ -445,291 +444,161 @@ const Spl2 = () => {
             overflow: "hidden",
           }}
         >
-          {/* Decorative SVGs — positioned relative to this section */}
-          <img
-            src={obj2Svg}
-            alt=""
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: "-2%",
-              left: "1%",
-              width: "18rem",
-              transform: "rotate(-20deg)",
-              pointerEvents: "none",
-              userSelect: "none",
-              zIndex: 2,
-            }}
-          />
-          <img
-            src={obj4Svg}
-            alt=""
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: "42%",
-              left: "84%",
-              width: "16rem",
-              transform: "rotate(15deg)",
-              pointerEvents: "none",
-              userSelect: "none",
-              zIndex: 2,
-            }}
-          />
 
-          <div
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 max-w-7xl mx-auto"
-            style={{ position: "relative", zIndex: 1 }}
-          >
-            {/* Card 1: Large Feature */}
-            <div
-              className="md:col-span-9 flex flex-col justify-between"
-              style={{
-                backgroundColor: "#bb0058",
-                border: "4px solid #1a1c1c",
-                padding: "2.5rem",
-                boxShadow: "10px 10px 0px 0px rgba(26,28,28,1)",
-              }}
-            >
-              <div>
-                <span
-                  style={{
-                    backgroundColor: "#1a1c1c",
-                    color: "#ffd9e0",
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 900,
-                    padding: "0.25rem 1rem",
-                    textTransform: "uppercase",
-                    fontSize: "0.875rem",
-                    marginBottom: "1.5rem",
-                    display: "inline-block",
-                  }}
-                >
-                  About SPL 3.0
-                </span>
-                <h2
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 900,
-                    fontSize: "clamp(2rem, 4.8vw, 3.6rem)",
-                    color: "#ffffff",
-                    textTransform: "uppercase",
-                    fontStyle: "italic",
-                    lineHeight: 1,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  THINK LIKE A FOUNDER. <br />
-                  WIN LIKE AN INVESTOR.
-                </h2>
-                <p
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontSize: "1.05rem",
-                    color: "rgba(255,255,255,0.9)",
-                    maxWidth: "36rem",
-                    textAlign: "center",
-                    margin: "0 auto",
-                  }}
-                >
-                  SPL 3.0 is an inter-college business simulation competition
-                  designed to test your ability to think like an entrepreneur,
-                  investor, and strategist. The format combines quizzes,
-                  auctions, and startup strategy building for a real-world
-                  business experience.
-                </p>
-                <ul
-                  style={{
-                    marginTop: "1.5rem",
-                    maxWidth: "36rem",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    textAlign: "left",
-                    color: "#ffffff",
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontSize: "1rem",
-                    lineHeight: 1.6,
-                  }}
-                ></ul>
-              </div>
-              <div style={{ marginTop: "3rem" }}>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "16rem",
-                    backgroundColor: "rgba(255,255,255,0.2)",
-                    border: "4px solid rgba(255,255,255,0.4)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    src={moneyPng}
-                    alt="Students collaborating on startup strategy"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
+
+          <div className="max-w-7xl mx-auto flex flex-col gap-10" style={{ position: "relative", zIndex: 1 }}>
+
+            {/* Header / About Text */}
+            <div className="mb-14 text-center max-w-4xl mx-auto">
+              <span
+                style={{
+                  backgroundColor: "#1a1c1c",
+                  color: "white",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 900,
+                  padding: "0.25rem 1rem",
+                  textTransform: "uppercase",
+                  fontSize: "4rem",
+                  marginBottom: "1rem",
+                  display: "inline-block",
+                }}
+              >
+                About SPL
+              </span>
+              <h2
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 900,
+                  fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                  color: "#1a1c1c",
+                  textTransform: "uppercase",
+                  fontStyle: "italic",
+                  lineHeight: 1,
+                  marginBottom: "1.5rem",
+                }}
+              >
+
+              </h2>
+              <p
+                style={{
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontSize: "1.125rem",
+                  color: "#434659",
+                  textAlign: "center",
+                  margin: "0 auto",
+                }}
+              >
+                Startup Premier League is a pan-India intercollegiate competition designed on the principles of a premier league. A one-day, high-energy competition blending innovation, strategy, and execution into one unforgettable league. SPL is where competition and ideas evolve through multiple dynamic rounds.
+              </p>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
+                {["Competitive", "Practical", "Fun & Engaging", "Learning-focused"].map((tag) => (
+                  <span key={tag} style={{ backgroundColor: "#ffffff", border: "3px solid #1a1c1c", boxShadow: "4px 4px 0px 0px rgba(26,28,28,1)", padding: "0.4rem 1.25rem", color: "#1a1c1c", fontSize: "1rem", fontWeight: 700, textTransform: "uppercase", fontFamily: "'Space Grotesk', sans-serif" }}>{tag}</span>
+                ))}
               </div>
             </div>
 
-            {/* Card 2: Stats Block */}
-            <div className="md:col-span-3 grid grid-cols-1 md:grid-rows-2 gap-5">
-              <div
-                style={{
-                  backgroundColor: "#d4f000",
-                  border: "4px solid #1a1c1c",
-                  boxShadow: "6px 6px 0px 0px rgba(26,28,28,1)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "stretch",
-                  textAlign: "center",
-                  height: "21rem",
-                  overflow: "hidden",
-                  transform: "rotate(1deg)",
-                  transition: "transform 0.2s ease",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "rotate(0deg)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "rotate(1deg)")
-                }
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "50%",
-                    borderBottom: "3px solid #1a1c1c",
-                    backgroundColor: "rgba(255,255,255,0.22)",
-                  }}
-                >
-                  <img
-                    className="spl-keep-mobile"
-                    src={uniSvg}
-                    alt=""
-                    aria-hidden="true"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "1rem 1rem 1.15rem",
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 900,
-                      fontSize: "3rem",
-                      color: "#1a1c1c",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    3
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 900,
-                      fontSize: "1rem",
-                      textTransform: "uppercase",
-                      color: "#586400",
-                    }}
-                  >
-                    Power Rounds
-                  </p>
-                </div>
+            {/* 4 Box Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Box 1: Event Details */}
+              <div style={{ backgroundColor: "#ffffff", border: "4px solid #1a1c1c", padding: "2.5rem", boxShadow: "8px 8px 0px 0px rgba(26,28,28,1)", display: "flex", flexDirection: "column" }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, fontSize: "2rem", textTransform: "uppercase", marginBottom: "1.5rem", color: "#1a1c1c", borderBottom: "4px solid #1a1c1c", paddingBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: "2rem" }}>event</span> Event Details
+                </h3>
+                <ul className="space-y-4" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "1.2rem", color: "#1a1c1c", fontWeight: 600 }}>
+                  <li className="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <span style={{ color: "#434659", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>Mode</span>
+                    <span>Offline</span>
+                  </li>
+                  <li className="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <span style={{ color: "#434659", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>Venue</span>
+                    <span>BMSIT&M</span>
+                  </li>
+                  <li className="flex justify-between items-center border-b border-gray-200 pb-2">
+                    <span style={{ color: "#434659", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>Date</span>
+                    <span>25th April</span>
+                  </li>
+                  <li className="flex justify-between items-center pt-2">
+                    <span style={{ color: "#434659", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>Registration</span>
+                    <span>₹150 / Team</span>
+                  </li>
+                </ul>
               </div>
-              <div
-                style={{
-                  backgroundColor: "#0046fa",
-                  border: "4px solid #1a1c1c",
-                  boxShadow: "6px 6px 0px 0px rgba(26,28,28,1)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "stretch",
-                  textAlign: "center",
-                  height: "21rem",
-                  overflow: "hidden",
-                  transform: "rotate(-2deg)",
-                  transition: "transform 0.2s ease",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "rotate(0deg)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "rotate(-2deg)")
-                }
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "50%",
-                    borderBottom: "3px solid #1a1c1c",
-                    backgroundColor: "rgba(255,255,255,0.18)",
-                  }}
-                >
-                  <img
-                    src={stocksPng}
-                    alt=""
-                    aria-hidden="true"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "1rem 1rem 1.15rem",
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 900,
-                      fontSize: "3rem",
-                      color: "#ffffff",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    20k
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 900,
-                      fontSize: "1rem",
-                      textTransform: "uppercase",
-                      color: "#dde1ff",
-                    }}
-                  >
-                    PRIZE POOL
-                  </p>
-                </div>
+
+              {/* Box 2: Prize Pool */}
+              <div style={{ backgroundColor: "#d4f000", border: "4px solid #1a1c1c", padding: "2.5rem", boxShadow: "8px 8px 0px 0px rgba(26,28,28,1)", display: "flex", flexDirection: "column" }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, fontSize: "2rem", textTransform: "uppercase", marginBottom: "1.5rem", color: "#1a1c1c", borderBottom: "4px solid #1a1c1c", paddingBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: "2rem" }}>payments</span> Prize Pool
+                </h3>
+                <ul className="space-y-4" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "1.2rem", color: "#1a1c1c", fontWeight: 700 }}>
+                  <li className="flex justify-between items-center border-b border-gray-900/10 pb-2">
+                    <span style={{ color: "#1a1c1c", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>Winner</span>
+                    <span style={{ fontSize: "1.5rem", fontWeight: 900 }}>₹7,000</span>
+                  </li>
+                  <li className="flex justify-between items-center border-b border-gray-900/10 pb-2">
+                    <span style={{ color: "#1a1c1c", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>Runner-up</span>
+                    <span style={{ fontSize: "1.3rem", fontWeight: 900 }}>₹5,000</span>
+                  </li>
+                  <li className="flex justify-between items-center border-b border-gray-900/10 pb-2">
+                    <span style={{ color: "#1a1c1c", fontWeight: 800, textTransform: "uppercase", fontSize: "0.9rem" }}>2nd Runner-up</span>
+                    <span style={{ fontSize: "1.1rem", fontWeight: 900 }}>₹3,000</span>
+                  </li>
+                  <li className="pt-2 text-[0.95rem] font-semibold text-center mt-auto" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#6c7900", fontWeight: 800, textTransform: "uppercase" }}>
+                    Certificates provided to all participants
+                  </li>
+                </ul>
+              </div>
+
+              {/* Box 3: Team Rules */}
+              <div style={{ backgroundColor: "#0046fa", border: "4px solid #1a1c1c", padding: "2.5rem", boxShadow: "8px 8px 0px 0px rgba(26,28,28,1)", display: "flex", flexDirection: "column", color: "#ffffff" }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, fontSize: "2rem", textTransform: "uppercase", marginBottom: "1.5rem", color: "#ffffff", borderBottom: "4px solid #ffffff", paddingBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: "2rem" }}>group</span> Team Rules
+                </h3>
+                <ul className="space-y-4" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "1.125rem", fontWeight: 600 }}>
+                  <li className="flex items-center gap-3">
+                    <span className="material-symbols-outlined" style={{ fontWeight: 300, fontSize: "1.5rem", color: "#d4f000" }}>groups</span>
+                    <span>Team size: 2–4 members</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="material-symbols-outlined" style={{ fontWeight: 300, fontSize: "1.5rem", color: "#d4f000" }}>check_circle</span>
+                    <span>Cross-college teams allowed</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="material-symbols-outlined" style={{ fontWeight: 300, fontSize: "1.5rem", color: "#d4f000" }}>check_circle</span>
+                    <span>Cross-branch teams allowed</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="material-symbols-outlined" style={{ fontWeight: 300, fontSize: "1.5rem", color: "#bb0058" }}>cancel</span>
+                    <span>Individual participation not allowed</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Box 4: General Rules */}
+              <div style={{ backgroundColor: "#bb0058", border: "4px solid #1a1c1c", padding: "2.5rem", boxShadow: "8px 8px 0px 0px rgba(26,28,28,1)", display: "flex", flexDirection: "column", color: "#ffffff" }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, fontSize: "2rem", textTransform: "uppercase", marginBottom: "1.5rem", color: "#ffffff", borderBottom: "4px solid #ffffff", paddingBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: "2rem" }}>gavel</span> General Rules
+                </h3>
+                <ul className="space-y-4" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "1.125rem", fontWeight: 600 }}>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>badge</span>
+                    <span>All participants must carry a valid college ID card.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>laptop_mac</span>
+                    <span>Each team must bring at least one laptop.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>balance</span>
+                    <span>Teams must maintain fair play - plagiarism leads to disqualification.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>admin_panel_settings</span>
+                    <span>Decisions by organizers/judges will be final.</span>
+                  </li>
+                </ul>
               </div>
             </div>
+
           </div>
         </section>
 
@@ -768,18 +637,18 @@ const Spl2 = () => {
               {[
                 {
                   step: "01",
-                  title: "Qualifier Round",
-                  desc: "All registered teams compete in quizzes, rapid-fire questions, and mini challenges. Rankings are based on accuracy and response time, and top teams move ahead. Think speed plus knowledge under pressure.",
+                  title: "League Stage (Non-Eliminatory)",
+                  desc: "Round 1 & 2: All teams participate in the initial rounds designed to test creativity and problem-solving, introduce startup thinking, and warm up the competition.",
                 },
                 {
                   step: "02",
-                  title: "Company Auction Round",
-                  desc: "Qualified teams enter a live auction simulation and bid on companies with different strengths, risks, and potential. With limited budgets, every decision shapes the strength and balance of your portfolio.",
+                  title: "Knockout Stage (Eliminatory)",
+                  desc: "Round 3: Top teams move forward to build stronger startup concepts, compete under pressure, and present and defend ideas.",
                 },
                 {
                   step: "03",
-                  title: "Startup Strategy Round",
-                  desc: "Finalists build a startup plan using their acquired companies. Teams must focus on scalability, market fit, and innovation, then present a clear strategy to judges where creativity and execution matter most.",
+                  title: "The Grand Pitch",
+                  desc: "Final Round: The best teams battle it out in the final stage and competes for the title.",
                 },
               ].map((rule, idx) => (
                 <div
@@ -837,9 +706,10 @@ const Spl2 = () => {
           </div>
         </section>
 
+
         {/* ─── FAQS ──────────────────────────────────────────────────────── */}
         <PixelDivider
-          topColor="#e2e2e2"
+          topColor="#f9f9f9"
           bgColor="#0046fa"
           style={{ marginTop: "-2px", marginBottom: "-2px" }}
         />
@@ -874,24 +744,24 @@ const Spl2 = () => {
             <div className="flex flex-col gap-6">
               {[
                 {
-                  q: "Who can participate?",
-                  a: "SPL 3.0 is open to all colleges. Team size is 2 to 4 members, and basic business knowledge is helpful but not required.",
+                  q: "Do I need prior experience?",
+                  a: "No. SPL is beginner-friendly and open to all.",
                 },
                 {
-                  q: "When and where is SPL 3.0 happening?",
-                  a: "Date: 25th April 2026. Time: 10:30 AM onwards. Venue: BSN Auditorium, 2nd Floor, C.V. Raman Block.",
+                  q: "Can I change my team members?",
+                  a: "Yes, changes are allowed before the event.",
                 },
                 {
-                  q: "How will winners be selected?",
-                  a: "Top 3 teams will be chosen based on overall performance across all rounds, strategic thinking, adaptability, feasibility of ideas, and presentation clarity.",
+                  q: "What should I bring?",
+                  a: "A valid ID card and at least one laptop per team.",
                 },
                 {
-                  q: "Why should I participate?",
-                  a: "You will experience a real-world startup simulation, understand how investors think, improve high-pressure decision-making, network with students from multiple colleges, and compete for prizes and recognition.",
+                  q: "Is accommodation provided?",
+                  a: "No, this is a one-day event and accommodation is not included.",
                 },
                 {
-                  q: "What does the full event flow look like?",
-                  a: "The journey runs through three rounds: a qualifier screening, a live company auction simulation, and a final startup strategy presentation.",
+                  q: "Is this only for tech students?",
+                  a: "No. Students from all branches can participate.",
                 },
               ].map((faq, idx) => (
                 <details
