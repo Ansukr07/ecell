@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+// API is served from the same origin via Vercel serverless functions
 
 const COMPANY_CATEGORIES = [
   {
@@ -138,7 +138,7 @@ export default function HigherLowerGame() {
     }
 
     try {
-      const res = await fetch(`${backendUrl}/api/game/score`, {
+      const res = await fetch(`/api/game/score`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamId: teamData._id, score: finalScore }),
@@ -158,7 +158,7 @@ export default function HigherLowerGame() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${backendUrl}/api/game/login`, {
+      const res = await fetch(`/api/game/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamName, password }),
