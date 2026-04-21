@@ -19,6 +19,7 @@ import { WordProvider } from "./context/WordContext";
 import "./App.css";
 
 import Home from "./Pages/Home";
+import ComingSoon from "./Pages/ComingSoon";
 const Alumni = lazy(() => import("./Pages/Alumni"));
 const Gallery = lazy(() => import("./Pages/Gallery"));
 const Codered = lazy(() => import("./components/Events/Codered"));
@@ -99,34 +100,34 @@ function App() {
               >
                 <Suspense fallback={<div className="min-h-screen"></div>}>
                   <Routes location={displayLocation}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/word-of-the-day" element={<WordOfTheDay />} />
+                    <Route path="/" element={<ComingSoon />} />
+                    <Route path="/word-of-the-day" element={<ComingSoon />} />
                     <Route
                       path="/word-of-the-day/:id"
-                      element={<WordDetailPage />}
+                      element={<ComingSoon />}
                     />
                     <Route
                       path="/admin/word-of-the-day"
-                      element={<WordAdmin />}
+                      element={<ComingSoon />}
                     />
-                    <Route path="/events/codered25" element={<Codered />} />
-                    <Route path="/events/advert10" element={<Advert />} />
-                    <Route path="/events/spl" element={<Spl />} />
+                    <Route path="/events/codered25" element={<ComingSoon />} />
+                    <Route path="/events/advert10" element={<ComingSoon />} />
+                    <Route path="/events/spl" element={<ComingSoon />} />
                     <Route path="/events/spl3" element={<Spl2 />} />
                     <Route path="/spl3" element={<Spl2 />} />
                     <Route
                       path="/events/casecrackers"
-                      element={<CaseCrackers />}
+                      element={<ComingSoon />}
                     />
-                    <Route path="/events/chitting" element={<Chitting />} />
+                    <Route path="/events/chitting" element={<ComingSoon />} />
                     <Route
                       path="/events/paneldiscussion"
-                      element={<PanelDiscussion />}
+                      element={<ComingSoon />}
                     />
-                    <Route path="/events/ripoff" element={<Ripoff />} />
-                    <Route path="/alumni" element={<Alumni />} />
-                    <Route path="/team" element={<Team />} />
-                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/events/ripoff" element={<ComingSoon />} />
+                    <Route path="/alumni" element={<ComingSoon />} />
+                    <Route path="/team" element={<ComingSoon />} />
+                    <Route path="/gallery" element={<ComingSoon />} />
                     <Route
                       path="/event-higher-lower"
                       element={<HigherLowerGame />}
