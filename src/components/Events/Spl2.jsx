@@ -587,9 +587,9 @@ const Spl2 = () => {
                     <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>laptop_mac</span>
                     <span>Each team must bring at least one laptop.</span>
                   </li>
-                  <li className="flex items-start gap-3">
+                  <li className="flex items-start gap-3 text-left">
                     <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>balance</span>
-                    <span>Teams must maintain fair play - plagiarism leads to disqualification.</span>
+                    <span style={{ textAlign: "left" }}>Teams must maintain fair play - plagiarism leads to disqualification.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="material-symbols-outlined mt-1" style={{ fontWeight: 300, color: "#ffd9e0" }}>admin_panel_settings</span>
@@ -709,7 +709,7 @@ const Spl2 = () => {
 
         {/* ─── FAQS ──────────────────────────────────────────────────────── */}
         <PixelDivider
-          topColor="#f9f9f9"
+          topColor="#e2e2e2"
           bgColor="#0046fa"
           style={{ marginTop: "-2px", marginBottom: "-2px" }}
         />
@@ -737,7 +737,7 @@ const Spl2 = () => {
                   zIndex: 10,
                 }}
               >
-                EVENT DETAILS + FAQ.
+                BURNING QUESTIONS.
               </h2>
             </div>
 
