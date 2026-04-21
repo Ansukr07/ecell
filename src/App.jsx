@@ -35,6 +35,10 @@ const Team = lazy(() => import("./Pages/Team"));
 const WordOfTheDay = lazy(() => import("./Pages/WordOfTheDay.jsx"));
 const WordDetailPage = lazy(() => import("./Pages/WordDetailPage.jsx"));
 const WordAdmin = lazy(() => import("./Pages/WordAdmin.jsx"));
+const HigherLowerGame = lazy(() => import("./Pages/HigherLowerGame.jsx"));
+const HigherLowerLeaderboard = lazy(
+  () => import("./Pages/HigherLowerLeaderboard.jsx"),
+);
 
 export const PreloaderContext = createContext();
 
@@ -123,6 +127,14 @@ function App() {
                     <Route path="/alumni" element={<Alumni />} />
                     <Route path="/team" element={<Team />} />
                     <Route path="/gallery" element={<Gallery />} />
+                    <Route
+                      path="/event-higher-lower"
+                      element={<HigherLowerGame />}
+                    />
+                    <Route
+                      path="/event-higher-lower/leaderboard"
+                      element={<HigherLowerLeaderboard />}
+                    />
                   </Routes>
                 </Suspense>
               </motion.div>

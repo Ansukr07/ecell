@@ -1,40 +1,76 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const { body, validationResult } = require('express-validator');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+const { body, validationResult } = require("express-validator");
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
-const Word = require('./models/Word');
-const Idea = require('./models/Idea');
+const Word = require("./models/Word");
+const Idea = require("./models/Idea");
+const GameTeam = require("./models/GameTeam");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const GAME_DEMO_ADMIN_ID = process.env.GAME_DEMO_ADMIN_ID || "demo-admin";
+const GAME_DEMO_ADMIN_PASSWORD =
+  process.env.GAME_DEMO_ADMIN_PASSWORD || "demo-admin-123";
+
+const ensureDemoAdminTeam = async () => {
+  await GameTeam.findOneAndUpdate(
+    { teamName: GAME_DEMO_ADMIN_ID },
+    {
+      $set: {
+        password: GAME_DEMO_ADMIN_PASSWORD,
+        isDemoAdmin: true,
+        hasPlayed: false,
+        playedAt: null,
+      },
+      $setOnInsert: {
+        score: 0,
+      },
+    },
+    {
+      new: true,
+      upsert: true,
+      setDefaultsOnInsert: true,
+    },
+  );
+};
 
 // Middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://localhost:3000'],
-  credentials: true
-}));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || [
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  }),
+);
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Connected to MongoDB'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(async () => {
+    console.log("✅ Connected to MongoDB");
+    await ensureDemoAdminTeam();
+    console.log(`🧪 Demo admin ready: ${GAME_DEMO_ADMIN_ID}`);
+  })
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Rate limiting - 5 submissions per hour per IP
 const submissionLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 5,
   message: {
-    error: 'Too many story submissions from this IP, please try again later.',
-    retryAfter: 3600
+    error: "Too many story submissions from this IP, please try again later.",
+    retryAfter: 3600,
   },
   standardHeaders: true,
   legacyHeaders: false,
@@ -44,11 +80,11 @@ const submissionLimiter = rateLimit({
 const createTransporter = () => {
   // Gmail configuration (you can change this for other providers)
   return nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS // Use App Password for Gmail
-    }
+      pass: process.env.EMAIL_PASS, // Use App Password for Gmail
+    },
   });
 };
 
@@ -57,58 +93,58 @@ const createCustomTransporter = () => {
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
-    secure: process.env.SMTP_SECURE === 'true',
+    secure: process.env.SMTP_SECURE === "true",
     auth: {
       user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
+      pass: process.env.SMTP_PASS,
+    },
   });
 };
 
 // Validation middleware
 const validateStorySubmission = [
-  body('name')
+  body("name")
     .trim()
     .isLength({ min: 2, max: 100 })
-    .withMessage('Name must be between 2 and 100 characters'),
+    .withMessage("Name must be between 2 and 100 characters"),
 
-  body('email')
+  body("email")
     .isEmail()
     .normalizeEmail()
-    .withMessage('Please provide a valid email address'),
+    .withMessage("Please provide a valid email address"),
 
-  body('story')
+  body("story")
     .trim()
     .isLength({ min: 50, max: 5000 })
-    .withMessage('Story must be between 50 and 5000 characters'),
+    .withMessage("Story must be between 50 and 5000 characters"),
 ];
 
 // Idea validation middleware
 const validateIdeaSubmission = [
-  body('name')
+  body("name")
     .trim()
     .isLength({ min: 2, max: 100 })
-    .withMessage('Name must be between 2 and 100 characters'),
+    .withMessage("Name must be between 2 and 100 characters"),
 
-  body('email')
+  body("email")
     .isEmail()
     .normalizeEmail()
-    .withMessage('Please provide a valid email address'),
+    .withMessage("Please provide a valid email address"),
 
-  body('idea')
+  body("idea")
     .trim()
     .isLength({ min: 50, max: 5000 })
-    .withMessage('Idea must be between 50 and 5000 characters'),
+    .withMessage("Idea must be between 50 and 5000 characters"),
 ];
 
 // Sanitize HTML content
 const sanitizeContent = (content) => {
   return content
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;');
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .replace(/\//g, "&#x2F;");
 };
 
 // Format email content
@@ -116,7 +152,7 @@ const formatEmailContent = (data) => {
   const sanitizedData = {
     name: sanitizeContent(data.name),
     email: sanitizeContent(data.email),
-    story: sanitizeContent(data.story)
+    story: sanitizeContent(data.story),
   };
 
   return {
@@ -179,21 +215,22 @@ ${sanitizedData.story}
 
 ---
 This email was sent from the E-Cell BMSIT Failure Story submission form.
-    `
+    `,
   };
 };
 
 // Routes
-app.get('/health', (req, res) => {
+app.get("/health", (req, res) => {
   res.json({
-    status: 'healthy',
+    status: "healthy",
     timestamp: new Date().toISOString(),
-    service: 'Failure Story Backend'
+    service: "Failure Story Backend",
   });
 });
 
 // Submit failure story
-app.post('/api/submit-story',
+app.post(
+  "/api/submit-story",
   submissionLimiter,
   validateStorySubmission,
   async (req, res) => {
@@ -203,8 +240,8 @@ app.post('/api/submit-story',
       if (!errors.isEmpty()) {
         return res.status(400).json({
           success: false,
-          error: 'Validation failed',
-          details: errors.array()
+          error: "Validation failed",
+          details: errors.array(),
         });
       }
 
@@ -214,23 +251,25 @@ app.post('/api/submit-story',
       const emailContent = formatEmailContent({ name, email, story });
 
       // Create transporter (using Gmail by default)
-      const transporter = process.env.SMTP_HOST ? createCustomTransporter() : createTransporter();
+      const transporter = process.env.SMTP_HOST
+        ? createCustomTransporter()
+        : createTransporter();
 
       // Email options
       const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: 'ecell@bmsit.in',
+        to: "ecell@bmsit.in",
         subject: `New Failure Story from ${name}`,
         text: emailContent.text,
         html: emailContent.html,
-        replyTo: email
+        replyTo: email,
       };
 
       // Send confirmation email to submitter
       const confirmationOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Thank you for sharing your story!',
+        subject: "Thank you for sharing your story!",
         html: `
           <!DOCTYPE html>
           <html>
@@ -263,34 +302,35 @@ app.post('/api/submit-story',
             </div>
           </body>
           </html>
-        `
+        `,
       };
 
       // Send both emails
       await Promise.all([
         transporter.sendMail(mailOptions),
-        transporter.sendMail(confirmationOptions)
+        transporter.sendMail(confirmationOptions),
       ]);
 
       res.json({
         success: true,
-        message: 'Story submitted successfully! Thank you for sharing your experience.'
+        message:
+          "Story submitted successfully! Thank you for sharing your experience.",
       });
-
     } catch (error) {
-      console.error('Error submitting story:', error);
+      console.error("Error submitting story:", error);
 
       // Don't expose internal errors to client
       res.status(500).json({
         success: false,
-        error: 'Failed to submit story. Please try again later.'
+        error: "Failed to submit story. Please try again later.",
       });
     }
-  }
+  },
 );
 
 // Submit startup idea
-app.post('/api/submit-idea',
+app.post(
+  "/api/submit-idea",
   submissionLimiter,
   validateIdeaSubmission,
   async (req, res) => {
@@ -300,8 +340,8 @@ app.post('/api/submit-idea',
       if (!errors.isEmpty()) {
         return res.status(400).json({
           success: false,
-          error: 'Validation failed',
-          details: errors.array()
+          error: "Validation failed",
+          details: errors.array(),
         });
       }
 
@@ -311,99 +351,204 @@ app.post('/api/submit-idea',
       const newIdea = new Idea({
         name,
         email,
-        idea
+        idea,
       });
 
       await newIdea.save();
 
       res.json({
         success: true,
-        message: 'Idea submitted successfully! Thank you for sharing your vision.'
+        message:
+          "Idea submitted successfully! Thank you for sharing your vision.",
       });
-
     } catch (error) {
-      console.error('Error submitting idea:', error);
+      console.error("Error submitting idea:", error);
       res.status(500).json({
         success: false,
-        error: 'Failed to submit idea. Please try again later.'
+        error: "Failed to submit idea. Please try again later.",
       });
     }
-  }
+  },
 );
 
 // ===== WORD OF THE DAY CRUD ROUTES =====
 
 // GET all words (sorted by date descending)
-app.get('/api/words', async (req, res) => {
+app.get("/api/words", async (req, res) => {
   try {
     const words = await Word.find().sort({ date: -1 });
     res.json(words);
   } catch (error) {
-    console.error('Error fetching words:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch words' });
+    console.error("Error fetching words:", error);
+    res.status(500).json({ success: false, error: "Failed to fetch words" });
   }
 });
 
 // GET single word by ID
-app.get('/api/words/:id', async (req, res) => {
+app.get("/api/words/:id", async (req, res) => {
   try {
     const word = await Word.findById(req.params.id);
     if (!word) {
-      return res.status(404).json({ success: false, error: 'Word not found' });
+      return res.status(404).json({ success: false, error: "Word not found" });
     }
     res.json(word);
   } catch (error) {
-    console.error('Error fetching word:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch word' });
+    console.error("Error fetching word:", error);
+    res.status(500).json({ success: false, error: "Failed to fetch word" });
   }
 });
 
 // POST create new word
-app.post('/api/words', async (req, res) => {
+app.post("/api/words", async (req, res) => {
   try {
     const word = new Word(req.body);
     const saved = await word.save();
     res.status(201).json(saved);
   } catch (error) {
-    console.error('Error creating word:', error);
-    res.status(500).json({ success: false, error: 'Failed to create word' });
+    console.error("Error creating word:", error);
+    res.status(500).json({ success: false, error: "Failed to create word" });
   }
 });
 
 // PUT update word
-app.put('/api/words/:id', async (req, res) => {
+app.put("/api/words/:id", async (req, res) => {
   try {
-    const word = await Word.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const word = await Word.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (!word) {
-      return res.status(404).json({ success: false, error: 'Word not found' });
+      return res.status(404).json({ success: false, error: "Word not found" });
     }
     res.json(word);
   } catch (error) {
-    console.error('Error updating word:', error);
-    res.status(500).json({ success: false, error: 'Failed to update word' });
+    console.error("Error updating word:", error);
+    res.status(500).json({ success: false, error: "Failed to update word" });
   }
 });
 
 // DELETE word
-app.delete('/api/words/:id', async (req, res) => {
+app.delete("/api/words/:id", async (req, res) => {
   try {
     const word = await Word.findByIdAndDelete(req.params.id);
     if (!word) {
-      return res.status(404).json({ success: false, error: 'Word not found' });
+      return res.status(404).json({ success: false, error: "Word not found" });
     }
-    res.json({ success: true, message: 'Word deleted' });
+    res.json({ success: true, message: "Word deleted" });
   } catch (error) {
-    console.error('Error deleting word:', error);
-    res.status(500).json({ success: false, error: 'Failed to delete word' });
+    console.error("Error deleting word:", error);
+    res.status(500).json({ success: false, error: "Failed to delete word" });
+  }
+});
+
+// ===== EVENT HIGHER OR LOWER GAME ROUTES =====
+
+// Check team login
+app.post("/api/game/login", async (req, res) => {
+  try {
+    const { teamName, password } = req.body;
+
+    if (
+      teamName === GAME_DEMO_ADMIN_ID &&
+      password === GAME_DEMO_ADMIN_PASSWORD
+    ) {
+      const demoAdminTeam = await GameTeam.findOneAndUpdate(
+        { teamName: GAME_DEMO_ADMIN_ID },
+        {
+          $set: {
+            password: GAME_DEMO_ADMIN_PASSWORD,
+            isDemoAdmin: true,
+            hasPlayed: false,
+            playedAt: null,
+          },
+          $setOnInsert: {
+            score: 0,
+          },
+        },
+        {
+          new: true,
+          upsert: true,
+          setDefaultsOnInsert: true,
+        },
+      );
+
+      return res.json({
+        success: true,
+        team: demoAdminTeam,
+      });
+    }
+
+    const team = await GameTeam.findOne({ teamName, password });
+
+    if (!team) {
+      return res
+        .status(401)
+        .json({ success: false, error: "Invalid team name or password" });
+    }
+
+    if (team.hasPlayed && !team.isDemoAdmin) {
+      return res.status(403).json({
+        success: false,
+        error: "This team has already played and cannot attempt again.",
+      });
+    }
+
+    res.json({ success: true, team });
+  } catch (error) {
+    console.error("Error logging in team:", error);
+    res.status(500).json({ success: false, error: "Failed to login" });
+  }
+});
+
+// Update score
+app.post("/api/game/score", async (req, res) => {
+  try {
+    const { teamId, score } = req.body;
+
+    const team = await GameTeam.findById(teamId);
+
+    if (!team) {
+      return res.status(404).json({ success: false, error: "Team not found" });
+    }
+
+    if (score > team.score) {
+      team.score = score;
+    }
+
+    if (team.isDemoAdmin) {
+      team.hasPlayed = false;
+      team.playedAt = null;
+    } else {
+      team.hasPlayed = true;
+      team.playedAt = new Date();
+    }
+    await team.save();
+
+    res.json({ success: true, team });
+  } catch (error) {
+    console.error("Error updating score:", error);
+    res.status(500).json({ success: false, error: "Failed to update score" });
+  }
+});
+
+// Get leaderboard
+app.get("/api/game/leaderboard", async (req, res) => {
+  try {
+    const teams = await GameTeam.find().sort({ score: -1 }).select("-password");
+    res.json({ success: true, leaderboard: teams });
+  } catch (error) {
+    console.error("Error fetching leaderboard:", error);
+    res
+      .status(500)
+      .json({ success: false, error: "Failed to fetch leaderboard" });
   }
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
+  console.error("Unhandled error:", err);
   res.status(500).json({
     success: false,
-    error: 'Internal server error'
+    error: "Internal server error",
   });
 });
 
@@ -411,15 +556,17 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    error: 'Endpoint not found'
+    error: "Endpoint not found",
   });
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Failure Story Backend running on port ${PORT}`);
-  console.log(`📧 Email service: ${process.env.SMTP_HOST ? 'Custom SMTP' : 'Gmail'}`);
-  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(
+    `📧 Email service: ${process.env.SMTP_HOST ? "Custom SMTP" : "Gmail"}`,
+  );
+  console.log(`🌐 Environment: ${process.env.NODE_ENV || "development"}`);
 });
 
 module.exports = app;
