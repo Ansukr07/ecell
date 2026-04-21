@@ -869,12 +869,7 @@ const Spl2 = () => {
               {/* Social Links */}
               <div className="flex gap-4 flex-wrap w-full md:w-auto md:flex-nowrap">
                 {[
-                  {
-                    name: "Website",
-                    url: "https://ecell-bmsitm.vercel.app/",
-                    className:
-                      "w-full md:w-auto order-first md:order-none text-center block",
-                  },
+
                   {
                     name: "Instagram",
                     url: "https://instagram.com/ecell.bmsit",
