@@ -114,6 +114,7 @@ export default function HigherLowerGame() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
+  const [timeLeft, setTimeLeft] = useState(7);
 
   useEffect(() => {
     const decks = buildCategoryDecks();
@@ -121,6 +122,25 @@ export default function HigherLowerGame() {
     setRemainingDecks(nextDecks);
     setCurrentQuestion(question);
   }, []);
+
+  useEffect(() => {
+    if (!loggedIn || gameOver || !currentQuestion || message.startsWith("CORRECT")) {
+      return;
+    }
+
+    if (timeLeft <= 0) {
+      setGameOver(true);
+      setMessage(`Time's up! ${currentQuestion.left.name} ($${currentQuestion.left.val}B) vs ${currentQuestion.right.name} ($${currentQuestion.right.val}B).`);
+      saveScore(score);
+      return;
+    }
+
+    const timerObj = setInterval(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timerObj);
+  }, [loggedIn, gameOver, currentQuestion, message, timeLeft, score]);
 
   const initializeRun = () => {
     const decks = buildCategoryDecks();
@@ -130,6 +150,7 @@ export default function HigherLowerGame() {
     setScore(0);
     setGameOver(false);
     setMessage("");
+    setTimeLeft(7);
   };
 
   const saveScore = async (finalScore) => {
@@ -209,6 +230,7 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
+          setTimeLeft(7);
         }, 700);
       } else {
         setGameOver(true);
@@ -452,6 +474,23 @@ export default function HigherLowerGame() {
           </span>
 
           <div className="flex flex-wrap items-center gap-3">
+            <div
+              className="px-4 py-2"
+              style={{
+                backgroundColor: !gameOver && timeLeft <= 3 ? "#bb0058" : "#fff",
+                color: !gameOver && timeLeft <= 3 ? "#fff" : "#1a1c1c",
+                border: "4px solid #1a1c1c",
+                boxShadow: "6px 6px 0px #1a1c1c",
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontWeight: 900,
+                textTransform: "uppercase",
+                fontSize: "1rem",
+                transition: "background-color 0.3s ease, color 0.3s ease",
+              }}
+            >
+              Time: {gameOver ? "-" : `${timeLeft}s`}
+            </div>
+
             <div
               className="px-4 py-2"
               style={{
