@@ -950,8 +950,6 @@ const Spl2 = () => {
                 {[
                   { label: "Register", href: "#" },
                   { label: "FAQ's", href: "#burning-questions" },
-                  { label: "Instagram", href: "https://www.instagram.com/ecell.bmsit", target: "_blank" },
-                  { label: "LinkedIn", href: "https://www.linkedin.com/company/ecell-bmsit", target: "_blank" },
                 ].map((item) => (
                   <a
                     key={item.label}
