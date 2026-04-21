@@ -364,7 +364,7 @@ const Spl2 = () => {
                 }}
                 onClick={() => {
                   document
-                    .getElementById("how-it-works")
+                    .getElementById("spl-rules")
                     ?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
               >
@@ -437,11 +437,13 @@ const Spl2 = () => {
 
         {/* ─── BENTO SECTION ────────────────────────────────────────────────── */}
         <section
+          id="spl-rules"
           style={{
             backgroundColor: "#f9f9f9",
             padding: "5rem 1.5rem 6rem",
             position: "relative",
             overflow: "hidden",
+            scrollMarginTop: "2rem",
           }}
         >
 
@@ -949,6 +951,7 @@ const Spl2 = () => {
               <div className="flex gap-6 flex-wrap justify-center">
                 {[
                   { label: "Register", href: "#" },
+                  { label: "Rules", href: "#spl-rules" },
                   { label: "FAQ's", href: "#burning-questions" },
                 ].map((item) => (
                   <a
