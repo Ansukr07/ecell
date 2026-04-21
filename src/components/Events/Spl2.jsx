@@ -875,13 +875,13 @@ const Spl2 = () => {
                   },
                   {
                     name: "Instagram",
-                    url: "https://instagram.com/ecell_bmsit",
+                    url: "https://instagram.com/ecell.bmsit",
                     className:
                       "flex-1 md:w-auto md:flex-none text-center block",
                   },
                   {
                     name: "LinkedIn",
-                    url: "https://www.linkedin.com/company/e-cell-bmsit-m/",
+                    url: "https://www.linkedin.com/company/ecellbmsit/",
                     className:
                       "flex-1 md:w-auto md:flex-none text-center block",
                   },
@@ -950,10 +950,14 @@ const Spl2 = () => {
                 {[
                   { label: "Register", href: "#" },
                   { label: "FAQ's", href: "#burning-questions" },
+                  { label: "Instagram", href: "https://www.instagram.com/ecell.bmsit", target: "_blank" },
+                  { label: "LinkedIn", href: "https://www.linkedin.com/company/ecell-bmsit", target: "_blank" },
                 ].map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
+                    target={item.target || "_self"}
+                    rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontWeight: 700,
