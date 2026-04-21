@@ -282,8 +282,10 @@ const Spl2 = () => {
             {/* CTA Buttons */}
             <div className="spl2-cta-group flex flex-col md:flex-row gap-8 w-full md:w-auto items-center justify-center">
               {/* Register */}
-              <button
-                type="button"
+              <a
+                href="https://unstop.com/o/6m9z0Fj?lb=8XwWIxhy&utm_medium=Share&utm_source=competitions&utm_campaign=Ecell-bmsitm"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="spl2-cta-button"
                 style={{
                   position: "relative",
@@ -301,6 +303,10 @@ const Spl2 = () => {
                   textTransform: "uppercase",
                   fontStyle: "italic",
                   letterSpacing: "-0.04em",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textDecoration: "none",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translate(4px, 4px)";
@@ -318,6 +324,7 @@ const Spl2 = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "0.75rem",
+                    cursor: "pointer",
                   }}
                 >
                   REGISTER NOW
@@ -331,7 +338,7 @@ const Spl2 = () => {
                     send
                   </span>
                 </span>
-              </button>
+              </a>
 
               {/* View Rules */}
               <button
@@ -945,7 +952,7 @@ const Spl2 = () => {
 
               <div className="flex gap-6 flex-wrap justify-center">
                 {[
-                  { label: "Register", href: "#" },
+                  { label: "Register", href: "https://unstop.com/o/6m9z0Fj?lb=8XwWIxhy&utm_medium=Share&utm_source=competitions&utm_campaign=Ecell-bmsitm" },
                   { label: "Rules", href: "#spl-rules" },
                   { label: "FAQ's", href: "#burning-questions" },
                 ].map((item) => (
