@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+// API is served from the same origin via Vercel serverless functions
 
 export default function HigherLowerLeaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -13,7 +13,7 @@ export default function HigherLowerLeaderboard() {
     setError("");
 
     try {
-      const res = await fetch(`${backendUrl}/api/game/leaderboard`);
+      const res = await fetch(`/api/game/leaderboard`);
       const data = await res.json();
 
       if (!data.success) {
