@@ -252,8 +252,7 @@ export default function HigherLowerGame() {
       chosenIndex === 0 ? currentQuestion.right : currentQuestion.left;
 
     if (chosen.val >= other.val) {
-      const isStreak = streak > 0;
-      const points = isStreak ? 5 : 4;
+      const points = 4 + streak;
       const newScore = score + points;
       setScore(newScore);
       setStreak(streak + 1);
