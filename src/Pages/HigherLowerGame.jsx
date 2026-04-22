@@ -11,6 +11,8 @@ const COMPANY_CATEGORIES = [
       { name: "SpaceX", val: 150 },
       { name: "Databricks", val: 50 },
       { name: "Anduril", val: 24 },
+      { name: "Anthropic", val: 20 },
+      { name: "Hugging Face", val: 4.5 },
     ],
   },
   {
@@ -22,6 +24,8 @@ const COMPANY_CATEGORIES = [
       { name: "Grammarly", val: 26 },
       { name: "Postman", val: 30 },
       { name: "Rippling", val: 13 },
+      { name: "Notion", val: 10 },
+      { name: "Slack", val: 33 },
     ],
   },
   {
@@ -32,6 +36,8 @@ const COMPANY_CATEGORIES = [
       { name: "Plaid", val: 50 },
       { name: "CRED", val: 6.4 },
       { name: "Zerodha", val: 4.1 },
+      { name: "Wise", val: 14 },
+      { name: "Square", val: 35 },
     ],
   },
   {
@@ -42,6 +48,8 @@ const COMPANY_CATEGORIES = [
       { name: "Epic Games", val: 43 },
       { name: "Zomato", val: 65 },
       { name: "Swiggy", val: 13 },
+      { name: "Uber", val: 100 },
+      { name: "Spotify", val: 60 },
     ],
   },
   {
@@ -49,6 +57,9 @@ const COMPANY_CATEGORIES = [
     companies: [
       { name: "Reliance TCS", val: 170 },
       { name: "Infosys", val: 80 },
+      { name: "Flipkart", val: 38 },
+      { name: "Paytm", val: 1.9 },
+      { name: "PhonePe", val: 12 },
     ],
   },
 ];
@@ -117,15 +128,24 @@ export default function HigherLowerGame() {
   const [message, setMessage] = useState("");
   const [timeLeft, setTimeLeft] = useState(7);
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [showRulesTimer, setShowRulesTimer] = useState(false);
+  const [rulesTimeLeft, setRulesTimeLeft] = useState(10);
 
   useEffect(() => {
+    // Only check game status if user is logged in
+    if (!loggedIn) {
+      return;
+    }
+
     // Check if game has started
     const checkStatus = async () => {
       try {
         const res = await fetch("/api/game/status");
         const data = await res.json();
-        if (data.success) {
+        if (data.success && data.isStarted && !isGameStarted) {
           setIsGameStarted(data.isStarted);
+          setShowRulesTimer(true);
+          setRulesTimeLeft(10);
         }
       } catch (err) {
         console.error("Failed to fetch game status", err);
@@ -136,33 +156,54 @@ export default function HigherLowerGame() {
     // Set up a polling interval for game status when wait
     const interval = setInterval(checkStatus, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [loggedIn, isGameStarted]);
 
   useEffect(() => {
-    const decks = buildCategoryDecks();
-    const { question, decks: nextDecks } = drawNextQuestion(decks);
-    setRemainingDecks(nextDecks);
-    setCurrentQuestion(question);
-  }, []);
+    if (showRulesTimer && rulesTimeLeft > 0) {
+      const timerObj = setInterval(() => {
+        setRulesTimeLeft((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timerObj);
+    } else if (showRulesTimer && rulesTimeLeft === 0) {
+      setShowRulesTimer(false);
+    }
+  }, [showRulesTimer, rulesTimeLeft]);
 
   useEffect(() => {
     if (
       !loggedIn ||
       !isGameStarted ||
+      showRulesTimer ||
       gameOver ||
       !currentQuestion ||
       message.startsWith("CORRECT") ||
-      message.startsWith("Wrong")
+      message.startsWith("Wrong") ||
+      message.startsWith("Time's up")
     ) {
       return;
     }
 
     if (timeLeft <= 0) {
-      setGameOver(true);
-      setMessage(
-        `Time's up! ${currentQuestion.left.name} ($${currentQuestion.left.val}B) vs ${currentQuestion.right.name} ($${currentQuestion.right.val}B).`,
-      );
-      saveScore(score);
+      const newScore = score - 1;
+      setScore(newScore);
+      setStreak(0);
+      setMessage(`Time's up! No answer selected. (-1)`);
+
+      const { question: nextQuestion, decks: nextDecks } =
+        drawNextQuestion(remainingDecks);
+
+      if (nextQuestion) {
+        setTimeout(() => {
+          setMessage("");
+          setCurrentQuestion(nextQuestion);
+          setRemainingDecks(nextDecks);
+          setTimeLeft(7);
+        }, 1500);
+      } else {
+        setGameOver(true);
+        setMessage("Run ended. No more unique same-category questions left.");
+        saveScore(newScore);
+      }
       return;
     }
 
@@ -171,7 +212,15 @@ export default function HigherLowerGame() {
     }, 1000);
 
     return () => clearInterval(timerObj);
-  }, [loggedIn, gameOver, currentQuestion, message, timeLeft, score]);
+  }, [
+    loggedIn,
+    gameOver,
+    currentQuestion,
+    message,
+    timeLeft,
+    score,
+    showRulesTimer,
+  ]);
 
   const initializeRun = () => {
     const decks = buildCategoryDecks();
@@ -627,6 +676,48 @@ export default function HigherLowerGame() {
             <p className="mt-4 font-bold">
               Please hold on, the match will begin shortly!
             </p>
+          </div>
+        ) : showRulesTimer ? (
+          <div className="mt-8 text-center bg-[#0046fa] text-white p-12 border-4 border-[#1a1c1c] shadow-[8px_8px_0px_#1a1c1c] max-w-3xl mx-auto">
+            <h2
+              className="text-4xl font-black uppercase mb-8"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              Game Rules
+            </h2>
+            <div
+              className="text-lg mb-12 space-y-4"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
+              <p className="font-bold">
+                👉 Compare the valuations of two companies
+              </p>
+              <p className="font-bold">
+                👉 Choose which one has the HIGHER valuation
+              </p>
+              <p className="font-bold">
+                👉 Correct answers: +4 for first, then +5, +6, +7... (increases
+                by 1 each streak)
+              </p>
+              <p className="font-bold">
+                👉 Wrong answers: -1 point and streak resets
+              </p>
+              <p className="font-bold">👉 You have 7 seconds per question</p>
+            </div>
+            <div
+              className="inline-block px-8 py-6"
+              style={{
+                backgroundColor: "#d4f000",
+                color: "#1a1c1c",
+                border: "4px solid #1a1c1c",
+                boxShadow: "8px 8px 0px #1a1c1c",
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontWeight: 900,
+                fontSize: "3rem",
+              }}
+            >
+              {rulesTimeLeft}s
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mt-8">
