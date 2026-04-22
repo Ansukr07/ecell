@@ -106,11 +106,6 @@ const ECellEventsScroll = () => {
         )),
   );
 
-  const handleEventClick = (event) => {
-    const componentPath = `/events/${event.name.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
-    window.open(componentPath, "_blank");
-  };
-
   return (
     <div
       className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-6 md:pt-12 px-4 md:px-8 xl:px-12 border-t-0 -mt-[1px] md:mt-0"
@@ -183,8 +178,7 @@ const ECellEventsScroll = () => {
             filteredEvents.map((event, idx) => (
               <div
                 key={idx}
-                onClick={() => handleEventClick(event)}
-                className="group flex flex-col sm:flex-row w-full sm:w-[1125px] cursor-pointer bg-[#292929] hover:bg-[#656565] transition-colors duration-300 overflow-hidden relative"
+                className="flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative"
               >
                 {/* Image Block: Absolute Dimensions 256x256 */}
                 <div className="w-[256px] h-[256px] flex-shrink-0 bg-black overflow-hidden relative hidden sm:block">
@@ -192,7 +186,7 @@ const ECellEventsScroll = () => {
                   <img
                     src={event.image}
                     alt={event.name}
-                    className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-screen opacity-90 group-hover:grayscale-0 transition-all duration-700"
+                    className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-screen opacity-90 transition-all duration-700 hover:grayscale-0 hover:opacity-100"
                   />
                 </div>
 
@@ -226,14 +220,6 @@ const ECellEventsScroll = () => {
                       {event.description}
                     </p>
                   </div>
-                </div>
-
-                {/* Diagonal Arrow UI Icon */}
-                <div className="absolute right-4 bottom-4 md:right-8 md:bottom-8 text-white opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 group-hover:translate-x-2 transition-all duration-500">
-                  <ArrowUpRight
-                    strokeWidth={1}
-                    className="w-12 h-12 md:w-16 md:h-16 lg:w-[70px] lg:h-[70px]"
-                  />
                 </div>
               </div>
             ))
