@@ -11,6 +11,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const Word = require("./models/Word");
 const Idea = require("./models/Idea");
 const GameTeam = require("./models/GameTeam");
+const GameState = require("./models/GameState");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -441,6 +442,46 @@ app.delete("/api/words/:id", async (req, res) => {
 });
 
 // ===== EVENT HIGHER OR LOWER GAME ROUTES =====
+
+// Check game status
+app.get("/api/game/status", async (req, res) => {
+  try {
+    let state = await GameState.findOne({ gameId: "higher-lower" });
+    if (!state) {
+      state = await GameState.create({
+        gameId: "higher-lower",
+        isStarted: false,
+      });
+    }
+    res.json({ success: true, isStarted: state.isStarted });
+  } catch (error) {
+    console.error("Error fetching game status:", error);
+    res
+      .status(500)
+      .json({ success: false, error: "Failed to fetch game status" });
+  }
+});
+
+// Update game status
+app.post("/api/game/status", async (req, res) => {
+  try {
+    const { action } = req.body;
+    const isStarted = action === "start";
+
+    const state = await GameState.findOneAndUpdate(
+      { gameId: "higher-lower" },
+      { isStarted },
+      { new: true, upsert: true },
+    );
+
+    res.json({ success: true, isStarted: state.isStarted });
+  } catch (error) {
+    console.error("Error updating game status:", error);
+    res
+      .status(500)
+      .json({ success: false, error: "Failed to update game status" });
+  }
+});
 
 // Check team login
 app.post("/api/game/login", async (req, res) => {

@@ -36,6 +36,7 @@ const WordOfTheDay = lazy(() => import("./Pages/WordOfTheDay.jsx"));
 const WordDetailPage = lazy(() => import("./Pages/WordDetailPage.jsx"));
 const WordAdmin = lazy(() => import("./Pages/WordAdmin.jsx"));
 const HigherLowerGame = lazy(() => import("./Pages/HigherLowerGame.jsx"));
+const HigherLowerAdmin = lazy(() => import("./Pages/HigherLowerAdmin.jsx"));
 const HigherLowerLeaderboard = lazy(
   () => import("./Pages/HigherLowerLeaderboard.jsx"),
 );
@@ -108,6 +109,10 @@ function App() {
                     <Route
                       path="/admin/word-of-the-day"
                       element={<WordAdmin />}
+                    />
+                    <Route
+                      path="/admin/higher-lower"
+                      element={<HigherLowerAdmin />}
                     />
                     <Route path="/events/codered25" element={<Codered />} />
                     <Route path="/events/advert10" element={<Advert />} />

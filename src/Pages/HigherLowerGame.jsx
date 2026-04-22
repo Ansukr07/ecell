@@ -112,9 +112,31 @@ export default function HigherLowerGame() {
   const [remainingDecks, setRemainingDecks] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
   const [timeLeft, setTimeLeft] = useState(7);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+
+  useEffect(() => {
+    // Check if game has started
+    const checkStatus = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/game/status");
+        const data = await res.json();
+        if (data.success) {
+          setIsGameStarted(data.isStarted);
+        }
+      } catch (err) {
+        console.error("Failed to fetch game status", err);
+      }
+    };
+    checkStatus();
+
+    // Set up a polling interval for game status when wait
+    const interval = setInterval(checkStatus, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const decks = buildCategoryDecks();
@@ -124,19 +146,28 @@ export default function HigherLowerGame() {
   }, []);
 
   useEffect(() => {
-    if (!loggedIn || gameOver || !currentQuestion || message.startsWith("CORRECT")) {
+    if (
+      !loggedIn ||
+      !isGameStarted ||
+      gameOver ||
+      !currentQuestion ||
+      message.startsWith("CORRECT") ||
+      message.startsWith("Wrong")
+    ) {
       return;
     }
 
     if (timeLeft <= 0) {
       setGameOver(true);
-      setMessage(`Time's up! ${currentQuestion.left.name} ($${currentQuestion.left.val}B) vs ${currentQuestion.right.name} ($${currentQuestion.right.val}B).`);
+      setMessage(
+        `Time's up! ${currentQuestion.left.name} ($${currentQuestion.left.val}B) vs ${currentQuestion.right.name} ($${currentQuestion.right.val}B).`,
+      );
       saveScore(score);
       return;
     }
 
     const timerObj = setInterval(() => {
-      setTimeLeft(prev => prev - 1);
+      setTimeLeft((prev) => prev - 1);
     }, 1000);
 
     return () => clearInterval(timerObj);
@@ -148,6 +179,7 @@ export default function HigherLowerGame() {
     setRemainingDecks(nextDecks);
     setCurrentQuestion(question);
     setScore(0);
+    setStreak(0);
     setGameOver(false);
     setMessage("");
     setTimeLeft(7);
@@ -159,7 +191,7 @@ export default function HigherLowerGame() {
     }
 
     try {
-      const res = await fetch(`/api/game/score`, {
+      const res = await fetch(`http://localhost:3001/api/game/score`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamId: teamData._id, score: finalScore }),
@@ -179,7 +211,7 @@ export default function HigherLowerGame() {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/game/login`, {
+      const res = await fetch(`http://localhost:3001/api/game/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamName, password }),
@@ -203,9 +235,11 @@ export default function HigherLowerGame() {
 
   const handleChoice = (chosenIndex) => {
     if (
+      !isGameStarted ||
       gameOver ||
       !currentQuestion ||
       message.startsWith("CORRECT") ||
+      message.startsWith("Wrong") ||
       !currentQuestion.left ||
       !currentQuestion.right
     ) {
@@ -218,9 +252,12 @@ export default function HigherLowerGame() {
       chosenIndex === 0 ? currentQuestion.right : currentQuestion.left;
 
     if (chosen.val >= other.val) {
-      const newScore = score + 1;
+      const isStreak = streak > 0;
+      const points = isStreak ? 5 : 4;
+      const newScore = score + points;
       setScore(newScore);
-      setMessage(`CORRECT: ${chosen.name} has higher valuation.`);
+      setStreak(streak + 1);
+      setMessage(`CORRECT: ${chosen.name} has higher valuation. (+${points})`);
 
       const { question: nextQuestion, decks: nextDecks } =
         drawNextQuestion(remainingDecks);
@@ -238,11 +275,28 @@ export default function HigherLowerGame() {
         saveScore(newScore);
       }
     } else {
-      setGameOver(true);
+      const newScore = score - 1;
+      setScore(newScore);
+      setStreak(0);
       setMessage(
-        `Wrong: ${other.name} ($${other.val}B) beats ${chosen.name} ($${chosen.val}B).`,
+        `Wrong: ${other.name} ($${other.val}B) beats ${chosen.name} ($${chosen.val}B). (-1)`,
       );
-      saveScore(score);
+
+      const { question: nextQuestion, decks: nextDecks } =
+        drawNextQuestion(remainingDecks);
+
+      if (nextQuestion) {
+        setTimeout(() => {
+          setMessage("");
+          setCurrentQuestion(nextQuestion);
+          setRemainingDecks(nextDecks);
+          setTimeLeft(7);
+        }, 1500); // Give a bit more time to read the values for wrong answers
+      } else {
+        setGameOver(true);
+        setMessage("Run ended. No more unique same-category questions left.");
+        saveScore(newScore);
+      }
     }
   };
 
@@ -477,7 +531,8 @@ export default function HigherLowerGame() {
             <div
               className="px-4 py-2"
               style={{
-                backgroundColor: !gameOver && timeLeft <= 3 ? "#bb0058" : "#fff",
+                backgroundColor:
+                  !gameOver && timeLeft <= 3 ? "#bb0058" : "#fff",
                 color: !gameOver && timeLeft <= 3 ? "#fff" : "#1a1c1c",
                 border: "4px solid #1a1c1c",
                 boxShadow: "6px 6px 0px #1a1c1c",
@@ -562,151 +617,165 @@ export default function HigherLowerGame() {
           )}
         </AnimatePresence>
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mt-8">
-          <section className="xl:col-span-9">
-            <div className="hl-card bg-white p-4 md:p-6">
-              <div className="relative flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
-                <button
-                  onClick={() => handleChoice(0)}
-                  disabled={gameOver}
-                  className="hl-choice flex-1 h-[46vh] md:h-[50vh] p-6 md:p-10"
-                  style={{
-                    backgroundColor: "#0046fa",
-                    color: "#fff",
-                    border: "4px solid #1a1c1c",
-                    boxShadow: "8px 8px 0px #1a1c1c",
-                  }}
-                >
-                  <div className="h-full flex flex-col items-center justify-center text-center">
-                    <h2
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 900,
-                        textTransform: "uppercase",
-                        lineHeight: 1.05,
-                        fontSize: "clamp(2rem, 5vw, 4rem)",
-                      }}
-                    >
-                      {currentQuestion?.left?.name || "-"}
-                    </h2>
-                    {gameOver && (
-                      <p
-                        className="mt-5 px-4 py-2"
+        {!isGameStarted ? (
+          <div className="mt-8 text-center bg-yellow-300 p-8 border-4 border-[#1a1c1c] shadow-[8px_8px_0px_#1a1c1c] max-w-2xl mx-auto">
+            <h2
+              className="text-3xl font-black uppercase"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              Waiting for admin to start the game...
+            </h2>
+            <p className="mt-4 font-bold">
+              Please hold on, the match will begin shortly!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mt-8">
+            <section className="xl:col-span-9">
+              <div className="hl-card bg-white p-4 md:p-6">
+                <div className="relative flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+                  <button
+                    onClick={() => handleChoice(0)}
+                    disabled={gameOver}
+                    className="hl-choice flex-1 h-[46vh] md:h-[50vh] p-6 md:p-10"
+                    style={{
+                      backgroundColor: "#0046fa",
+                      color: "#fff",
+                      border: "4px solid #1a1c1c",
+                      boxShadow: "8px 8px 0px #1a1c1c",
+                    }}
+                  >
+                    <div className="h-full flex flex-col items-center justify-center text-center">
+                      <h2
                         style={{
-                          backgroundColor: "#fff",
-                          color: "#1a1c1c",
-                          border: "3px solid #1a1c1c",
-                          fontWeight: 800,
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontWeight: 900,
+                          textTransform: "uppercase",
+                          lineHeight: 1.05,
+                          fontSize: "clamp(2rem, 5vw, 4rem)",
                         }}
                       >
-                        ${currentQuestion?.left?.val}B
-                      </p>
-                    )}
-                  </div>
-                </button>
+                        {currentQuestion?.left?.name || "-"}
+                      </h2>
+                      {gameOver && (
+                        <p
+                          className="mt-5 px-4 py-2"
+                          style={{
+                            backgroundColor: "#fff",
+                            color: "#1a1c1c",
+                            border: "3px solid #1a1c1c",
+                            fontWeight: 800,
+                            fontFamily: "'Plus Jakarta Sans', sans-serif",
+                          }}
+                        >
+                          ${currentQuestion?.left?.val}B
+                        </p>
+                      )}
+                    </div>
+                  </button>
 
+                  <div
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full hidden md:flex items-center justify-center"
+                    style={{
+                      backgroundColor: "#f9f9f9",
+                      border: "4px solid #1a1c1c",
+                      boxShadow: "6px 6px 0px #1a1c1c",
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 900,
+                      fontSize: "2rem",
+                    }}
+                  >
+                    OR
+                  </div>
+
+                  <button
+                    onClick={() => handleChoice(1)}
+                    disabled={gameOver}
+                    className="hl-choice flex-1 h-[46vh] md:h-[50vh] p-6 md:p-10"
+                    style={{
+                      backgroundColor: "#d4f000",
+                      color: "#1a1c1c",
+                      border: "4px solid #1a1c1c",
+                      boxShadow: "8px 8px 0px #bb0058",
+                    }}
+                  >
+                    <div className="h-full flex flex-col items-center justify-center text-center">
+                      <h2
+                        style={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontWeight: 900,
+                          textTransform: "uppercase",
+                          lineHeight: 1.05,
+                          fontSize: "clamp(2rem, 5vw, 4rem)",
+                        }}
+                      >
+                        {currentQuestion?.right?.name || "-"}
+                      </h2>
+                      {gameOver && (
+                        <p
+                          className="mt-5 px-4 py-2"
+                          style={{
+                            backgroundColor: "#fff",
+                            color: "#1a1c1c",
+                            border: "3px solid #1a1c1c",
+                            fontWeight: 800,
+                            fontFamily: "'Plus Jakarta Sans', sans-serif",
+                          }}
+                        >
+                          ${currentQuestion?.right?.val}B
+                        </p>
+                      )}
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {gameOver && (
                 <div
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full hidden md:flex items-center justify-center"
+                  className="hl-card mt-6 p-5"
                   style={{
-                    backgroundColor: "#f9f9f9",
-                    border: "4px solid #1a1c1c",
-                    boxShadow: "6px 6px 0px #1a1c1c",
+                    backgroundColor: "#1a1c1c",
+                    color: "#fff",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    fontSize: "1.1rem",
+                  }}
+                >
+                  Run ended. Final score: {score}.
+                </div>
+              )}
+            </section>
+
+            <aside className="xl:col-span-3 xl:-mt-4">
+              <div className="hl-card bg-white p-5">
+                <h4
+                  style={{
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 900,
-                    fontSize: "2rem",
+                    textTransform: "uppercase",
+                    fontSize: "1.2rem",
                   }}
                 >
-                  OR
-                </div>
-
-                <button
-                  onClick={() => handleChoice(1)}
-                  disabled={gameOver}
-                  className="hl-choice flex-1 h-[46vh] md:h-[50vh] p-6 md:p-10"
+                  Rule Snapshot
+                </h4>
+                <p
+                  className="mt-2"
                   style={{
-                    backgroundColor: "#d4f000",
-                    color: "#1a1c1c",
-                    border: "4px solid #1a1c1c",
-                    boxShadow: "8px 8px 0px #bb0058",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontWeight: 600,
+                    color: "#434659",
+                    lineHeight: 1.6,
                   }}
                 >
-                  <div className="h-full flex flex-col items-center justify-center text-center">
-                    <h2
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 900,
-                        textTransform: "uppercase",
-                        lineHeight: 1.05,
-                        fontSize: "clamp(2rem, 5vw, 4rem)",
-                      }}
-                    >
-                      {currentQuestion?.right?.name || "-"}
-                    </h2>
-                    {gameOver && (
-                      <p
-                        className="mt-5 px-4 py-2"
-                        style={{
-                          backgroundColor: "#fff",
-                          color: "#1a1c1c",
-                          border: "3px solid #1a1c1c",
-                          fontWeight: 800,
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        }}
-                      >
-                        ${currentQuestion?.right?.val}B
-                      </p>
-                    )}
-                  </div>
-                </button>
+                  Every question has two companies from the same category.
+                  Companies are never repeated in a run. Correct answers give +4
+                  points (+5 on streaks). Wrong answers deduct 1 point.
+                </p>
               </div>
-            </div>
-
-            {gameOver && (
-              <div
-                className="hl-card mt-6 p-5"
-                style={{
-                  backgroundColor: "#1a1c1c",
-                  color: "#fff",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 800,
-                  textTransform: "uppercase",
-                  fontSize: "1.1rem",
-                }}
-              >
-                Run ended. Final score: {score}.
-              </div>
-            )}
-          </section>
-
-          <aside className="xl:col-span-3 xl:-mt-4">
-            <div className="hl-card bg-white p-5">
-              <h4
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  fontSize: "1.2rem",
-                }}
-              >
-                Rule Snapshot
-              </h4>
-              <p
-                className="mt-2"
-                style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontWeight: 600,
-                  color: "#434659",
-                  lineHeight: 1.6,
-                }}
-              >
-                Every question has two companies from the same category.
-                Companies are never repeated in a run. One wrong answer ends the
-                game.
-              </p>
-            </div>
-          </aside>
-        </div>
+            </aside>
+          </div>
+        )}
       </div>
 
       <PixelDivider topColor="#1a1c1c" bgColor="#f9f9f9" />
