@@ -5,7 +5,7 @@ export default function HigherLowerAdmin() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/game/status")
+    fetch("/api/game/status")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -18,7 +18,7 @@ export default function HigherLowerAdmin() {
   const handleToggle = async (action) => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3001/api/game/status", {
+      const res = await fetch("/api/game/status", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action }),

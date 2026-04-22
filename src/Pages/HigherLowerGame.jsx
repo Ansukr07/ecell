@@ -122,7 +122,7 @@ export default function HigherLowerGame() {
     // Check if game has started
     const checkStatus = async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/game/status");
+        const res = await fetch("/api/game/status");
         const data = await res.json();
         if (data.success) {
           setIsGameStarted(data.isStarted);
@@ -191,7 +191,7 @@ export default function HigherLowerGame() {
     }
 
     try {
-      const res = await fetch(`http://localhost:3001/api/game/score`, {
+      const res = await fetch(`/api/game/score`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamId: teamData._id, score: finalScore }),
@@ -211,7 +211,7 @@ export default function HigherLowerGame() {
     setLoading(true);
 
     try {
-      const res = await fetch(`http://localhost:3001/api/game/login`, {
+      const res = await fetch(`/api/game/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamName, password }),
