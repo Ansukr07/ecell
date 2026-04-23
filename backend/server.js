@@ -12,6 +12,7 @@ const Word = require("./models/Word");
 const Idea = require("./models/Idea");
 const GameTeam = require("./models/GameTeam");
 const GameState = require("./models/GameState");
+const HitCounter = require("./models/HitCounter");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -581,6 +582,37 @@ app.get("/api/game/leaderboard", async (req, res) => {
     res
       .status(500)
       .json({ success: false, error: "Failed to fetch leaderboard" });
+  }
+});
+
+// ===== HIT COUNTER ROUTES =====
+
+// Get hit count
+app.get("/api/hits", async (req, res) => {
+  try {
+    let counter = await HitCounter.findOne();
+    if (!counter) {
+      counter = await HitCounter.create({ count: 0 });
+    }
+    res.json({ success: true, count: counter.count });
+  } catch (error) {
+    console.error("Error fetching hits:", error);
+    res.status(500).json({ success: false, error: "Failed to fetch hits" });
+  }
+});
+
+// Increment hit count
+app.post("/api/hits/increment", async (req, res) => {
+  try {
+    let counter = await HitCounter.findOneAndUpdate(
+      {},
+      { $inc: { count: 1 }, lastHit: new Date() },
+      { new: true, upsert: true, setDefaultsOnInsert: true },
+    );
+    res.json({ success: true, count: counter.count });
+  } catch (error) {
+    console.error("Error incrementing hits:", error);
+    res.status(500).json({ success: false, error: "Failed to increment hits" });
   }
 });
 

@@ -40,6 +40,7 @@ const HigherLowerAdmin = lazy(() => import("./Pages/HigherLowerAdmin.jsx"));
 const HigherLowerLeaderboard = lazy(
   () => import("./Pages/HigherLowerLeaderboard.jsx"),
 );
+const HitCounterPage = lazy(() => import("./Pages/HitCounterPage.jsx"));
 
 export const PreloaderContext = createContext();
 
@@ -76,6 +77,21 @@ function App() {
     setLoading(false);
     setTimeout(() => setShowContent(true), 100);
   };
+
+  useEffect(() => {
+    // Increment hit counter once per session
+    const hasBeenCounted = sessionStorage.getItem("visitCounted");
+    if (!hasBeenCounted) {
+      fetch("/api/hits/increment", { method: "POST" })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            sessionStorage.setItem("visitCounted", "true");
+          }
+        })
+        .catch((err) => console.error("Error incrementing hits:", err));
+    }
+  }, []);
 
   return (
     <PreloaderContext.Provider value={{ loading, setLoading }}>
@@ -140,6 +156,7 @@ function App() {
                       path="/event-higher-lower/leaderboard"
                       element={<HigherLowerLeaderboard />}
                     />
+                    <Route path="/hit/counter" element={<HitCounterPage />} />
                   </Routes>
                 </Suspense>
               </motion.div>
