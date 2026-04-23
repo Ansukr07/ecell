@@ -1,65 +1,115 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+// Import GIFs for login page
+import chungusGif from "./assets/67/6 7 Big Chungus GIF.gif";
+import kirkGif from "./assets/67/Charlie Kirk GIF.gif";
+
 // API is served from the same origin via Vercel serverless functions
 
 const COMPANY_CATEGORIES = [
   {
-    category: "Frontier & AI",
+    category: "Indian Fintech & Payments",
     companies: [
-      { name: "OpenAI", val: 80 },
-      { name: "SpaceX", val: 150 },
-      { name: "Databricks", val: 50 },
-      { name: "Anduril", val: 24 },
-      { name: "Anthropic", val: 20 },
-      { name: "Hugging Face", val: 4.5 },
-    ],
-  },
-  {
-    category: "SaaS & Productivity",
-    companies: [
-      { name: "Canva", val: 31 },
-      { name: "Figma", val: 39 },
-      { name: "Miro", val: 26 },
-      { name: "Grammarly", val: 26 },
-      { name: "Postman", val: 30 },
-      { name: "Rippling", val: 13 },
-      { name: "Notion", val: 10 },
-      { name: "Slack", val: 33 },
-    ],
-  },
-  {
-    category: "Fintech",
-    companies: [
-      { name: "Stripe", val: 65 },
-      { name: "Revolut", val: 50 },
-      { name: "Plaid", val: 50 },
-      { name: "CRED", val: 6.4 },
-      { name: "Zerodha", val: 4.1 },
-      { name: "Wise", val: 14 },
-      { name: "Square", val: 35 },
-    ],
-  },
-  {
-    category: "Consumer Platforms",
-    companies: [
-      { name: "Discord", val: 31 },
-      { name: "ByteDance", val: 225 },
-      { name: "Epic Games", val: 43 },
-      { name: "Zomato", val: 65 },
-      { name: "Swiggy", val: 13 },
-      { name: "Uber", val: 100 },
-      { name: "Spotify", val: 60 },
-    ],
-  },
-  {
-    category: "Indian Tech",
-    companies: [
-      { name: "Reliance TCS", val: 170 },
-      { name: "Infosys", val: 80 },
-      { name: "Flipkart", val: 38 },
-      { name: "Paytm", val: 1.9 },
       { name: "PhonePe", val: 12 },
+      { name: "Razorpay", val: 7.5 },
+      { name: "CRED", val: 6.4 },
+      { name: "Paytm", val: 5.5 },
+      { name: "Policybazaar", val: 6 },
+      { name: "BharatPe", val: 2.8 },
+      { name: "Upstox", val: 3.5 },
+      { name: "Pine Labs", val: 5 },
+    ],
+  },
+  {
+    category: "Indian Food, Delivery & Grocery",
+    companies: [
+      { name: "Swiggy", val: 10.7 },
+      { name: "Zomato", val: 8.5 },
+      { name: "Blinkit", val: 3 },
+      { name: "Zepto", val: 5 },
+      { name: "BigBasket", val: 3.2 },
+      { name: "Dream11", val: 8 },
+      { name: "Ola", val: 7 },
+      { name: "OYO", val: 3 },
+    ],
+  },
+  {
+    category: "Indian E-commerce & Logistics",
+    companies: [
+      { name: "Flipkart", val: 37 },
+      { name: "Meesho", val: 4.9 },
+      { name: "Lenskart", val: 5 },
+      { name: "Delhivery", val: 4 },
+      { name: "Cars24", val: 3.3 },
+      { name: "Nykaa", val: 7 },
+      { name: "Ather Energy", val: 1.3 },
+      { name: "Ola Electric", val: 5 },
+    ],
+  },
+  {
+    category: "Indian EdTech & Tech Startups",
+    companies: [
+      { name: "BYJU'S", val: 9 },
+      { name: "Unacademy", val: 3.4 },
+      { name: "PhysicsWallah", val: 2.8 },
+      { name: "Zoho", val: 13.5 },
+      { name: "Chargebee", val: 3.5 },
+      { name: "Freshworks", val: 6 },
+      { name: "Postman", val: 5.6 },
+      { name: "BrowserStack", val: 4 },
+    ],
+  },
+  {
+    category: "Global Tech Giants",
+    companies: [
+      { name: "Apple", val: 3000 },
+      { name: "Microsoft", val: 3100 },
+      { name: "Google", val: 2000 },
+      { name: "Nvidia", val: 2500 },
+      { name: "Amazon", val: 1500 },
+      { name: "Meta", val: 1000 },
+      { name: "Intel", val: 200 },
+      { name: "AMD", val: 250 },
+    ],
+  },
+  {
+    category: "Global Consumer & Enterprises",
+    companies: [
+      { name: "Netflix", val: 250 },
+      { name: "Coca-Cola", val: 250 },
+      { name: "McDonald's", val: 200 },
+      { name: "Pepsi", val: 230 },
+      { name: "Nike", val: 150 },
+      { name: "Samsung", val: 400 },
+      { name: "Toyota", val: 300 },
+      { name: "Starbucks", val: 120 },
+    ],
+  },
+  {
+    category: "Indian Banking & Large Cap",
+    companies: [
+      { name: "TCS", val: 170 },
+      { name: "HDFC Bank", val: 150 },
+      { name: "Infosys", val: 80 },
+      { name: "ICICI Bank", val: 110 },
+      { name: "Reliance Retail", val: 105 },
+      { name: "Reliance Jio", val: 100 },
+      { name: "Airtel", val: 70 },
+      { name: "DMart", val: 30 },
+    ],
+  },
+  {
+    category: "Global Startups & Unicorns",
+    companies: [
+      { name: "SpaceX", val: 180 },
+      { name: "Stripe", val: 65 },
+      { name: "OpenAI", val: 80 },
+      { name: "Anthropic", val: 20 },
+      { name: "Uber", val: 100 },
+      { name: "Airbnb", val: 80 },
+      { name: "ShareChat", val: 5 },
+      { name: "DailyHunt", val: 5 },
     ],
   },
 ];
@@ -201,7 +251,7 @@ export default function HigherLowerGame() {
         }, 1500);
       } else {
         setGameOver(true);
-        setMessage("Run ended. No more unique same-category questions left.");
+        setMessage("GAME OVER!");
         saveScore(newScore);
       }
       return;
@@ -319,7 +369,7 @@ export default function HigherLowerGame() {
         }, 700);
       } else {
         setGameOver(true);
-        setMessage("Perfect run. No more unique same-category questions left.");
+        setMessage("Perfect run. Game Over!");
         saveScore(newScore);
       }
     } else {
@@ -375,7 +425,36 @@ export default function HigherLowerGame() {
           }
         `}</style>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative">
+          {/* Left Side GIF (Hidden on Mobile) */}
+          <div 
+            className="hidden lg:block fixed left-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
+            style={{
+              maxHeight: "350px",
+              width: "auto"
+            }}
+          >
+            <img 
+              src={chungusGif} 
+              alt="chungus" 
+              className="w-48 xl:w-64 h-auto border-4 border-[#1a1c1c] shadow-[10px_10px_0px_#1a1c1c]"
+            />
+          </div>
+
+          {/* Right Side GIF (Hidden on Mobile) */}
+          <div 
+            className="hidden lg:block fixed right-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
+            style={{
+              maxHeight: "350px",
+              width: "auto"
+            }}
+          >
+            <img 
+              src={kirkGif} 
+              alt="kirk" 
+              className="w-48 xl:w-64 h-auto border-4 border-[#1a1c1c] shadow-[10px_10px_0px_#1a1c1c]"
+            />
+          </div>
           <div className="text-center mb-7">
             <span
               className="inline-block px-4 py-2"
@@ -403,21 +482,9 @@ export default function HigherLowerGame() {
                 fontSize: "clamp(1.8rem, 6vw, 3.8rem)",
               }}
             >
-              Valuation
+              6-7 GAME
             </span>
             <br />
-            <span
-              className="inline-block mt-2 px-4 py-2"
-              style={{
-                backgroundColor: "#0046fa",
-                color: "#fff",
-                border: "4px solid #1a1c1c",
-                boxShadow: "8px 8px 0px #1a1c1c",
-                fontSize: "clamp(1.9rem, 6vw, 4rem)",
-              }}
-            >
-              Faceoff
-            </span>
           </h1>
 
           <div className="hl-card bg-white p-7 md:p-9 max-w-2xl mx-auto">
@@ -462,7 +529,7 @@ export default function HigherLowerGame() {
                   type="text"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  placeholder="demo1"
+                  placeholder="TEAM NAME IN CAPS"
                   required
                   className="w-full px-4 py-3"
                   style={{
@@ -637,7 +704,7 @@ export default function HigherLowerGame() {
             fontSize: "clamp(2.2rem, 6vw, 4.5rem)",
           }}
         >
-          VALUATION FACEOFF
+          6-7 GAME
         </h1>
 
         <AnimatePresence>
@@ -666,15 +733,34 @@ export default function HigherLowerGame() {
         </AnimatePresence>
 
         {!isGameStarted ? (
-          <div className="mt-8 text-center bg-yellow-300 p-8 border-4 border-[#1a1c1c] shadow-[8px_8px_0px_#1a1c1c] max-w-2xl mx-auto">
+          <div className="mt-8 text-center bg-[#0046fa] text-white p-12 border-4 border-[#1a1c1c] shadow-[8px_8px_0px_#1a1c1c] max-w-3xl mx-auto">
             <h2
-              className="text-3xl font-black uppercase"
+              className="text-4xl font-black uppercase mb-8"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              Waiting for admin to start the game...
+              Game Rules
             </h2>
-            <p className="mt-4 font-bold">
-              Please hold on, the match will begin shortly!
+            <div
+              className="text-lg mb-12 space-y-4"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
+              <p className="font-bold">
+                👉 Compare the valuations of two companies
+              </p>
+              <p className="font-bold">
+                👉 Choose which one has the HIGHER valuation
+              </p>
+              <p className="font-bold">
+                👉 Correct answers: +4 for first, then +5, +6, +7... (increases
+                by 1 each streak)
+              </p>
+              <p className="font-bold">
+                👉 Wrong answers: -1 point and streak resets
+              </p>
+              <p className="font-bold">👉 You have 7 seconds per question</p>
+            </div>
+            <p className="text-xl font-bold">
+              Waiting for admin to start the game...
             </p>
           </div>
         ) : showRulesTimer ? (
@@ -742,7 +828,10 @@ export default function HigherLowerGame() {
                           fontWeight: 900,
                           textTransform: "uppercase",
                           lineHeight: 1.05,
-                          fontSize: "clamp(2rem, 5vw, 4rem)",
+                          fontSize: "clamp(1.5rem, 5vw, 3.5rem)",
+                          wordBreak: "break-word",
+                          overflowWrap: "anywhere",
+                          width: "100%",
                         }}
                       >
                         {currentQuestion?.left?.name || "-"}
@@ -796,7 +885,10 @@ export default function HigherLowerGame() {
                           fontWeight: 900,
                           textTransform: "uppercase",
                           lineHeight: 1.05,
-                          fontSize: "clamp(2rem, 5vw, 4rem)",
+                          fontSize: "clamp(1.5rem, 5vw, 3.5rem)",
+                          wordBreak: "break-word",
+                          overflowWrap: "anywhere",
+                          width: "100%",
                         }}
                       >
                         {currentQuestion?.right?.name || "-"}
