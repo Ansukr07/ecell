@@ -8,108 +8,181 @@ import kirkGif from "./assets/67/Charlie Kirk GIF.gif";
 // API is served from the same origin via Vercel serverless functions
 
 const COMPANY_CATEGORIES = [
+  // --- Indian Startups ---
   {
-    category: "Indian Fintech & Payments",
+    category: "Indian Startups - Fintech",
     companies: [
       { name: "PhonePe", val: 12 },
       { name: "Razorpay", val: 7.5 },
       { name: "CRED", val: 6.4 },
-      { name: "Paytm", val: 5.5 },
-      { name: "Policybazaar", val: 6 },
+      { name: "Paytm", val: 6.5 },
+      { name: "Policybazaar", val: 6.5 },
       { name: "BharatPe", val: 2.8 },
       { name: "Upstox", val: 3.5 },
       { name: "Pine Labs", val: 5 },
     ],
   },
   {
-    category: "Indian Food, Delivery & Grocery",
+    category: "Indian Startups - E-commerce",
     companies: [
-      { name: "Swiggy", val: 10.7 },
-      { name: "Zomato", val: 8.5 },
-      { name: "Blinkit", val: 3 },
-      { name: "Zepto", val: 5 },
-      { name: "BigBasket", val: 3.2 },
-      { name: "Dream11", val: 8 },
-      { name: "Ola", val: 7 },
-      { name: "OYO", val: 3 },
-    ],
-  },
-  {
-    category: "Indian E-commerce & Logistics",
-    companies: [
-      { name: "Flipkart", val: 37 },
+      { name: "Flipkart", val: 35 },
       { name: "Meesho", val: 4.9 },
       { name: "Lenskart", val: 5 },
-      { name: "Delhivery", val: 4 },
-      { name: "Cars24", val: 3.3 },
-      { name: "Nykaa", val: 7 },
+      { name: "Nykaa", val: 5.5 },
+      { name: "FirstCry", val: 2.8 },
+      { name: "Purplle", val: 1.1 },
+      { name: "Mamaearth", val: 1.5 },
+      { name: "Shiprocket", val: 1.2 },
+    ],
+  },
+  {
+    category: "Indian Startups - Food & Quick Commerce",
+    companies: [
+      { name: "Swiggy", val: 10.7 },
+      { name: "Zomato", val: 14 },
+      { name: "Zepto", val: 5 },
+      { name: "BigBasket", val: 3.2 },
+      { name: "Rebel Foods", val: 2.2 },
+      { name: "Licious", val: 1.1 },
+    ],
+  },
+  {
+    category: "Indian Startups - Mobility & Travel",
+    companies: [
+      { name: "Ola", val: 3.5 },
+      { name: "OYO", val: 2.5 },
+      { name: "MakeMyTrip", val: 11 },
       { name: "Ather Energy", val: 1.3 },
       { name: "Ola Electric", val: 5 },
+      { name: "Rapido", val: 1 },
+      { name: "Ixigo", val: 0.6 },
+      { name: "EaseMyTrip", val: 1 },
+      { name: "BluSmart", val: 0.4 },
+      { name: "Zoomcar", val: 0.2 },
     ],
   },
   {
-    category: "Indian EdTech & Tech Startups",
+    category: "Indian Startups - EdTech",
     companies: [
-      { name: "BYJU'S", val: 9 },
+      { name: "BYJU'S", val: 1 },
       { name: "Unacademy", val: 3.4 },
       { name: "PhysicsWallah", val: 2.8 },
-      { name: "Zoho", val: 13.5 },
-      { name: "Chargebee", val: 3.5 },
-      { name: "Freshworks", val: 6 },
+      { name: "Eruditus", val: 3.2 },
+      { name: "UpGrad", val: 2.2 },
+      { name: "Vedantu", val: 1 },
+      { name: "Simplilearn", val: 0.7 },
+      { name: "Adda247", val: 0.5 },
+    ],
+  },
+  {
+    category: "Indian Startups - SaaS / Developer Tools",
+    companies: [
+      { name: "Zoho", val: 13 },
+      { name: "Freshworks", val: 6.2 },
       { name: "Postman", val: 5.6 },
       { name: "BrowserStack", val: 4 },
+      { name: "Chargebee", val: 3.5 },
+      { name: "Druva", val: 2 },
+      { name: "Icertis", val: 2.8 },
+      { name: "Darwinbox", val: 1 },
     ],
   },
   {
-    category: "Global Tech Giants",
+    category: "Indian Startups - EV & DeepTech",
     companies: [
-      { name: "Apple", val: 3000 },
-      { name: "Microsoft", val: 3100 },
-      { name: "Google", val: 2000 },
-      { name: "Nvidia", val: 2500 },
-      { name: "Amazon", val: 1500 },
-      { name: "Meta", val: 1000 },
-      { name: "Intel", val: 200 },
-      { name: "AMD", val: 250 },
+      { name: "Tork Motors", val: 0.2 },
+      { name: "GreyOrange", val: 0.5 },
+      { name: "Skyroot Aerospace", val: 0.2 },
+      { name: "Pixxel", val: 0.1 },
+      { name: "IdeaForge", val: 0.3 },
+      { name: "Log9 Materials", val: 0.2 },
+      { name: "Agnikul", val: 0.1 },
+      { name: "Sarvam AI", val: 0.1 },
+    ],
+  },
+
+  // --- Global Companies ---
+  {
+    category: "Global - Tech Giants",
+    companies: [
+      { name: "Apple", val: 2800 },
+      { name: "Microsoft", val: 3000 },
+      { name: "Google", val: 1900 },
+      { name: "Nvidia", val: 2200 },
+      { name: "Amazon", val: 1800 },
+      { name: "Meta", val: 1200 },
+      { name: "Tesla", val: 550 },
+      { name: "Netflix", val: 260 },
     ],
   },
   {
-    category: "Global Consumer & Enterprises",
+    category: "Global - Consumer Brands",
     companies: [
-      { name: "Netflix", val: 250 },
-      { name: "Coca-Cola", val: 250 },
-      { name: "McDonald's", val: 200 },
-      { name: "Pepsi", val: 230 },
-      { name: "Nike", val: 150 },
+      { name: "Disney", val: 210 },
+      { name: "Coca-Cola", val: 260 },
+      { name: "McDonald's", val: 205 },
+      { name: "Nike", val: 140 },
       { name: "Samsung", val: 400 },
       { name: "Toyota", val: 300 },
-      { name: "Starbucks", val: 120 },
+      { name: "Starbucks", val: 95 },
+      { name: "LVMH", val: 430 },
     ],
   },
   {
-    category: "Indian Banking & Large Cap",
-    companies: [
-      { name: "TCS", val: 170 },
-      { name: "HDFC Bank", val: 150 },
-      { name: "Infosys", val: 80 },
-      { name: "ICICI Bank", val: 110 },
-      { name: "Reliance Retail", val: 105 },
-      { name: "Reliance Jio", val: 100 },
-      { name: "Airtel", val: 70 },
-      { name: "DMart", val: 30 },
-    ],
-  },
-  {
-    category: "Global Startups & Unicorns",
+    category: "Global - Unicorns / Growth Companies",
     companies: [
       { name: "SpaceX", val: 180 },
-      { name: "Stripe", val: 65 },
-      { name: "OpenAI", val: 80 },
-      { name: "Anthropic", val: 20 },
-      { name: "Uber", val: 100 },
-      { name: "Airbnb", val: 80 },
-      { name: "ShareChat", val: 5 },
-      { name: "DailyHunt", val: 5 },
+      { name: "Stripe", val: 50 },
+      { name: "OpenAI", val: 90 },
+      { name: "ByteDance", val: 220 },
+      { name: "Databricks", val: 43 },
+      { name: "Shein", val: 66 },
+      { name: "Revolut", val: 33 },
+      { name: "Canva", val: 25 },
+    ],
+  },
+
+  // --- Indian Public / Large Cap ---
+  {
+    category: "Indian Public - Banks",
+    companies: [
+      { name: "HDFC Bank", val: 165 },
+      { name: "ICICI Bank", val: 105 },
+      { name: "SBI", val: 85 },
+      { name: "Kotak Mahindra", val: 42 },
+      { name: "Axis Bank", val: 40 },
+      { name: "IndusInd Bank", val: 16 },
+    ],
+  },
+  {
+    category: "Indian Public - IT Services",
+    companies: [
+      { name: "TCS", val: 175 },
+      { name: "Infosys", val: 78 },
+      { name: "HCL Tech", val: 52 },
+      { name: "Wipro", val: 28 },
+      { name: "Tech Mahindra", val: 15 },
+      { name: "LTIMindtree", val: 18 },
+    ],
+  },
+  {
+    category: "Indian Public - Telecom",
+    companies: [
+      { name: "Reliance Jio", val: 108 },
+      { name: "Airtel", val: 78 },
+      { name: "Vi", val: 8 },
+      { name: "Indus Towers", val: 10 },
+    ],
+  },
+  {
+    category: "Indian Public - Retail",
+    companies: [
+      { name: "Reliance Retail", val: 110 },
+      { name: "DMart", val: 32 },
+      { name: "Trent", val: 18 },
+      { name: "Titan", val: 38 },
+      { name: "ABFRL", val: 3 },
+      { name: "Vedant Fashions", val: 4 },
     ],
   },
 ];
@@ -427,31 +500,31 @@ export default function HigherLowerGame() {
 
         <div className="max-w-4xl mx-auto relative">
           {/* Left Side GIF (Hidden on Mobile) */}
-          <div 
+          <div
             className="hidden lg:block fixed left-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
             style={{
               maxHeight: "350px",
               width: "auto"
             }}
           >
-            <img 
-              src={chungusGif} 
-              alt="chungus" 
+            <img
+              src={chungusGif}
+              alt="chungus"
               className="w-48 xl:w-64 h-auto border-4 border-[#1a1c1c] shadow-[10px_10px_0px_#1a1c1c]"
             />
           </div>
 
           {/* Right Side GIF (Hidden on Mobile) */}
-          <div 
+          <div
             className="hidden lg:block fixed right-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
             style={{
               maxHeight: "350px",
               width: "auto"
             }}
           >
-            <img 
-              src={kirkGif} 
-              alt="kirk" 
+            <img
+              src={kirkGif}
+              alt="kirk"
               className="w-48 xl:w-64 h-auto border-4 border-[#1a1c1c] shadow-[10px_10px_0px_#1a1c1c]"
             />
           </div>
