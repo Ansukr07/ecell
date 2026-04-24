@@ -115,6 +115,7 @@ export default function HigherLowerGame() {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [wrongStreak, setWrongStreak] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
   const [timeLeft, setTimeLeft] = useState(15);
@@ -175,10 +176,12 @@ export default function HigherLowerGame() {
     }
 
     if (timeLeft <= 0) {
-      const newScore = score - 1;
+      const deduction = 1 + wrongStreak;
+      const newScore = score - deduction;
       setScore(newScore);
       setStreak(0);
-      setMessage(`Time's up! No answer selected. (-1)`);
+      setWrongStreak(wrongStreak + 1);
+      setMessage(`Time's up! No answer selected. (-${deduction})`);
       saveScore(newScore);
 
       const { question: nextQuestion, remaining: nextDecks } =
@@ -220,6 +223,7 @@ export default function HigherLowerGame() {
     setCurrentQuestion(question);
     setScore(0);
     setStreak(0);
+    setWrongStreak(0);
     setGameOver(false);
     setMessage("");
     setTimeLeft(15);
@@ -298,6 +302,7 @@ export default function HigherLowerGame() {
       const newScore = score + points;
       setScore(newScore);
       setStreak(streak + 1);
+      setWrongStreak(0);
       setMessage(`CORRECT: ${chosen.name} is the right answer! (+${points})`);
       saveScore(newScore);
 
@@ -316,11 +321,13 @@ export default function HigherLowerGame() {
         setMessage("Perfect run. Game Over!");
       }
     } else {
-      const newScore = score - 1;
+      const deduction = 1 + wrongStreak;
+      const newScore = score - deduction;
       setScore(newScore);
       setStreak(0);
+      setWrongStreak(wrongStreak + 1);
       setMessage(
-        `Wrong: ${other.name} is the correct answer. (-1)`,
+        `Wrong: ${other.name} is the correct answer. (-${deduction})`,
       );
       saveScore(newScore);
 
@@ -683,7 +690,7 @@ export default function HigherLowerGame() {
                 by 1 each streak)
               </p>
               <p className="font-bold">
-                👉 Wrong answers: -1 point and streak resets
+                👉 Wrong answers: -1 for first, then -2, -3, -4... (deduction increases by 1 each streak)
               </p>
               <p className="font-bold">👉 You have 15 seconds per question</p>
             </div>
@@ -711,7 +718,7 @@ export default function HigherLowerGame() {
                 by 1 each streak)
               </p>
               <p className="font-bold">
-                👉 Wrong answers: -1 point and streak resets
+                👉 Wrong answers: -1 for first, then -2, -3, -4... (deduction increases by 1 each streak)
               </p>
               <p className="font-bold">👉 You have 15 seconds per question</p>
             </div>
