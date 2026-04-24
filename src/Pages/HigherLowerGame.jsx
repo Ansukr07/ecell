@@ -470,7 +470,7 @@ export default function HigherLowerGame() {
                   type="text"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  placeholder="TEAM NAME IN CAPS"
+                  placeholder="TEAM NAME"
                   required
                   className="w-full px-4 py-3"
                   style={{
@@ -497,7 +497,7 @@ export default function HigherLowerGame() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="TEAM LEAD'S PHONE NUMBER"
+                  placeholder="TEAM LEAD'S FIRST NAME"
                   required
                   className="w-full px-4 py-3"
                   style={{
