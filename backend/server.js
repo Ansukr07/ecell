@@ -552,9 +552,7 @@ app.post("/api/game/score", async (req, res) => {
       return res.status(404).json({ success: false, error: "Team not found" });
     }
 
-    if (score > team.score) {
-      team.score = score;
-    }
+    team.score = score;
 
     if (team.isDemoAdmin) {
       team.hasPlayed = false;

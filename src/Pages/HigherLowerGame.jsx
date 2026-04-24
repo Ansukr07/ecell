@@ -179,6 +179,7 @@ export default function HigherLowerGame() {
       setScore(newScore);
       setStreak(0);
       setMessage(`Time's up! No answer selected. (-1)`);
+      saveScore(newScore);
 
       const { question: nextQuestion, remaining: nextDecks } =
         drawNextQuestion(remainingDecks);
@@ -193,7 +194,6 @@ export default function HigherLowerGame() {
       } else {
         setGameOver(true);
         setMessage("GAME OVER!");
-        saveScore(newScore);
       }
       return;
     }
@@ -225,8 +225,9 @@ export default function HigherLowerGame() {
     setTimeLeft(15);
   };
 
-  const saveScore = async (finalScore) => {
-    if (!teamData?._id) {
+  const saveScore = async (finalScore, teamIdOverride = null) => {
+    const tId = teamIdOverride || teamData?._id;
+    if (!tId) {
       return;
     }
 
@@ -234,7 +235,7 @@ export default function HigherLowerGame() {
       const res = await fetch(`/api/game/score`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ teamId: teamData._id, score: finalScore }),
+        body: JSON.stringify({ teamId: tId, score: finalScore }),
       });
       const data = await res.json();
       if (data.success && data.team) {
@@ -266,6 +267,7 @@ export default function HigherLowerGame() {
       setTeamData(data.team);
       setLoggedIn(true);
       initializeRun();
+      saveScore(0, data.team._id);
     } catch (err) {
       setError("Login failed");
     } finally {
@@ -297,6 +299,7 @@ export default function HigherLowerGame() {
       setScore(newScore);
       setStreak(streak + 1);
       setMessage(`CORRECT: ${chosen.name} is the right answer! (+${points})`);
+      saveScore(newScore);
 
       const { question: nextQuestion, remaining: nextDecks } =
         drawNextQuestion(remainingDecks);
@@ -311,7 +314,6 @@ export default function HigherLowerGame() {
       } else {
         setGameOver(true);
         setMessage("Perfect run. Game Over!");
-        saveScore(newScore);
       }
     } else {
       const newScore = score - 1;
@@ -320,6 +322,7 @@ export default function HigherLowerGame() {
       setMessage(
         `Wrong: ${other.name} is the correct answer. (-1)`,
       );
+      saveScore(newScore);
 
       const { question: nextQuestion, remaining: nextDecks } =
         drawNextQuestion(remainingDecks);
@@ -334,7 +337,6 @@ export default function HigherLowerGame() {
       } else {
         setGameOver(true);
         setMessage("Run ended. No more questions left.");
-        saveScore(newScore);
       }
     }
   };

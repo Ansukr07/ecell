@@ -78,6 +78,8 @@ function App() {
     setTimeout(() => setShowContent(true), 100);
   };
 
+  const shouldShowNavbar = location.pathname !== "/event-higher-lower";
+
   useEffect(() => {
     // Increment hit counter once per session
     const hasBeenCounted = sessionStorage.getItem("visitCounted");
@@ -101,7 +103,7 @@ function App() {
           setLoading={setLoading}
           setShowContent={setShowContent}
         />
-        <Navbar />
+        {shouldShowNavbar && <Navbar />}
         <div className="relative pt-0">
           <AnimatePresence mode="wait">
             {loading ? (
