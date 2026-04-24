@@ -7,213 +7,77 @@ import kirkGif from "./assets/67/Charlie Kirk GIF.gif";
 
 // API is served from the same origin via Vercel serverless functions
 
-const COMPANY_CATEGORIES = [
-  // --- Indian Startups ---
-  {
-    category: "Indian Startups - Fintech",
-    companies: [
-      { name: "PhonePe", val: 12 },
-      { name: "Razorpay", val: 7.5 },
-      { name: "CRED", val: 6.4 },
-      { name: "Paytm", val: 6.5 },
-      { name: "Policybazaar", val: 6.5 },
-      { name: "BharatPe", val: 2.8 },
-      { name: "Upstox", val: 3.5 },
-      { name: "Pine Labs", val: 5 },
-    ],
-  },
-  {
-    category: "Indian Startups - E-commerce",
-    companies: [
-      { name: "Flipkart", val: 35 },
-      { name: "Meesho", val: 4.9 },
-      { name: "Lenskart", val: 5 },
-      { name: "Nykaa", val: 5.5 },
-      { name: "FirstCry", val: 2.8 },
-      { name: "Purplle", val: 1.1 },
-      { name: "Mamaearth", val: 1.5 },
-      { name: "Shiprocket", val: 1.2 },
-    ],
-  },
-  {
-    category: "Indian Startups - Food & Quick Commerce",
-    companies: [
-      { name: "Swiggy", val: 10.7 },
-      { name: "Zomato", val: 14 },
-      { name: "Zepto", val: 5 },
-      { name: "BigBasket", val: 3.2 },
-      { name: "Rebel Foods", val: 2.2 },
-      { name: "Licious", val: 1.1 },
-    ],
-  },
-  {
-    category: "Indian Startups - Mobility & Travel",
-    companies: [
-      { name: "Ola", val: 3.5 },
-      { name: "OYO", val: 2.5 },
-      { name: "MakeMyTrip", val: 11 },
-      { name: "Ather Energy", val: 1.3 },
-      { name: "Ola Electric", val: 5 },
-      { name: "Rapido", val: 1 },
-      { name: "Ixigo", val: 0.6 },
-      { name: "EaseMyTrip", val: 1 },
-      { name: "BluSmart", val: 0.4 },
-      { name: "Zoomcar", val: 0.2 },
-    ],
-  },
-  {
-    category: "Indian Startups - EdTech",
-    companies: [
-      { name: "BYJU'S", val: 1 },
-      { name: "Unacademy", val: 3.4 },
-      { name: "PhysicsWallah", val: 2.8 },
-      { name: "Eruditus", val: 3.2 },
-      { name: "UpGrad", val: 2.2 },
-      { name: "Vedantu", val: 1 },
-      { name: "Simplilearn", val: 0.7 },
-      { name: "Adda247", val: 0.5 },
-    ],
-  },
-  {
-    category: "Indian Startups - SaaS / Developer Tools",
-    companies: [
-      { name: "Zoho", val: 13 },
-      { name: "Freshworks", val: 6.2 },
-      { name: "Postman", val: 5.6 },
-      { name: "BrowserStack", val: 4 },
-      { name: "Chargebee", val: 3.5 },
-      { name: "Druva", val: 2 },
-      { name: "Icertis", val: 2.8 },
-      { name: "Darwinbox", val: 1 },
-    ],
-  },
-  {
-    category: "Indian Startups - EV & DeepTech",
-    companies: [
-      { name: "Tork Motors", val: 0.2 },
-      { name: "GreyOrange", val: 0.5 },
-      { name: "Skyroot Aerospace", val: 0.2 },
-      { name: "Pixxel", val: 0.1 },
-      { name: "IdeaForge", val: 0.3 },
-      { name: "Log9 Materials", val: 0.2 },
-      { name: "Agnikul", val: 0.1 },
-      { name: "Sarvam AI", val: 0.1 },
-    ],
-  },
-
-  // --- Global Companies ---
-  {
-    category: "Global - Tech Giants",
-    companies: [
-      { name: "Apple", val: 2800 },
-      { name: "Microsoft", val: 3000 },
-      { name: "Google", val: 1900 },
-      { name: "Nvidia", val: 2200 },
-      { name: "Amazon", val: 1800 },
-      { name: "Meta", val: 1200 },
-      { name: "Tesla", val: 550 },
-      { name: "Netflix", val: 260 },
-    ],
-  },
-  {
-    category: "Global - Consumer Brands",
-    companies: [
-      { name: "Disney", val: 210 },
-      { name: "Coca-Cola", val: 260 },
-      { name: "McDonald's", val: 205 },
-      { name: "Nike", val: 140 },
-      { name: "Samsung", val: 400 },
-      { name: "Toyota", val: 300 },
-      { name: "Starbucks", val: 95 },
-      { name: "LVMH", val: 430 },
-    ],
-  },
-  {
-    category: "Global - Unicorns / Growth Companies",
-    companies: [
-      { name: "SpaceX", val: 180 },
-      { name: "Stripe", val: 50 },
-      { name: "OpenAI", val: 90 },
-      { name: "ByteDance", val: 220 },
-      { name: "Databricks", val: 43 },
-      { name: "Shein", val: 66 },
-      { name: "Revolut", val: 33 },
-      { name: "Canva", val: 25 },
-    ],
-  },
-
-  // --- Indian Public / Large Cap ---
-  {
-    category: "Indian Public - Banks",
-    companies: [
-      { name: "HDFC Bank", val: 165 },
-      { name: "ICICI Bank", val: 105 },
-      { name: "SBI", val: 85 },
-      { name: "Kotak Mahindra", val: 42 },
-      { name: "Axis Bank", val: 40 },
-      { name: "IndusInd Bank", val: 16 },
-    ],
-  },
-  {
-    category: "Indian Public - IT Services",
-    companies: [
-      { name: "TCS", val: 175 },
-      { name: "Infosys", val: 78 },
-      { name: "HCL Tech", val: 52 },
-      { name: "Wipro", val: 28 },
-      { name: "Tech Mahindra", val: 15 },
-      { name: "LTIMindtree", val: 18 },
-    ],
-  },
-  {
-    category: "Indian Public - Telecom",
-    companies: [
-      { name: "Reliance Jio", val: 108 },
-      { name: "Airtel", val: 78 },
-      { name: "Vi", val: 8 },
-      { name: "Indus Towers", val: 10 },
-    ],
-  },
-  {
-    category: "Indian Public - Retail",
-    companies: [
-      { name: "Reliance Retail", val: 110 },
-      { name: "DMart", val: 32 },
-      { name: "Trent", val: 18 },
-      { name: "Titan", val: 38 },
-      { name: "ABFRL", val: 3 },
-      { name: "Vedant Fashions", val: 4 },
-    ],
-  },
+const QUESTIONS = [
+  { question: "Which has more downloads?", left: "Instagram", right: "Snapchat", answer: "Instagram" },
+  { question: "Who has more IPL runs?", left: "AB de Villiers", right: "Faf du Plessis", answer: "AB de Villiers" },
+  { question: "Which has higher valuation?", left: "Meesho", right: "Nykaa", answer: "Nykaa" },
+  { question: "Who has more IPL wickets?", left: "Amit Mishra", right: "Piyush Chawla", answer: "Amit Mishra" },
+  { question: "Which company is older?", left: "Amazon", right: "Google", answer: "Amazon" },
+  { question: "Who has more IPL sixes?", left: "Hardik Pandya", right: "Ravindra Jadeja", answer: "Hardik Pandya" },
+  { question: "Which has more users?", left: "WhatsApp", right: "Telegram", answer: "WhatsApp" },
+  { question: "Who has more IPL runs?", left: "Shubman Gill", right: "Ruturaj Gaikwad", answer: "Shubman Gill" },
+  { question: "Which has higher market cap?", left: "Microsoft", right: "Apple", answer: "Microsoft" },
+  { question: "Who has more IPL matches?", left: "MS Dhoni", right: "Dinesh Karthik", answer: "MS Dhoni" },
+  { question: "Which is older?", left: "Netflix", right: "Amazon Prime Video", answer: "Netflix" },
+  { question: "Which has more funding?", left: "Ola", right: "Rapido", answer: "Ola" },
+  { question: "Who has more IPL centuries?", left: "Jos Buttler", right: "KL Rahul", answer: "Jos Buttler" },
+  { question: "Which is bigger?", left: "Flipkart", right: "Amazon India", answer: "Flipkart" },
+  { question: "Who has more IPL wickets?", left: "Dwayne Bravo", right: "Lasith Malinga", answer: "Dwayne Bravo" },
+  { question: "Which IPO came first?", left: "Zomato", right: "Paytm", answer: "Zomato" },
+  { question: "Who has more IPL sixes?", left: "Chris Gayle", right: "Rohit Sharma", answer: "Chris Gayle" },
+  { question: "Which has more UPI share?", left: "PhonePe", right: "Google Pay", answer: "PhonePe" },
+  { question: "Which is older?", left: "Flipkart", right: "Snapdeal", answer: "Flipkart" },
+  { question: "Who has more IPL runs?", left: "Robin Uthappa", right: "Ajinkya Rahane", answer: "Robin Uthappa" },
+  { question: "Which has higher valuation?", left: "Razorpay", right: "CRED", answer: "Razorpay" },
+  { question: "Who has taken more IPL catches?", left: "Suresh Raina", right: "Kieron Pollard", answer: "Suresh Raina" },
+  { question: "Which is older?", left: "Uber", right: "Ola", answer: "Uber" },
+  { question: "Who has more IPL fifties?", left: "Shikhar Dhawan", right: "Suresh Raina", answer: "Shikhar Dhawan" },
+  { question: "Which has more users?", left: "PhonePe", right: "Paytm", answer: "PhonePe" },
+  { question: "Who has more IPL sixes?", left: "Andre Russell", right: "MS Dhoni", answer: "Andre Russell" },
+  { question: "Which is older?", left: "Wipro", right: "Infosys", answer: "Wipro" },
+  { question: "Who has more IPL runs?", left: "Virat Kohli", right: "David Warner", answer: "Virat Kohli" },
+  { question: "Which app came first?", left: "Facebook", right: "Instagram", answer: "Facebook" },
+  { question: "Who has higher strike rate?", left: "Andre Russell", right: "Glenn Maxwell", answer: "Andre Russell" },
+  { question: "Which has more subscribers?", left: "T-Series", right: "MrBeast", answer: "T-Series" },
+  { question: "Which has higher revenue?", left: "TCS", right: "Infosys", answer: "TCS" },
+  { question: "Which has more active users?", left: "YouTube", right: "Instagram", answer: "YouTube" },
+  { question: "Which is bigger?", left: "Zerodha", right: "Groww", answer: "Zerodha" },
+  { question: "Who has more IPL titles as captain?", left: "Rohit Sharma", right: "Gautam Gambhir", answer: "Rohit Sharma" },
+  { question: "Which is older?", left: "Swiggy", right: "Dunzo", answer: "Swiggy" },
+  { question: "Which IPO came earlier?", left: "Nykaa", right: "Policybazaar", answer: "Nykaa" },
+  { question: "Who has more IPL centuries?", left: "Chris Gayle", right: "Virat Kohli", answer: "Chris Gayle" },
+  { question: "Which has more downloads?", left: "Spotify", right: "YouTube Music", answer: "Spotify" },
+  { question: "Which is bigger?", left: "Amazon", right: "Walmart", answer: "Walmart" },
+  { question: "Which has more merchants?", left: "Paytm", right: "BharatPe", answer: "Paytm" },
+  { question: "Which has more funding?", left: "CRED", right: "Groww", answer: "CRED" },
+  { question: "Which is older?", left: "Paytm", right: "PhonePe", answer: "Paytm" },
+  { question: "Which is bigger?", left: "Swiggy", right: "Zomato", answer: "Swiggy" },
+  { question: "Who has more IPL finals?", left: "Chennai Super Kings", right: "Kolkata Knight Riders", answer: "Chennai Super Kings" },
+  { question: "Which has higher valuation?", left: "PhonePe", right: "Pine Labs", answer: "PhonePe" },
+  { question: "Which team has higher IPL win percentage?", left: "Chennai Super Kings", right: "Sunrisers Hyderabad", answer: "Chennai Super Kings" }
 ];
 
 const shuffleArray = (items) => [...items].sort(() => Math.random() - 0.5);
 
-const buildCategoryDecks = () =>
-  COMPANY_CATEGORIES.map((group) => ({
-    category: group.category,
-    companies: shuffleArray(group.companies),
-  }));
+const resetQuestions = () => shuffleArray(QUESTIONS);
 
-const drawNextQuestion = (deckState) => {
-  const decks = deckState.map((deck) => ({
-    category: deck.category,
-    companies: [...deck.companies],
-  }));
-
-  const availableDecks = decks.filter((deck) => deck.companies.length >= 2);
-  if (availableDecks.length === 0) {
-    return { question: null, decks };
+const drawNextQuestion = (remainingQuestions) => {
+  const remaining = [...remainingQuestions];
+  if (remaining.length === 0) {
+    return { question: null, remaining: [] };
   }
-
-  const chosenDeck =
-    availableDecks[Math.floor(Math.random() * availableDecks.length)];
-  const left = chosenDeck.companies.shift();
-  const right = chosenDeck.companies.shift();
-
+  const nextQ = remaining.shift();
+  
+  const leftVal = nextQ.answer === nextQ.left ? 1 : 0;
+  const rightVal = nextQ.answer === nextQ.right ? 1 : 0;
+  
   return {
-    question: { category: chosenDeck.category, left, right },
-    decks,
+    question: {
+      category: nextQ.question, 
+      left: { name: nextQ.left, val: leftVal },
+      right: { name: nextQ.right, val: rightVal }
+    },
+    remaining
   };
 };
 
@@ -249,7 +113,7 @@ export default function HigherLowerGame() {
   const [streak, setStreak] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
-  const [timeLeft, setTimeLeft] = useState(7);
+  const [timeLeft, setTimeLeft] = useState(15);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [showRulesTimer, setShowRulesTimer] = useState(false);
   const [rulesTimeLeft, setRulesTimeLeft] = useState(10);
@@ -312,7 +176,7 @@ export default function HigherLowerGame() {
       setStreak(0);
       setMessage(`Time's up! No answer selected. (-1)`);
 
-      const { question: nextQuestion, decks: nextDecks } =
+      const { question: nextQuestion, remaining: nextDecks } =
         drawNextQuestion(remainingDecks);
 
       if (nextQuestion) {
@@ -320,7 +184,7 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
-          setTimeLeft(7);
+          setTimeLeft(15);
         }, 1500);
       } else {
         setGameOver(true);
@@ -346,15 +210,15 @@ export default function HigherLowerGame() {
   ]);
 
   const initializeRun = () => {
-    const decks = buildCategoryDecks();
-    const { question, decks: nextDecks } = drawNextQuestion(decks);
+    const decks = resetQuestions();
+    const { question, remaining: nextDecks } = drawNextQuestion(decks);
     setRemainingDecks(nextDecks);
     setCurrentQuestion(question);
     setScore(0);
     setStreak(0);
     setGameOver(false);
     setMessage("");
-    setTimeLeft(7);
+    setTimeLeft(15);
   };
 
   const saveScore = async (finalScore) => {
@@ -428,9 +292,9 @@ export default function HigherLowerGame() {
       const newScore = score + points;
       setScore(newScore);
       setStreak(streak + 1);
-      setMessage(`CORRECT: ${chosen.name} has higher valuation. (+${points})`);
+      setMessage(`CORRECT: ${chosen.name} is the right answer! (+${points})`);
 
-      const { question: nextQuestion, decks: nextDecks } =
+      const { question: nextQuestion, remaining: nextDecks } =
         drawNextQuestion(remainingDecks);
 
       if (nextQuestion) {
@@ -438,7 +302,7 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
-          setTimeLeft(7);
+          setTimeLeft(15);
         }, 700);
       } else {
         setGameOver(true);
@@ -450,10 +314,10 @@ export default function HigherLowerGame() {
       setScore(newScore);
       setStreak(0);
       setMessage(
-        `Wrong: ${other.name} ($${other.val}B) beats ${chosen.name} ($${chosen.val}B). (-1)`,
+        `Wrong: ${other.name} is the correct answer. (-1)`,
       );
 
-      const { question: nextQuestion, decks: nextDecks } =
+      const { question: nextQuestion, remaining: nextDecks } =
         drawNextQuestion(remainingDecks);
 
       if (nextQuestion) {
@@ -461,11 +325,11 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
-          setTimeLeft(7);
+          setTimeLeft(15);
         }, 1500); // Give a bit more time to read the values for wrong answers
       } else {
         setGameOver(true);
-        setMessage("Run ended. No more unique same-category questions left.");
+        setMessage("Run ended. No more questions left.");
         saveScore(newScore);
       }
     }
@@ -629,6 +493,7 @@ export default function HigherLowerGame() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  placeholder="TEAM LEAD'S FIRST NAME"
                   required
                   className="w-full px-4 py-3"
                   style={{
@@ -734,20 +599,7 @@ export default function HigherLowerGame() {
               Time: {gameOver ? "-" : `${timeLeft}s`}
             </div>
 
-            <div
-              className="px-4 py-2"
-              style={{
-                backgroundColor: "#fff",
-                border: "4px solid #1a1c1c",
-                boxShadow: "6px 6px 0px #1a1c1c",
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 900,
-                textTransform: "uppercase",
-                fontSize: "1rem",
-              }}
-            >
-              Category: {currentQuestion?.category || "-"}
-            </div>
+
 
             <div
               className="px-4 py-2"
@@ -777,7 +629,7 @@ export default function HigherLowerGame() {
             fontSize: "clamp(2.2rem, 6vw, 4.5rem)",
           }}
         >
-          6-7 GAME
+          {currentQuestion ? currentQuestion.category : "6-7 GAME"}
         </h1>
 
         <AnimatePresence>
@@ -818,10 +670,7 @@ export default function HigherLowerGame() {
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
               <p className="font-bold">
-                👉 Compare the valuations of two companies
-              </p>
-              <p className="font-bold">
-                👉 Choose which one has the HIGHER valuation
+                👉 Answer the question by clicking the correct option
               </p>
               <p className="font-bold">
                 👉 Correct answers: +4 for first, then +5, +6, +7... (increases
@@ -830,7 +679,7 @@ export default function HigherLowerGame() {
               <p className="font-bold">
                 👉 Wrong answers: -1 point and streak resets
               </p>
-              <p className="font-bold">👉 You have 7 seconds per question</p>
+              <p className="font-bold">👉 You have 15 seconds per question</p>
             </div>
             <p className="text-xl font-bold">
               Waiting for admin to start the game...
@@ -849,10 +698,7 @@ export default function HigherLowerGame() {
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
               <p className="font-bold">
-                👉 Compare the valuations of two companies
-              </p>
-              <p className="font-bold">
-                👉 Choose which one has the HIGHER valuation
+                👉 Answer the question by clicking the correct option
               </p>
               <p className="font-bold">
                 👉 Correct answers: +4 for first, then +5, +6, +7... (increases
@@ -861,7 +707,7 @@ export default function HigherLowerGame() {
               <p className="font-bold">
                 👉 Wrong answers: -1 point and streak resets
               </p>
-              <p className="font-bold">👉 You have 7 seconds per question</p>
+              <p className="font-bold">👉 You have 15 seconds per question</p>
             </div>
             <div
               className="inline-block px-8 py-6"
@@ -909,20 +755,7 @@ export default function HigherLowerGame() {
                       >
                         {currentQuestion?.left?.name || "-"}
                       </h2>
-                      {gameOver && (
-                        <p
-                          className="mt-5 px-4 py-2"
-                          style={{
-                            backgroundColor: "#fff",
-                            color: "#1a1c1c",
-                            border: "3px solid #1a1c1c",
-                            fontWeight: 800,
-                            fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          }}
-                        >
-                          ${currentQuestion?.left?.val}B
-                        </p>
-                      )}
+
                     </div>
                   </button>
 
@@ -966,20 +799,7 @@ export default function HigherLowerGame() {
                       >
                         {currentQuestion?.right?.name || "-"}
                       </h2>
-                      {gameOver && (
-                        <p
-                          className="mt-5 px-4 py-2"
-                          style={{
-                            backgroundColor: "#fff",
-                            color: "#1a1c1c",
-                            border: "3px solid #1a1c1c",
-                            fontWeight: 800,
-                            fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          }}
-                        >
-                          ${currentQuestion?.right?.val}B
-                        </p>
-                      )}
+
                     </div>
                   </button>
                 </div>
@@ -1023,9 +843,7 @@ export default function HigherLowerGame() {
                     lineHeight: 1.6,
                   }}
                 >
-                  Every question has two companies from the same category.
-                  Companies are never repeated in a run. Correct answers give +4
-                  points (+5 on streaks). Wrong answers deduct 1 point.
+                  Read the question and select the correct option! Questions are never repeated in a run. Correct answers give +4 points (+5 on streaks). Wrong answers deduct 1 point.
                 </p>
               </div>
             </aside>
