@@ -67,15 +67,19 @@ const drawNextQuestion = (remainingQuestions) => {
     return { question: null, remaining: [] };
   }
   const nextQ = remaining.shift();
-  
-  const leftVal = nextQ.answer === nextQ.left ? 1 : 0;
-  const rightVal = nextQ.answer === nextQ.right ? 1 : 0;
-  
+
+  const isSwapped = Math.random() > 0.5;
+  const leftOptionName = isSwapped ? nextQ.right : nextQ.left;
+  const rightOptionName = isSwapped ? nextQ.left : nextQ.right;
+
+  const leftVal = nextQ.answer === leftOptionName ? 1 : 0;
+  const rightVal = nextQ.answer === rightOptionName ? 1 : 0;
+
   return {
     question: {
-      category: nextQ.question, 
-      left: { name: nextQ.left, val: leftVal },
-      right: { name: nextQ.right, val: rightVal }
+      category: nextQ.question,
+      left: { name: leftOptionName, val: leftVal },
+      right: { name: rightOptionName, val: rightVal }
     },
     remaining
   };
@@ -493,7 +497,7 @@ export default function HigherLowerGame() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="TEAM LEAD'S FIRST NAME"
+                  placeholder="TEAM LEAD'S PHONE NUMBER"
                   required
                   className="w-full px-4 py-3"
                   style={{
@@ -843,7 +847,7 @@ export default function HigherLowerGame() {
                     lineHeight: 1.6,
                   }}
                 >
-                  Read the question and select the correct option! Questions are never repeated in a run. Correct answers give +4 points (+5 on streaks). Wrong answers deduct 1 point.
+                  Read the question and select the correct option! Questions are never repeated in a run. Correct answers give +4 points (+1 on every streak). Wrong answers deduct 1 point.
                 </p>
               </div>
             </aside>
