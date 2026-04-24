@@ -633,7 +633,7 @@ export default function HigherLowerGame() {
             fontSize: "clamp(2.2rem, 6vw, 4.5rem)",
           }}
         >
-          {currentQuestion ? currentQuestion.category : "6-7 GAME"}
+          {currentQuestion && isGameStarted && !showRulesTimer ? currentQuestion.category : "6-7 GAME"}
         </h1>
 
         <AnimatePresence>
