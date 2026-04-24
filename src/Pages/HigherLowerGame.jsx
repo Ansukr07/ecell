@@ -497,7 +497,7 @@ export default function HigherLowerGame() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="TEAM LEAD'S FIRST NAME"
+                  placeholder="TEAM LEAD'S PHONE NUMBER"
                   required
                   className="w-full px-4 py-3"
                   style={{
