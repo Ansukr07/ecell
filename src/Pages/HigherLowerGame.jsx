@@ -8,53 +8,36 @@ import kirkGif from "./assets/67/Charlie Kirk GIF.gif";
 // API is served from the same origin via Vercel serverless functions
 
 const QUESTIONS = [
-  { question: "Which has more downloads?", left: "Instagram", right: "Snapchat", answer: "Instagram" },
-  { question: "Who has more IPL runs?", left: "AB de Villiers", right: "Faf du Plessis", answer: "AB de Villiers" },
-  { question: "Which has higher valuation?", left: "Meesho", right: "Nykaa", answer: "Nykaa" },
-  { question: "Who has more IPL wickets?", left: "Amit Mishra", right: "Piyush Chawla", answer: "Amit Mishra" },
-  { question: "Which company is older?", left: "Amazon", right: "Google", answer: "Amazon" },
-  { question: "Who has more IPL sixes?", left: "Hardik Pandya", right: "Ravindra Jadeja", answer: "Hardik Pandya" },
-  { question: "Which has more users?", left: "WhatsApp", right: "Telegram", answer: "WhatsApp" },
-  { question: "Who has more IPL runs?", left: "Shubman Gill", right: "Ruturaj Gaikwad", answer: "Shubman Gill" },
-  { question: "Which has higher market cap?", left: "Microsoft", right: "Apple", answer: "Microsoft" },
-  { question: "Who has more IPL matches?", left: "MS Dhoni", right: "Dinesh Karthik", answer: "MS Dhoni" },
-  { question: "Which is older?", left: "Netflix", right: "Amazon Prime Video", answer: "Netflix" },
-  { question: "Which has more funding?", left: "Ola", right: "Rapido", answer: "Ola" },
-  { question: "Who has more IPL centuries?", left: "Jos Buttler", right: "KL Rahul", answer: "Jos Buttler" },
-  { question: "Which is bigger?", left: "Flipkart", right: "Amazon India", answer: "Flipkart" },
-  { question: "Who has more IPL wickets?", left: "Dwayne Bravo", right: "Lasith Malinga", answer: "Dwayne Bravo" },
-  { question: "Which IPO came first?", left: "Zomato", right: "Paytm", answer: "Zomato" },
-  { question: "Who has more IPL sixes?", left: "Chris Gayle", right: "Rohit Sharma", answer: "Chris Gayle" },
-  { question: "Which has more UPI share?", left: "PhonePe", right: "Google Pay", answer: "PhonePe" },
-  { question: "Which is older?", left: "Flipkart", right: "Snapdeal", answer: "Flipkart" },
-  { question: "Who has more IPL runs?", left: "Robin Uthappa", right: "Ajinkya Rahane", answer: "Robin Uthappa" },
-  { question: "Which has higher valuation?", left: "Razorpay", right: "CRED", answer: "Razorpay" },
-  { question: "Who has taken more IPL catches?", left: "Suresh Raina", right: "Kieron Pollard", answer: "Suresh Raina" },
-  { question: "Which is older?", left: "Uber", right: "Ola", answer: "Uber" },
-  { question: "Who has more IPL fifties?", left: "Shikhar Dhawan", right: "Suresh Raina", answer: "Shikhar Dhawan" },
-  { question: "Which has more users?", left: "PhonePe", right: "Paytm", answer: "PhonePe" },
-  { question: "Who has more IPL sixes?", left: "Andre Russell", right: "MS Dhoni", answer: "Andre Russell" },
-  { question: "Which is older?", left: "Wipro", right: "Infosys", answer: "Wipro" },
-  { question: "Who has more IPL runs?", left: "Virat Kohli", right: "David Warner", answer: "Virat Kohli" },
-  { question: "Which app came first?", left: "Facebook", right: "Instagram", answer: "Facebook" },
-  { question: "Who has higher strike rate?", left: "Andre Russell", right: "Glenn Maxwell", answer: "Andre Russell" },
-  { question: "Which has more subscribers?", left: "T-Series", right: "MrBeast", answer: "T-Series" },
-  { question: "Which has higher revenue?", left: "TCS", right: "Infosys", answer: "TCS" },
-  { question: "Which has more active users?", left: "YouTube", right: "Instagram", answer: "YouTube" },
-  { question: "Which is bigger?", left: "Zerodha", right: "Groww", answer: "Zerodha" },
-  { question: "Who has more IPL titles as captain?", left: "Rohit Sharma", right: "Gautam Gambhir", answer: "Rohit Sharma" },
-  { question: "Which is older?", left: "Swiggy", right: "Dunzo", answer: "Swiggy" },
-  { question: "Which IPO came earlier?", left: "Nykaa", right: "Policybazaar", answer: "Nykaa" },
-  { question: "Who has more IPL centuries?", left: "Chris Gayle", right: "Virat Kohli", answer: "Chris Gayle" },
-  { question: "Which has more downloads?", left: "Spotify", right: "YouTube Music", answer: "Spotify" },
-  { question: "Which is bigger?", left: "Amazon", right: "Walmart", answer: "Walmart" },
-  { question: "Which has more merchants?", left: "Paytm", right: "BharatPe", answer: "Paytm" },
-  { question: "Which has more funding?", left: "CRED", right: "Groww", answer: "CRED" },
-  { question: "Which is older?", left: "Paytm", right: "PhonePe", answer: "Paytm" },
-  { question: "Which is bigger?", left: "Swiggy", right: "Zomato", answer: "Swiggy" },
-  { question: "Who has more IPL finals?", left: "Chennai Super Kings", right: "Kolkata Knight Riders", answer: "Chennai Super Kings" },
-  { question: "Which has higher valuation?", left: "PhonePe", right: "Pine Labs", answer: "PhonePe" },
-  { question: "Which team has higher IPL win percentage?", left: "Chennai Super Kings", right: "Sunrisers Hyderabad", answer: "Chennai Super Kings" }
+  { question: "Who has more IPL runs?", left: "Rohit Sharma", right: "Suresh Raina", answer: "Rohit Sharma" },
+  { question: "Who has more IPL wickets?", left: "Ravichandran Ashwin", right: "Ravindra Jadeja", answer: "Ravichandran Ashwin" },
+  { question: "Who has more IPL sixes?", left: "Kieron Pollard", right: "MS Dhoni", answer: "MS Dhoni" },
+  { question: "Who has more IPL matches?", left: "Virat Kohli", right: "Rohit Sharma", answer: "Rohit Sharma" },
+  { question: "Who has more IPL centuries?", left: "KL Rahul", right: "Shubman Gill", answer: "KL Rahul" },
+  { question: "Who has more IPL fifties?", left: "David Warner", right: "Virat Kohli", answer: "Virat Kohli" },
+  { question: "Who has more IPL wickets?", left: "Bhuvneshwar Kumar", right: "Mohammed Shami", answer: "Bhuvneshwar Kumar" },
+  { question: "Who has better IPL strike rate?", left: "AB de Villiers", right: "David Warner", answer: "AB de Villiers" },
+  { question: "Who has more IPL catches?", left: "Virat Kohli", right: "Rohit Sharma", answer: "Virat Kohli" },
+  { question: "Who has more IPL titles?", left: "Chennai Super Kings", right: "Kolkata Knight Riders", answer: "Chennai Super Kings" },
+  { question: "Who has more IPL wickets?", left: "Lasith Malinga", right: "Dwayne Bravo", answer: "Dwayne Bravo" },
+  { question: "Which has higher valuation?", left: "Lenskart", right: "Meesho", answer: "Lenskart" },
+  { question: "Which has higher valuation?", left: "Pine Labs", right: "BharatPe", answer: "Pine Labs" },
+  { question: "Which has higher valuation?", left: "Groww", right: "Upstox", answer: "Groww" },
+  { question: "Which has higher valuation?", left: "Cars24", right: "Spinny", answer: "Cars24" },
+  { question: "Which has higher valuation?", left: "Unacademy", right: "Vedantu", answer: "Unacademy" },
+  { question: "Which has higher valuation?", left: "Zerodha", right: "Upstox", answer: "Zerodha" },
+  { question: "Which has higher valuation?", left: "OYO", right: "Cars24", answer: "OYO" },
+  { question: "Which has higher valuation?", left: "Dream11", right: "MPL", answer: "Dream11" },
+  { question: "Which has higher valuation?", left: "PhonePe", right: "Razorpay", answer: "PhonePe" },
+  { question: "Which has higher valuation?", left: "Swiggy", right: "Zomato", answer: "Zomato" },
+  { question: "Which has higher valuation?", left: "Paytm", right: "PhonePe", answer: "PhonePe" },
+  { question: "Which has higher valuation?", left: "CRED", right: "BharatPe", answer: "CRED" },
+  { question: "Which has higher valuation?", left: "Nykaa", right: "Mamaearth", answer: "Nykaa" },
+  { question: "Which has higher valuation?", left: "boAt", right: "Noise", answer: "boAt" },
+  { question: "Which has higher valuation?", left: "Ola Electric", right: "Ather Energy", answer: "Ather Energy" },
+  { question: "Which has higher valuation?", left: "Unacademy", right: "BYJU'S", answer: "Unacademy" },
+  { question: "Which has higher valuation?", left: "Zepto", right: "Dunzo", answer: "Zepto" },
+  { question: "Which has higher valuation?", left: "Policybazaar", right: "Acko", answer: "Policybazaar" },
+  { question: "Which has higher valuation?", left: "Flipkart", right: "Snapdeal", answer: "Flipkart" }
 ];
 
 const shuffleArray = (items) => [...items].sort(() => Math.random() - 0.5);
@@ -118,7 +101,7 @@ export default function HigherLowerGame() {
   const [wrongStreak, setWrongStreak] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(10);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [showRulesTimer, setShowRulesTimer] = useState(false);
   const [rulesTimeLeft, setRulesTimeLeft] = useState(10);
@@ -192,7 +175,7 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
-          setTimeLeft(15);
+          setTimeLeft(10);
         }, 1500);
       } else {
         setGameOver(true);
@@ -226,7 +209,7 @@ export default function HigherLowerGame() {
     setWrongStreak(0);
     setGameOver(false);
     setMessage("");
-    setTimeLeft(15);
+    setTimeLeft(10);
   };
 
   const saveScore = async (finalScore, teamIdOverride = null) => {
@@ -314,7 +297,7 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
-          setTimeLeft(15);
+          setTimeLeft(10);
         }, 700);
       } else {
         setGameOver(true);
@@ -339,7 +322,7 @@ export default function HigherLowerGame() {
           setMessage("");
           setCurrentQuestion(nextQuestion);
           setRemainingDecks(nextDecks);
-          setTimeLeft(15);
+          setTimeLeft(10);
         }, 1500); // Give a bit more time to read the values for wrong answers
       } else {
         setGameOver(true);
@@ -692,7 +675,7 @@ export default function HigherLowerGame() {
               <p className="font-bold">
                 👉 Wrong answers: -1 for first, then -2, -3, -4... (deduction increases by 1 each streak)
               </p>
-              <p className="font-bold">👉 You have 15 seconds per question</p>
+              <p className="font-bold">👉 You have 10 seconds per question</p>
             </div>
             <p className="text-xl font-bold">
               Waiting for admin to start the game...
@@ -720,7 +703,7 @@ export default function HigherLowerGame() {
               <p className="font-bold">
                 👉 Wrong answers: -1 for first, then -2, -3, -4... (deduction increases by 1 each streak)
               </p>
-              <p className="font-bold">👉 You have 15 seconds per question</p>
+              <p className="font-bold">👉 You have 10 seconds per question</p>
             </div>
             <div
               className="inline-block px-8 py-6"
