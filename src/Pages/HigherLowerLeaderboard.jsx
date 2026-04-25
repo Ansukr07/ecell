@@ -2,26 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const HARDCODED_TEAMS = [
-  "Titans",
-  "Innings Innovators",
-  "Flying Mallyas",
-  "Run machine squad",
-  "Paracetamol",
-  "Diamonds",
-  "imperium",
   "Scoobydoo",
-  "Kawaiiii Squad",
-  "Baniyas",
-  "Taurus",
+  "Flying Mallyas",
+  "Innings Innovators",
+  "Paracetamol",
   "Profitics",
-  "DRD",
   "Silly Point",
-  "Vague Sense",
-  "Aura 999+",
-  "67 hitters",
-  "SyntaxSisters",
-  "THE BOYS",
-  "Building_Bugs"
+  "Titans",
+  "Diamonds",
+  "Kawaiiii Squad",
+  "imperium"
 ];
 
 export default function HigherLowerLeaderboard() {
@@ -91,6 +81,7 @@ export default function HigherLowerLeaderboard() {
                 <span>
                   {index + 1}. {teamName}
                 </span>
+                {/* Score removed as requested */}
               </div>
             ))}
           </div>
