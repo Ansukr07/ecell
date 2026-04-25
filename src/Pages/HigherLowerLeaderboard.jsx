@@ -1,38 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-// API is served from the same origin via Vercel serverless functions
+const HARDCODED_TEAMS = [
+  "Titans",
+  "Innings Innovators",
+  "Flying Mallyas",
+  "Run machine squad",
+  "Paracetamol",
+  "Diamonds",
+  "imperium",
+  "Scoobydoo",
+  "Kawaiiii Squad",
+  "Baniyas",
+  "Taurus",
+  "Profitics",
+  "DRD",
+  "Silly Point",
+  "Vague Sense",
+  "Aura 999+",
+  "67 hitters",
+  "SyntaxSisters",
+  "THE BOYS",
+  "Building_Bugs"
+];
 
 export default function HigherLowerLeaderboard() {
-  const [leaderboard, setLeaderboard] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const loadLeaderboard = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      const res = await fetch(`/api/game/leaderboard`);
-      const data = await res.json();
-
-      if (!data.success) {
-        setError(data.error || "Failed to load leaderboard");
-        return;
-      }
-
-      setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
-    } catch (err) {
-      setError("Failed to load leaderboard");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadLeaderboard();
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#f9f9f9] text-[#1a1c1c] pt-24 px-4 pb-16 lb-grid-bg">
       <style>{`
@@ -63,22 +55,6 @@ export default function HigherLowerLeaderboard() {
           </h1>
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={loadLeaderboard}
-              className="px-4 py-2"
-              style={{
-                backgroundColor: "#0046fa",
-                color: "#fff",
-                border: "4px solid #1a1c1c",
-                boxShadow: "6px 6px 0px #1a1c1c",
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 900,
-                textTransform: "uppercase",
-              }}
-            >
-              Refresh
-            </button>
-
             <Link
               to="/event-higher-lower"
               className="px-4 py-2"
@@ -99,64 +75,25 @@ export default function HigherLowerLeaderboard() {
         </div>
 
         <div className="lb-card bg-white p-5 md:p-7">
-          {loading && (
-            <p
-              style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontWeight: 600,
-              }}
-            >
-              Loading leaderboard...
-            </p>
-          )}
-
-          {!loading && error && (
-            <p
-              style={{
-                backgroundColor: "#bb0058",
-                color: "#fff",
-                padding: "0.75rem",
-                border: "3px solid #1a1c1c",
-                fontWeight: 700,
-              }}
-            >
-              {error}
-            </p>
-          )}
-
-          {!loading && !error && leaderboard.length === 0 && (
-            <p
-              style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontWeight: 600,
-              }}
-            >
-              No scores yet.
-            </p>
-          )}
-
-          {!loading && !error && leaderboard.length > 0 && (
-            <div className="space-y-3">
-              {leaderboard.map((team, index) => (
-                <div
-                  key={team._id || `${team.teamName}-${index}`}
-                  className="flex items-center justify-between px-4 py-3"
-                  style={{
-                    border: "3px solid #1a1c1c",
-                    backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#eef3ff",
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 800,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span>
-                    {index + 1}. {team.teamName}
-                  </span>
-                  <span>{team.score}</span>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="space-y-3">
+            {HARDCODED_TEAMS.map((teamName, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between px-4 py-3"
+                style={{
+                  border: "3px solid #1a1c1c",
+                  backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#eef3ff",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 800,
+                  textTransform: "uppercase",
+                }}
+              >
+                <span>
+                  {index + 1}. {teamName}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
