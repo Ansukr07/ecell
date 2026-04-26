@@ -123,7 +123,7 @@ const Recap2025 = () => {
             <div className="hidden md:flex flex-col justify-between w-64 border-r border-[#2d2b27]/15 px-8 py-10 text-[#2d2b27]">
               <div>
                 <div className="text-xs tracking-[0.25em] uppercase font-sans text-[#2d2b27]/50 mb-4">Est. 2022</div>
-                <div className="text-3xl font-serif font-black tracking-tighter leading-none">E-CELL<br />TIMES</div>
+                <div className="text-3xl font-serif font-black tracking-tighter leading-none">E-CELL BMSIT<br />TIMES</div>
                 <div className="w-8 h-[2px] bg-[#2d2b27] mt-4 mb-6" />
                 <div className="text-xs font-sans uppercase tracking-widest text-[#2d2b27]/50 leading-relaxed">
                   E-Cell BMSIT<br />Annual Recap<br />2025–26
@@ -363,7 +363,7 @@ const Recap2025 = () => {
           <section id="farewell-section" className="mb-32 px-4 max-w-[90rem] mx-auto">
             <div className="border-t-2 border-b-2 border-zinc-900 py-8 mb-16 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
               <h2 className="text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase text-zinc-900">The Farewell Chronicle</h2>
-              <p className="font-sans text-xs tracking-[0.2em] uppercase text-zinc-500 font-medium">Class of 2024–25</p>
+              <p className="font-sans text-xs tracking-[0.2em] uppercase text-zinc-500 font-medium">Class of 2025–26</p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12">
@@ -394,8 +394,8 @@ const Recap2025 = () => {
                     {/* Name inside frame */}
                     <div className="w-full text-center pb-2 md:pb-4 pt-1">
                       <h3
-                        className="text-lg md:text-xl font-bold tracking-tight text-zinc-900 leading-snug uppercase"
-                        style={{ fontFamily: "'Nhass', sans-serif" }}
+                        className="text-lg md:text-lg font-bold tracking-tight text-zinc-900 leading-snug uppercase"
+                        style={{ fontFamily: "'Robit', sans-serif" }}
                       >
                         {person.name}
                       </h3>
@@ -424,7 +424,7 @@ const Recap2025 = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {[
-                { name: "INSTAGRAM", handle: "@ecell_bmsit", icon: Instagram, href: "https://instagram.com/ecell_bmsit" },
+                { name: "INSTAGRAM", handle: "@ecell_bmsit", icon: Instagram, href: "https://instagram.com/ecellbmsit" },
                 { name: "LINKEDIN", handle: "E-Cell BMSIT", icon: Linkedin, href: "https://linkedin.com/company/ecellbmsit" },
                 { name: "WEBSITE", handle: "ecellbmsit.com", icon: Globe, href: "/" },
                 { name: "WHATSAPP", handle: "Community Group", icon: MessageCircle, href: "https://chat.whatsapp.com/L5GdDKv23ikGUTposaqLDV" }
@@ -454,35 +454,7 @@ const Recap2025 = () => {
           </section>
 
           {/* Vision & Mission Section */}
-          <motion.section
-            id="about-section"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="mb-16 py-20 border-y border-[#2d2b27]/30 flex flex-wrap justify-center gap-12 text-center max-w-6xl mx-auto"
-          >
-            <motion.div variants={fadeUp} className="w-44">
-              <div className="text-6xl md:text-7xl mb-2 font-serif">10+</div>
-              <div className="text-sm underline decoration-1 underline-offset-4 font-serif uppercase tracking-widest">Major Events</div>
-            </motion.div>
-            <motion.div variants={fadeUp} className="w-44">
-              <div className="text-6xl md:text-7xl mb-2 font-serif">3000+</div>
-              <div className="text-sm underline decoration-1 underline-offset-4 font-serif uppercase tracking-widest">Participants</div>
-            </motion.div>
-            <motion.div variants={fadeUp} className="w-44">
-              <div className="text-6xl md:text-7xl mb-2 font-serif">150+</div>
-              <div className="text-sm underline decoration-1 underline-offset-4 font-serif uppercase tracking-widest">Startup Ideas</div>
-            </motion.div>
-            <motion.div variants={fadeUp} className="w-44">
-              <div className="text-6xl md:text-7xl mb-2 font-serif">100+</div>
-              <div className="text-sm underline decoration-1 underline-offset-4 font-serif uppercase tracking-widest">Winners</div>
-            </motion.div>
-            <motion.div variants={fadeUp} className="w-44 flex flex-col justify-end">
-              <div className="text-4xl md:text-5xl mb-3 font-serif">Multiple</div>
-              <div className="text-sm underline decoration-1 underline-offset-4 font-serif uppercase tracking-widest">Collaborations</div>
-            </motion.div>
-          </motion.section>
+
 
           {/* Story Continues Section */}
           <section className="py-16 md:py-15 flex flex-col items-center justify-center relative overflow-hidden">
