@@ -8,6 +8,14 @@ import websiteImage from "./assets/recap/website.png";
 import VintageImage from "../components/VintageImage";
 import { StaggeredGrid } from "../components/ui/staggered-grid";
 import { SmoothScroll } from "../components/ui/smooth-scroll";
+import maxsonImg from "./assets/team/maxson.JPG";
+import mohitImg from "./assets/team/mohit.jpeg";
+import nishithaImg from "./assets/team/nishitha.jpeg";
+import atulImg from "./assets/team/atul.jpg";
+import tirthImg from "./assets/team/tirth.jpg";
+import akhileshImg from "./assets/team/akhilesh.jpeg";
+import gaganjithImg from "./assets/team/gaganjith.jpg";
+import shriyaImg from "./assets/team/shriya.jpg";
 import img1 from "../assets/image1.jpg";
 import img3 from "../assets/image3.jpg";
 import img5 from "../assets/image5.jpg";
@@ -145,7 +153,7 @@ const Recap2025 = () => {
                   { num: '01', label: 'News Flash', action: () => { setIsMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
                   { num: '02', label: 'Events', action: () => { setIsMenuOpen(false); document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' }); } },
                   { num: '03', label: 'Moments', action: () => { setIsMenuOpen(false); document.getElementById('gallery-section')?.scrollIntoView({ behavior: 'smooth' }); } },
-                  { num: '04', label: 'Farewell', action: () => { setIsMenuOpen(false); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); } },
+                  { num: '04', label: 'Farewell', action: () => { setIsMenuOpen(false); document.getElementById('farewell-section')?.scrollIntoView({ behavior: 'smooth' }); } },
                   { num: '05', label: 'Socials', action: () => { setIsMenuOpen(false); document.getElementById('network-section')?.scrollIntoView({ behavior: 'smooth' }); } },
                 ].map((item, i) => (
                   <motion.div
@@ -349,6 +357,53 @@ const Recap2025 = () => {
               centerText="Moments That Defined the Year"
               showFooter={false}
             />
+          </section>
+
+          {/* Farewell Section */}
+          <section id="farewell-section" className="mb-32 px-4 max-w-[90rem] mx-auto">
+            <div className="border-t-2 border-b-2 border-zinc-900 py-8 mb-16 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+              <h2 className="text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase text-zinc-900">The Farewell Chronicle</h2>
+              <p className="font-sans text-xs tracking-[0.2em] uppercase text-zinc-500 font-medium">Class of 2024–25</p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12">
+              {[
+                { name: "Maxson Mathew", img: maxsonImg },
+                { name: "Mohit Monnappa T N", img: mohitImg, imgClass: "scale-[1.18] object-[center_10%]" },
+                { name: "Nishitha Bodipati", img: nishithaImg },
+                { name: "Gaganjith R", img: gaganjithImg },
+                { name: "Shriya Chowdary", img: shriyaImg },
+                { name: "Atul Kumar", img: atulImg },
+                { name: "Tirth Panchori", img: tirthImg },
+                { name: "Akhilesh Pachnanda", img: akhileshImg },
+
+              ].map((person, i) => (
+                <div key={i} className="group flex flex-col items-center">
+                  {/* Polaroid Frame */}
+                  <div className="bg-[#faf9f6] p-3 md:p-4 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-500 w-full relative mb-6 border border-zinc-200/50 flex flex-col">
+                    {/* Inner Photo container */}
+                    <div className="aspect-[4/5] w-full overflow-hidden bg-zinc-200 relative grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 shadow-inner mb-4">
+                      <img
+                        src={person.img}
+                        alt={person.name}
+                        className={`w-full h-full object-cover mix-blend-multiply opacity-90 transition-transform duration-500 ${person.imgClass || ""}`}
+                      />
+                      {/* Subtle inner border to frame the photo like a real polaroid */}
+                      <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
+                    </div>
+                    {/* Name inside frame */}
+                    <div className="w-full text-center pb-2 md:pb-4 pt-1">
+                      <h3
+                        className="text-lg md:text-xl font-bold tracking-tight text-zinc-900 leading-snug uppercase"
+                        style={{ fontFamily: "'Nhass', sans-serif" }}
+                      >
+                        {person.name}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* Join The Network Section */}
