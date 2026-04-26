@@ -1,87 +1,219 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../lib/utils";
+import React, { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { cn } from '@/lib/utils'
 
-export const StaggeredGrid = ({ images, bentoItems, centerText }) => {
-    const [hoveredId, setHoveredId] = useState(null);
+gsap.registerPlugin(ScrollTrigger)
 
-    // Combine images and bento items into a single grid array for display
-    // This is a simplified version; a real masonry layout might need more logic
-    // For now, we'll create a fixed layout pattern
+export function StaggeredGrid({
+  images,
+  bentoItems = [],
+  centerText = "Halcyon",
+  credits = {
+    madeBy: { text: "@codrops", href: "https://x.com/codrops" },
+    moreDemos: { text: "More demos", href: "https://tympanus.net/codrops/demos" }
+  },
+  className,
+  showFooter = true
+}) {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const gridFullRef = useRef(null)
+  const textRef = useRef(null)
+  const [activeBento, setActiveBento] = useState(0)
 
-    return (
-        <div className="w-full max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[200px]">
-            {/* Feature Item - Large */}
-            <motion.div
-                className="col-span-1 md:col-span-2 row-span-2 relative group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800"
-                whileHover={{ scale: 0.98 }}
-            >
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                {bentoItems[0] && (
-                    <>
-                        <img
-                            src={bentoItems[0].image}
-                            alt={bentoItems[0].title}
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute bottom-6 left-6 z-20">
-                            <div className="flex items-center gap-2 mb-2">
-                                <span className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white">
-                                    {bentoItems[0].icon}
-                                </span>
-                                <span className="text-xs font-medium text-neutral-300 uppercase tracking-wider">{bentoItems[0].subtitle}</span>
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-1">{bentoItems[0].title}</h3>
-                            <p className="text-neutral-400 text-sm max-w-sm">{bentoItems[0].description}</p>
-                        </div>
-                    </>
-                )}
-            </motion.div>
+  const splitText = (text) => {
+    return text.split('').map((char, i) => (
+      <span key={i} className="char inline-block" style={{ willChange: 'transform' }}>
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ))
+  }
 
-            {/* Center Text Block */}
-            <div className="col-span-1 row-span-1 flex items-center justify-center bg-transparent border border-neutral-800 rounded-xl">
-                <h2 className="text-4xl md:text-6xl font-black text-neutral-800 tracking-tighter uppercase">{centerText}</h2>
-            </div>
+  // Build 35-slot grid. Slot 16 is bento group only if bentoItems present; otherwise just a photo.
+  const hasBento = bentoItems && bentoItems.length > 0
 
-            {/* Secondary Items */}
-            {bentoItems.slice(1).map((item, index) => (
-                <motion.div
-                    key={item.id || index}
-                    className={cn(
-                        "relative group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800",
-                        index === 1 ? "md:col-span-2" : "col-span-1"
-                    )}
-                    whileHover={{ y: -5 }}
-                >
-                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 to-transparent" />
-                    <img
-                        src={item.image}
-                        alt={item.title}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity"
-                    />
-                    <div className="absolute bottom-4 left-4 z-20">
-                        <div className="flex items-center gap-2 mb-1">
-                            {item.icon && <span className="text-white">{item.icon}</span>}
-                            <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                        </div>
-                        <p className="text-xs text-neutral-400">{item.description}</p>
-                    </div>
-                </motion.div>
-            ))}
+  // Cycle through images to fill all 35 slots (skip 17 & 18 which are merged into bento span)
+  const buildGridItems = () => {
+    const imgCycle = (idx) => images[idx % images.length]
+    const slots = []
+    let imgIdx = 0
+    for (let i = 0; i < 35; i++) {
+      if (i === 16 && hasBento) {
+        slots.push('BENTO_GROUP')
+      } else if (i === 17 || i === 18) {
+        slots.push(hasBento ? 'SKIP' : imgCycle(imgIdx++))
+      } else {
+        slots.push(imgCycle(imgIdx++))
+      }
+    }
+    return slots
+  }
 
-            {/* Filler Images from the images array */}
-            {images.slice(0, 2).map((src, idx) => (
-                <motion.div
-                    key={`img-${idx}`}
-                    className="col-span-1 row-span-1 rounded-xl overflow-hidden relative"
-                    whileHover={{ scale: 1.02 }}
-                >
-                    <img src={src} alt="Gallery" loading="lazy" className="w-full h-full object-cover" />
-                </motion.div>
-            ))}
+  const gridItems = buildGridItems()
 
+  useEffect(() => {
+    // Use a short timeout fallback in case no imgs are found by imagesloaded
+    const fallback = setTimeout(() => setIsLoaded(true), 800)
+
+    const imgs = gridFullRef.current
+      ? gridFullRef.current.querySelectorAll('img')
+      : []
+
+    if (imgs.length === 0) {
+      setIsLoaded(true)
+      clearTimeout(fallback)
+      return
+    }
+
+    let loaded = 0
+    const total = imgs.length
+    const onLoad = () => {
+      loaded++
+      if (loaded >= total) {
+        clearTimeout(fallback)
+        document.body.classList.remove('loading')
+        setIsLoaded(true)
+      }
+    }
+
+    imgs.forEach((img) => {
+      if (img.complete) {
+        onLoad()
+      } else {
+        img.addEventListener('load', onLoad)
+        img.addEventListener('error', onLoad) // count errors too so we never hang
+      }
+    })
+
+    return () => {
+      clearTimeout(fallback)
+      imgs.forEach((img) => {
+        img.removeEventListener('load', onLoad)
+        img.removeEventListener('error', onLoad)
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isLoaded || !gridFullRef.current) return
+
+    // Kill any existing ScrollTriggers to avoid duplicates on hot reload
+    ScrollTrigger.getAll().forEach(t => t.kill())
+
+    // Animate Text
+    if (textRef.current) {
+      const chars = textRef.current.querySelectorAll('.char')
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: 'top bottom',
+          end: 'center center-=25%',
+          scrub: 1,
+        }
+      }).from(chars, {
+        ease: 'sine.out',
+        yPercent: 300,
+        autoAlpha: 0,
+        stagger: { each: 0.05, from: 'center' }
+      })
+    }
+
+    // Animate Grid — group items by their offsetLeft (column position in CSS columns layout)
+    const gridFullItems = Array.from(gridFullRef.current.querySelectorAll('.grid__item'))
+    if (gridFullItems.length === 0) return
+
+    // Detect column groups by measuring each item's left position
+    const columnMap = new Map()
+    gridFullItems.forEach((item) => {
+      const left = Math.round(item.getBoundingClientRect().left)
+      if (!columnMap.has(left)) columnMap.set(left, [])
+      columnMap.get(left).push(item)
+    })
+
+    // Sort columns left to right
+    const columnGroups = Array.from(columnMap.entries()).sort((a, b) => a[0] - b[0])
+    const numColumns = columnGroups.length
+    const middleColumnIndex = Math.floor(numColumns / 2)
+
+    columnGroups.forEach(([, columnItems], columnIndex) => {
+      if (columnItems.length === 0) return
+      const delayFactor = Math.abs(columnIndex - middleColumnIndex) * 0.2
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: gridFullRef.current,
+          start: 'top bottom',
+          end: 'center center',
+          scrub: 1.5,
+        }
+      })
+        .from(columnItems, {
+          yPercent: 450,
+          autoAlpha: 0,
+          delay: delayFactor,
+          ease: 'sine.out',
+        })
+        .from(
+          columnItems.map(item => item.querySelector('.grid__item-inner')).filter(Boolean),
+          { transformOrigin: '50% 0%', ease: 'sine.out' },
+          0
+        )
+    })
+  }, [isLoaded])
+
+  return (
+    <div
+      className={cn("relative overflow-hidden w-full", className)}
+      style={{ '--grid-item-translate': '0px' }}
+    >
+      {/* Center text with character animation */}
+      <section className="grid place-items-center w-full relative mt-[10vh]">
+        <div
+          ref={textRef}
+          className="font-alt uppercase flex content-center text-[clamp(1.5rem,5vw,4rem)] leading-[0.7] text-[#2d2b27]"
+        >
+          {splitText(centerText)}
         </div>
-    );
-};
+      </section>
+
+      {/* Photo grid — masonry columns */}
+      <section className="grid place-items-center w-full relative">
+        <div
+          ref={gridFullRef}
+          className="grid--full relative w-full my-[6vh] max-w-none px-3 py-4"
+          style={{ columnCount: 7, columnGap: '0.75rem' }}
+        >
+          {gridItems.map((item, i) => {
+            if (item === 'SKIP' || item === 'BENTO_GROUP') return null
+
+            // Regular photo cell
+            return (
+              <figure
+                key={`img-${i}`}
+                className="grid__item m-0 relative z-10 will-change-[transform,opacity] overflow-hidden rounded-xl mb-3 break-inside-avoid"
+                style={{ display: 'inline-block', width: '100%' }}
+              >
+                <div className="grid__item-inner overflow-hidden rounded-xl">
+                  <img
+                    src={item}
+                    alt={`Gallery ${i + 1}`}
+                    className="w-full h-auto block"
+                    style={{ display: 'block' }}
+                  />
+                </div>
+              </figure>
+            )
+          })}
+        </div>
+      </section>
+
+      {showFooter && (
+        <footer className="w-full p-8 flex justify-between items-center relative z-50 text-[#2d2b27] uppercase font-medium text-xs tracking-wider">
+          <a href={credits.madeBy.href} className="hover:opacity-60 transition-opacity">{credits.madeBy.text}</a>
+          <a href={credits.moreDemos.href} className="hover:opacity-60 transition-opacity">{credits.moreDemos.text}</a>
+        </footer>
+      )}
+    </div>
+  )
+}
+
+export default StaggeredGrid

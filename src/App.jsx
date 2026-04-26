@@ -41,6 +41,7 @@ const HigherLowerLeaderboard = lazy(
   () => import("./Pages/HigherLowerLeaderboard.jsx"),
 );
 const HitCounterPage = lazy(() => import("./Pages/HitCounterPage.jsx"));
+const Recap2025 = lazy(() => import("./Pages/Recap2025.jsx"));
 
 export const PreloaderContext = createContext();
 
@@ -78,7 +79,7 @@ function App() {
     setTimeout(() => setShowContent(true), 100);
   };
 
-  const shouldShowNavbar = location.pathname !== "/event-higher-lower";
+  const shouldShowNavbar = location.pathname !== "/event-higher-lower" && location.pathname !== "/recap";
 
   useEffect(() => {
     // Increment hit counter once per session
@@ -159,6 +160,7 @@ function App() {
                       element={<HigherLowerLeaderboard />}
                     />
                     <Route path="/hit/counter" element={<HitCounterPage />} />
+                    <Route path="/recap" element={<Recap2025 />} />
                   </Routes>
                 </Suspense>
               </motion.div>
