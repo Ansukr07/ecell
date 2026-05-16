@@ -179,6 +179,48 @@ img {
   }
 }
 
+.theme-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000000;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.theme-toggle:active {
+  transform: scale(0.98);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+.theme-toggle--light {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111111;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
 /* Quick Light Theme Toggle */
 .light-theme {
   filter: invert(1) hue-rotate(180deg);
@@ -194,8 +236,85 @@ img {
   filter: invert(1) hue-rotate(180deg);
 }
 
-/* Ensure text boxes have a white background in Light Theme */
-.light-theme .idea-input {
-  background-color: #000000 !important;
-  /* Inverts to white (#ffffff) */
+/* --- Idea Section Light Theme Specific Elements --- */
+/* Target is #FF7722. Pre-filter color is #dd5500 */
+
+.light-theme .lamp-light-from {
+  --tw-gradient-from: #dd5500 var(--tw-gradient-from-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), transparent var(--tw-gradient-via-position), transparent var(--tw-gradient-to-position) !important;
+}
+
+.light-theme .lamp-light-to {
+  --tw-gradient-to: #dd5500 var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: transparent var(--tw-gradient-from-position), transparent var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+
+.light-theme .lamp-light-glow {
+  background-color: #dd5500 !important;
+}
+
+.light-theme .build-idea-text {
+  --tw-gradient-from: #dd5500 !important;
+  --tw-gradient-to: #dd5500 !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.light-theme .idea-submit-btn {
+  background-color: #dd5500 !important;
+  border-color: #dd5500 !important;
+  color: #000000 !important; /* Inverts to white text on orange button */
+}
+
+.light-theme .idea-submit-btn:hover {
+  background-color: #bb4400 !important; /* Slightly darker orange pre-filter for hover */
+}
+
+.light-theme .idea-quote-icon {
+  color: #dd5500 !important;
+  opacity: 0.3 !important; /* Make it slightly more visible since it's an accent */
+}
+
+/* --- Logo Toggles --- */
+.light-mode-logo {
+  display: none;
+}
+
+.light-theme .light-mode-logo {
+  display: block;
+}
+
+.light-theme .dark-mode-logo {
+  display: none;
+}
+
+/* --- View Transitions API for Theme Wave --- */
+::view-transition-group(root) {
+  animation-duration: 2s;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+  animation: theme-wave 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes theme-wave {
+  0% {
+    clip-path: circle(0px at var(--theme-toggle-x, 100%) var(--theme-toggle-y, 100%));
+  }
+  100% {
+    clip-path: circle(150vmax at var(--theme-toggle-x, 100%) var(--theme-toggle-y, 100%));
+  }
 }

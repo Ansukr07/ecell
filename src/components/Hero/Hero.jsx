@@ -8,6 +8,7 @@ import bmsitLogo from '../../assets/bmsit.png';
 import bicepLogo from '../../assets/bicep.png';
 import ecellLogo from '../../assets/ecell1.png';
 import ecellOrLogo from '../../assets/ecellor.png';
+import ecellLightLogo from '../../assets/ecell.png';
 
 const cardConfig = [
   {
@@ -157,12 +158,19 @@ const ECellHero = () => {
           <img src={bmsitLogo} alt="BMSIT Logo" className="h-14 w-14" />
           <img src={bicepLogo} alt="BICEP Logo" className="h-14 w-14" />
 
-          {/* E-Cell Orange Logo (mobile only) */}
-          <img
-            src={ecellOrLogo}
-            alt="E-Cell Logo"
-            className="h-14 w-14 lg:hidden"
-          />
+          {/* E-Cell Logo (mobile only) */}
+          <div className="lg:hidden">
+            <img
+              src={ecellOrLogo}
+              alt="E-Cell Logo"
+              className="h-14 w-14 dark-mode-logo"
+            />
+            <img
+              src={ecellLightLogo}
+              alt="E-Cell Logo"
+              className="h-14 w-14 light-mode-logo preserve-color mt-3"
+            />
+          </div>
         </div>
 
         {/* Right: Logo 3 (desktop only) */}
@@ -170,7 +178,12 @@ const ECellHero = () => {
           <img
             src={ecellLogo}
             alt="E-Cell Logo"
-            className="h-14 w-14"
+            className="h-14 w-14 dark-mode-logo"
+          />
+          <img
+            src={ecellLightLogo}
+            alt="E-Cell Logo"
+            className="h-14 w-14 light-mode-logo preserve-color mt-3"
           />
         </div>
       </nav>

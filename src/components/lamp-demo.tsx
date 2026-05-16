@@ -131,7 +131,7 @@ export function IdeaSectionHeader() {
       <LampContainer>
         <motion.h1
           style={{ fontFamily: 'ClashDisplay, sans-serif', wordSpacing: '0.4em' }}
-          className="mt-8 bg-gradient-to-br from-white to-neutral-400 py-4 bg-clip-text text-center text-2xl sm:text-5xl tracking-[0.1em] sm:tracking-[0.15em] text-transparent md:text-8xl opacity-100 translate-y-0"
+          className="mt-8 bg-gradient-to-br from-white to-neutral-400 py-4 bg-clip-text text-center text-2xl sm:text-5xl tracking-[0.1em] sm:tracking-[0.15em] text-transparent md:text-8xl opacity-100 translate-y-0 build-idea-text"
         >
           BUILD YOUR IDEA
         </motion.h1>
@@ -153,7 +153,7 @@ export function IdeaSectionHeader() {
           <div className="lg:basis-2/5 w-full">
             <div className="bg-neutral-900/30 p-12 border border-neutral-800 lg:sticky lg:top-8">
               <div className="relative">
-                <Quote className="absolute -top-6 -left-6 w-16 h-16 opacity-10 text-white" />
+                <Quote className="absolute -top-6 -left-6 w-16 h-16 opacity-10 text-white idea-quote-icon" />
                 <blockquote
                   style={{ fontFamily: 'SpaceGrotesk, sans-serif' }}
                   className="text-2xl md:text-3xl leading-relaxed mb-8 text-white font-light"
@@ -261,7 +261,7 @@ export function IdeaSectionHeader() {
                 <button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="w-full py-5 px-8 font-bold text-xl uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-white hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] bg-black text-white active:scale-[0.98]"
+                  className="w-full py-5 px-8 font-bold text-xl uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-white hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] bg-black text-white active:scale-[0.98] idea-submit-btn"
                 >
                   {isSubmitting ? (
                     <>
