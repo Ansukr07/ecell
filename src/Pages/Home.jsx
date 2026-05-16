@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
 
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
@@ -8,14 +10,19 @@ import { IdeaSectionHeader } from '../components/lamp-demo';
 
 
 const Home = () => {
+  const location = useLocation();
+  const [isLightMode, setIsLightMode] = useState(false);
+
   useEffect(() => {
-    // Check for footer hash on mount (from cross-page navigation)
-    if (window.location.hash === '#footer') {
-      const element = document.getElementById('footer');
+    // Check for hash on mount or route change (e.g. #footer or #events)
+    if (location.hash) {
+      const targetId = location.hash.substring(1);
+      const element = document.getElementById(targetId);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 1000); // Wait for preloader/content transition
+          const topPosition = element.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: topPosition, behavior: 'smooth' });
+        }, 500); // Wait for preloader/content transition
       }
     }
 
@@ -45,18 +52,28 @@ const Home = () => {
         anchor.removeEventListener('click', handleAnchorClick);
       });
     };
-  }, []);
+  }, [location.hash]);
 
   return (
     <>
 
 
-      <div className="home-page">
+      <div className={`home-page ${isLightMode ? 'light-theme' : ''}`}>
         <Hero />
         <About />
         <Events />
         <IdeaSectionHeader />
         <Footer />
+        
+        {/* Theme Toggle Button */}
+        <button 
+          onClick={() => setIsLightMode(!isLightMode)}
+          className="fixed bottom-6 right-6 z-[999999] bg-white text-black px-4 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
+          style={{ fontFamily: 'Sora, sans-serif' }}
+        >
+          {isLightMode ? <Moon size={20} /> : <Sun size={20} />}
+          {isLightMode ? 'Dark Mode' : 'Light Mode'}
+        </button>
       </div>
     </>
   );

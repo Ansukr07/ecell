@@ -113,11 +113,11 @@ const ECellHero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden" >
+    <div className="min-h-screen bg-black relative overflow-hidden hero-section" >
 
 
       <motion.div
-        className="absolute inset-0 opacity-[0.15]"
+        className="absolute inset-0 opacity-[0.25]"
 
 
         style={{
@@ -126,20 +126,6 @@ const ECellHero = () => {
             linear-gradient(90deg, rgba(255, 251, 251, 0.8) 1px, transparent 1px)
           `,
           backgroundSize: '80px 80px'
-        }}
-      />
-
-      {/* Secondary Grid Layer for Depth */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.08]"
-
-
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
         }}
       />
 

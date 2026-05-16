@@ -55,11 +55,10 @@ const DesktopFooter = () => {
         {/* ── Middle Column: Nav Links ── */}
         <div className="w-[35%] flex flex-col border-r border-[#1f1f1f]">
           {[
-            { name: 'ABOUT', to: '/', hoverColor: '#FFCC00' },
-            { name: 'EVENTS', to: '/events', hoverColor: '#001AFF' },
-            { name: 'WORD OF THE DAY', to: '/word-of-the-day', hoverColor: '#00E5FF' },
-            { name: 'TEAM', to: '/team', hoverColor: '#FF6600' },
-            { name: 'CONTACT', to: '/', hoverColor: '#FF00FF' },
+            { name: 'GALLERY', to: '/gallery', hoverColor: '#ffffff' },
+            { name: 'ALUMNI', to: '/alumni', hoverColor: '#ffffff' },
+            { name: 'WORD OF THE DAY', to: '/word-of-the-day', hoverColor: '#ffffff' },
+            { name: 'TEAM', to: '/team', hoverColor: '#ffffff' },
           ].map((link, idx) => (
             <Link
               key={idx}
@@ -305,11 +304,10 @@ const SpringWaveCanvas = () => {
 // ─── Mobile Footer Component ───────────────────────────────────────────────────
 const MobileFooter = () => {
   const navLinks = [
-    { name: 'About', to: '/' },
-    { name: 'Events', to: '/events' },
+    { name: 'Gallery', to: '/gallery' },
+    { name: 'Alumni', to: '/alumni' },
     { name: 'Word of the Day', to: '/word-of-the-day' },
     { name: 'Team', to: '/team' },
-    { name: 'Contact', to: '/' },
   ];
 
   const socials = [

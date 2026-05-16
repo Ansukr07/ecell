@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Phone, Instagram, Linkedin, Globe, MessageCircle } from "lucide-react";
+import { Phone, Instagram, Linkedin, Globe, MessageCircle, Twitter, Mail } from "lucide-react";
 import teamImage from "./assets/recap/image.png";
 import coderedImage from "./assets/recap/codered.png";
 import websiteImage from "./assets/recap/website.png";
@@ -424,8 +424,8 @@ const Recap2025 = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {[
-                { name: "INSTAGRAM", handle: "@ecell_bmsit", icon: Instagram, href: "https://instagram.com/ecellbmsit" },
-                { name: "LINKEDIN", handle: "E-Cell BMSIT", icon: Linkedin, href: "https://linkedin.com/company/ecellbmsit" },
+                { name: "INSTAGRAM", handle: "@ecell.bmsit", icon: Instagram, href: "https://www.instagram.com/ecell.bmsit" },
+                { name: "LINKEDIN", handle: "E-Cell BMSIT", icon: Linkedin, href: "https://www.linkedin.com/company/ecellbmsit" },
                 { name: "WEBSITE", handle: "ecellbmsit.com", icon: Globe, href: "/" },
                 { name: "WHATSAPP", handle: "Community Group", icon: MessageCircle, href: "https://chat.whatsapp.com/L5GdDKv23ikGUTposaqLDV" }
               ].map((social, idx) => (

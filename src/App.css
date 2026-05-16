@@ -169,10 +169,33 @@ img {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
+}
+
+/* Quick Light Theme Toggle */
+.light-theme {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #fff;
+  /* Ensure solid background when inverted */
+}
+
+.light-theme img:not(#footer img),
+.light-theme video:not(#footer video),
+.light-theme canvas:not(#footer canvas),
+.light-theme #footer,
+.light-theme .preserve-color {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Ensure text boxes have a white background in Light Theme */
+.light-theme .idea-input {
+  background-color: #000000 !important;
+  /* Inverts to white (#ffffff) */
 }

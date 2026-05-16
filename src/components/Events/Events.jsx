@@ -32,17 +32,6 @@ const ECellEventsScroll = () => {
       isFlagship: true,
     },
     {
-      name: "ADVERT1.0",
-      displayName: "ADVERT 1.0",
-      description:
-        "Marketing and strategy competition exploring real-world campaigns.",
-      date: "04.06.2025",
-      location: "@BMSIT Seminar Hall",
-      tags: ["#Marketing", "#Ads", "#Strategy"],
-      image: image2,
-      isFlagship: false,
-    },
-    {
       name: "SPL",
       displayName: "SPL",
       description:
@@ -52,27 +41,6 @@ const ECellEventsScroll = () => {
       tags: ["#Sports", "#League", "#Network"],
       image: image3,
       isFlagship: true,
-    },
-    {
-      name: "CASE CRACKERS",
-      displayName: "CASE CRACKERS",
-      description:
-        "Interactive workshops exploring corporate innovation setups.",
-      date: "30.04.2025",
-      location: "@BMSIT Seminar Hall",
-      tags: ["#Business", "#CaseStudy"],
-      image: image4,
-      isFlagship: false,
-    },
-    {
-      name: "CHITTING",
-      displayName: "CHITTING",
-      description: "Open debate surrounding municipal technical upgrades.",
-      date: "15.08.2025",
-      location: "@Campus",
-      tags: ["#Debate", "#Discussion"],
-      image: image5,
-      isFlagship: false,
     },
     {
       name: "PANEL DISCUSSION",

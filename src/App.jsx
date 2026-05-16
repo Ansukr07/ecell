@@ -46,7 +46,7 @@ const Recap2025 = lazy(() => import("./Pages/Recap2025.jsx"));
 export const PreloaderContext = createContext();
 
 // NavigationWatcher: Component that listens for route changes
-const NavigationWatcher = ({ setLoading, setShowContent }) => {
+const NavigationWatcher = ({ setLoading, setShowContent, setDisplayLocation }) => {
   const location = useLocation();
   const prevPath = useRef(location.pathname);
 
@@ -57,10 +57,13 @@ const NavigationWatcher = ({ setLoading, setShowContent }) => {
       if (window.innerWidth > 768) {
         setLoading(true);
         setShowContent(false);
+      } else {
+        setDisplayLocation(location);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       prevPath.current = location.pathname;
     }
-  }, [location, setLoading, setShowContent]);
+  }, [location, setLoading, setShowContent, setDisplayLocation]);
 
   return null;
 };
@@ -103,6 +106,7 @@ function App() {
         <NavigationWatcher
           setLoading={setLoading}
           setShowContent={setShowContent}
+          setDisplayLocation={setDisplayLocation}
         />
         {shouldShowNavbar && <Navbar />}
         <div className="relative pt-0">

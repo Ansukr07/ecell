@@ -127,7 +127,7 @@ export function IdeaSectionHeader() {
   const statusInfo = submitStatus ? getStatusMessage() : null;
 
   return (
-    <div className="w-full bg-black relative z-10 text-white font-sans">
+    <div className="w-full bg-black relative z-10 text-white font-sans idea-section-wrapper">
       <LampContainer>
         <motion.h1
           style={{ fontFamily: 'ClashDisplay, sans-serif', wordSpacing: '0.4em' }}
@@ -195,7 +195,7 @@ export function IdeaSectionHeader() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className={`w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
+                      className={`idea-input w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
                         }`}
                       placeholder="Enter your full name"
                       disabled={isSubmitting}
@@ -215,7 +215,7 @@ export function IdeaSectionHeader() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
+                      className={`idea-input w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
                         }`}
                       placeholder="your@email.com"
                       disabled={isSubmitting}
@@ -237,7 +237,7 @@ export function IdeaSectionHeader() {
                       value={formData.idea}
                       onChange={handleInputChange}
                       rows={8}
-                      className={`w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 resize-none ${errors.idea ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
+                      className={`idea-input w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 resize-none ${errors.idea ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
                         }`}
                       placeholder="What problem are you solving? Who is it for? Do you have a prototype? (minimum 50 characters)"
                       disabled={isSubmitting}
