@@ -127,10 +127,10 @@ const ECellEventsScroll = () => {
 
             {/* iOS-Style Toggle Switch */}
             <div
-              className={`w-10 h-5 rounded-full relative transition-colors duration-300 ease-in-out ${showFlagships ? "bg-[#999]" : "bg-[#777]"}`}
+              className={`flagship-toggle-track w-10 h-5 rounded-full relative transition-colors duration-300 ease-in-out ${showFlagships ? "bg-[#999]" : "bg-[#777]"}`}
             >
               <div
-                className={`w-[16px] h-[16px] rounded-full bg-white shadow-sm absolute top-[2px] transition-transform duration-300 ease-in-out ${showFlagships ? "left-[22px]" : "left-0.5"}`}
+                className={`flagship-toggle-thumb w-[16px] h-[16px] rounded-full bg-white shadow-sm absolute top-[2px] transition-transform duration-300 ease-in-out ${showFlagships ? "left-[22px]" : "left-0.5"}`}
               />
             </div>
           </div>

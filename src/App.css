@@ -259,8 +259,8 @@ img {
 }
 
 .light-theme .build-idea-text {
-  --tw-gradient-from: #dd5500 !important;
-  --tw-gradient-to: #dd5500 !important;
+  --tw-gradient-from: #d5ddf0 !important;
+  --tw-gradient-to: #d5ddf0 !important;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
   color: transparent !important;
   -webkit-background-clip: text;
@@ -268,15 +268,15 @@ img {
 }
 
 .light-theme .idea-submit-btn {
-  background-color: #dd5500 !important;
-  border-color: #dd5500 !important;
-  color: #000000 !important;
-  /* Inverts to white text on orange button */
+  background: linear-gradient(to right, #dd5500, #f36115) !important; /* Inverts to gradient from #FF7722 to #EA580C */
+  border-color: rgba(221, 85, 0, 0.3) !important;
+  color: #000000 !important; /* Inverts to white text */
+  box-shadow: 0 0 25px rgba(221, 85, 0, 0.25) !important; /* Inverts to orange glow */
 }
 
 .light-theme .idea-submit-btn:hover {
-  background-color: #bb4400 !important;
-  /* Slightly darker orange pre-filter for hover */
+  background: linear-gradient(to right, #bb4400, #cc4400) !important; /* Slightly darker orange gradient pre-filter */
+  box-shadow: 0 0 35px rgba(221, 85, 0, 0.45) !important;
 }
 
 .light-theme .idea-quote-icon {
@@ -288,11 +288,14 @@ img {
 /* --- Events Section Light Theme Overrides (Ambient Glow Glassmorphism) --- */
 .light-theme .event-card,
 .light-theme .flagship-box {
-  background: rgba(0, 0, 0, 0.8) !important; /* Inverts to translucent white rgba(255,255,255,0.8) */
+  background: rgba(0, 0, 0, 0.8) !important;
+  /* Inverts to translucent white rgba(255,255,255,0.8) */
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  box-shadow: 0 10px 40px rgba(233, 99, 6, 0.1) !important; /* Inverts to warm orange glow rgba(249,115,22,0.1) */
-  border: 1px solid #1a1a1a !important; /* Inverts to light grey border (#e5e5e5) */
+  box-shadow: 0 10px 40px rgba(233, 99, 6, 0.1) !important;
+  /* Inverts to warm orange glow rgba(249,115,22,0.1) */
+  border: 1px solid #1a1a1a !important;
+  /* Inverts to light grey border (#e5e5e5) */
 }
 
 .light-theme .event-card *,
@@ -300,6 +303,10 @@ img {
   color: #d5ddf0 !important;
   /* Inverts to #0F172A */
   border-color: #d5ddf0 !important;
+}
+
+.light-theme .flagship-toggle-thumb {
+  background-color: #000000 !important; /* Inverts to white (#ffffff) */
 }
 
 /* --- Logo Toggles --- */
