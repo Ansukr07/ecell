@@ -11,6 +11,8 @@ import adithya from "./assets/adithya.jpg";
 import gul from "./assets/gul.jpeg";
 import sarvani from "./assets/sarvani.jpg";
 
+import Footer from "../components/Footer/Footer";
+
 // Extracted StatCard to prevent heavy mobile re-renders
 const StatCard = ({ stat, index }) => {
   return (
@@ -233,6 +235,7 @@ const EcellAlumniPage = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

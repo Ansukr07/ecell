@@ -10,7 +10,7 @@ const BuildYourIdeaPage = () => {
   }, []);
 
   return (
-    <div className="home-page light-theme min-h-screen relative overflow-hidden" style={{ backgroundColor: '#000000' }}>
+    <div className="home-page min-h-screen relative overflow-hidden" style={{ backgroundColor: '#000000' }}>
       {/* Background Grid matching Hero section */}
       <motion.div
         className="absolute inset-0 opacity-[0.25] pointer-events-none"

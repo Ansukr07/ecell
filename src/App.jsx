@@ -12,6 +12,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar/Navbar";
 import Preloader from "./components/Preloader/Preloader";
@@ -75,6 +76,37 @@ function App() {
   const hasSeenPreloader = sessionStorage.getItem("preloaderShown");
   const [loading, setLoading] = useState(!hasSeenPreloader);
   const [showContent, setShowContent] = useState(!!hasSeenPreloader);
+  const [isLightMode, setIsLightMode] = useState(true);
+
+  const isSpl3 = location.pathname === "/events/spl3" || location.pathname === "/spl3";
+
+  useEffect(() => {
+    if (location.pathname === "/gallery" || location.pathname === "/team") {
+      setIsLightMode(false);
+    } else {
+      setIsLightMode(true);
+    }
+  }, [location.pathname]);
+
+  const handleThemeToggle = (event) => {
+    const isKeyboardTrigger = event?.clientX === 0 && event?.clientY === 0;
+    const fallbackX = window.innerWidth - 28;
+    const fallbackY = window.innerHeight - 28;
+    const clickX = isKeyboardTrigger ? fallbackX : event.clientX;
+    const clickY = isKeyboardTrigger ? fallbackY : event.clientY;
+
+    document.documentElement.style.setProperty('--theme-toggle-x', `${clickX}px`);
+    document.documentElement.style.setProperty('--theme-toggle-y', `${clickY}px`);
+
+    if (typeof document.startViewTransition !== 'function') {
+      setIsLightMode((prev) => !prev);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      setIsLightMode((prev) => !prev);
+    });
+  };
 
   const handlePreloaderComplete = () => {
     sessionStorage.setItem("preloaderShown", "true");
@@ -120,7 +152,7 @@ function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: showContent ? 1 : 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="min-h-screen"
+                className={`min-h-screen ${isLightMode && !isSpl3 ? 'light-theme' : ''}`}
               >
                 <Suspense fallback={<div className="min-h-screen"></div>}>
                   <Routes location={displayLocation}>
@@ -172,6 +204,19 @@ function App() {
               </motion.div>
             )}
           </AnimatePresence>
+          {!loading && !isSpl3 && (
+            <button
+              type="button"
+              role="switch"
+              aria-checked={isLightMode}
+              aria-label={isLightMode ? 'Switch to dark mode' : 'Switch to light mode'}
+              title={isLightMode ? 'Switch to dark mode' : 'Switch to light mode'}
+              onClick={handleThemeToggle}
+              className={`theme-toggle preserve-color ${isLightMode ? 'theme-toggle--light' : 'theme-toggle--dark'}`}
+            >
+              {isLightMode ? <Moon size={22} /> : <Sun size={22} />}
+            </button>
+          )}
         </div>
       </WordProvider>
     </PreloaderContext.Provider>

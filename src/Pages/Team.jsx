@@ -114,7 +114,7 @@ const TeamPage = () => {
     <div className="font-sans selection:bg-[#ff3b1f] selection:text-white">
 
       {/* ════════════ HERO SECTION (original light design) ════════════ */}
-      <div className="min-h-screen bg-[#f4f4f4] relative overflow-hidden pb-8 md:pb-20">
+      <div className="min-h-screen bg-[#f4f4f4] preserve-color relative overflow-hidden pb-8 md:pb-20">
 
         {/* Grain overlay */}
         <div
