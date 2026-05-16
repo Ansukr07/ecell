@@ -20,7 +20,7 @@ const PhoneMenu = ({
     { label: "Team", to: "/team" },
     { label: "Alumni", to: "/alumni" },
     { label: "Word of the Day", to: "/word-of-the-day" },
-    { label: "SPL 3.0", to: "/events/spl3" },
+    { label: "Build Your Idea", to: "/build-your-idea" },
     { label: "Contact Us", to: "#footer", isScroll: true },
   ];
 

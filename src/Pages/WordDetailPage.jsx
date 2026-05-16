@@ -104,7 +104,7 @@ export default function WordDetailPage() {
                                 </h2>
                                 <TextGenerateEffect
                                     words={word.definition}
-                                    className="text-sm md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed"
+                                    className="text-center mx-auto text-sm md:text-2xl italic text-white max-w-3xl leading-relaxed"
                                     duration={2}
                                 />
                             </div>

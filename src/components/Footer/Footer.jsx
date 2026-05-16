@@ -56,7 +56,7 @@ const DesktopFooter = () => {
         <div className="w-[35%] flex flex-col border-r border-[#1f1f1f]">
           {[
             { name: 'GALLERY', to: '/gallery', hoverColor: '#ffffff' },
-            { name: 'ALUMNI', to: '/alumni', hoverColor: '#ffffff' },
+            { name: 'BUILD YOUR IDEA', to: '/build-your-idea', hoverColor: '#ffffff' },
             { name: 'WORD OF THE DAY', to: '/word-of-the-day', hoverColor: '#ffffff' },
             { name: 'TEAM', to: '/team', hoverColor: '#ffffff' },
           ].map((link, idx) => (
@@ -308,6 +308,7 @@ const MobileFooter = () => {
     { name: 'Alumni', to: '/alumni' },
     { name: 'Word of the Day', to: '/word-of-the-day' },
     { name: 'Team', to: '/team' },
+    { name: 'Build Your Idea', to: '/build-your-idea' },
   ];
 
   const socials = [

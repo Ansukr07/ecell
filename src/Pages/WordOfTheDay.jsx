@@ -120,7 +120,7 @@ export default function WordOfTheDay() {
                                 </h2>
                                 <TextGenerateEffect
                                     words={latestWord.definition}
-                                    className="text-xs md:text-2xl italic text-neutral-400 max-w-3xl leading-relaxed" style={{ textAlign: "center" }}
+                                    className="text-center mx-auto text-xs md:text-2xl italic text-white max-w-3xl leading-relaxed"
                                     duration={2}
                                 />
                             </div>

@@ -152,38 +152,38 @@ const ECellHero = () => {
 
 
       {/* Logos Section - responsive positioning */}
-      <nav className="flex justify-between items-center px-4 lg:px-8 pt-4">
+      <nav className="flex justify-between items-center px-3 pt-3">
         {/* Left: Logo 1 & Logo 2 - always visible */}
-        <div className="flex gap-8 items-center justify-center">
-          <img src={bmsitLogo} alt="BMSIT Logo" className="h-14 w-14" />
-          <img src={bicepLogo} alt="BICEP Logo" className="h-14 w-14" />
+        <div className="flex gap-6 items-center justify-center">
+          <img src={bmsitLogo} alt="BMSIT Logo" className="h-14 w-14 object-contain mb-4" />
+          <img src={bicepLogo} alt="BICEP Logo" className="h-14 w-14 object-contain" />
 
           {/* E-Cell Logo (mobile only) */}
           <div className="lg:hidden">
             <img
               src={ecellOrLogo}
               alt="E-Cell Logo"
-              className="h-14 w-14 dark-mode-logo"
+              className="h-14 w-14 object-contain mb-3 dark-mode-logo"
             />
             <img
               src={ecellLightLogo}
               alt="E-Cell Logo"
-              className="h-14 w-14 light-mode-logo preserve-color mt-3"
+              className="h-14 w-14 object-contain scale-[1.3] mt-3 -mr-1 light-mode-logo preserve-color"
             />
           </div>
         </div>
 
         {/* Right: Logo 3 (desktop only) */}
-        <div className="hidden lg:block">
+        <div className="hidden lg:block pr-3">
           <img
             src={ecellLogo}
             alt="E-Cell Logo"
-            className="h-14 w-14 dark-mode-logo"
+            className="h-14 w-14 object-contain mb-3 dark-mode-logo"
           />
           <img
             src={ecellLightLogo}
             alt="E-Cell Logo"
-            className="h-14 w-14 light-mode-logo preserve-color mt-3"
+            className="h-14 w-14 object-contain scale-[1.3] mt-3 -mr-1 light-mode-logo preserve-color"
           />
         </div>
       </nav>
