@@ -166,11 +166,7 @@ const ECellEventsScroll = () => {
                       <span className="border border-white text-white px-2 py-[2px]">
                         {event.date}
                       </span>
-                      <span className="hidden sm:inline text-white ml-1">
-                        {event.location}
-                      </span>
                     </div>
-
                   </div>
 
                   {/* Event Description & Title Bottom Anchored */}
