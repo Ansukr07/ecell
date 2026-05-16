@@ -118,7 +118,7 @@ const ECellEventsScroll = () => {
         {/* Left Column - Flagships Toggle */}
         <div className="w-full lg:w-[280px] flex-shrink-0 lg:sticky lg:top-32 self-start z-10">
           <div
-            className="bg-[#4d4d4d] p-4 px-5 flex items-center justify-between cursor-pointer shadow-lg"
+            className="flagship-box bg-[#4d4d4d] p-4 px-5 flex items-center justify-between cursor-pointer shadow-lg"
             onClick={() => setShowFlagships(!showFlagships)}
           >
             <span className="text-sm font-medium text-white tracking-tight">
@@ -146,7 +146,7 @@ const ECellEventsScroll = () => {
             filteredEvents.map((event, idx) => (
               <div
                 key={idx}
-                className="flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative"
+                className="event-card flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative"
               >
                 {/* Image Block: Absolute Dimensions 256x256 */}
                 <div className="w-[256px] h-[256px] flex-shrink-0 bg-black overflow-hidden relative hidden sm:block">
@@ -154,7 +154,7 @@ const ECellEventsScroll = () => {
                   <img
                     src={event.image}
                     alt={event.name}
-                    className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-screen opacity-90 transition-all duration-700 hover:grayscale-0 hover:opacity-100"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>
 
@@ -171,12 +171,6 @@ const ECellEventsScroll = () => {
                       </span>
                     </div>
 
-                    {/* Right Tags */}
-                    <div className="flex flex-row gap-2 text-[13px] text-[#b48cff] tracking-tight">
-                      {event.tags.map((tag, tIdx) => (
-                        <span key={tIdx}>{tag}</span>
-                      ))}
-                    </div>
                   </div>
 
                   {/* Event Description & Title Bottom Anchored */}

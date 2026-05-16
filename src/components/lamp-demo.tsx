@@ -151,7 +151,7 @@ export function IdeaSectionHeader() {
 
           {/* Value Prop Section (Adapted from Quote side) */}
           <div className="lg:basis-2/5 w-full">
-            <div className="bg-neutral-900/30 p-12 border border-neutral-800 lg:sticky lg:top-8">
+            <div className="idea-quote-box bg-neutral-900/30 p-12 border border-neutral-800 lg:sticky lg:top-8">
               <div className="relative">
                 <Quote className="absolute -top-6 -left-6 w-16 h-16 opacity-10 text-white idea-quote-icon" />
                 <blockquote
