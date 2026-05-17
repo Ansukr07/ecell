@@ -46,6 +46,7 @@ const HigherLowerLeaderboard = lazy(
 const HitCounterPage = lazy(() => import("./Pages/HitCounterPage.jsx"));
 const Recap2025 = lazy(() => import("./Pages/Recap2025.jsx"));
 const BuildYourIdeaPage = lazy(() => import("./Pages/BuildYourIdeaPage.jsx"));
+const NotFound = lazy(() => import("./Pages/NotFound.jsx"));
 
 export const PreloaderContext = createContext();
 
@@ -203,6 +204,7 @@ function App() {
                     <Route path="/hit/counter" element={<HitCounterPage />} />
                     <Route path="/recap" element={<Recap2025 />} />
                     <Route path="/build-your-idea" element={<BuildYourIdeaPage />} />
+                    <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>
               </motion.div>
