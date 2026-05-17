@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Footer from '../components/Footer/Footer';
 
 // Image Imports
@@ -45,31 +45,60 @@ import img41 from '../assets/image41.JPG';
 import img42 from '../assets/image42.JPG';
 import img43 from '../assets/image43.JPG';
 
+const ALL_IMAGES = [
+  img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
+  img11, img12, img13, img14, img15, img16, img17, img18, img19, img20,
+  img21, img22, img23, img24, img25, img26, img27, img28, img29, img30,
+  img31, img32, img33, img34, img35, img37, img38, img39, img40,
+  img41, img42, img43,
+];
+
+const INITIAL_COUNT = 12;
+const BATCH_SIZE = 8;
+const PRIORITY_COUNT = 4;
+
 const Gallery = () => {
-  const [shuffledImages, setShuffledImages] = useState([]);
-
-  useEffect(() => {
-    // Array of all images
-    const allImages = [
-      img1, img2, img3, img4, img5, img6, img7, img8, img9, img10,
-      img11, img12, img13, img14, img15, img16, img17, img18, img19, img20,
-      img21, img22, img23, img24, img25, img26, img27, img28, img29, img30,
-      img31, img32, img33, img34, img35, img37, img38, img39, img40,
-      img41, img42, img43
-    ];
-
-    // Create gallery data objects
-    const galleryData = allImages.map((src, index) => ({
+  const shuffledImages = useMemo(() => {
+    const galleryData = ALL_IMAGES.map((src, index) => ({
       id: index + 1,
-      src: src,
+      src,
       alt: `E-Cell Gallery Image ${index + 1}`,
-      title: "E-Cell Moment"
+      title: 'E-Cell Moment',
     }));
 
-    // Shuffle images
-    const shuffled = [...galleryData].sort(() => Math.random() - 0.5);
-    setShuffledImages(shuffled);
+    for (let i = galleryData.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [galleryData[i], galleryData[j]] = [galleryData[j], galleryData[i]];
+    }
+
+    return galleryData;
   }, []);
+
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const sentinelRef = useRef(null);
+
+  useEffect(() => {
+    if (!sentinelRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+        setVisibleCount((current) => {
+          if (current >= shuffledImages.length) return current;
+          return Math.min(current + BATCH_SIZE, shuffledImages.length);
+        });
+      },
+      { rootMargin: '300px 0px' }
+    );
+
+    observer.observe(sentinelRef.current);
+    return () => observer.disconnect();
+  }, [shuffledImages.length]);
+
+  const visibleImages = useMemo(
+    () => shuffledImages.slice(0, visibleCount),
+    [shuffledImages, visibleCount]
+  );
 
 
   return (
@@ -114,6 +143,8 @@ const Gallery = () => {
             margin-bottom: 1.5rem;
             display: inline-block;
             width: 100%;
+            content-visibility: auto;
+            contain-intrinsic-size: 320px 240px;
           }
         `}
       </style>
@@ -130,23 +161,28 @@ const Gallery = () => {
 
           {/* Masonry Gallery Grid */}
           <div className="masonry-grid">
-            {shuffledImages.map((image) => (
-              <div
-                key={image.id}
-                className="masonry-item group relative overflow-hidden rounded-2xl bg-gray-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/20"
-              >
-                <div className="relative w-full">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" // h-auto preserves aspect ratio
-                    loading="lazy"
-                  />
-
+            {visibleImages.map((image, index) => {
+              const isPriority = index < PRIORITY_COUNT;
+              return (
+                <div
+                  key={image.id}
+                  className="masonry-item group relative overflow-hidden rounded-2xl bg-gray-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/20"
+                >
+                  <div className="relative w-full">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" // h-auto preserves aspect ratio
+                      loading={isPriority ? 'eager' : 'lazy'}
+                      decoding="async"
+                      fetchPriority={isPriority ? 'high' : 'low'}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+          <div ref={sentinelRef} className="h-1" aria-hidden="true" />
         </div>
 
 

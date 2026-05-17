@@ -4,7 +4,7 @@ import { Menu } from 'lucide-react';
 import teamData from './teamData.json';
 
 // Group photo for the hero section
-import teamImage from './assets/team/1team.jpg';
+import teamImage from './assets/team/1team.webp';
 
 // Dynamically import all team member images via Vite glob
 const imageModules = import.meta.glob('./assets/team/*.{jpg,jpeg,png,JPG,HEIF}', {
