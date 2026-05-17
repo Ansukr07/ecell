@@ -23,34 +23,42 @@ const ECellEventsScroll = () => {
     {
       name: "Code Red 3.0",
       displayName: "Code Red 3.0",
-      description: "Code Red 3.0 is E-Cell’s flagship 24-hour national-level hackathon, bringing together participants from across the country. Teams build innovative solutions to real-world problems in a fast-paced environment featuring industry mentorship, exciting challenges, and huge cash prizes.",
+      description: "Code Red 3.0 is E-Cell's flagship 24-hour national-level hackathon, bringing together participants from across the country. Teams build innovative solutions to real-world problems in a fast-paced environment featuring industry mentorship, exciting challenges, and huge cash prizes.",
+      shortDescription: "24-hour national-level hackathon with real-world problem solving.",
       image: image18,
       isFlagship: true,
-      slug: "codered25"
+      slug: "codered25",
+      date: "13-12-2025"
     },
     {
       name: "SPL 3.0",
       displayName: "SPL 3.0",
       description: "Startup Premier League (SPL) is an inter-college business strategy event featuring startup quizzes, IPL-style auctions, business simulations, and strategy pitching. The event tests creativity, teamwork, and decision-making in a fun and competitive environment.",
+      shortDescription: "Business strategy event with quizzes, auctions, and simulations.",
       image: s3,
       isFlagship: true,
-      slug: "spl3"
+      slug: "spl3",
+      date: "25-04-2026"
     },
     {
       name: "PANEL DISCUSSION",
       displayName: "PANEL DISCUSSION",
-      description: "“Next Compass: Navigating the New Universe” was a fun and interactive panel discussion where seniors shared insights on academics, careers, networking, and college life. Through engaging conversations and Q&A sessions, students gained practical advice, motivation, and valuable “senior secrets” for navigating college life.",
+      description: "\"Next Compass: Navigating the New Universe\" was a fun and interactive panel discussion where seniors shared insights on academics, careers, networking, and college life. Through engaging conversations and Q&A sessions, students gained practical advice, motivation, and valuable \"senior secrets\" for navigating college life.",
+      shortDescription: "Seniors sharing insights on academics, careers, and college life.",
       image: p1,
       isFlagship: false,
-      slug: "paneldiscussion"
+      slug: "paneldiscussion",
+      date: "17-10-2025"
     },
     {
       name: "EMPIRE X",
       displayName: "EMPIRE X",
       description: "EmpireX was a Monopoly-style business simulation event where participants built corporate empires through trading, negotiations, and market-based challenges. Teams competed to grow their net worth, survive market twists, and pitch innovative business models using the assets they acquired.",
+      shortDescription: "Monopoly-style business simulation with trading and market challenges.",
       image: e9,
       isFlagship: false,
-      slug: "empirex"
+      slug: "empirex",
+      date: "13-03-2026"
     },
   ];
 
@@ -63,7 +71,7 @@ const ECellEventsScroll = () => {
 
   return (
     <div
-      className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-6 md:pt-12 px-4 md:px-8 xl:px-12 border-t-0 -mt-[1px] md:mt-0"
+      className="min-h-screen bg-black text-[#e2e2e2] w-full pb-20 pt-6 md:pt-20 lg:pt-32 px-4 md:px-8 xl:px-12 border-t-0 -mt-[1px] md:mt-0"
       style={{ fontFamily: "Inter, sans-serif" }}
       id="events"
     >
@@ -151,15 +159,26 @@ const ECellEventsScroll = () => {
                 </div>
 
                 {/* Content Area: Explicit 869x256 size constraints as requested */}
-                <div className="p-5 px-6 flex flex-col justify-end w-full sm:w-[869px] h-[256px]">
+                <div className="p-5 px-6 flex flex-col justify-between w-full sm:w-[869px] h-[256px]">
+                  {/* Top Metadata Row */}
+                  <div className="flex flex-row items-center justify-between w-full">
+                    <div className="flex flex-row items-center gap-3 text-[13px] tracking-tight">
+                      {event.date && (
+                        <span className="border border-white text-white px-2 py-[2px]">
+                          {event.date}
+                        </span>
+                      )}
+                    </div>
+                  </div>
 
                   {/* Event Description & Title Bottom Anchored */}
-                  <div className="mt-auto mb-2 relative flex flex-col items-start text-left w-full">
+                  <div className="relative flex flex-col items-start text-left w-full">
                     <h3 className="text-[36px] font-normal tracking-tight text-white mb-0 leading-tight text-left">
                       {event.displayName}
                     </h3>
-                    <p className="text-[#888] text-[15px] font-normal tracking-tight max-w-2xl mt-1 text-left">
-                      {event.description}
+                    <p className="text-[#888] text-[15px] font-normal tracking-tight max-w-2xl mt-1 text-left event-description-mobile">
+                      <span className="hidden sm:inline">{event.description}</span>
+                      <span className="sm:hidden">{event.shortDescription}</span>
                     </p>
                   </div>
                 </div>

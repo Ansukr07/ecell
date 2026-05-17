@@ -59,8 +59,10 @@ const DesktopFooter = () => {
 
           {/* Bottom: address + email + icons */}
           <div className="flex flex-col gap-[3px]">
-            <p className="text-[#888] text-[18px] leading-[1.5] cursor-pointer hover:text-white transition-colors underline-hover-ltr">Dodaballapur Main Rd, Yelahanka</p>
-            <p className="text-[#888] text-[18px] leading-[1.5] cursor-pointer hover:text-white transition-colors underline-hover-ltr">Bengaluru 560064</p>
+            <div className="group flex flex-col gap-[3px]">
+              <a href="https://maps.app.goo.gl/u15gyc3NVxYkZZF26" target="_blank" rel="noopener noreferrer" className="text-[#888] text-[18px] leading-[1.5] cursor-pointer group-hover:text-white transition-colors underline-hover-ltr">Dodaballapur Main Rd, Yelahanka</a>
+              <a href="https://maps.app.goo.gl/u15gyc3NVxYkZZF26" target="_blank" rel="noopener noreferrer" className="text-[#888] text-[18px] leading-[1.5] cursor-pointer group-hover:text-white transition-colors underline-hover-ltr">Bengaluru 560064</a>
+            </div>
             <a href="mailto:ecell@bmsit.in" className="text-[#888] text-[18px] mt-[4px] leading-[1.5] hover:text-white transition-colors underline-hover-ltr">ecell@bmsit.in</a>
             <div className="flex gap-[16px] mt-[10px]">
               <a href="https://www.instagram.com/ecell.bmsit" target="_blank" rel="noopener noreferrer"><Instagram className="w-4 h-4 cursor-pointer hover:text-white transition-colors" /></a>

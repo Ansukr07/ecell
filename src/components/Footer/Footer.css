@@ -77,6 +77,10 @@ footer a:focus {
   transform: scaleX(1);
 }
 
+.group:hover .underline-hover-ltr::after {
+  transform: scaleX(1);
+}
+
 
 /* Animations */
 @keyframes float {

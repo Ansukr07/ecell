@@ -24,7 +24,7 @@ import img19 from '../assets/image19.webp';
 import img20 from '../assets/image20.webp';
 import img21 from '../assets/image21.webp';
 import img22 from '../assets/image22.webp';
-import img23 from '../assets/image23.webp';
+import img23 from '../assets/image23.jpg';
 import img24 from '../assets/image24.webp';
 import img25 from '../assets/image25.webp';
 import img26 from '../assets/image26.webp';
