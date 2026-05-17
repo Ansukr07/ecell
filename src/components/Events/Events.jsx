@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Search, ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import image1 from "../../assets/image1.jpg";
+import image18 from "../../assets/image18.webp";
+import s3 from "../../assets/s3.jpg";
+import e9 from "../../assets/e9.jpg";
+import p1 from "../../assets/p1.jpg";
 import image2 from "../../assets/image2.jpg";
-import image3 from "../../assets/image3.jpg";
-import image4 from "../../assets/image4.jpg";
-import image5 from "../../assets/image5.jpg";
-import image6 from "../../assets/image6.jpg";
-import image7 from "../../assets/image7.jpg";
 
 const ECellEventsScroll = () => {
   const [showFlagships, setShowFlagships] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   // Sync scroll on load
   useEffect(() => {
@@ -22,45 +21,36 @@ const ECellEventsScroll = () => {
   // Restored Organization E-Cell Original Payload
   const events = [
     {
-      name: "CODERED'25",
-      displayName: "CODERED'25",
-      description: "The ultimate coding showdown and 24-hour hackathon.",
-      date: "01 \u2014 05.12.2025",
-      location: "@BMSIT Campus",
-      tags: ["#Hackathon", "#Coding", "#Tech"],
-      image: image1,
+      name: "Code Red 3.0",
+      displayName: "Code Red 3.0",
+      description: "Code Red 3.0 is E-Cell’s flagship 24-hour national-level hackathon, bringing together participants from across the country. Teams build innovative solutions to real-world problems in a fast-paced environment featuring industry mentorship, exciting challenges, and huge cash prizes.",
+      image: image18,
       isFlagship: true,
+      slug: "codered25"
     },
     {
-      name: "SPL",
-      displayName: "SPL",
-      description:
-        "Premier sports league tournament fostering teamwork and competition.",
-      date: "08.05.2025",
-      location: "@BMSIT Ground",
-      tags: ["#Sports", "#League", "#Network"],
-      image: image3,
+      name: "SPL 3.0",
+      displayName: "SPL 3.0",
+      description: "Startup Premier League (SPL) is an inter-college business strategy event featuring startup quizzes, IPL-style auctions, business simulations, and strategy pitching. The event tests creativity, teamwork, and decision-making in a fun and competitive environment.",
+      image: s3,
       isFlagship: true,
+      slug: "spl"
     },
     {
       name: "PANEL DISCUSSION",
       displayName: "PANEL DISCUSSION",
-      description: "Panel of local founders discussing ecosystem challenges.",
-      date: "22.10.2025",
-      location: "@Main Auditorium",
-      tags: ["#Talks", "#Founders"],
-      image: image6,
+      description: "“Next Compass: Navigating the New Universe” was a fun and interactive panel discussion where seniors shared insights on academics, careers, networking, and college life. Through engaging conversations and Q&A sessions, students gained practical advice, motivation, and valuable “senior secrets” for navigating college life.",
+      image: p1,
       isFlagship: false,
+      slug: "paneldiscussion"
     },
     {
-      name: "RIP OFF",
-      displayName: "RIP OFF",
-      description: "Ideation and pitch competition for early prototypes.",
-      date: "10.12.2025",
-      location: "@Creative Lab",
-      tags: ["#Ideation", "#Startup"],
-      image: image7,
+      name: "EMPIRE X",
+      displayName: "EMPIRE X",
+      description: "EmpireX was a Monopoly-style business simulation event where participants built corporate empires through trading, negotiations, and market-based challenges. Teams competed to grow their net worth, survive market twists, and pitch innovative business models using the assets they acquired.",
+      image: e9,
       isFlagship: false,
+      slug: "empirex"
     },
   ];
 
@@ -68,10 +58,7 @@ const ECellEventsScroll = () => {
     (e) =>
       (showFlagships ? e.isFlagship : true) &&
       (e.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        e.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        e.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase()),
-        )),
+        e.description.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -146,7 +133,8 @@ const ECellEventsScroll = () => {
             filteredEvents.map((event, idx) => (
               <div
                 key={idx}
-                className="event-card flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative"
+                onClick={() => navigate(`/events/${event.slug}`)}
+                className="event-card flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative cursor-pointer hover:bg-[#333] transition-colors"
               >
                 {/* Image Block: Absolute Dimensions 256x256 */}
                 <div className="w-[256px] h-[256px] flex-shrink-0 bg-black overflow-hidden relative hidden sm:block">
@@ -154,20 +142,16 @@ const ECellEventsScroll = () => {
                   <img
                     src={event.image}
                     alt={event.name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
+                      event.slug === 'codered25' || event.slug === 'paneldiscussion'
+                        ? 'scale-[1.8] origin-top hover:scale-[1.9]'
+                        : 'hover:scale-105'
+                    }`}
                   />
                 </div>
 
                 {/* Content Area: Explicit 869x256 size constraints as requested */}
-                <div className="p-5 px-6 flex flex-col justify-between w-full sm:w-[869px] h-[256px]">
-                  {/* Top Metadata Row */}
-                  <div className="flex flex-row items-center justify-between w-full">
-                    <div className="flex flex-row items-center gap-3 text-[13px] tracking-tight">
-                      <span className="border border-white text-white px-2 py-[2px]">
-                        {event.date}
-                      </span>
-                    </div>
-                  </div>
+                <div className="p-5 px-6 flex flex-col justify-end w-full sm:w-[869px] h-[256px]">
 
                   {/* Event Description & Title Bottom Anchored */}
                   <div className="mt-auto mb-2 relative flex flex-col items-start text-left w-full">

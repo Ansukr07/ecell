@@ -23,8 +23,10 @@ import Home from "./Pages/Home";
 const Alumni = lazy(() => import("./Pages/Alumni"));
 const Gallery = lazy(() => import("./Pages/Gallery"));
 const Codered = lazy(() => import("./components/Events/Codered"));
+const Events = lazy(() => import("./components/Events/Events"));
 const Advert = lazy(() => import("./components/Events/Advert1"));
 const Spl = lazy(() => import("./components/Events/Spl"));
+const EmpireX = lazy(() => import("./components/Events/EmpireX"));
 const Spl2 = lazy(() => import("./components/Events/Spl2"));
 const CaseCrackers = lazy(() => import("./components/Events/CaseCrackers"));
 const Chitting = lazy(() => import("./components/Events/Chitting"));
@@ -170,9 +172,11 @@ function App() {
                       path="/admin/higher-lower"
                       element={<HigherLowerAdmin />}
                     />
+                    <Route path="/events" element={<Events />} />
                     <Route path="/events/codered25" element={<Codered />} />
-                    <Route path="/events/advert10" element={<Advert />} />
+                    <Route path="/events/advert20" element={<Advert />} />
                     <Route path="/events/spl" element={<Spl />} />
+                    <Route path="/events/empirex" element={<EmpireX />} />
                     <Route path="/events/spl3" element={<Spl2 />} />
                     <Route path="/spl3" element={<Spl2 />} />
                     <Route

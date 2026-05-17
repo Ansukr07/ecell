@@ -16,6 +16,7 @@ const PhoneMenu = ({
 
   const displayItems = [
     { label: "Home", to: "/" },
+    { label: "Events", to: "/events" },
     { label: "Gallery", to: "/gallery" },
     { label: "Team", to: "/team" },
     { label: "Alumni", to: "/alumni" },
