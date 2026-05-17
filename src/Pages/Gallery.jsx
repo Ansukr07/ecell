@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Footer from '../components/Footer/Footer';
 
 // Image Imports
@@ -53,8 +53,6 @@ const ALL_IMAGES = [
   img41, img42, img43,
 ];
 
-const INITIAL_COUNT = 12;
-const BATCH_SIZE = 8;
 const PRIORITY_COUNT = 4;
 
 const Gallery = () => {
@@ -74,26 +72,7 @@ const Gallery = () => {
     return galleryData;
   }, []);
 
-  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
-  const sentinelRef = useRef(null);
-
-  useEffect(() => {
-    if (!sentinelRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0]?.isIntersecting) return;
-        setVisibleCount((current) => {
-          if (current >= shuffledImages.length) return current;
-          return Math.min(current + BATCH_SIZE, shuffledImages.length);
-        });
-      },
-      { rootMargin: '300px 0px' }
-    );
-
-    observer.observe(sentinelRef.current);
-    return () => observer.disconnect();
-  }, [shuffledImages.length]);
+  const [visibleCount] = useState(shuffledImages.length);
 
   const visibleImages = useMemo(
     () => shuffledImages.slice(0, visibleCount),
@@ -182,7 +161,6 @@ const Gallery = () => {
               );
             })}
           </div>
-          <div ref={sentinelRef} className="h-1" aria-hidden="true" />
         </div>
 
 
