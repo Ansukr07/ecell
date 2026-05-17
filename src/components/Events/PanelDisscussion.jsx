@@ -24,14 +24,21 @@ const PanelDiscussion = () => {
 
   return (
     <EventDetailPage
-      title="PANEL"
-      titleLine2="DISCUSSION"
-      eventSubtitle="Feb 28, 2025 | Thought Leadership"
-      eventDetail="Industry panel discussion • 150+ attendees"
-      mainStatValue="150+"
-      mainStatLabel="Attendees"
-      statDetail="Expert Panelists: 5 | Duration: 2 Hours"
-      highlights={highlights}
+      title="Next Compass"
+      titleLine2="Navigating the New Universe"
+      eventSubtitle="Panel Discussion • 220+ participants"
+      eventDetail="Format: Interactive Panel Discussion"
+      mainStatValue="220+"
+      mainStatLabel="Participants"
+      statDetail=""
+      highlights={[
+        'Seniors shared real college experiences and practical guidance',
+        'Interactive Q&A on academics, internships, networking, and campus life',
+        'Insights on balancing GPA, extracurriculars, and mental health',
+        'Featured speakers including founders, interns, and student leaders',
+        'Encouraged mentorship and peer-to-peer learning culture',
+        'Actionable takeaways and "senior secrets" for students'
+      ]}
       images={images}
       imageGrid={imageGrid}
     />

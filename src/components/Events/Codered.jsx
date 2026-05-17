@@ -20,16 +20,18 @@ const CodeRed25 = () => {
     <EventDetailPage
       title="Code Red"
       titleLine2="3.0"
-      eventSubtitle="Feb 15, 2025 | National Level Hackathon"
-      eventDetail="Competitive programming • 247 participants"
-      mainStatValue="247"
-      mainStatLabel="Participants"
-      statDetail="Duration: 24 Hours | Winners: 3 Teams"
+      eventSubtitle="National Level Hackathon • 3000+ registrations"
+      eventDetail="National-level 24-hour overnight hackathon"
+      mainStatValue="3000+"
+      mainStatLabel="Registrations"
+      statDetail="Duration: 24 Hours | Finalists: 50 Teams"
       highlights={[
-        'Fast-paced 24-hour coding competition',
-        'Industry mentorship and guidance',
-        'Innovative solutions to real-world problems',
-        'Cash prizes and exciting challenges'
+        'National-level 24-hour overnight hackathon',
+        'Real-world problem statements aligned with SDGs',
+        '₹1,50,000 prize pool across multiple categories',
+        'Industry mentors and expert evaluation panels',
+        'Mid-night bonfire, networking, and collaboration sessions',
+        'Final presentations by top 8 teams and announcement of winners'
       ]}
       images={images}
       imageGrid={imageGrid}

@@ -30,12 +30,19 @@ const EmpireX = () => {
     <EventDetailPage
       title="EMPIRE"
       titleLine2="X"
-      eventSubtitle="Feb 20, 2025 | Business Simulation"
-      eventDetail="Business strategy game • 92 teams"
-      mainStatValue="92"
-      mainStatLabel="Teams"
-      statDetail="Rounds: 4 | Duration: 5 Hours"
-      highlights={highlights}
+      eventSubtitle="Business Simulation Competition"
+      eventDetail="EmpireX was a Monopoly-style business simulation event where participants built corporate empires through trading, negotiations, and market-based challenges. Teams competed to grow their net worth, survive market twists, and pitch innovative business models using the assets they acquired."
+      mainStatValue="3"
+      mainStatLabel="Competitive Rounds"
+      statDetail="Format: 3 Competitive Rounds"
+      highlights={[
+        'Monopoly-inspired business acquisition challenge',
+        'Strategic trading and asset management rounds',
+        'Market survival phase with volatility-based gameplay',
+        'Real-time business decision-making and negotiations',
+        'Startup MVP pitching before judges',
+        'Entrepreneurial learning through gamified competition'
+      ]}
       images={images}
       imageGrid={imageGrid}
     />
