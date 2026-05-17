@@ -18,11 +18,14 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("phone-menu-open");
     } else {
       document.body.style.overflow = "";
+      document.body.classList.remove("phone-menu-open");
     }
     return () => {
       document.body.style.overflow = "";
+      document.body.classList.remove("phone-menu-open");
     };
   }, [isOpen]);
 
@@ -76,8 +79,8 @@ export default function Navbar() {
     { to: "/team", label: "Team" },
     { to: "/alumni", label: "Alumni" },
     { to: "/word-of-the-day", label: "Word of the Day" },
-    { to: "/events/spl3", label: "SPL 3.0" },
     { to: "/build-your-idea", label: "Build Your Idea" },
+    { to: "/events/spl3", label: "SPL 3.0" },
   ];
 
   return (

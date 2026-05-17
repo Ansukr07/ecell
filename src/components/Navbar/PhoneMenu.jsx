@@ -22,7 +22,7 @@ const PhoneMenu = ({
     { label: "Alumni", to: "/alumni" },
     { label: "Word of the Day", to: "/word-of-the-day" },
     { label: "Build Your Idea", to: "/build-your-idea" },
-    { label: "Contact Us", to: "#footer", isScroll: true },
+    { label: "SPL 3.0", to: "/events/spl3" },
   ];
 
   const handleLinkClick = (e, item) => {
