@@ -141,6 +141,7 @@ export default function WordDetailPage() {
                                             <img
                                                 src={word.imageUrl}
                                                 alt={word.title}
+                                                loading="lazy"
                                                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />

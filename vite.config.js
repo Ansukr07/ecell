@@ -20,4 +20,22 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  build: {
+    // Optimize images in production
+    assetsInlineLimit: 8192, // Inline images smaller than 8KB
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.')
+          const ext = info[info.length - 1]
+          if (/png|jpe?g|gif|svg/.test(ext)) {
+            return `assets/images/[hash][extname]`
+          } else if (/woff|woff2|eot|ttf|otf/.test(ext)) {
+            return `assets/fonts/[hash][extname]`
+          }
+          return `assets/[hash][extname]`
+        },
+      },
+    },
+  },
 })
