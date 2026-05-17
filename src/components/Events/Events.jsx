@@ -34,7 +34,7 @@ const ECellEventsScroll = () => {
       description: "Startup Premier League (SPL) is an inter-college business strategy event featuring startup quizzes, IPL-style auctions, business simulations, and strategy pitching. The event tests creativity, teamwork, and decision-making in a fun and competitive environment.",
       image: s3,
       isFlagship: true,
-      slug: "spl"
+      slug: "spl3"
     },
     {
       name: "PANEL DISCUSSION",
@@ -143,7 +143,7 @@ const ECellEventsScroll = () => {
                     src={event.image}
                     alt={event.name}
                     className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
-                      event.slug === 'codered25' || event.slug === 'paneldiscussion'
+                      event.slug === 'codered25' || event.slug === 'paneldiscussion' || event.slug === 'empirex'
                         ? 'scale-[1.8] origin-top hover:scale-[1.9]'
                         : 'hover:scale-105'
                     }`}

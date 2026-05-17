@@ -1,5 +1,5 @@
 import React from 'react';
-import EventPageLayout from './EventPageLayout';
+import EventDetailPage from './EventDetailPage';
 
 const Chitting = () => {
   const highlights = [
@@ -9,15 +9,22 @@ const Chitting = () => {
     'A perfect blend of fun, competition, and learning',
   ];
 
-  const galleryImages = [
+  const images = [
     'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=500&h=300&fit=crop',
     'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500&h=300&fit=crop',
     'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=300&fit=crop',
     'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=500&h=300&fit=crop',
   ];
 
+  const imageGrid = images.map((img, idx) => ({
+    id: idx,
+    image: img,
+    title: `Chitting Moment ${idx + 1}`,
+    summary: 'From Chitting event',
+  }));
+
   return (
-    <EventPageLayout
+    <EventDetailPage
       title="CHITTING"
       titleLine2=""
       eventSubtitle="Apr 05, 2025 at 4 Hours"
@@ -26,7 +33,8 @@ const Chitting = () => {
       mainStatLabel="Participants"
       statDetail="Rounds: 4"
       highlights={highlights}
-      galleryImages={galleryImages}
+      images={images}
+      imageGrid={imageGrid}
     />
   );
 };

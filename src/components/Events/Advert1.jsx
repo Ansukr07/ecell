@@ -1,5 +1,5 @@
 import React from 'react';
-import SimpleEventGallery from './SimpleEventGallery';
+import EventDetailPage from './EventDetailPage';
 
 const Advert = () => {
   const images = [
@@ -9,11 +9,32 @@ const Advert = () => {
     'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=500&h=300&fit=crop',
   ];
 
+  const imageGrid = images.map((img, idx) => ({
+    id: idx,
+    image: img,
+    title: `Advert Moment ${idx + 1}`,
+    summary: 'From Advert 2.0 event',
+  }));
+
+  const highlights = [
+    'Creative advertising campaigns',
+    'Marketing strategy and execution',
+    'Brand storytelling and messaging',
+    'Showcase innovative marketing ideas'
+  ];
+
   return (
-    <SimpleEventGallery 
-      title="ADVERT" 
-      titleLine2="2.0" 
-      images={images} 
+    <EventDetailPage
+      title="ADVERT"
+      titleLine2="2.0"
+      eventSubtitle="Mar 15, 2025 | Creative Marketing"
+      eventDetail="Advertising competition • 45 teams"
+      mainStatValue="45"
+      mainStatLabel="Teams"
+      statDetail="Categories: 3 | Winners: 3 Teams"
+      highlights={highlights}
+      images={images}
+      imageGrid={imageGrid}
     />
   );
 };

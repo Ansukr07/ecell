@@ -1,30 +1,36 @@
 import React from 'react';
-import EventPageLayout from './EventPageLayout';
+import EventDetailPage from './EventDetailPage';
+import ripoff1 from './assets/ripoff/IMG_5513.JPG';
+import ripoff2 from './assets/ripoff/IMG_5537.JPG';
 
 const Ripoff = () => {
+  const images = [ripoff1, ripoff2];
+  const imageGrid = images.map((img, idx) => ({
+    id: idx,
+    image: img,
+    title: `Ripoff Moment ${idx + 1}`,
+    summary: 'From Ripoff event',
+  }));
+
   const highlights = [
     'Unleash your inner designer with reimagined products',
     'Better utility, design, or sustainability focus',
     'Unique competition challenging participants to rip off and improve',
-  ];
-
-  const galleryImages = [
-    'https://images.unsplash.com/photo-1561070791-2526d31cc5b5?w=500&h=300&fit=crop',
-    'https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop',
-    'https://images.unsplash.com/photo-1586717799252-22dcc255f70d?w=500&h=300&fit=crop',
+    'Showcase innovative redesigns and improvements'
   ];
 
   return (
-    <EventPageLayout
+    <EventDetailPage
       title="RIP"
       titleLine2="OFF"
-      eventSubtitle="Design competition"
+      eventSubtitle="Mar 5, 2025 | Design Competition"
       eventDetail="Reimagine products • 60 designers"
       mainStatValue="60"
       mainStatLabel="Designers"
-      statDetail=""
+      statDetail="Categories: 5 | Winners: 3 Teams"
       highlights={highlights}
-      galleryImages={galleryImages}
+      images={images}
+      imageGrid={imageGrid}
     />
   );
 };
