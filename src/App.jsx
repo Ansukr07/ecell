@@ -204,7 +204,7 @@ function App() {
               </motion.div>
             )}
           </AnimatePresence>
-          {!loading && !isSpl3 && (
+          {!loading && !isSpl3 && location.pathname !== "/team" && (
             <button
               type="button"
               role="switch"
