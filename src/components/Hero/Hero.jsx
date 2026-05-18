@@ -4,11 +4,11 @@ import bgimage from './assets/back.png';
 import img1 from './assets/img1.webp';
 import img2 from './assets/img2.webp';
 import img3 from './assets/img3.webp';
-import bmsitLogo from '../../assets/bmsit.png';
-import bicepLogo from '../../assets/bicep.png';
-import ecellLogo from '../../assets/ecell1.png';
-import ecellOrLogo from '../../assets/ecellor.png';
-import ecellLightLogo from '../../assets/ecell.png';
+import bmsitLogo from '../../assets/bmsit.webp';
+import bicepLogo from '../../assets/bicep.webp';
+import ecellLogo from '../../assets/ecell1.webp';
+import ecellOrLogo from '../../assets/ecellor.webp';
+import ecellLightLogo from '../../assets/ecell.webp';
 
 const cardConfig = [
   {
