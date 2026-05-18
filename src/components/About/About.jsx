@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import groupImg from '../../assets/group.png';
-import video1 from '../../assets/video1.mp4';
+import groupImg from '../../assets/group.webp';
+import video1 from '../../assets/video1.webm';
 
 const ScrollRevealText = ({ text, className }) => {
   const words = text.split(" ");

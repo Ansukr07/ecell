@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import bgimage from './assets/back.png';
-import img1 from './assets/img1.jpg';
-import img2 from './assets/img2.jpg';
-import img3 from './assets/img3.jpg';
+import img1 from './assets/img1.webp';
+import img2 from './assets/img2.webp';
+import img3 from './assets/img3.webp';
 import bmsitLogo from '../../assets/bmsit.png';
 import bicepLogo from '../../assets/bicep.png';
 import ecellLogo from '../../assets/ecell1.png';
