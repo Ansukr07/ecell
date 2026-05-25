@@ -1,4 +1,12 @@
 {
+  "faculty_coordinator": [
+    {
+      "name": "Prof. Archana K",
+      "position": "Faculty Coordinator",
+      "image": "./assets/team/archana.jpeg",
+      "socials": {}
+    }
+  ],
   "leadership": [
     {
       "name": "Maxson Mathew",

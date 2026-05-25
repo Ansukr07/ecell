@@ -16,7 +16,7 @@ const imageModules = import.meta.glob('./assets/team/*.{jpg,jpeg,png,JPG,HEIF}',
 /* ─────────────────────────────────────────
    TEAM MEMBER CARD (UNBOXED BORDERLESS STYLE)
 ───────────────────────────────────────── */
-const TeamMemberCard = ({ member }) => {
+const TeamMemberCard = ({ member, large = false }) => {
   const imageSrc = imageModules[member.image] || member.image;
 
   // Best effort to split name onto two lines per the reference image stylistic preference
@@ -25,7 +25,7 @@ const TeamMemberCard = ({ member }) => {
   const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
   return (
-    <div className="flex flex-col group cursor-pointer w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[6px]">
+    <div className={`flex flex-col group cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[6px] ${large ? 'w-65' : 'w-full'}`}>
 
       {/* Image box: Flush, borderless, matching 4:5 aspect ratio with red reveal hover */}
       <div className="w-full aspect-[4/5] bg-[#0a0000] overflow-hidden relative mb-4 shadow-sm group-hover:shadow-xl transition-shadow duration-500">
@@ -70,20 +70,20 @@ const TeamMemberCard = ({ member }) => {
 /* ─────────────────────────────────────────
    TEAM SECTION GROUP
 ───────────────────────────────────────── */
-const TeamSectionGroup = ({ title, members, isLast, showDivider = true }) => {
+const TeamSectionGroup = ({ title, members, isLast, showDivider = true, centered = false }) => {
   if (!members || members.length === 0) return null;
   return (
-    <div className={`${isLast ? 'mb-0' : 'mb-20 md:mb-32 lg:mb-34'} w-full`}>
+    <div className={`${isLast ? 'mb-0' : 'mb-20 md:mb-32 lg:mb-34'} w-full ${centered ? 'flex flex-col items-center text-center' : ''}`}>
       {/* Subtle Divider Line */}
       {showDivider && <div className="w-full h-[1px] bg-white/10 mb-12" />}
 
       <h2
-        className="text-white text-3xl md:text-6xl lg:text-7xl font-bold uppercase mt-16 md:mt-24 mb-16 md:mb-28 tracking-tighter"
+        className={`text-white text-3xl md:text-6xl lg:text-7xl font-bold uppercase mt-16 md:mt-24 mb-16 md:mb-28 tracking-tighter ${centered ? 'text-center' : ''}`}
         style={{ fontFamily: "'Nhass', sans-serif" }}
       >
         {title}
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-16 lg:gap-x-10 lg:gap-y-20">
+      <div className={`grid gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-16 lg:gap-x-10 lg:gap-y-20 ${centered ? 'grid-cols-1 place-items-center' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full'}`}>
         {members.map((member, idx) => (
           <motion.div
             key={idx}
@@ -92,7 +92,7 @@ const TeamSectionGroup = ({ title, members, isLast, showDivider = true }) => {
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <TeamMemberCard member={member} />
+            <TeamMemberCard member={member} large={centered} />
           </motion.div>
         ))}
       </div>
@@ -202,25 +202,28 @@ const TeamPage = () => {
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-20 lg:px-40 relative z-10 w-full flex flex-col items-start pt-6 md:pt-18">
 
-          {/* 1. Leadership */}
-          <TeamSectionGroup title="Leadership" members={teamData.leadership} showDivider={false} />
+          {/* 1. Faculty Coordinator */}
+          <TeamSectionGroup title="Faculty Coordinator" members={teamData.faculty_coordinator} showDivider={false} centered={true} />
 
-          {/* 2. Tech Team */}
+          {/* 2. Leadership */}
+          <TeamSectionGroup title="Leadership" members={teamData.leadership} />
+
+          {/* 3. Tech Team */}
           <TeamSectionGroup title="Tech Team" members={teamData.tech_team} />
 
-          {/* 3. Design Team */}
+          {/* 4. Design Team */}
           <TeamSectionGroup title="Design Team" members={teamData.design_team} />
 
-          {/* 4. Media & Marketing */}
+          {/* 5. Media & Marketing */}
           <TeamSectionGroup title="Media & Marketing" members={teamData.media_marketing} />
 
-          {/* 5. Events & Ops */}
+          {/* 6. Events & Ops */}
           <TeamSectionGroup title="Events & Ops" members={teamData.events_ops} />
 
-          {/* 6. Corporate Relations */}
+          {/* 7. Corporate Relations */}
           <TeamSectionGroup title="Corporate Relations" members={teamData.corporate_relations} />
 
-          {/* 7. Content Team */}
+          {/* 8. Content Team */}
           <TeamSectionGroup title="Content Team" members={teamData.content_team} isLast />
 
         </div>
