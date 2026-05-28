@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import bgimage from './assets/back.png';
 import img1 from './assets/img1.webp';
 import img2 from './assets/img2.webp';
 import img3 from './assets/img3.webp';
@@ -45,6 +44,23 @@ const ECellHero = () => {
   const [cardAnimation, setCardAnimation] = useState(0);
 
   useEffect(() => {
+    const preloaded = cardConfig.map((card) => {
+      const img = new Image();
+      img.src = card.imageUrl;
+      if (img.decode) {
+        img.decode().catch(() => {});
+      }
+      return img;
+    });
+
+    return () => {
+      preloaded.forEach((img) => {
+        img.src = "";
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     const timer1 = setTimeout(() => setAnimationStage(1), 500);
     const timer2 = setTimeout(() => setAnimationStage(2), 2500);
     const timer3 = setTimeout(() => setAnimationStage(3), 4000);
@@ -72,6 +88,9 @@ const ECellHero = () => {
             src={card.imageUrl}
             alt={card.imageAlt || "Card image"}
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
         )}
       </div>

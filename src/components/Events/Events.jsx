@@ -3,10 +3,10 @@ import { Search, ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import image18 from "../../assets/image18.webp";
-import s3 from "../../assets/s3.jpg";
-import e9 from "../../assets/e9.jpg";
-import p1 from "../../assets/p1.jpg";
-import image2 from "../../assets/image2.jpg";
+import s3Webp from "../../assets/s3.webp";
+import s3Avif from "../../assets/s3.avif";
+import e9 from "../../assets/e9.webp";
+import p1 from "../../assets/p1.webp";
 
 const ECellEventsScroll = () => {
   const [showFlagships, setShowFlagships] = useState(false);
@@ -35,7 +35,8 @@ const ECellEventsScroll = () => {
       displayName: "SPL 3.0",
       description: "Startup Premier League (SPL) is an inter-college business strategy event featuring startup quizzes, IPL-style auctions, business simulations, and strategy pitching. The event tests creativity, teamwork, and decision-making in a fun and competitive environment.",
       shortDescription: "Business strategy event with quizzes, auctions, and simulations.",
-      image: s3,
+      image: s3Webp,
+      imageAvif: s3Avif,
       isFlagship: true,
       slug: "spl3",
       date: "25-04-2026"
@@ -138,52 +139,74 @@ const ECellEventsScroll = () => {
               No events found containing "{searchQuery}".
             </div>
           ) : (
-            filteredEvents.map((event, idx) => (
-              <div
-                key={idx}
-                onClick={() => navigate(`/events/${event.slug}`)}
-                className="event-card flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative cursor-pointer hover:bg-[#333] transition-colors"
-              >
-                {/* Image Block: Absolute Dimensions 256x256 */}
-                <div className="w-[256px] h-[256px] flex-shrink-0 bg-black overflow-hidden relative hidden sm:block">
-                  {/* Dynamically seeded image replacement to ensure diverse block visuals */}
-                  <img
-                    src={event.image}
-                    alt={event.name}
-                    className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
-                      event.slug === 'codered25' || event.slug === 'paneldiscussion' || event.slug === 'empirex'
-                        ? 'scale-[1.8] origin-top hover:scale-[1.9]'
-                        : 'hover:scale-105'
-                    }`}
-                  />
-                </div>
+            filteredEvents.map((event, idx) => {
+              const imageClassName = `absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
+                event.slug === 'codered25' || event.slug === 'paneldiscussion' || event.slug === 'empirex'
+                  ? 'scale-[1.8] origin-top hover:scale-[1.9]'
+                  : 'hover:scale-105'
+              }`;
 
-                {/* Content Area: Explicit 869x256 size constraints as requested */}
-                <div className="p-5 px-6 flex flex-col justify-between w-full sm:w-[869px] h-[256px]">
-                  {/* Top Metadata Row */}
-                  <div className="flex flex-row items-center justify-between w-full">
-                    <div className="flex flex-row items-center gap-3 text-[13px] tracking-tight">
-                      {event.date && (
-                        <span className="border border-white text-white px-2 py-[2px]">
-                          {event.date}
-                        </span>
-                      )}
+              return (
+                <div
+                  key={idx}
+                  onClick={() => navigate(`/events/${event.slug}`)}
+                  className="event-card flex flex-col sm:flex-row w-full sm:w-[1125px] bg-[#292929] overflow-hidden relative cursor-pointer hover:bg-[#333] transition-colors"
+                >
+                  {/* Image Block: Absolute Dimensions 256x256 */}
+                  <div className="w-[256px] h-[256px] flex-shrink-0 bg-black overflow-hidden relative hidden sm:block">
+                    {/* Dynamically seeded image replacement to ensure diverse block visuals */}
+                    {event.imageAvif ? (
+                      <picture>
+                        <source srcSet={event.imageAvif} type="image/avif" />
+                        <source srcSet={event.image} type="image/webp" />
+                        <img
+                          src={event.image}
+                          alt={event.name}
+                          className={imageClassName}
+                          loading="lazy"
+                          fetchPriority="low"
+                          decoding="async"
+                        />
+                      </picture>
+                    ) : (
+                      <img
+                        src={event.image}
+                        alt={event.name}
+                        className={imageClassName}
+                        loading="lazy"
+                        fetchPriority="low"
+                        decoding="async"
+                      />
+                    )}
+                  </div>
+
+                  {/* Content Area: Explicit 869x256 size constraints as requested */}
+                  <div className="p-5 px-6 flex flex-col justify-between w-full sm:w-[869px] h-[256px]">
+                    {/* Top Metadata Row */}
+                    <div className="flex flex-row items-center justify-between w-full">
+                      <div className="flex flex-row items-center gap-3 text-[13px] tracking-tight">
+                        {event.date && (
+                          <span className="border border-white text-white px-2 py-[2px]">
+                            {event.date}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Event Description & Title Bottom Anchored */}
+                    <div className="relative flex flex-col items-start text-left w-full">
+                      <h3 className="text-[36px] font-normal tracking-tight text-white mb-0 leading-tight text-left">
+                        {event.displayName}
+                      </h3>
+                      <p className="text-[#888] text-[15px] font-normal tracking-tight max-w-2xl mt-1 text-left event-description-mobile">
+                        <span className="hidden sm:inline">{event.description}</span>
+                        <span className="sm:hidden">{event.shortDescription}</span>
+                      </p>
                     </div>
                   </div>
-
-                  {/* Event Description & Title Bottom Anchored */}
-                  <div className="relative flex flex-col items-start text-left w-full">
-                    <h3 className="text-[36px] font-normal tracking-tight text-white mb-0 leading-tight text-left">
-                      {event.displayName}
-                    </h3>
-                    <p className="text-[#888] text-[15px] font-normal tracking-tight max-w-2xl mt-1 text-left event-description-mobile">
-                      <span className="hidden sm:inline">{event.description}</span>
-                      <span className="sm:hidden">{event.shortDescription}</span>
-                    </p>
-                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>
