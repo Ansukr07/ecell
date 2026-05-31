@@ -117,12 +117,14 @@ const ECellEventsScroll = () => {
         >
           <h1 
             className="event-primary-text font-bold tracking-tighter max-w-[420px]"
-            style={{ fontSize: "clamp(32px, 4vw, 64px)", lineHeight: "1.15", textAlign: "justify", textAlignLast: "justify" }}
+            style={{ fontSize: "clamp(32px, 4vw, 64px)", lineHeight: "1.15", wordSpacing: "0.3em" }}
           >
-            <div className="w-full">Build the future,</div>
-            <div className="w-full">see what's next</div>
+            Where Ideas <br /> Came Alive
           </h1>
-          <p className="event-subtext text-[15px] md:text-[17px] leading-[1.6] max-w-[420px] font-normal mt-2 text-justify">
+          <p 
+            className="event-subtext text-[15px] md:text-[17px] leading-[1.6] max-w-[420px] font-normal mt-2 text-justify"
+            style={{ fontFamily: "'Avalon', sans-serif" }}
+          >
             From startup mixers and founder workshops to pitch days and hackathons. Whether you're looking to build, network, or just explore the world of entrepreneurship, there's something here for you.
           </p>
 
