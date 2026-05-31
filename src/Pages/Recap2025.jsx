@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Phone, Instagram, Linkedin, Globe, MessageCircle, Twitter, Mail } from "lucide-react";
 import teamImage from "./assets/recap/image.png";
 import coderedImage from "./assets/recap/codered.png";
 import websiteImage from "./assets/recap/website.png";
+import flowerImg from "./assets/recap/flower.png";
+import tornPaperImg from "./assets/recap/torn-paper.png";
+import cardFrameImg from "./assets/recap/card-frame.png";
 import VintageImage from "../components/VintageImage";
 import { StaggeredGrid } from "../components/ui/staggered-grid";
 import { SmoothScroll } from "../components/ui/smooth-scroll";
@@ -34,6 +37,196 @@ import img29 from "../assets/image29.jpg";
 import img31 from "../assets/image31.jpg";
 import img33 from "../assets/image33.jpg";
 import img35 from "../assets/image35.jpg";
+import ecellLogo from "../assets/ecellor.png";
+import ecellIllustration from "../assets/ecell_illustration_transparent.png";
+
+const waveSvg = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath d='M0,500 Q 125,650 250,500 T 500,500 Q 625,650 750,500 T 1000,500 L1000,1000 L0,1000 Z' fill='%2318181b'/%3E%3C/svg%3E`;
+
+const ScrollWord = ({ children, progress, range }) => {
+  const fillProgress = useTransform(progress, range, ["0%", "100%"]);
+  return (
+    <span className="relative inline-block mr-[0.25em] last:mr-0 pb-2">
+      {/* Outline */}
+      <span className="text-transparent" style={{ WebkitTextStroke: "1px #18181b" }}>{children}</span>
+      {/* Wavy Liquid Fill overlay */}
+      <motion.span 
+        className="absolute left-0 top-0 w-full h-full text-transparent animate-text-wave" 
+        style={{ 
+          backgroundImage: `url("${waveSvg}")`,
+          backgroundSize: '200% 200%',
+          backgroundRepeat: 'repeat-x',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          backgroundPositionY: fillProgress,
+          color: 'transparent',
+        }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+};
+
+const ScrollFillText = ({ text }) => {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start 90%", "start 20%"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 25,
+    restDelta: 0.001
+  });
+
+  const words = text.split(" ");
+  return (
+    <>
+      <style>{`
+        @keyframes textWave {
+          0% { background-position-x: 0%; }
+          100% { background-position-x: 100%; }
+        }
+        .animate-text-wave {
+          animation: textWave 3s linear infinite;
+        }
+      `}</style>
+      <h2 ref={container} className="text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase flex flex-wrap">
+        {words.map((word, i) => {
+          const start = i / words.length;
+          const end = start + (1 / words.length);
+          return (
+            <ScrollWord key={i} range={[start, end]} progress={smoothProgress}>
+              {word}
+            </ScrollWord>
+          );
+        })}
+      </h2>
+    </>
+  );
+};
+const Balloon = ({ delay, left, size = 40, color = "#2d2b27" }) => {
+  const swayAmount = Math.random() * 40 - 20;
+  return (
+    <motion.div
+      initial={{ y: 50, opacity: 0, scale: 0.5, rotate: 0 }}
+      whileInView={{ 
+        y: -400, 
+        x: [0, swayAmount, -swayAmount, swayAmount * 0.5], 
+        opacity: [0, 1, 1, 0], 
+        scale: 1,
+        rotate: [0, swayAmount > 0 ? 5 : -5, swayAmount > 0 ? -5 : 5, 0] 
+      }}
+      viewport={{ once: true }}
+      transition={{ duration: 3, delay: delay, ease: "easeOut", times: [0, 0.3, 0.6, 1] }}
+      className="absolute flex flex-col items-center z-0"
+      style={{ left }}
+    >
+      <svg width={size} height={size * 1.375} viewBox="0 0 40 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 0C8.9543 0 0 9.85 0 22C0 34.15 8.9543 44 20 44C31.0457 44 40 34.15 40 22C40 9.85 31.0457 0 20 0Z" fill={color}/>
+        <path d="M15 44H25L20 50L15 44Z" fill={color}/>
+      </svg>
+      <div className="w-[1px] h-16 bg-black/20" />
+    </motion.div>
+  );
+};
+
+const ConfettiPiece = ({ delay }) => {
+  const angle = Math.random() * Math.PI * 2;
+  const velocity = 50 + Math.random() * 200;
+  const targetX = Math.cos(angle) * velocity;
+  const targetY = Math.sin(angle) * velocity;
+  const isCircle = Math.random() > 0.5;
+  const color = ["bg-zinc-800", "bg-zinc-600", "bg-zinc-400"][Math.floor(Math.random() * 3)];
+  return (
+    <motion.div
+      initial={{ x: 0, y: 0, opacity: 0, scale: 0, rotate: 0 }}
+      whileInView={{ 
+        x: targetX, 
+        y: [0, targetY, targetY + 150], 
+        opacity: [0, 1, 1, 0],
+        scale: [0, 1, 1, 0.5],
+        rotate: 360 * Math.random()
+      }}
+      viewport={{ once: true }}
+      transition={{ duration: 1.5 + Math.random(), delay: delay, times: [0, 0.4, 0.8, 1], ease: "easeOut" }}
+      className={`absolute w-2 h-2 md:w-3 md:h-3 ${color} ${isCircle ? 'rounded-full' : 'rounded-sm'} z-0`}
+    />
+  );
+};
+
+const DustParticle = ({ delay }) => {
+  const startX = (Math.random() - 0.5) * 400;
+  const endY = -150 - Math.random() * 200;
+  return (
+    <motion.div
+      initial={{ x: startX, y: 0, opacity: 0, scale: Math.random() * 0.5 + 0.5 }}
+      whileInView={{ 
+        y: endY, 
+        x: startX + (Math.random() * 100 - 50),
+        opacity: [0, 0.8, 0] 
+      }}
+      viewport={{ once: true }}
+      transition={{ duration: 3 + Math.random() * 2, delay: delay, ease: "linear" }}
+      className="absolute w-2 h-2 rounded-full bg-zinc-500 blur-[1px] mix-blend-multiply z-0 pointer-events-none"
+    />
+  );
+};
+
+const TiltCard = ({ children, rotation }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: "-50px" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={`group relative flex flex-col items-center justify-center transition-transform duration-500 hover:scale-[1.05] hover:z-20 mb-8 ${rotation}`} 
+      style={{ perspective: "1000px" }}
+    >
+      <motion.div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="w-full h-full relative flex items-center justify-center cursor-pointer"
+      >
+        {/* Invisible overlay to catch mouse events over the entire card area */}
+        <div className="absolute inset-0 z-[100]" />
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const Recap2025 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,6 +261,7 @@ const Recap2025 = () => {
         backgroundBlendMode: "overlay, normal"
       }}
     >
+
       {/* Vignette & Scanline Overlay - Fixed to viewport */}
       <div className="pointer-events-none fixed inset-0 z-50 shadow-[inset_0_0_120px_rgba(0,0,0,0.4)] md:shadow-[inset_0_0_200px_rgba(0,0,0,0.5)] mix-blend-multiply"></div>
       <div
@@ -214,7 +408,7 @@ const Recap2025 = () => {
       </div>
 
       {/* Rest of Content - with padding */}
-      <div className="px-6 md:px-16 pb-32 max-w-screen-2xl mx-auto">
+      <div className="px-6 md:px-16 max-w-screen-2xl mx-auto">
         <main className="w-full">
           {/* Massive Headline */}
 
@@ -360,95 +554,46 @@ const Recap2025 = () => {
           </section>
 
           {/* Farewell Section */}
-          <section id="farewell-section" className="mb-32 px-4 max-w-[90rem] mx-auto">
-            <div className="border-t-2 border-b-2 border-zinc-900 py-8 mb-16 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-              <h2 className="text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase text-zinc-900">The Farewell Chronicle</h2>
+          <section id="farewell-section" className="mb-32 px-4 max-w-[90rem] mx-auto relative mt-20">
+            {/* Decorative Elements */}
+            <img src={flowerImg} alt="decorative flower" className="absolute -top-4 md:-top-8 -left-12 md:-left-32 w-32 md:w-56 pointer-events-none mix-blend-multiply opacity-90 z-0 rotate-[20deg]" />
+
+            <div className="border-t-2 border-b-2 border-zinc-900 py-8 mb-16 flex flex-col md:flex-row md:items-baseline justify-between gap-4 relative z-10">
+              <ScrollFillText text="The Farewell Chronicle" />
               <p className="font-sans text-xs tracking-[0.2em] uppercase text-zinc-500 font-medium">Class of 2025–26</p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-16 relative z-10">
               {[
-                { name: "Maxson Mathew", img: maxsonImg },
-                { name: "Mohit Monnappa T N", img: mohitImg, imgClass: "scale-[1.18] object-[center_10%]" },
-                { name: "Nishitha Bodipati", img: nishithaImg },
-                { name: "Gaganjith R", img: gaganjithImg },
-                { name: "Shriya Chowdary", img: shriyaImg },
-                { name: "Atul Kumar", img: atulImg },
-                { name: "Tirth Panchori", img: tirthImg },
-                { name: "Akhilesh Pachnanda", img: akhileshImg },
-
+                { name: "Maxson Mathew", img: maxsonImg, rotation: "-rotate-2" },
+                { name: "Mohit Monnappa T N", img: mohitImg, imgClass: "scale-[1.1] object-top origin-top", rotation: "rotate-2" },
+                { name: "Nishitha Bodipati", img: nishithaImg, rotation: "rotate-3" },
+                { name: "Gaganjith R", img: gaganjithImg, rotation: "-rotate-2" },
+                { name: "Shriya Chowdary", img: shriyaImg, rotation: "rotate-2" },
+                { name: "Atul Kumar", img: atulImg, rotation: "rotate-1" },
+                { name: "Tirth Panchori", img: tirthImg, rotation: "-rotate-3" },
+                { name: "Akhilesh Pachnanda", img: akhileshImg, rotation: "rotate-2" },
               ].map((person, i) => (
-                <div key={i} className="group flex flex-col items-center">
-                  {/* Polaroid Frame */}
-                  <div className="bg-[#faf9f6] p-3 md:p-4 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-500 w-full relative mb-6 border border-zinc-200/50 flex flex-col">
-                    {/* Inner Photo container */}
-                    <div className="aspect-[4/5] w-full overflow-hidden bg-zinc-200 relative grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 shadow-inner mb-4">
+                <TiltCard key={i} rotation={person.rotation}>
+                  {/* Frame Image */}
+                  <img src={cardFrameImg} alt="Card Frame" draggable="false" className="w-full h-auto drop-shadow-xl z-10 pointer-events-none" />
+                  
+                  {/* Photo (Behind the transparent hole) */}
+                  <div className="absolute overflow-hidden -z-10 bg-[#2a231a] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100" style={{ top: '10%', bottom: '13%', left: '8%', right: '8%', transform: 'translateZ(-1px)' }}>
                       <img
                         src={person.img}
                         alt={person.name}
-                        className={`w-full h-full object-cover mix-blend-multiply opacity-90 transition-transform duration-500 ${person.imgClass || ""}`}
+                        className={`w-full h-full object-cover ${person.imgClass || ""}`}
                       />
-                      {/* Subtle inner border to frame the photo like a real polaroid */}
-                      <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
-                    </div>
-                    {/* Name inside frame */}
-                    <div className="w-full text-center pb-2 md:pb-4 pt-1">
-                      <h3
-                        className="text-lg md:text-lg font-bold tracking-tight text-zinc-900 leading-snug uppercase"
-                        style={{ fontFamily: "'Robit', sans-serif" }}
-                      >
+                  </div>
+
+                  {/* Name text (Overlapping bottom paper border) */}
+                  <div className="absolute bottom-[5.5%] md:bottom-[6.5%] w-full text-center px-2 z-50" style={{ transform: 'translateZ(10px)' }}>
+                      <p className="text-[0.7rem] md:text-[0.85rem] font-['Nhass'] tracking-[0.15em] font-bold leading-snug uppercase preserve-color opacity-90" style={{ color: '#1a140f', textShadow: '0px 1px 1px rgba(255, 255, 255, 0.6), 0px -1px 1px rgba(0, 0, 0, 0.3)' }}>
                         {person.name}
-                      </h3>
-                    </div>
+                      </p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Join The Network Section */}
-          <section id="network-section" className="mb-32 px-4">
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-4 text-zinc-400 uppercase tracking-widest text-xs md:text-sm mb-8">
-                <span className="w-16 h-[1px] bg-zinc-400"></span>
-                <span className="flex gap-1">
-                  <span className="w-1.5 h-1.5 bg-zinc-400 inline-block rotate-45"></span>
-                  <span className="w-1.5 h-1.5 bg-zinc-400 inline-block rotate-45"></span>
-                  <span className="w-1.5 h-1.5 bg-zinc-400 inline-block rotate-45"></span>
-                </span>
-                <span className="w-16 h-[1px] bg-zinc-400"></span>
-              </div>
-              <h2 className="text-6xl md:text-[8rem] leading-none font-black uppercase tracking-tighter mb-6 font-sans scale-y-125 origin-bottom">JOIN THE NETWORK</h2>
-              <p className="tracking-[0.3em] text-sm md:text-base uppercase text-zinc-500 font-medium">Connect With Us</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-              {[
-                { name: "INSTAGRAM", handle: "@ecell.bmsit", icon: Instagram, href: "https://www.instagram.com/ecell.bmsit" },
-                { name: "LINKEDIN", handle: "E-Cell BMSIT", icon: Linkedin, href: "https://www.linkedin.com/company/ecellbmsit" },
-                { name: "WEBSITE", handle: "ecellbmsit.com", icon: Globe, href: "/" },
-                { name: "WHATSAPP", handle: "Community Group", icon: MessageCircle, href: "https://chat.whatsapp.com/L5GdDKv23ikGUTposaqLDV" }
-              ].map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative block aspect-[4/3] w-full border-[1.5px] border-black bg-transparent hover:bg-black hover:text-white transition-all duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000] cursor-pointer p-8 flex flex-col items-center justify-center text-black"
-                >
-                  {/* Corner Brackets */}
-                  <div className="absolute top-3 left-3 w-2 h-2 border-t-[1.5px] border-l-[1.5px] border-current opacity-100"></div>
-                  <div className="absolute top-3 right-3 w-2 h-2 border-t-[1.5px] border-r-[1.5px] border-current opacity-100"></div>
-                  <div className="absolute bottom-3 left-3 w-2 h-2 border-b-[1.5px] border-l-[1.5px] border-current opacity-100"></div>
-                  <div className="absolute bottom-3 right-3 w-2 h-2 border-b-[1.5px] border-r-[1.5px] border-current opacity-100"></div>
-
-                  <div className="mb-6 rounded-full border-[1.5px] border-current w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <social.icon strokeWidth={1.5} className="w-6 h-6" />
-                  </div>
-
-                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-wider mb-2 font-serif">{social.name}</h3>
-                  <p className="font-mono text-xs tracking-tight text-zinc-500 group-hover:text-zinc-400">{social.handle}</p>
-                </a>
+                </TiltCard>
               ))}
             </div>
           </section>
@@ -481,12 +626,37 @@ const Recap2025 = () => {
 
               {/* 2026 */}
               <motion.div
-                initial={{ opacity: 0, y: -40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: -200, scale: 1.1 }}
+                whileInView={{ 
+                  opacity: 1, 
+                  y: [-200, 0, 15, -10, 5, 0],
+                  scale: [1.1, 1, 1, 1, 1, 1] 
+                }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
-                className="text-[8rem] md:text-[15rem] leading-none font-black text-[#2d2b27] font-sans tracking-tighter -mt-16 md:-mt-28 z-20"
+                transition={{ 
+                  duration: 1.0, 
+                  delay: 1.2, 
+                  times: [0, 0.6, 0.7, 0.8, 0.9, 1],
+                  ease: "easeInOut" 
+                }}
+                className="relative text-[8rem] md:text-[15rem] leading-none font-black text-[#2d2b27] font-sans tracking-tighter -mt-16 md:-mt-28 z-20"
               >
+                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-0 h-0 -z-10 pointer-events-none flex justify-center items-center">
+                  {/* Confetti Burst */}
+                  {[...Array(30)].map((_, i) => <ConfettiPiece key={`confetti-${i}`} delay={1.8} />)}
+                  
+                  {/* Rising Impact Dust */}
+                  {[...Array(15)].map((_, i) => <DustParticle key={`dust-${i}`} delay={1.8 + Math.random() * 0.2} />)}
+                </div>
+
+                <div className="absolute top-1/2 left-0 w-full h-10 -z-10 pointer-events-none flex justify-center">
+                  {/* Balloons with Organic Sway */}
+                  <Balloon delay={1.85} left="10%" size={35} color="#403c36" />
+                  <Balloon delay={2.0} left="30%" size={50} color="#2d2b27" />
+                  <Balloon delay={1.9} left="50%" size={40} color="#59544c" />
+                  <Balloon delay={2.1} left="70%" size={45} color="#2d2b27" />
+                  <Balloon delay={1.8} left="85%" size={30} color="#403c36" />
+                </div>
                 2026
               </motion.div>
 
