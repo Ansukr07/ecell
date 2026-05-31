@@ -59,13 +59,9 @@ const NavigationWatcher = ({ setLoading, setShowContent, setDisplayLocation }) =
     // Only trigger if path actually changed and it's not the initial mount
     // And if it's a desktop view (optional, but requested "in desktop view")
     if (prevPath.current !== location.pathname) {
-      if (window.innerWidth > 768) {
-        setLoading(true);
-        setShowContent(false);
-      } else {
-        setDisplayLocation(location);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      setLoading(true);
+      setShowContent(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       prevPath.current = location.pathname;
     }
   }, [location, setLoading, setShowContent, setDisplayLocation]);

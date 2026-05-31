@@ -81,7 +81,7 @@ const EventDetailPage = ({
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black pb-20 overflow-hidden">
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black overflow-hidden">
       
       {/* Hero Section - Playful Typography & Fanning Cards */}
       <section className="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col items-center text-center relative">
