@@ -1,319 +1,121 @@
-/* Events.css */
-.events-section {
-  padding: 80px 0;
-  background-color: #f9f9f9;
-  position: relative;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap');
+
+#events {
+  background-color: #000000;
 }
 
-.events-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+#events .event-primary-text {
+  color: #EEEEEE;
+  font-family: 'Outfit', sans-serif;
 }
 
-.events-container.visible {
-  opacity: 1;
-  transform: translateY(0);
+#events .event-card {
+  background-color: #000000;
 }
 
-.events-header {
-  text-align: center;
-  margin-bottom: 60px;
+#events .event-content-bg {
+  background-color: #000000;
 }
 
-.section-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #1a1a1a;
+#events .event-card-border {
+  border-color: #EEEEEE;
 }
 
-.highlight {
-  color: #2c6e49; /* Entrepreneurship theme color - adjust as needed */
+#events .event-btn-active {
+  background-color: #EEEEEE;
+  color: #111111;
 }
 
-.section-description {
-  font-size: 18px;
-  color: #555;
-  max-width: 700px;
-  margin: 0 auto;
+#events .event-btn-inactive {
+  color: #EEEEEE;
+  background-color: transparent !important;
 }
 
-/* Events Gallery */
-.events-gallery {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 40px;
+#events .event-btn-inactive:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.events-showcase {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+#events .event-badge {
+  background-color: #000000;
+  color: #EEEEEE;
 }
 
-.event-main {
-  width: 100%;
-  height: 450px;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+#events .event-footer-btn {
+  background-color: #EEEEEE;
+  color: #000000;
 }
 
-.event-image {
-  width: 100%;
-  height: 100%;
-  position: relative;
+#events .event-subtext {
+  color: #BBBBBB;
 }
 
-.event-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+#events .event-image-bg {
+  background-color: #111111;
 }
 
-.event-main:hover .event-image img {
-  transform: scale(1.05);
+#events .event-image-bg img {
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: cover !important;
 }
 
-.event-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  padding: 30px;
-  box-sizing: border-box;
-  color: #fff;
+/* Light Theme Overrides (Pixel Perfect to Screenshot) */
+.light-theme #events {
+  background-color: #FFFFFF !important;
 }
 
-.event-details {
-  max-width: 600px;
+.light-theme #events .event-primary-text {
+  color: #111111 !important;
 }
 
-.event-details h3 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
+.light-theme #events .event-card {
+  background-color: #F5F5F5 !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 
-.event-date {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #eee;
+.light-theme #events .event-content-bg {
+  background-color: #F5F5F5 !important;
 }
 
-.event-location {
-  font-size: 16px;
-  margin-bottom: 16px;
-  color: #eee;
+.light-theme #events .event-card-border {
+  border-color: #111111 !important;
 }
 
-.event-button {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #2c6e49;
-  color: white;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  margin-top: 16px;
+.light-theme #events .event-btn-active {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
 }
 
-.event-button:hover {
-  background-color: #1f4d33;
-  transform: translateY(-2px);
+.light-theme #events .event-btn-inactive {
+  color: #111111 !important;
+  background-color: transparent !important;
 }
 
-/* Thumbnails */
-.event-thumbnails {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding: 10px 0;
-  scrollbar-width: thin;
+.light-theme #events .event-btn-inactive:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-.event-thumb {
-  min-width: 150px;
-  height: 100px;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: all 0.3s ease;
+.light-theme #events .event-badge {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
 }
 
-.event-thumb.active {
-  opacity: 1;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transform: translateY(-5px);
+.light-theme #events .event-footer-btn {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
 }
 
-.event-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.light-theme #events .event-subtext {
+  color: #111111 !important;
 }
 
-.thumb-title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  font-size: 12px;
-  text-align: center;
-  box-sizing: border-box;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.light-theme #events .event-image-bg {
+  background-color: #EEEEEE !important;
 }
 
-/* Mobile Events Cards */
-.events-mobile {
-  display: none;
-}
-
-/* Event Card Styles */
-.event-card {
-  margin-bottom: 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: white;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.event-card-image {
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-}
-
-.event-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.event-card:hover .event-card-image img {
-  transform: scale(1.05);
-}
-
-.event-card-date {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: #2c6e49;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.event-card-content {
-  padding: 20px;
-}
-
-.event-card-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #1a1a1a;
-}
-
-.event-card-location {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 12px;
-}
-
-.event-card-description {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
-}
-
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .event-main {
-    height: 400px;
-  }
-}
-
-@media (max-width: 768px) {
-  .events-gallery {
-    display: none;
-  }
-  
-  .events-mobile {
-    display: block;
-  }
-  
-  .event-card {
-    max-width: 500px;
-    margin: 0 auto 30px;
-  }
-  
-  .section-title {
-    font-size: 30px;
-  }
-  
-  .section-description {
-    font-size: 16px;
-  }
-
-  .event-description-mobile {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 1 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-}
-
-@media (max-width: 640px) {
-  .event-description-mobile {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 1 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .events-section {
-    padding: 50px 0;
-  }
-  
-  .events-header {
-    margin-bottom: 30px;
-  }
-  
-  .event-card-image {
-    height: 180px;
-  }
-  
-  .event-card-content {
-    padding: 15px;
-  }
+/* Fix global image invert for this specific component */
+.light-theme #events img {
+  filter: none !important;
 }

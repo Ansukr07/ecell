@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Footer from '../Footer/Footer';
+import { X, MoveRight } from 'lucide-react';
+import ecellLogo from '../../assets/ecell.png';
 
-/**
- * EventDetailPage Component
- * Adapted from event comp's DynamicFrameLayout for React/Vite
- * Creates a magazine-style layout with grid-based image display
- */
 const EventDetailPage = ({
   title,
   titleLine2 = '',
@@ -17,173 +15,278 @@ const EventDetailPage = ({
   statDetail,
   highlights = [],
   images = [],
-  imageGrid = [], // [{id, image, title, summary}, ...]
+  imageGrid = [],
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
+  // Lock body scroll when the image modal is open to prevent background scrolling
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [selectedImage]);
 
-  // Use imageGrid if provided, otherwise create a simple grid from images array
-  const displayGrid = imageGrid.length > 0 
+  const displayImages = imageGrid.length > 0 
     ? imageGrid 
     : images.map((img, idx) => ({
         id: idx,
         image: img,
-        title: `Image ${idx + 1}`,
+        title: `Moment ${idx + 1}`,
         summary: `From ${title}`,
       }));
 
-  const gridConfig = [
-    // First row - 3 larger photos
-    { id: 0, x: 0, y: 0, w: 4, h: 4 },
-    { id: 1, x: 4, y: 0, w: 4, h: 4 },
-    { id: 2, x: 8, y: 0, w: 4, h: 4 },
-    // Second row - 2 larger photos
-    { id: 3, x: 2, y: 4, w: 4, h: 4 },
-    { id: 4, x: 6, y: 4, w: 4, h: 4 },
-    // Additional rows for more images
-    { id: 5, x: 0, y: 8, w: 3, h: 3 },
-    { id: 6, x: 3, y: 8, w: 3, h: 3 },
-    { id: 7, x: 6, y: 8, w: 3, h: 3 },
-    { id: 8, x: 9, y: 8, w: 3, h: 3 },
-    { id: 9, x: 3, y: 11, w: 6, h: 3 },
-  ];
+  const heroImages = displayImages.slice(0, 4);
+  const galleryImages = displayImages;
 
-  const cellSize = 60; // pixels per grid cell
-
-  const getImageStyle = (index) => {
-    if (isMobile) {
-      // On mobile: each image takes full width
+  // Fanning animation for hero images
+  const fanVariants = {
+    hidden: { opacity: 0, y: 200, rotate: 0 },
+    visible: (i) => {
+      const rotations = [-15, -5, 5, 15];
+      const xOffsets = ['-10vw', '-3vw', '3vw', '10vw'];
       return {
-        gridColumn: '1 / -1',
+        opacity: 1,
+        y: 0,
+        x: xOffsets[i % 4] || 0,
+        rotate: rotations[i % 4] || 0,
+        transition: {
+          type: "spring",
+          stiffness: 60,
+          damping: 12,
+          delay: 0.3 + (i * 0.1)
+        }
+      };
+    },
+    hover: (i) => {
+      const rotations = [-22, -8, 8, 22];
+      const xOffsets = ['-22vw', '-8vw', '8vw', '22vw'];
+      const yOffsets = [15, 0, 0, 15];
+      return {
+        x: xOffsets[i % 4] || 0,
+        rotate: rotations[i % 4] || 0,
+        y: yOffsets[i % 4] || 0,
+        scale: 1.05,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+        }
       };
     }
-    // On desktop: use the grid config
-    const config = gridConfig[index % gridConfig.length];
-    if (!config) return {};
-    return {
-      gridColumn: `${config.x + 1} / span ${config.w}`,
-      gridRow: `${config.y + 1} / span ${config.h}`,
-    };
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-white flex flex-col" style={{ fontFamily: 'Sora, sans-serif' }}>
-      <div className="flex flex-col lg:flex-row flex-1 min-h-screen">
-        {/* Sidebar */}
-        <aside className="w-full lg:w-[30%] flex-shrink-0 lg:border-r border-white/10 flex flex-col p-6 lg:p-8 xl:p-10 pt-20 sm:pt-16 lg:pt-6">
-          <div className="mb-8">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold italic leading-tight text-white" style={{ fontFamily: 'Georgia, serif' }}>
-              <span className="block">{title}</span>
-              {titleLine2 && <span className="block">{titleLine2}</span>}
-            </h1>
-            <p className="mt-4 text-sm text-white/70">{eventSubtitle}</p>
-            <p className="text-xs text-white/50 mt-0.5">Event Recap</p>
-          </div>
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black pb-20 overflow-hidden">
+      
+      {/* Hero Section - Playful Typography & Fanning Cards */}
+      <section className="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col items-center text-center relative">
+        
+        {/* Title Group with Relative Anchor for Overlapping Badges */}
+        <div className="relative inline-block">
 
-          {/* Event Details Card */}
-          <div className="bg-white/[0.06] border border-white/10 rounded-xl p-5 lg:p-6 flex flex-col flex-1">
-            <div className="flex items-baseline justify-between gap-2 mb-4">
-              <h2 className="text-lg font-bold text-white">Event details</h2>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-white/70 mb-4">
-              <span>{eventDetail}</span>
-            </div>
-            <div className="mb-4">
-              <p className="text-4xl font-bold text-white">{mainStatValue}</p>
-              <p className="text-sm text-white/60 mt-1">{mainStatLabel}</p>
-            </div>
-            {statDetail && <p className="text-xs text-white/50">{statDetail}</p>}
-            
-            {/* Highlights */}
-            {highlights.length > 0 && (
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <h3 className="text-sm font-semibold text-white mb-3">Highlights</h3>
-                <ul className="space-y-2">
-                  {highlights.map((highlight, idx) => (
-                    <li key={idx} className="text-xs text-white/60 flex gap-2">
-                      <span className="text-white/30">•</span>
-                      <span>{typeof highlight === 'string' ? highlight : highlight.title}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </aside>
+          {/* Main Title */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-tight mb-8 max-w-5xl z-10 uppercase"
+          >
+            {title} <br/>
+            {titleLine2 && <span>{titleLine2}</span>}
+          </motion.h1>
+        </div>
 
-        {/* Main Content - Gallery Grid */}
-        <main className="flex-1 overflow-hidden flex flex-col w-full lg:w-[70%]">
-          <div className="flex-1 overflow-auto pt-6 lg:pt-24 px-6 lg:px-8 pb-6 lg:pb-8">
-            <div className="grid gap-6" style={{ 
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)',
-              gridAutoRows: 'auto',
-              minHeight: '100%',
-            }}>
-              {displayGrid.map((item, idx) => (
-                  <motion.div
-                    key={item.id || idx}
-                    style={{
-                      ...getImageStyle(idx),
-                      aspectRatio: '4 / 3',
-                    }}
-                    className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 group cursor-pointer"
-                    onClick={() => setSelectedImage(item)}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-fill group-hover:brightness-110 transition-all duration-300"
-                    />
-                  </motion.div>
-              ))}
-            </div>
-          </div>
-        </main>
-      </div>
-
-      {/* Modal for selected image */}
-      {selectedImage && (
-        <motion.div
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
+        <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-lg md:text-xl font-medium mt-4 max-w-2xl mx-auto text-white/60 mb-16"
         >
-          <motion.div
-            className="relative max-w-4xl w-full"
-            onClick={(e) => e.stopPropagation()}
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
+          {eventSubtitle}
+        </motion.p>
+
+        {/* Fanned Cards */}
+        {heroImages.length > 0 && (
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover="hover"
+            className="relative w-full max-w-2xl h-[30vh] md:h-[50vh] flex justify-center items-center mt-12 mb-20"
           >
-            <img
-              src={selectedImage.image}
-              alt={selectedImage.title}
-              className="w-full rounded-lg"
-            />
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
-            >
-              ✕
-            </button>
-            <div className="mt-4 text-white">
-              <h3 className="text-xl font-bold">{selectedImage.title}</h3>
-              <p className="text-white/70">{selectedImage.summary}</p>
-            </div>
+            {heroImages.map((item, i) => (
+              <motion.div
+                key={item.id}
+                custom={i}
+                variants={fanVariants}
+                whileHover={{ y: -30, scale: 1.15, zIndex: 50, rotate: 0 }}
+                className="absolute w-40 h-56 md:w-64 md:h-80 rounded-[2rem] overflow-hidden border-4 md:border-[6px] border-[#333] shadow-2xl cursor-pointer"
+                style={{ zIndex: i }}
+                onClick={() => setSelectedImage(item)}
+              >
+                <div 
+                  className="w-full h-full bg-cover bg-center preserve-color" 
+                  style={{ backgroundImage: `url(${item.image})` }}
+                />
+              </motion.div>
+            ))}
           </motion.div>
-        </motion.div>
+        )}
+      </section>
+
+
+      <main className="max-w-7xl mx-auto px-6 md:px-12 mb-32">
+        
+        {/* Elegant Typography Overview */}
+        <div className="mb-24">
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-lg md:text-xl lg:text-2xl font-medium tracking-tight leading-relaxed max-w-4xl mx-auto text-white/80"
+          >
+            {eventDetail}
+          </motion.h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          
+          {/* Pure Typography Stat */}
+          {mainStatValue && (
+            <div className="lg:col-span-5 flex flex-col justify-center items-center text-center">
+              <span className="text-sm font-semibold tracking-widest uppercase text-white/50 mb-2">{mainStatLabel}</span>
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-[5rem] md:text-[7rem] lg:text-[8rem] font-medium leading-none tracking-tighter text-white"
+              >
+                {mainStatValue}
+              </motion.div>
+              {statDetail && (
+                <p className="text-base md:text-lg text-white/60 font-medium mt-6 max-w-md leading-relaxed text-center mx-auto">
+                  {statDetail}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Elegant Borderless List */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            {highlights.map((highlight, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group border-t border-white/20 py-8 md:py-10 flex items-start gap-6 md:gap-10 last:border-b border-white/20"
+              >
+                <div className="text-white/40 text-lg md:text-xl font-mono pt-1 md:pt-2">
+                  {(idx + 1).toString().padStart(2, '0')}
+                </div>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-medium tracking-tight text-white/90 group-hover:text-white transition-colors leading-[1.4] text-left">
+                  {typeof highlight === 'string' ? highlight : highlight.title}
+                </h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </main>
+
+      {/* Avatar/Gallery Grid ("You will find yourself among us") */}
+      {galleryImages.length > 0 && (
+        <section className="max-w-7xl mx-auto px-6 md:px-12 mb-32 text-center">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold tracking-tight mb-16"
+          >
+            Event Moments.
+          </motion.h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] md:auto-rows-[250px] gap-4 md:gap-6 grid-flow-dense">
+            {galleryImages.map((item, idx) => {
+              const pattern = [
+                "md:col-span-2 md:row-span-2 col-span-2 row-span-2",
+                "md:col-span-1 md:row-span-1 col-span-1 row-span-1",
+                "md:col-span-1 md:row-span-1 col-span-1 row-span-1",
+                "md:col-span-2 md:row-span-1 col-span-2 row-span-1",
+                "md:col-span-1 md:row-span-2 col-span-1 row-span-2",
+                "md:col-span-1 md:row-span-1 col-span-1 row-span-1",
+              ];
+              const gridClass = pattern[idx % 6];
+              
+              return (
+                <motion.div
+                  key={item.id || idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ type: "spring", delay: (idx % 8) * 0.05 }}
+                  onClick={() => setSelectedImage(item)}
+                  className={`w-full h-full overflow-hidden rounded-[2rem] border-2 md:border-4 border-white/10 hover:border-white transition-all shadow-lg cursor-pointer hover:-translate-y-2 hover:shadow-2xl relative group ${gridClass}`}
+                >
+                  <div 
+                    className="absolute inset-0 w-full h-full bg-cover bg-center preserve-color transition-transform duration-700 group-hover:scale-110"
+                    style={{ backgroundImage: `url(${item.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Image Modal - Portaled to body to escape .light-theme filter containing block */}
+      {createPortal(
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-12"
+              onClick={() => setSelectedImage(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.5, rotate: -5 }}
+                animate={{ scale: 1, rotate: 0 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: "spring", damping: 20 }}
+                className="relative max-w-4xl w-full flex flex-col items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute -top-16 right-0 p-4 text-white hover:scale-110 transition-transform bg-[#222] rounded-full border-2 border-white/20 shadow-xl z-50"
+                >
+                  <X className="w-8 h-8" strokeWidth={3} />
+                </button>
+                
+                <div className="w-full rounded-[3rem] overflow-hidden border-4 border-white/20 shadow-2xl bg-[#111]">
+                  <img
+                    src={selectedImage.image}
+                    alt={selectedImage.title}
+                    className="w-full h-auto max-h-[70vh] object-contain"
+                  />
+                </div>
+                
+                <div className="mt-8 bg-[#222] text-white px-8 py-4 rounded-full border-2 border-white/20 shadow-xl font-bold text-xl">
+                  {selectedImage.title || "Awesome Moment!"}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
       )}
 
       <Footer />
