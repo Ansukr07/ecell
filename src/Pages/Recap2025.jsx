@@ -511,6 +511,107 @@ const Recap2025 = () => {
             </div>
           </section>
 
+          {/* E-CELL Editorial Poster Section */}
+          <section id="network-section" className="relative w-full mt-20 md:mt-28">
+            <div className="relative text-[#2d2b27]">
+
+              {/* Zone 1 — Top Social Navigation Bar */}
+              <div className="flex flex-col items-center justify-center pt-10 pb-8 px-6 border-b-2 border-[#2d2b27] gap-16 md:gap-24">
+                {/* Centered Section Heading */}
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide text-[#2d2b27] text-center">
+                  Let's Stay Connected
+                </h2>
+
+                {/* Social links with dividers */}
+                <div className="flex items-center">
+                  {[
+                    { name: "Instagram",  icon: Instagram,      href: "https://www.instagram.com/ecell.bmsit" },
+                    { name: "LinkedIn",   icon: Linkedin,       href: "https://www.linkedin.com/company/ecellbmsit" },
+                    { name: "Website",    icon: Globe,          href: "/" },
+                    { name: "WhatsApp",   icon: MessageCircle,  href: "https://chat.whatsapp.com/L5GdDKv23ikGUTposaqLDV" },
+                  ].map((s, i) => (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group flex items-center gap-1.5 px-4 md:px-6 py-1 text-xs md:text-sm font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[#2d2b27] hover:!text-[#2d2b27] hover:opacity-50 transition-all duration-200 ${i > 0 ? 'border-l border-[#2d2b27]/20' : ''}`}
+                    >
+                      <s.icon className="w-3 h-3 md:w-3.5 md:h-3.5" strokeWidth={1.8} />
+                      {s.name}
+                      <span className="text-[10px] md:text-[11px] inline-block ml-0.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Zone 2 — Hero Center */}
+              <div className="flex flex-col items-center pt-10 pb-2 px-4 overflow-hidden">
+
+                {/* Star + taglines */}
+                <div className="flex flex-col items-center gap-1 mb-5 text-center">
+                  <span className="text-[#2d2b27] text-xl leading-none select-none">✦</span>
+                  <p className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] text-[#2d2b27] mt-3">
+                    The Journey Continues.
+                  </p>
+                  <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#2d2b27]/70 mt-2">
+                    Be Part of What's Next.
+                  </p>
+                </div>
+
+                {/* E-CELL Illustration */}
+                <div className="w-full">
+                  <img
+                    src={ecellIllustration}
+                    alt="E-Cell BMSIT — Ideate. Innovate. Impact."
+                    className="w-full h-auto object-contain"
+                    draggable={false}
+                  />
+                </div>
+
+                {/* Tagline below illustration */}
+                <p className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] text-[#2d2b27] mt-2 mb-8 text-center ml-[0.5em] md:ml-[0.8em]">
+                  Ideate.&nbsp;&nbsp;&nbsp;Innovate.&nbsp;&nbsp;&nbsp;Impact.
+                </p>
+              </div>
+
+              {/* Zone 3 — Bottom Footer Bar */}
+              <div className="border-t-2 border-[#2d2b27] px-6 md:px-14 py-8 grid grid-cols-3 items-center gap-4">
+
+                {/* Left — Quote */}
+                <div className="flex items-start gap-2 md:gap-3">
+                  <span className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none">✦</span>
+                  <p className="text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-[#2d2b27] leading-[2]">
+                    Together, we don't just<br />follow the future.<br />We build it.
+                  </p>
+                </div>
+
+                {/* Center — Logo + Name */}
+                <div className="flex flex-col items-center gap-3">
+                  <img src={ecellLogo} alt="E-Cell Logo" className="w-9 h-9 md:w-12 md:h-12 object-contain" />
+                  <div className="text-center">
+                    <p className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] text-[#2d2b27] ml-[0.5em] md:ml-[0.8em]">
+                      E-Cell BMSIT
+                    </p>
+                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#2d2b27]/60 mt-2">
+                      2025 – 26
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right — Thank you */}
+                <div className="flex items-start gap-2 md:gap-3 justify-end text-right">
+                  <p className="text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-[#2d2b27] leading-[2]">
+                    Thank you for being<br />a part of our story.<br />Until next year.
+                  </p>
+                  <span className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none">✦</span>
+                </div>
+
+              </div>
+
+            </div>
+          </section>
+
         </main>
 
 
