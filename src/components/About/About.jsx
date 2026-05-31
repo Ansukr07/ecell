@@ -86,6 +86,7 @@ const AboutSection = () => {
                 loop
                 muted
                 playsInline
+                preload="none"
               />
             </motion.div>
           </div>
@@ -104,6 +105,9 @@ const AboutSection = () => {
               alt="E-CELL Team Collaboration"
               className="w-full h-full object-cover group-hover: transition-all duration-1000 hover:scale-105"
               src={groupImg}
+              loading="lazy"
+              fetchPriority="low"
+              decoding="async"
             />
           </motion.div>
 
