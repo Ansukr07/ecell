@@ -23,7 +23,7 @@ export const WordProvider = ({ children }) => {
             const data = await res.json();
             setWords(data);
         } catch (error) {
-            console.error('Failed to fetch words:', error);
+            console.warn('Backend not reachable, failed to fetch words.');
         } finally {
             setLoading(false);
         }

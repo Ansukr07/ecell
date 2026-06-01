@@ -5,9 +5,9 @@ import { Phone, Instagram, Linkedin, Globe, MessageCircle, Twitter, Mail } from 
 import teamImage from "./assets/recap/image.png";
 import coderedImage from "./assets/recap/codered.png";
 import websiteImage from "./assets/recap/website.png";
-import flowerImg from "./assets/recap/flower.png";
-import tornPaperImg from "./assets/recap/torn-paper.png";
-import cardFrameImg from "./assets/recap/card-frame.png";
+import flowerImg from "./assets/recap/flower-branch.png";
+// import tornPaperImg from "./assets/recap/torn-paper.png";
+// import cardFrameImg from "./assets/recap/card-frame.png";
 import VintageImage from "../components/VintageImage";
 import { StaggeredGrid } from "../components/ui/staggered-grid";
 import { SmoothScroll } from "../components/ui/smooth-scroll";
@@ -92,7 +92,7 @@ const ScrollFillText = ({ text }) => {
           animation: textWave 3s linear infinite;
         }
       `}</style>
-      <h2 ref={container} className="text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase flex flex-wrap">
+      <h2 ref={container} className="relative text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase flex flex-wrap">
         {words.map((word, i) => {
           const start = i / words.length;
           const end = start + (1 / words.length);
@@ -556,7 +556,21 @@ const Recap2025 = () => {
           {/* Farewell Section */}
           <section id="farewell-section" className="mb-32 px-4 max-w-[90rem] mx-auto relative mt-20">
             {/* Decorative Elements */}
-            <img src={flowerImg} alt="decorative flower" className="absolute -top-4 md:-top-8 -left-12 md:-left-32 w-32 md:w-56 pointer-events-none mix-blend-multiply opacity-90 z-0 rotate-[20deg]" />
+            <div
+              className="absolute -top-10 md:-top-24 -left-10 md:-left-40 w-48 md:w-[26rem] pointer-events-none z-0"
+              style={{
+                maskImage: "linear-gradient(to right, transparent 0%, black 25%, black 60%, transparent 95%), linear-gradient(to bottom, black 55%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 25%, black 60%, transparent 95%), linear-gradient(to bottom, black 55%, transparent 100%)",
+                maskComposite: "intersect",
+                WebkitMaskComposite: "source-in",
+              }}
+            >
+              <img
+                src={flowerImg}
+                alt="decorative flower"
+                className="w-full h-full object-contain mix-blend-multiply opacity-90"
+              />
+            </div>
 
             <div className="border-t-2 border-b-2 border-zinc-900 py-8 mb-16 flex flex-col md:flex-row md:items-baseline justify-between gap-4 relative z-10">
               <ScrollFillText text="The Farewell Chronicle" />
@@ -575,23 +589,24 @@ const Recap2025 = () => {
                 { name: "Akhilesh Pachnanda", img: akhileshImg, rotation: "rotate-2" },
               ].map((person, i) => (
                 <TiltCard key={i} rotation={person.rotation}>
-                  {/* Frame Image */}
-                  <img src={cardFrameImg} alt="Card Frame" draggable="false" className="w-full h-auto drop-shadow-xl z-10 pointer-events-none" />
-                  
-                  {/* Photo (Behind the transparent hole) */}
-                  <div className="absolute overflow-hidden -z-10 bg-[#2a231a] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100" style={{ top: '10%', bottom: '13%', left: '8%', right: '8%', transform: 'translateZ(-1px)' }}>
-                      <img
-                        src={person.img}
-                        alt={person.name}
-                        className={`w-full h-full object-cover ${person.imgClass || ""}`}
-                      />
-                  </div>
+                  {/* Clean CSS Polaroid Frame */}
+                  <div className="relative w-full aspect-[3/4] bg-[#18181b] drop-shadow-xl border border-black/30 z-0 flex flex-col justify-between p-3 md:p-4 pb-12 md:pb-14">
+                      
+                      {/* Photo Area */}
+                      <div className="w-full h-full overflow-hidden bg-[#2a231a] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 z-10 relative">
+                          <img
+                            src={person.img}
+                            alt={person.name}
+                            className={`w-full h-full object-cover ${person.imgClass || ""}`}
+                          />
+                      </div>
 
-                  {/* Name text (Overlapping bottom paper border) */}
-                  <div className="absolute bottom-[5.5%] md:bottom-[6.5%] w-full text-center px-2 z-50" style={{ transform: 'translateZ(10px)' }}>
-                      <p className="text-[0.7rem] md:text-[0.85rem] font-['Nhass'] tracking-[0.15em] font-bold leading-snug uppercase preserve-color opacity-90" style={{ color: '#1a140f', textShadow: '0px 1px 1px rgba(255, 255, 255, 0.6), 0px -1px 1px rgba(0, 0, 0, 0.3)' }}>
-                        {person.name}
-                      </p>
+                      {/* Name text */}
+                      <div className="absolute bottom-4 md:bottom-5 left-0 w-full text-center px-2 z-20" style={{ transform: 'translateZ(10px)' }}>
+                          <p className="text-[0.65rem] md:text-[0.8rem] font-sans tracking-[0.2em] font-bold uppercase text-[#f4f1ea] opacity-90" style={{ textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+                            {person.name}
+                          </p>
+                      </div>
                   </div>
                 </TiltCard>
               ))}
@@ -682,15 +697,21 @@ const Recap2025 = () => {
           </section>
 
           {/* E-CELL Editorial Poster Section */}
-          <section id="network-section" className="relative w-full mt-20 md:mt-28">
+          <section id="network-section" className="relative w-full mt-20 md:mt-28 pb-20 overflow-hidden">
             <div className="relative text-[#2d2b27]">
 
               {/* Zone 1 — Top Social Navigation Bar */}
-              <div className="flex flex-col items-center justify-center pt-10 pb-8 px-6 border-b-2 border-[#2d2b27] gap-16 md:gap-24">
+              <motion.div 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.1 }}
+                variants={staggerContainer}
+                className="flex flex-col items-center justify-center pt-10 pb-8 px-6 border-b-2 border-[#2d2b27] gap-16 md:gap-24"
+              >
                 {/* Centered Section Heading */}
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide text-[#2d2b27] text-center">
+                <motion.h2 variants={fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide text-[#2d2b27] text-center">
                   Let's Stay Connected
-                </h2>
+                </motion.h2>
 
                 {/* Social links with dividers */}
                 <div className="flex items-center">
@@ -700,7 +721,8 @@ const Recap2025 = () => {
                     { name: "Website",    icon: Globe,          href: "/" },
                     { name: "WhatsApp",   icon: MessageCircle,  href: "https://chat.whatsapp.com/L5GdDKv23ikGUTposaqLDV" },
                   ].map((s, i) => (
-                    <a
+                    <motion.a
+                      variants={fadeUp}
                       key={s.name}
                       href={s.href}
                       target="_blank"
@@ -710,17 +732,21 @@ const Recap2025 = () => {
                       <s.icon className="w-3 h-3 md:w-3.5 md:h-3.5" strokeWidth={1.8} />
                       {s.name}
                       <span className="text-[10px] md:text-[11px] inline-block ml-0.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Zone 2 — Hero Center */}
               <div className="flex flex-col items-center pt-10 pb-2 px-4 overflow-hidden">
 
                 {/* Star + taglines */}
                 <div className="flex flex-col items-center gap-1 mb-5 text-center">
-                  <span className="text-[#2d2b27] text-xl leading-none select-none">✦</span>
+                  <motion.span 
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    className="text-[#2d2b27] text-xl leading-none select-none inline-block"
+                  >✦</motion.span>
                   <p className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] text-[#2d2b27] mt-3">
                     The Journey Continues.
                   </p>
@@ -734,7 +760,7 @@ const Recap2025 = () => {
                   <img
                     src={ecellIllustration}
                     alt="E-Cell BMSIT — Ideate. Innovate. Impact."
-                    className="w-full h-auto object-contain"
+                    className="w-full h-auto object-contain mix-blend-multiply opacity-90"
                     draggable={false}
                   />
                 </div>
@@ -746,38 +772,46 @@ const Recap2025 = () => {
               </div>
 
               {/* Zone 3 — Bottom Footer Bar */}
-              <div className="border-t-2 border-[#2d2b27] px-6 md:px-14 py-8 grid grid-cols-3 items-center gap-4">
+              <motion.div 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.1 }}
+                variants={staggerContainer}
+                className="border-t-2 border-[#2d2b27] px-6 md:px-14 py-8 grid grid-cols-3 items-center gap-4"
+              >
 
                 {/* Left — Quote */}
-                <div className="flex items-start gap-2 md:gap-3">
-                  <span className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none">✦</span>
+                <motion.div variants={fadeUp} className="flex items-start gap-2 md:gap-3">
+                  <motion.span 
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none inline-block"
+                  >✦</motion.span>
                   <p className="text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-[#2d2b27] leading-[2]">
                     Together, we don't just<br />follow the future.<br />We build it.
                   </p>
-                </div>
+                </motion.div>
 
-                {/* Center — Logo + Name */}
-                <div className="flex flex-col items-center gap-3">
-                  <img src={ecellLogo} alt="E-Cell Logo" className="w-9 h-9 md:w-12 md:h-12 object-contain" />
-                  <div className="text-center">
-                    <p className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] text-[#2d2b27] ml-[0.5em] md:ml-[0.8em]">
-                      E-Cell BMSIT
-                    </p>
-                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#2d2b27]/60 mt-2">
-                      2025 – 26
-                    </p>
-                  </div>
-                </div>
+                {/* Center — Name */}
+                <motion.div variants={fadeUp} className="flex flex-col items-center gap-4">
+                  <p className="text-[0.7rem] md:text-xs font-black tracking-[0.4em] uppercase text-[#2d2b27] text-center">
+                    E-Cell BMSIT<br/><span className="text-[0.6rem] font-bold opacity-60 tracking-[0.3em]">2025 - 26</span>
+                  </p>
+                </motion.div>
 
                 {/* Right — Thank you */}
-                <div className="flex items-start gap-2 md:gap-3 justify-end text-right">
+                <motion.div variants={fadeUp} className="flex items-start gap-2 md:gap-3 justify-end text-right">
                   <p className="text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-[#2d2b27] leading-[2]">
                     Thank you for being<br />a part of our story.<br />Until next year.
                   </p>
-                  <span className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none">✦</span>
-                </div>
+                  <motion.span 
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none inline-block"
+                  >✦</motion.span>
+                </motion.div>
 
-              </div>
+              </motion.div>
 
             </div>
           </section>

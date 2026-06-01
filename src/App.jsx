@@ -5,6 +5,7 @@ import {
   useRef,
   Suspense,
   lazy,
+  Component
 } from "react";
 import {
   BrowserRouter as Router,
@@ -18,6 +19,31 @@ import Navbar from "./components/Navbar/Navbar";
 import Preloader from "./components/Preloader/Preloader";
 import { WordProvider } from "./context/WordContext";
 import "./App.css";
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Runtime error caught by boundary:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: "2rem", color: "red", background: "white", minHeight: "100vh" }}>
+          <h1>Something went wrong.</h1>
+          <pre>{this.state.error?.toString()}</pre>
+          <pre style={{ fontSize: "0.8rem", marginTop: "1rem" }}>{this.state.error?.stack}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 import Home from "./Pages/Home";
 const Alumni = lazy(() => import("./Pages/Alumni"));
@@ -57,8 +83,8 @@ const NavigationWatcher = ({ setLoading, setShowContent, setDisplayLocation }) =
 
   useEffect(() => {
     // Only trigger if path actually changed and it's not the initial mount
-    // And if it's a desktop view (optional, but requested "in desktop view")
     if (prevPath.current !== location.pathname) {
+      setDisplayLocation(location); // Immediately sync route so correct page renders
       setLoading(true);
       setShowContent(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -80,7 +106,7 @@ function App() {
   const isSpl3 = location.pathname === "/events/spl3" || location.pathname === "/spl3";
 
   useEffect(() => {
-    if (location.pathname === "/gallery" || location.pathname === "/team") {
+    if (location.pathname === "/gallery" || location.pathname === "/team" || location.pathname === "/recap") {
       setIsLightMode(false);
     } else {
       setIsLightMode(true);
@@ -121,19 +147,23 @@ function App() {
     const hasBeenCounted = sessionStorage.getItem("visitCounted");
     if (!hasBeenCounted) {
       fetch("/api/hits/increment", { method: "POST" })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error("Backend offline");
+          return res.json();
+        })
         .then((data) => {
-          if (data.success) {
+          if (data && data.success) {
             sessionStorage.setItem("visitCounted", "true");
           }
         })
-        .catch((err) => console.error("Error incrementing hits:", err));
+        .catch(() => console.warn("Hit counter not available (backend offline)"));
     }
   }, []);
 
   return (
-    <PreloaderContext.Provider value={{ loading, setLoading }}>
-      <WordProvider>
+    <ErrorBoundary>
+      <PreloaderContext.Provider value={{ loading, setLoading }}>
+        <WordProvider>
         {/* We move Router to wrap everything including useLocation usage */}
         <NavigationWatcher
           setLoading={setLoading}
@@ -206,7 +236,7 @@ function App() {
               </motion.div>
             )}
           </AnimatePresence>
-          {!loading && !isSpl3 && location.pathname !== "/team" && (
+          {!loading && !isSpl3 && location.pathname !== "/team" && location.pathname !== "/recap" && (
             <button
               type="button"
               role="switch"
@@ -220,8 +250,9 @@ function App() {
             </button>
           )}
         </div>
-      </WordProvider>
-    </PreloaderContext.Provider>
+        </WordProvider>
+      </PreloaderContext.Provider>
+    </ErrorBoundary>
   );
 }
 
