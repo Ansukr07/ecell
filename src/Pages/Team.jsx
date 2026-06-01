@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import teamData from './teamData.json';
+import Footer from '../components/Footer/Footer';
 
 // Group photo for the hero section
 import teamImage from './assets/team/1team.webp';
@@ -228,6 +229,8 @@ const TeamPage = () => {
 
         </div>
       </div>
+
+      <Footer />
 
     </div>
   );

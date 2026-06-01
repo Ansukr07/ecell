@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Events.css";
+import Footer from "../Footer/Footer";
 
 import codeRedImg from "../../assets/code-red-grid-1.webp";
 import splImg from "../../assets/spl.webp";
@@ -38,7 +39,7 @@ const ECellEventsScroll = () => {
       image: splImg,
       isFlagship: true,
       slug: "spl3",
-      dateRange: "25 - 26 APR",
+      dateRange: "25 APR",
       eventType: "IN-PERSON"
     },
     {
@@ -101,12 +102,13 @@ const ECellEventsScroll = () => {
   };
 
   return (
-    <div
-      className="preserve-color min-h-screen w-full pb-20 pt-28 md:pt-36 px-5 md:px-12 xl:px-20 transition-colors duration-300"
-      style={{ fontFamily: "'Inter', sans-serif" }}
-      id="events"
-    >
-      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20">
+    <>
+      <div
+        className="preserve-color min-h-screen w-full pb-20 pt-28 md:pt-36 px-5 md:px-12 xl:px-20 transition-colors duration-300"
+        style={{ fontFamily: "'Inter', sans-serif" }}
+        id="events"
+      >
+        <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20">
         
         {/* Left Column - Sticky Content */}
         <motion.div 
@@ -223,8 +225,10 @@ const ECellEventsScroll = () => {
 
         </div>
         
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

@@ -21,14 +21,13 @@ const WhatsappIcon = ({ className }) => (
 );
 import './Footer.css'; // Import custom animations and layout styles
 import ecellLogoMobile from '../../assets/ecellorange.png';
-import '../../Pages/assets/Fonts/WEB/css/switzer.css';
 
 // ─── Desktop Footer Component ──────────────────────────────────────────────────
 import ecellLogoDesktop from '../../assets/ecell.png';
 
 const DesktopFooter = () => {
   return (
-    <footer className="w-full bg-black text-white hidden md:flex flex-col transition-all duration-300" style={{ fontFamily: 'Switzer-Light, sans-serif' }}>
+    <footer className="w-full bg-black text-white hidden md:flex flex-col transition-all duration-300" style={{ fontFamily: 'Switzer, sans-serif' }}>
       {/* Top Section */}
       <div className="flex w-full min-h-[400px] border-b border-[#222]">
 
