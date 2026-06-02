@@ -227,7 +227,7 @@ const ECellEventsScroll = () => {
         
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 };

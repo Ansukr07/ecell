@@ -2,10 +2,10 @@ import React from 'react';
 import EventDetailPage from './EventDetailPage';
 import image10 from '../../assets/image10.webp';
 import image11 from '../../assets/image25.webp';
-import image13 from '../../assets/image13.jpg';
+import image13 from '../../assets/image13.webp';
 //src/assets/image25.jpg
-import image17 from '../../assets/image17.jpg';
-import image18 from '../../assets/group.png';
+import image17 from '../../assets/image17.webp';
+import image18 from '../../assets/group.webp';
 
 const CodeRed25 = () => {
   const images = [image10, image11, image13, image17, image18];
