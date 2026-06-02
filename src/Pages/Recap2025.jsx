@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Phone, Instagram, Linkedin, Globe, MessageCircle, Twitter, Mail } from "lucide-react";
+import { Phone, Instagram, Linkedin, Globe, MessageCircle, Twitter, Mail, Send } from "lucide-react";
 import teamImage from "./assets/recap/image.png";
 import coderedImage from "./assets/recap/codered.png";
 import websiteImage from "./assets/recap/website.png";
 import flowerImg from "./assets/recap/flower-branch.png";
+import paperPlaneImg from "./assets/recap/paper-plane.png";
 // import tornPaperImg from "./assets/recap/torn-paper.png";
 // import cardFrameImg from "./assets/recap/card-frame.png";
 import VintageImage from "../components/VintageImage";
@@ -617,62 +618,146 @@ const Recap2025 = () => {
 
 
           {/* Story Continues Section */}
-          <section className="py-16 md:py-15 flex flex-col items-center justify-center relative overflow-hidden">
+          <section className="py-16 md:py-15 flex flex-col items-center justify-center relative overflow-x-clip overflow-y-visible">
             <div className="relative flex flex-col items-center select-none text-[#2d2b27]">
 
-              {/* 2025 (Crossed out) */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="relative text-[8rem] md:text-[15rem] leading-none font-black text-black/10 font-sans tracking-tighter"
+              {/* Paper Plane Impact Animation */}
+              <motion.div 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{
+                  hidden: { x: 0, y: 0 },
+                  visible: { 
+                    x: [0, 0, -10, 8, -6, 4, -2, 0], 
+                    y: [0, 0, 8, -6, 4, -2, 0],
+                    transition: { duration: 1.6, times: [0, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1], ease: "easeOut" } // Shake happens at 0.8s (0.5 * 1.6 = 0.8)
+                  }
+                }}
+                className="relative flex flex-col items-center justify-center w-full min-h-[300px] md:min-h-[500px]"
               >
-                2025
-                {/* Strike Line */}
+                
+                {/* Shockwave Flash */}
                 <motion.div
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.6, ease: [0.76, 0, 0.24, 1] }}
-                  className="absolute top-[48%] left-[-5%] right-[-5%] h-2 md:h-4 bg-[#2d2b27] origin-left z-10"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0 },
+                    visible: { 
+                      opacity: [0, 0, 1, 0], 
+                      scale: [0, 0, 1.5, 6],
+                      transition: { duration: 1.3, times: [0, 0.61, 0.62, 1], ease: "easeOut" } // 0.61 * 1.3 ≈ 0.8s
+                    }
+                  }}
+                  className="absolute z-20 w-32 h-32 bg-[#e8dfd1] rounded-full pointer-events-none mix-blend-screen"
                 />
-              </motion.div>
 
-              {/* 2026 */}
-              <motion.div
-                initial={{ opacity: 0, y: -200, scale: 1.1 }}
-                whileInView={{ 
-                  opacity: 1, 
-                  y: [-200, 0, 15, -10, 5, 0],
-                  scale: [1.1, 1, 1, 1, 1, 1] 
-                }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 1.0, 
-                  delay: 1.2, 
-                  times: [0, 0.6, 0.7, 0.8, 0.9, 1],
-                  ease: "easeInOut" 
-                }}
-                className="relative text-[8rem] md:text-[15rem] leading-none font-black text-[#2d2b27] font-sans tracking-tighter -mt-16 md:-mt-28 z-20"
-              >
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-0 h-0 -z-10 pointer-events-none flex justify-center items-center">
-                  {/* Confetti Burst */}
-                  {[...Array(30)].map((_, i) => <ConfettiPiece key={`confetti-${i}`} delay={1.8} />)}
-                  
-                  {/* Rising Impact Dust */}
-                  {[...Array(15)].map((_, i) => <DustParticle key={`dust-${i}`} delay={1.8 + Math.random() * 0.2} />)}
+                {/* 2025 - Splitted Digits */}
+                <div className="absolute flex justify-center text-[9rem] md:text-[16rem] leading-none font-black text-black/20 font-sans tracking-tighter pointer-events-none">
+                  <motion.div
+                    variants={{
+                      hidden: { x: 0, y: 0, opacity: 1, rotate: 0 },
+                      visible: { 
+                        x: -400, y: 150, opacity: [1, 1, 0], rotate: -45,
+                        transition: { type: "spring", stiffness: 80, damping: 15, mass: 1, delay: 0.8 }
+                      }
+                    }}
+                  >2</motion.div>
+                  <motion.div
+                    variants={{
+                      hidden: { x: 0, y: 0, opacity: 1, rotate: 0 },
+                      visible: { 
+                        x: -200, y: 300, opacity: [1, 1, 0], rotate: -70,
+                        transition: { type: "spring", stiffness: 80, damping: 15, mass: 1, delay: 0.8 }
+                      }
+                    }}
+                  >0</motion.div>
+                  <motion.div
+                    variants={{
+                      hidden: { x: 0, y: 0, opacity: 1, rotate: 0 },
+                      visible: { 
+                        x: 200, y: -250, opacity: [1, 1, 0], rotate: 40,
+                        transition: { type: "spring", stiffness: 80, damping: 15, mass: 1, delay: 0.8 }
+                      }
+                    }}
+                  >2</motion.div>
+                  <motion.div
+                    variants={{
+                      hidden: { x: 0, y: 0, opacity: 1, rotate: 0 },
+                      visible: { 
+                        x: 400, y: 150, opacity: [1, 1, 0], rotate: 60,
+                        transition: { type: "spring", stiffness: 80, damping: 15, mass: 1, delay: 0.8 }
+                      }
+                    }}
+                  >5</motion.div>
                 </div>
 
-                <div className="absolute top-1/2 left-0 w-full h-10 -z-10 pointer-events-none flex justify-center">
-                  {/* Balloons with Organic Sway */}
-                  <Balloon delay={1.85} left="10%" size={35} color="#403c36" />
-                  <Balloon delay={2.0} left="30%" size={50} color="#2d2b27" />
-                  <Balloon delay={1.9} left="50%" size={40} color="#59544c" />
-                  <Balloon delay={2.1} left="70%" size={45} color="#2d2b27" />
-                  <Balloon delay={1.8} left="85%" size={30} color="#403c36" />
+                {/* Paper Plane - Curved Flight Path */}
+                <motion.div
+                  variants={{
+                    hidden: { x: 450, y: -700, opacity: 0, rotate: -80 },
+                    visible: { 
+                      x: [450, 225, 112, 0, 0], 
+                      y: [-700, 100, 150, 0, 0],
+                      rotate: [-80, -45, 0, 45, 45],
+                      opacity: [0, 1, 1, 1, 0],
+                      transition: { 
+                        duration: 1.0, 
+                        times: [0, 0.4, 0.6, 0.8, 0.9], // Hits center exactly at 0.8s
+                        ease: ["linear", "easeOut", "easeIn", "linear"] 
+                      }
+                    }
+                  }}
+                  className="absolute z-40"
+                >
+                  <img 
+                    src={paperPlaneImg} 
+                    alt="Paper Plane Dive" 
+                    className="w-48 md:w-80 mix-blend-multiply drop-shadow-xl" 
+                  />
+                </motion.div>
+
+                {/* Dust Explosion Particles */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 z-30 pointer-events-none flex justify-center items-center">
+                  {[...Array(60)].map((_, i) => {
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 80 + Math.random() * 400; 
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    const scale = 0.5 + Math.random() * 2;
+                    const isPaper = Math.random() > 0.4;
+                    return (
+                      <motion.div
+                        key={`dust-exp-${i}`}
+                        variants={{
+                          hidden: { x: 0, y: 0, opacity: 0, scale: 0, rotate: 0 },
+                          visible: { 
+                            x: [0, endX], 
+                            y: [0, endY],
+                            opacity: [0, 1, 0],
+                            scale: [0, scale, scale * 1.5],
+                            rotate: Math.random() * 360,
+                            transition: { duration: 1.5 + Math.random(), delay: 0.8, ease: "easeOut" }
+                          }
+                        }}
+                        className={`absolute ${isPaper ? 'bg-[#e8dfd1] rounded-full blur-[4px]' : 'bg-[#2d2b27] rounded-sm blur-[1px]'} z-30`}
+                        style={{ width: isPaper ? 40 + Math.random()*60 : 5 + Math.random()*20, height: isPaper ? 40 + Math.random()*60 : 5 + Math.random()*20 }}
+                      />
+                    );
+                  })}
                 </div>
-                2026
+
+                {/* 2026 */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { 
+                      opacity: 1,
+                      transition: { duration: 1.5, delay: 1.5, ease: "easeInOut" }
+                    }
+                  }}
+                  className="relative text-[9rem] md:text-[16rem] leading-none font-black text-[#2d2b27] font-sans tracking-tighter z-10"
+                >
+                  2026
+                </motion.div>
               </motion.div>
 
               {/* The Story Continues */}
