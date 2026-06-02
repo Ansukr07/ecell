@@ -20,6 +20,9 @@ import tirthImg from "./assets/team/tirth.jpg";
 import akhileshImg from "./assets/team/akhilesh.jpeg";
 import gaganjithImg from "./assets/team/gaganjith.jpg";
 import shriyaImg from "./assets/team/shriya.jpg";
+import hiteshImg from "./assets/team/hitesh.jpeg";
+import bhanuImg from "./assets/team/bhanu.JPG";
+import fardeeImg from "./assets/team/fardeen.jpeg";
 import img1 from "../assets/image1.jpg";
 import img3 from "../assets/image3.jpg";
 import img5 from "../assets/image5.jpg";
@@ -585,9 +588,12 @@ const Recap2025 = () => {
                 { name: "Nishitha Bodipati", img: nishithaImg, rotation: "rotate-3" },
                 { name: "Gaganjith R", img: gaganjithImg, rotation: "-rotate-2" },
                 { name: "Shriya Chowdary", img: shriyaImg, rotation: "rotate-2" },
+                { name: "Fardeen Khan K", img: fardeeImg, rotation: "-rotate-2" },
                 { name: "Atul Kumar", img: atulImg, rotation: "rotate-1" },
-                { name: "Tirth Panchori", img: tirthImg, rotation: "-rotate-3" },
-                { name: "Akhilesh Pachnanda", img: akhileshImg, rotation: "rotate-2" },
+                { name: "Hitesh R", img: hiteshImg, rotation: "-rotate-3" },
+                { name: "Tirth Panchori", img: tirthImg, rotation: "rotate-2" },
+                { name: "Akhilesh Pachnanda", img: akhileshImg, rotation: "rotate-1" },
+                { name: "Bhanu Prasad N", img: bhanuImg, rotation: "-rotate-2" },
               ].map((person, i) => (
                 <TiltCard key={i} rotation={person.rotation}>
                   {/* Clean CSS Polaroid Frame */}
@@ -844,7 +850,7 @@ const Recap2025 = () => {
                 <div className="w-full">
                   <img
                     src={ecellIllustration}
-                    alt="E-Cell BMSIT — Ideate. Innovate. Impact."
+                    alt="E-Cell BMSIT — Ideate. Innovate. Inspire."
                     className="w-full h-auto object-contain mix-blend-multiply opacity-90"
                     draggable={false}
                   />
@@ -852,7 +858,7 @@ const Recap2025 = () => {
 
                 {/* Tagline below illustration */}
                 <p className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] text-[#2d2b27] mt-2 mb-8 text-center ml-[0.5em] md:ml-[0.8em]">
-                  Ideate.&nbsp;&nbsp;&nbsp;Innovate.&nbsp;&nbsp;&nbsp;Impact.
+                  Ideate.&nbsp;&nbsp;&nbsp;Innovate.&nbsp;&nbsp;&nbsp;Inspire.
                 </p>
               </div>
 

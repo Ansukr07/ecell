@@ -224,5 +224,25 @@
       "image": "./assets/team/parikshit.png",
       "socials": {}
     }
+  ],
+  "farewell_chronicle": [
+    {
+      "name": "Hitesh R",
+      "position": "Media Head",
+      "image": "./assets/team/hitesh.jpeg",
+      "socials": {}
+    },
+    {
+      "name": "Bhanu Prasad N",
+      "position": "Media Vice Head",
+      "image": "./assets/team/bhanu.JPG",
+      "socials": {}
+    },
+    {
+      "name": "Fardeen Khan K",
+      "position": "Corporate Relations Head",
+      "image": "./assets/team/fardeen.jpeg",
+      "socials": {}
+    }
   ]
 }
