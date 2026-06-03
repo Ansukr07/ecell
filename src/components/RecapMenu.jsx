@@ -42,6 +42,16 @@ const RecapMenu = ({ isOpen, onClose }) => {
     exit: { opacity: 0, y: 10, transition: { duration: 0.3 } }
   };
 
+  const scrollToSection = (id) => {
+    onClose();
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 300);
+  };
+
   const BORDER = "border-[#2d2b27]/40";
   const LINE_BG = "bg-[#2d2b27]/40";
 
@@ -104,7 +114,10 @@ const RecapMenu = ({ isOpen, onClose }) => {
                 <motion.div variants={lineVarsX} className={`absolute bottom-[-1px] left-0 h-[1px] ${LINE_BG} origin-left w-full z-10`} />
 
                 {/* ── 01 NEWS FLASH ── */}
-                <div className={`w-[35%] relative border-r ${BORDER} flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors`}>
+                <div 
+                  onClick={() => scrollToSection('news-flash-section')}
+                  className={`w-[35%] relative border-r ${BORDER} flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors`}
+                >
                   <motion.div variants={lineVarsY} className={`absolute right-[-1px] top-0 w-[1px] ${LINE_BG} origin-top h-full`} />
 
                   {/* Number — top left, stacked: "01" then short dash below */}
@@ -141,7 +154,10 @@ const RecapMenu = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* ── 02 EVENTS ── */}
-                <div className="flex-1 relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors">
+                <div 
+                  onClick={() => scrollToSection('events-section')}
+                  className="flex-1 relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors"
+                >
                   {/* Number — stacked: "02" then short dash below, top left */}
                   <motion.div variants={contentVars} className="mb-auto z-10">
                     <span className="text-xl font-light font-serif block leading-tight">02</span>
@@ -187,7 +203,10 @@ const RecapMenu = ({ isOpen, onClose }) => {
                   <motion.div variants={lineVarsY} className={`absolute right-[-1px] top-0 w-[1px] ${LINE_BG} origin-top h-full`} />
 
                   {/* ── 03 MOMENTS ── */}
-                  <div className={`flex-1 border-b ${BORDER} relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors`}>
+                  <div 
+                    onClick={() => scrollToSection('gallery-section')}
+                    className={`flex-1 border-b ${BORDER} relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors`}
+                  >
                     <motion.div variants={lineVarsX} className={`absolute bottom-[-1px] left-0 h-[1px] ${LINE_BG} origin-left w-full z-10`} />
 
                     {/* Number — stacked: "03" then short dash below */}
@@ -226,7 +245,10 @@ const RecapMenu = ({ isOpen, onClose }) => {
                   </div>
 
                   {/* ── 04 FAREWELL ── */}
-                  <div className="flex-1 relative flex flex-col items-start p-6 xl:p-8 cursor-pointer hover:bg-black/5 transition-colors">
+                  <div 
+                    onClick={() => scrollToSection('farewell-section')}
+                    className="flex-1 relative flex flex-col items-start p-6 xl:p-8 cursor-pointer hover:bg-black/5 transition-colors"
+                  >
                     {/* Number — stacked: "04" then short dash below */}
                     <motion.div variants={contentVars} className="mb-4 z-10">
                       <span className="text-xl font-light font-serif block leading-tight">04</span>
@@ -261,7 +283,10 @@ const RecapMenu = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* ── 05 SOCIALS ── */}
-                <div className="w-[25%] relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors">
+                <div 
+                  onClick={() => scrollToSection('socials-section')}
+                  className="w-[25%] relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors"
+                >
 
                   {/* Number — stacked: "05" then short dash below */}
                   <motion.div variants={contentVars} className="mb-6 z-10">
