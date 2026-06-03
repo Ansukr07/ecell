@@ -147,7 +147,7 @@ export function StaggeredGrid({
         }
       })
         .from(columnItems, {
-          yPercent: 450,
+          yPercent: -450,
           autoAlpha: 0,
           delay: delayFactor,
           ease: 'sine.out',
@@ -175,12 +175,12 @@ export function StaggeredGrid({
         </div>
       </section>
 
-      {/* Photo grid — masonry columns */}
+      {/* Photo grid — masonry columns rotated to bottom-align */}
       <section className="grid place-items-center w-full relative">
         <div
           ref={gridFullRef}
           className="grid--full relative w-full my-[6vh] max-w-none px-3 py-4"
-          style={{ columnCount: 7, columnGap: '0.75rem' }}
+          style={{ columnCount: 7, columnGap: '0.75rem', transform: 'rotate(180deg)', direction: 'rtl' }}
         >
           {gridItems.map((item, i) => {
             if (item === 'SKIP' || item === 'BENTO_GROUP') return null
@@ -190,15 +190,17 @@ export function StaggeredGrid({
               <figure
                 key={`img-${i}`}
                 className="grid__item m-0 relative z-10 will-change-[transform,opacity] overflow-hidden rounded-xl mb-3 break-inside-avoid"
-                style={{ display: 'inline-block', width: '100%' }}
+                style={{ display: 'inline-block', width: '100%', direction: 'ltr' }}
               >
-                <div className="grid__item-inner overflow-hidden rounded-xl">
-                  <img
-                    src={item}
-                    alt={`Gallery ${i + 1}`}
-                    className="w-full h-auto block"
-                    style={{ display: 'block' }}
-                  />
+                <div className="rotate-180 w-full h-full">
+                  <div className="grid__item-inner overflow-hidden rounded-xl">
+                    <img
+                      src={item}
+                      alt={`Gallery ${i + 1}`}
+                      className="w-full h-auto block"
+                      style={{ display: 'block' }}
+                    />
+                  </div>
                 </div>
               </figure>
             )
