@@ -284,7 +284,7 @@ const RecapMenu = ({ isOpen, onClose }) => {
 
                 {/* ── 05 SOCIALS ── */}
                 <div 
-                  onClick={() => scrollToSection('socials-section')}
+                  onClick={() => scrollToSection('network-section')}
                   className="w-[25%] relative flex flex-col items-start p-6 xl:p-8 overflow-hidden cursor-pointer hover:bg-black/5 transition-colors"
                 >
 

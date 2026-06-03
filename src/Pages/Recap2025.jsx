@@ -769,48 +769,6 @@ const Recap2025 = () => {
                 </p>
               </div>
 
-              {/* Zone 3 — Bottom Footer Bar */}
-              <motion.div 
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false, amount: 0.1 }}
-                variants={staggerContainer}
-                className="border-t-2 border-[#2d2b27] px-6 md:px-14 py-8 grid grid-cols-3 items-center gap-4"
-              >
-
-                {/* Left — Quote */}
-                <motion.div variants={fadeUp} className="flex items-start gap-2 md:gap-3">
-                  <motion.span 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none inline-block"
-                  >✦</motion.span>
-                  <p className="text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-[#2d2b27] leading-[2]">
-                    Together, we don't just<br />follow the future.<br />We build it.
-                  </p>
-                </motion.div>
-
-                {/* Center — Name */}
-                <motion.div variants={fadeUp} className="flex flex-col items-center gap-4">
-                  <p className="text-[0.7rem] md:text-xs font-black tracking-[0.4em] uppercase text-[#2d2b27] text-center">
-                    E-Cell BMSIT<br/><span className="text-[0.6rem] font-bold opacity-60 tracking-[0.3em]">2025 - 26</span>
-                  </p>
-                </motion.div>
-
-                {/* Right — Thank you */}
-                <motion.div variants={fadeUp} className="flex items-start gap-2 md:gap-3 justify-end text-right">
-                  <p className="text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-[#2d2b27] leading-[2]">
-                    Thank you for being<br />a part of our story.<br />Until next year.
-                  </p>
-                  <motion.span 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="text-[#2d2b27] text-lg shrink-0 mt-0.5 select-none inline-block"
-                  >✦</motion.span>
-                </motion.div>
-
-              </motion.div>
-
 
             </div>
           </section>
