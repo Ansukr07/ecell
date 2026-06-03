@@ -48,8 +48,8 @@ class ErrorBoundary extends Component {
 import Home from "./Pages/Home";
 const Alumni = lazy(() => import("./Pages/Alumni"));
 const Gallery = lazy(() => import("./Pages/Gallery"));
+const EventPage = lazy(() => import("./Pages/EventPage"));
 const Codered = lazy(() => import("./components/Events/Codered"));
-const Events = lazy(() => import("./components/Events/Events"));
 const Advert = lazy(() => import("./components/Events/Advert1"));
 const Spl = lazy(() => import("./components/Events/Spl"));
 const EmpireX = lazy(() => import("./components/Events/EmpireX"));
@@ -199,7 +199,7 @@ function App() {
                       path="/admin/higher-lower"
                       element={<HigherLowerAdmin />}
                     />
-                    <Route path="/events" element={<Events />} />
+                    <Route path="/events" element={<EventPage />} />
                     <Route path="/events/codered25" element={<Codered />} />
                     <Route path="/events/advert20" element={<Advert />} />
                     <Route path="/events/spl" element={<Spl />} />

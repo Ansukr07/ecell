@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Events.css";
-import Footer from "../Footer/Footer";
 
 import codeRedImg from "../../assets/code-red-grid-1.webp";
 import splImg from "../../assets/spl.webp";
@@ -227,7 +226,7 @@ const ECellEventsScroll = () => {
         
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 };
