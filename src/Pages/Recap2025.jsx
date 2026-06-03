@@ -12,6 +12,7 @@ import paperPlaneImg from "./assets/recap/paper-plane.png";
 import VintageImage from "../components/VintageImage";
 import { StaggeredGrid } from "../components/ui/staggered-grid";
 import { SmoothScroll } from "../components/ui/smooth-scroll";
+import RecapMenu from "../components/RecapMenu";
 import maxsonImg from "./assets/team/maxson.JPG";
 import mohitImg from "./assets/team/mohit.jpeg";
 import nishithaImg from "./assets/team/nishitha.jpeg";
@@ -256,7 +257,10 @@ const Recap2025 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#e8dfd1] text-[#2d2b27] font-serif selection:bg-[#2d2b27] selection:text-[#e8dfd1] relative overflow-x-hidden pr-12 md:pr-16"
+    <SmoothScroll>
+      <RecapMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      
+      <div className="min-h-screen bg-[#e8dfd1] text-[#2d2b27] font-serif selection:bg-[#2d2b27] selection:text-[#e8dfd1] relative overflow-x-hidden pr-12 md:pr-16"
       style={{
         backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(180deg, #e4d7c5 0%, #ede6db 50%, #e4d7c5 100%)",
         backgroundBlendMode: "overlay, normal"
@@ -271,8 +275,7 @@ const Recap2025 = () => {
       ></div>
 
       {/* Right Sidebar Menu */}
-      <div className="fixed top-0 right-0 h-screen w-12 md:w-16 bg-black z-[100] flex flex-col items-center py-6 text-white font-sans border-l border-zinc-800">
-
+      <div className={`fixed top-0 right-0 h-screen w-12 md:w-16 bg-black z-[90] flex flex-col items-center py-6 text-white font-sans border-l border-zinc-800 transition-transform duration-500 ease-in-out ${isMenuOpen ? 'translate-x-full' : 'translate-x-0'}`}>
         {/* Menu Icon - Absolute Top */}
         <div className="absolute top-6 w-full flex justify-center">
           <button
@@ -295,106 +298,9 @@ const Recap2025 = () => {
             <span className="text-white">E-CELL BMSIT</span>
             <span className="w-1 h-1 bg-zinc-500 rounded-full"></span>
             <span className="text-white">2025 RECAP</span>
-
           </div>
         </div>
-
-        {/* Page Numbers - Absolute Bottom */}
-
       </div>
-
-      {/* Full Screen Overlay Menu — Newspaper Style */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="fixed inset-0 z-[200] flex"
-            style={{ backdropFilter: 'blur(14px)', background: 'rgba(232, 223, 209, 0.97)' }}
-          >
-            {/* Left column — Masthead & Edition info */}
-            <div className="hidden md:flex flex-col justify-between w-64 border-r border-[#2d2b27]/15 px-8 py-10 text-[#2d2b27]">
-              <div>
-                <div className="text-xs tracking-[0.25em] uppercase font-sans text-[#2d2b27]/50 mb-4">Est. 2022</div>
-                <div className="text-3xl font-serif font-black tracking-tighter leading-none">E-CELL BMSIT<br />TIMES</div>
-                <div className="w-8 h-[2px] bg-[#2d2b27] mt-4 mb-6" />
-                <div className="text-xs font-sans uppercase tracking-widest text-[#2d2b27]/50 leading-relaxed">
-                  E-Cell BMSIT<br />Annual Recap<br />2025–26
-                </div>
-              </div>
-              <div className="text-[10px] font-sans tracking-widest text-[#2d2b27]/40 uppercase leading-loose">
-                Vol. IV · No. 42<br />The Autumn Curator
-              </div>
-            </div>
-
-            {/* Main nav links */}
-            <div className="flex-1 flex flex-col justify-center px-10 md:px-20 relative">
-
-              {/* Close button */}
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="absolute top-8 right-8 hover:opacity-50 bg-transparent border-none outline-none appearance-none focus:outline-none focus-visible:outline-none cursor-pointer p-2 flex flex-col gap-0 items-center justify-center"
-                style={{ background: 'none', outline: 'none' }}
-              >
-                <div className="w-6 h-[2px] bg-[#2d2b27] rotate-45 translate-y-[1px]" />
-                <div className="w-6 h-[2px] bg-[#2d2b27] -rotate-45 -translate-y-[1px]" />
-              </button>
-
-              {/* Navigation Items */}
-              <nav className="space-y-0">
-                {[
-                  { num: '01', label: 'News Flash', action: () => { setIsMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
-                  { num: '02', label: 'Events', action: () => { setIsMenuOpen(false); document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' }); } },
-                  { num: '03', label: 'Moments', action: () => { setIsMenuOpen(false); document.getElementById('gallery-section')?.scrollIntoView({ behavior: 'smooth' }); } },
-                  { num: '04', label: 'Farewell', action: () => { setIsMenuOpen(false); document.getElementById('farewell-section')?.scrollIntoView({ behavior: 'smooth' }); } },
-                  { num: '05', label: 'Socials', action: () => { setIsMenuOpen(false); document.getElementById('network-section')?.scrollIntoView({ behavior: 'smooth' }); } },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.num}
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.45, delay: i * 0.07, ease: [0.76, 0, 0.24, 1] }}
-                  >
-                    <button
-                      onClick={item.action}
-                      className="group w-full text-left bg-transparent border-none outline-none focus:outline-none appearance-none cursor-pointer"
-                      style={{ background: 'none', outline: 'none' }}
-                    >
-                      <div className="border-t border-[#2d2b27]/15 py-5 flex items-baseline gap-5">
-                        <span className="text-[11px] font-sans tracking-widest text-[#2d2b27]/35 w-6 shrink-0">{item.num}</span>
-                        <span className="text-4xl md:text-6xl font-serif font-black tracking-tighter text-[#2d2b27] leading-none group-hover:italic group-hover:translate-x-2 transition-all duration-300">
-                          {item.label}
-                        </span>
-                      </div>
-                    </button>
-                  </motion.div>
-                ))}
-                <div className="border-t border-[#2d2b27]/15" />
-              </nav>
-
-              {/* Back to website */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-                className="mt-10"
-              >
-                <Link
-                  to="/"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="inline-flex items-center gap-3 font-sans text-xs tracking-[0.25em] uppercase text-[#2d2b27]/50 hover:text-[#2d2b27] transition-colors outline-none focus:outline-none"
-                  style={{ outline: 'none' }}
-                >
-                  <span className="text-base">←</span> Back to Main Website
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Hero Image - Full bleed up to sidebar */}
       <div className="relative w-full h-[70vh] md:h-[78vh] overflow-hidden">
@@ -416,6 +322,7 @@ const Recap2025 = () => {
 
           {/* Newspaper Section (EXTRA KUNST Broadsheet Layout) */}
           <motion.section
+            id="news-flash-section"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -618,7 +525,7 @@ const Recap2025 = () => {
 
 
           {/* Story Continues Section */}
-          <section className="py-16 md:py-15 flex flex-col items-center justify-center relative overflow-x-clip overflow-y-visible">
+          <section id="socials-section" className="py-16 md:py-15 flex flex-col items-center justify-center relative overflow-x-clip overflow-y-visible">
             <div className="relative flex flex-col items-center select-none text-[#2d2b27]">
 
               {/* Paper Plane Impact Animation */}
@@ -898,15 +805,15 @@ const Recap2025 = () => {
 
               </motion.div>
 
+
             </div>
           </section>
 
         </main>
 
-
-
       </div>
-    </div>
+      </div>
+    </SmoothScroll>
   );
 };
 
