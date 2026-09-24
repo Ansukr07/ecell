@@ -269,8 +269,8 @@ const EcellAlumniPage = () => {
           >
             <div 
               data-darkreader-ignore
-              className="flex items-center p-1.5 rounded-full shadow-[0_8px_24px_rgba(221,85,0,0.3)]"
-              style={{ backgroundColor: '#dd5500', colorScheme: 'only light' }}
+              className="flex items-center p-1.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+              style={{ backgroundColor: '#f1f1f1', colorScheme: 'only light' }}
             >
               {batches.map((batch) => {
                 const isActive = activeBatch === batch;
@@ -284,7 +284,7 @@ const EcellAlumniPage = () => {
                     className="relative px-8 py-3 rounded-full text-[16px] tracking-wide transition-colors duration-300 outline-none cursor-pointer"
                     style={{ 
                       WebkitTapHighlightColor: "transparent",
-                      color: isActive ? "#dd5500" : "rgba(255, 255, 255, 0.99)",
+                      color: isActive ? "#ffffff" : "#2d2b27",
                       fontFamily: "'Robit', sans-serif"
                     }}
                   >
@@ -293,7 +293,7 @@ const EcellAlumniPage = () => {
                         data-darkreader-ignore
                         layoutId="active-batch-pill"
                         className="absolute inset-0 rounded-full"
-                        style={{ backgroundColor: '#ffffff', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
+                        style={{ backgroundColor: '#1a1a1a', boxShadow: '0 2px 8px rgba(0,0,0,0.18)' }}
                         transition={{ type: "spring", stiffness: 500, damping: 35 }}
                       />
                     )}
