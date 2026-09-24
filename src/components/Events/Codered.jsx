@@ -8,7 +8,7 @@ import image17 from '../../assets/image17.webp';
 import image18 from '../../assets/group.webp';
 
 const CodeRed25 = () => {
-  const images = [image10, image11, image13, image17, image18];
+  const images = [image10, image11, image13, image18];
   const imageGrid = images.map((img, idx) => ({
     id: idx,
     image: img,
