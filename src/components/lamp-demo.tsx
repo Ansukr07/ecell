@@ -93,12 +93,12 @@ export function IdeaSectionHeader() {
         </motion.p>
       </LampContainer>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 md:-mt-32 lg:-mt-64 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 -mt-32 sm:-mt-40 md:-mt-48 lg:-mt-64 relative z-20">
         <div className="flex flex-col lg:flex-row gap-16">
 
           {/* Quote Section - Desktop only */}
           <div className="hidden lg:block lg:basis-2/5 w-full">
-            <div className="idea-quote-box bg-black border border-neutral-800 p-12 lg:sticky lg:top-8">
+            <div className="idea-quote-box bg-[#080808] border border-neutral-800 p-12 lg:sticky lg:top-8 rounded-2xl">
               <div className="relative">
                 <Quote className="absolute -top-6 -left-6 w-16 h-16 text-orange-400 idea-quote-icon" />
                 <blockquote
