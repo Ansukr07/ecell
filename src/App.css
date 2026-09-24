@@ -272,15 +272,15 @@ img {
 }
 
 .light-theme .idea-submit-btn {
-  background: linear-gradient(to right, #dd5500, #f36115) !important; /* Inverts to gradient from #FF7722 to #EA580C */
-  border-color: rgba(221, 85, 0, 0.3) !important;
+  background: linear-gradient(to right, #ffffff, #dddddd) !important; /* Inverts to sleek black/dark-grey */
+  border-color: rgba(255, 255, 255, 0.3) !important;
   color: #000000 !important; /* Inverts to white text */
-  box-shadow: 0 0 25px rgba(221, 85, 0, 0.25) !important; /* Inverts to orange glow */
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25) !important;
 }
 
 .light-theme .idea-submit-btn:hover {
-  background: linear-gradient(to right, #bb4400, #cc4400) !important; /* Slightly darker orange gradient pre-filter */
-  box-shadow: 0 0 35px rgba(221, 85, 0, 0.45) !important;
+  background: linear-gradient(to right, #eeeeee, #cccccc) !important; 
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.45) !important;
 }
 
 .light-theme .idea-quote-icon {
@@ -359,4 +359,12 @@ img {
 /* Crossword Double Invert for Theme Sync */
 .crossword-page {
   filter: invert(1) hue-rotate(180deg);
+}
+
+.idea-submit-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+.idea-submit-btn:hover {
+  background-color: #e5e5e5 !important;
 }

@@ -80,7 +80,6 @@ export default function Navbar() {
     { to: "/alumni", label: "Alumni" },
     { to: "/word-of-the-day", label: "Word of the Day" },
     { to: "/build-your-idea", label: "Build Your Idea" },
-    { to: "/events/spl3", label: "SPL 3.0" },
   ];
 
   return (

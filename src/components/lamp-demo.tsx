@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { LampContainer } from "@/components/ui/lamp";
-import { Send, CheckCircle, AlertCircle, Quote, Clock } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Quote } from 'lucide-react';
 
 export function IdeaSectionHeader() {
   const [formData, setFormData] = useState({
@@ -16,69 +16,34 @@ export function IdeaSectionHeader() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-
-    if (submitStatus) {
-      setSubmitStatus('');
-    }
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+    if (submitStatus) setSubmitStatus('');
   };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-
-    if (!formData.idea.trim()) {
-      newErrors.idea = 'Idea is required';
-    } else if (formData.idea.trim().length < 50) {
-      newErrors.idea = 'Idea must be at least 50 characters';
-    }
-
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    else if (formData.name.trim().length < 2) newErrors.name = 'Name must be at least 2 characters';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email address';
+    if (!formData.idea.trim()) newErrors.idea = 'Idea is required';
+    else if (formData.idea.trim().length < 50) newErrors.idea = 'Idea must be at least 50 characters';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async () => {
     setSubmitStatus('');
-
-    if (!validateForm()) {
-      setSubmitStatus('validation_error');
-      return;
-    }
-
+    if (!validateForm()) { setSubmitStatus('validation_error'); return; }
     setIsSubmitting(true);
-
     try {
       const response = await fetch('/api/submit-idea', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ email: '', name: '', idea: '' });
@@ -87,9 +52,7 @@ export function IdeaSectionHeader() {
         setSubmitStatus('error');
         if (data.details) {
           const newErrors: Record<string, string> = {};
-          data.details.forEach((err: any) => {
-            newErrors[err.path] = err.msg;
-          });
+          data.details.forEach((err: any) => { newErrors[err.path] = err.msg; });
           setErrors(newErrors);
         }
       }
@@ -103,24 +66,9 @@ export function IdeaSectionHeader() {
 
   const getStatusMessage = () => {
     switch (submitStatus) {
-      case 'success':
-        return {
-          type: 'success',
-          icon: CheckCircle,
-          message: 'Thank you for sharing your idea! We will review it and reach out shortly.'
-        };
-      case 'validation_error':
-        return {
-          type: 'error',
-          icon: AlertCircle,
-          message: 'Please check the form and correct any errors before submitting.'
-        };
-      default:
-        return {
-          type: 'error',
-          icon: AlertCircle,
-          message: 'Something went wrong. Please try again later.'
-        };
+      case 'success': return { type: 'success', icon: CheckCircle, message: 'Thank you for sharing your idea! We will review it and reach out shortly.' };
+      case 'validation_error': return { type: 'error', icon: AlertCircle, message: 'Please check the form and correct any errors before submitting.' };
+      default: return { type: 'error', icon: AlertCircle, message: 'Something went wrong. Please try again later.' };
     }
   };
 
@@ -135,44 +83,36 @@ export function IdeaSectionHeader() {
         >
           BUILD YOUR IDEA
         </motion.h1>
-
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="hidden md:block text-center text-neutral-400 max-w-xl mt-4 text-xl"
+          className="block text-center text-neutral-400 max-w-xl mt-4 text-base md:text-xl"
         >
           Turn your idea into reality with the right guidance and support.
         </motion.p>
       </LampContainer>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 md:-mt-32 lg:-mt-64 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 -mt-32 sm:-mt-40 md:-mt-48 lg:-mt-64 relative z-20">
         <div className="flex flex-col lg:flex-row gap-16">
 
-          {/* Value Prop Section (Adapted from Quote side) */}
-          <div className="lg:basis-2/5 w-full">
-            <div className="idea-quote-box bg-neutral-900/30 p-12 border border-neutral-800 lg:sticky lg:top-8">
+          {/* Quote Section - Desktop only */}
+          <div className="hidden lg:block lg:basis-2/5 w-full">
+            <div className="idea-quote-box bg-[#080808] border border-neutral-800 p-12 lg:sticky lg:top-8 rounded-2xl">
               <div className="relative">
-                <Quote className="absolute -top-6 -left-6 w-16 h-16 opacity-10 text-white idea-quote-icon" />
+                <Quote className="absolute -top-6 -left-6 w-16 h-16 text-orange-400 idea-quote-icon" />
                 <blockquote
                   style={{ fontFamily: 'SpaceGrotesk, sans-serif' }}
-                  className="text-2xl md:text-3xl leading-relaxed mb-8 text-white font-light"
+                  className="text-3xl leading-relaxed mb-8 text-white font-bold"
                 >
                   People who are crazy enough to think they can change the world are the ones who do.
                   <footer className="text-lg text-neutral-400 mt-4 font-normal">— Steve Jobs</footer>
                 </blockquote>
-                <hr className="border-neutral-700 mb-6" />
-                <div
-                  style={{ fontFamily: 'ClashDisplay, sans-serif' }}
-                  className="space-y-5 text-neutral-300 text-lg leading-relaxed"
-                >
-                  <p>
-                    Got an idea but don’t know where to start?
-                  </p>
-
-
-                  <div className="text-2xl text-white font-medium pt-6 ">
-                    We help you build, refine, and launch it. Your idea  stays yours. 🚀
+                <hr className="border-neutral-800 mb-6" />
+                <div style={{ fontFamily: 'ClashDisplay, sans-serif' }} className="space-y-5 text-neutral-300 text-lg leading-relaxed">
+                  <p>Got an idea but don't know where to start?</p>
+                  <div className="text-2xl text-white font-medium pt-6">
+                    We help you build, refine, and launch it. Your idea stays yours. 🚀
                   </div>
                 </div>
               </div>
@@ -180,112 +120,72 @@ export function IdeaSectionHeader() {
           </div>
 
           {/* Form Section */}
-          <div className="lg:basis-3/5 w-full">
-            <div className="bg-black border border-neutral-800 p-12">
-              <div className="space-y-10">
+          <div className="lg:basis-3/5 w-full flex flex-col justify-center">
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Name Input */}
-                  <div className="space-y-3">
-                    <label className="block text-sm font-bold text-white uppercase tracking-wider">
-                      Full Name *
-                    </label>
+            {/* Mobile-only header */}
+            <div className="lg:hidden text-center mb-8 px-2">
+              <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Got an idea?</h2>
+              <p className="text-neutral-400 text-sm">We help you build, refine, and launch it. 🚀</p>
+            </div>
+
+            <div className="p-2 md:p-6">
+              <div className="space-y-4">
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
                     <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
+                      type="text" name="name" value={formData.name}
                       onChange={handleInputChange}
-                      className={`idea-input w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
-                        }`}
-                      placeholder="Enter your full name"
-                      disabled={isSubmitting}
+                      className={`idea-input w-full bg-neutral-900 px-5 py-4 border-none rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200 ${errors.name ? 'ring-2 ring-red-400' : ''}`}
+                      placeholder="Full Name *" disabled={isSubmitting}
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm">{errors.name}</p>
-                    )}
+                    {errors.name && <p className="text-red-500 text-xs mt-1 pl-2">{errors.name}</p>}
                   </div>
-
-                  {/* Email Input */}
-                  <div className="space-y-3">
-                    <label className="block text-sm font-bold text-white uppercase tracking-wider">
-                      Email Address *
-                    </label>
+                  <div>
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      type="email" name="email" value={formData.email}
                       onChange={handleInputChange}
-                      className={`idea-input w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
-                        }`}
-                      placeholder="your@email.com"
-                      disabled={isSubmitting}
+                      className={`idea-input w-full bg-neutral-900 px-5 py-4 border-none rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200 ${errors.email ? 'ring-2 ring-red-400' : ''}`}
+                      placeholder="Email Address *" disabled={isSubmitting}
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm">{errors.email}</p>
-                    )}
+                    {errors.email && <p className="text-red-500 text-xs mt-1 pl-2">{errors.email}</p>}
                   </div>
                 </div>
 
-                {/* Idea Textarea */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-bold text-white uppercase tracking-wider">
-                    Your Startup Idea *
-                  </label>
+                <div>
                   <div className="relative">
                     <textarea
-                      name="idea"
-                      value={formData.idea}
-                      onChange={handleInputChange}
-                      rows={8}
-                      className={`idea-input w-full bg-transparent px-6 py-4 border text-white placeholder-neutral-600 focus:outline-none transition-colors duration-200 resize-none ${errors.idea ? 'border-red-500 focus:border-red-500' : 'border-neutral-700 focus:border-white'
-                        }`}
-                      placeholder="What problem are you solving? Who is it for? Do you have a prototype? (minimum 50 characters)"
+                      name="idea" value={formData.idea} onChange={handleInputChange} rows={6}
+                      className={`idea-input w-full bg-neutral-900 px-5 py-4 border-none rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200 resize-none ${errors.idea ? 'ring-2 ring-red-400' : ''}`}
+                      placeholder="What problem are you solving? Who is it for? Minimum 50 characters"
                       disabled={isSubmitting}
                     />
-                    <div className={`absolute bottom-4 right-6 text-sm ${formData.idea.length > 5000 ? 'text-red-500' : 'text-neutral-500'
-                      }`}>
+                    <div className={`absolute bottom-3 right-4 text-xs ${formData.idea.length > 5000 ? 'text-red-500' : 'text-neutral-500'}`}>
                       {formData.idea.length} / 5000 chars
                       {formData.idea.length < 50 && formData.idea.length > 0 && (
-                        <span className="text-red-500 ml-2">
-                          ({50 - formData.idea.length} more needed)
-                        </span>
+                        <span className="text-red-500 ml-1">({50 - formData.idea.length} more needed)</span>
                       )}
                     </div>
                   </div>
-                  {errors.idea && (
-                    <p className="text-red-500 text-sm">{errors.idea}</p>
-                  )}
+                  {errors.idea && <p className="text-red-500 text-xs mt-1 pl-2">{errors.idea}</p>}
                 </div>
 
-                {/* Submit Button */}
                 <button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="w-full py-5 px-8 font-bold text-xl uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-white hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] bg-black text-white active:scale-[0.98] idea-submit-btn"
+                  onClick={handleSubmit} disabled={isSubmitting}
+                  className="w-full py-4 px-8 font-bold text-base uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center rounded-full bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98] shadow-lg idea-submit-btn"
                 >
                   {isSubmitting ? (
-                    <>
-                      <div className="animate-spin h-6 w-6 border-b-2 border-current mr-3 rounded-full"></div>
-                      Sending...
-                    </>
+                    <><div className="animate-spin h-6 w-6 border-b-2 border-current mr-3 rounded-full"></div>Sending...</>
                   ) : (
-                    <>
-                      <Send className="w-6 h-6 mr-3" />
-                      Get Help Building This
-                    </>
+                    <><Send className="w-5 h-5 mr-3" />Get Help Building This</>
                   )}
                 </button>
 
-                {/* Status Messages */}
                 {statusInfo && (
-                  <div className={`border p-6 ${statusInfo.type === 'success' ? 'bg-green-950/30 border-green-800' : 'bg-red-950/30 border-red-800'
-                    }`}>
-                    <div className={`flex items-start ${statusInfo.type === 'success' ? 'text-green-400' : 'text-red-400'
-                      }`}>
-                      <statusInfo.icon className="w-6 h-6 mr-3 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <span>{statusInfo.message}</span>
-                      </div>
+                  <div className={`rounded-xl p-4 ${statusInfo.type === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
+                    <div className={`flex items-start ${statusInfo.type === 'success' ? 'text-green-700' : 'text-red-700'}`}>
+                      <statusInfo.icon className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" />
+                      <span>{statusInfo.message}</span>
                     </div>
                   </div>
                 )}
@@ -295,7 +195,6 @@ export function IdeaSectionHeader() {
           </div>
 
         </div>
-
       </div>
     </div>
   );
