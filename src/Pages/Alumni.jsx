@@ -12,8 +12,8 @@ import gul from "./assets/gul.jpeg";
 import sarvani from "./assets/sarvani.jpg";
 
 import maxsonImg from "./assets/team/maxson.JPG";
-import mohitImg from "./assets/team/mohit.jpeg";
-import nishithaImg from "./assets/team/nishitha.jpeg";
+import mohitImg from "./assets/team/mohit.webp";
+import nishithaImg from "./assets/team/nishitha.webp";
 import gaganjithImg from "./assets/team/gaganjith.jpg";
 import shriyaImg from "./assets/team/shriya.jpg";
 import hiteshImg from "./assets/team/hitesh.jpeg";
