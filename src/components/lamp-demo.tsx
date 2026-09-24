@@ -120,7 +120,7 @@ export function IdeaSectionHeader() {
           </div>
 
           {/* Form Section */}
-          <div className="lg:basis-3/5 w-full">
+          <div className="lg:basis-3/5 w-full flex flex-col justify-center">
 
             {/* Mobile-only header */}
             <div className="lg:hidden text-center mb-8 px-2">
