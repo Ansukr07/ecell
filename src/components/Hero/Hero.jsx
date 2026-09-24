@@ -133,7 +133,7 @@ const ECellHero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden hero-section" >
+    <div className="min-h-screen bg-black relative overflow-x-hidden hero-section" >
 
 
       <motion.div
@@ -207,7 +207,7 @@ const ECellHero = () => {
         </div>
       </nav>
 
-      <div className="flex items-center justify-center min-h-screen relative px-4 pt-20 pb-8 z-10">
+      <div className="flex flex-col justify-center min-h-screen relative px-4 pt-20 pb-24 z-10">
 
         {/* Enhanced Initial Animation - "WE ARE ENTREPRENEURSHIP CELL" */}
         <motion.div
@@ -308,9 +308,11 @@ const ECellHero = () => {
           {/* Description Text - Centered */}
           <div className={`mt-12 lg:mt-16 max-w-4xl mx-auto text-center transition-all duration-1500 ease-out ${animationStage >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`} style={{ transitionDelay: '800ms' }}>
-            <p className="text-gray-300 text-base sm:text-lg lg:text-xl leading-relaxed px-4 text-center" style={{ fontFamily: 'Sora, sans-serif' }}>
-              Empowering the next generation of innovators and entrepreneurs,<br className="hidden sm:inline" />
-              fostering creativity, leadership, and entrepreneurial mindset<br className="hidden sm:inline" />
+            <p className="text-gray-300 text-base sm:text-lg lg:text-xl leading-relaxed px-8 sm:px-4 text-center w-full box-border" style={{ fontFamily: 'Sora, sans-serif' }}>
+              Empowering the next generation of innovators and entrepreneurs,{' '}
+              <br className="hidden sm:inline" />
+              fostering creativity, leadership, and entrepreneurial mindset{' '}
+              <br className="hidden sm:inline" />
               to build tomorrow's game-changing ventures.
             </p>
           </div>
