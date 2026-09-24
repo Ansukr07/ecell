@@ -133,7 +133,7 @@ const ECellHero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-x-hidden hero-section" >
+    <div className="min-h-screen bg-black relative overflow-x-hidden lg:overflow-hidden hero-section" >
 
 
       <motion.div
@@ -207,7 +207,7 @@ const ECellHero = () => {
         </div>
       </nav>
 
-      <div className="flex flex-col justify-center min-h-screen relative px-4 pt-20 pb-24 z-10">
+      <div className="flex flex-col justify-center min-h-screen relative px-4 pt-20 pb-24 lg:pb-8 z-10">
 
         {/* Enhanced Initial Animation - "WE ARE ENTREPRENEURSHIP CELL" */}
         <motion.div
