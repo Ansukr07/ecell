@@ -140,7 +140,7 @@ export function IdeaSectionHeader() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="hidden md:block text-center text-neutral-400 max-w-xl mt-4 text-xl"
+          className="block text-center text-neutral-400 max-w-xl mt-4 text-base md:text-xl"
         >
           Turn your idea into reality with the right guidance and support.
         </motion.p>
