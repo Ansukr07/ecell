@@ -93,7 +93,7 @@ export function IdeaSectionHeader() {
         </motion.p>
       </LampContainer>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 -mt-32 sm:-mt-40 md:-mt-48 lg:-mt-64 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 mt-8 md:-mt-48 lg:-mt-64 relative z-20">
         <div className="flex flex-col lg:flex-row gap-16">
 
           {/* Quote Section - Desktop only */}
