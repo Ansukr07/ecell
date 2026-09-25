@@ -128,35 +128,61 @@ export function IdeaSectionHeader() {
               <p className="text-neutral-400 text-sm">We help you build, refine, and launch it. 🚀</p>
             </div>
 
-            <div className="p-2 md:p-6">
-              <div className="space-y-4">
+            {/* Desktop: original black box wrapper | Mobile: no box */}
+            <div className="lg:bg-black lg:border lg:border-neutral-800 lg:p-12 p-2">
+              <div className="lg:space-y-10 space-y-4">
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-8 gap-4">
+                  <div className="lg:space-y-3">
+                    {/* Desktop label */}
+                    <label className="hidden lg:block text-sm font-bold text-white uppercase tracking-wider">
+                      Full Name *
+                    </label>
                     <input
                       type="text" name="name" value={formData.name}
                       onChange={handleInputChange}
-                      className={`idea-input w-full bg-neutral-900 px-5 py-4 border-none rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200 ${errors.name ? 'ring-2 ring-red-400' : ''}`}
+                      className={`idea-input w-full
+                        lg:bg-transparent lg:px-6 lg:py-4 lg:border lg:border-solid lg:rounded-none lg:placeholder-neutral-600 lg:focus:border-white
+                        bg-neutral-900 px-5 py-4 border-none rounded-xl placeholder-neutral-500 focus:ring-2 focus:ring-orange-400
+                        text-white focus:outline-none transition-all duration-200
+                        ${errors.name ? 'lg:border-red-500 ring-2 ring-red-400' : 'lg:border-neutral-700'}`}
                       placeholder="Full Name *" disabled={isSubmitting}
                     />
-                    {errors.name && <p className="text-red-500 text-xs mt-1 pl-2">{errors.name}</p>}
+                    {errors.name && <p className="text-red-500 text-xs lg:text-sm mt-1 pl-2">{errors.name}</p>}
                   </div>
-                  <div>
+                  <div className="lg:space-y-3">
+                    {/* Desktop label */}
+                    <label className="hidden lg:block text-sm font-bold text-white uppercase tracking-wider">
+                      Email Address *
+                    </label>
                     <input
                       type="email" name="email" value={formData.email}
                       onChange={handleInputChange}
-                      className={`idea-input w-full bg-neutral-900 px-5 py-4 border-none rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200 ${errors.email ? 'ring-2 ring-red-400' : ''}`}
+                      className={`idea-input w-full
+                        lg:bg-transparent lg:px-6 lg:py-4 lg:border lg:border-solid lg:rounded-none lg:placeholder-neutral-600 lg:focus:border-white
+                        bg-neutral-900 px-5 py-4 border-none rounded-xl placeholder-neutral-500 focus:ring-2 focus:ring-orange-400
+                        text-white focus:outline-none transition-all duration-200
+                        ${errors.email ? 'lg:border-red-500 ring-2 ring-red-400' : 'lg:border-neutral-700'}`}
                       placeholder="Email Address *" disabled={isSubmitting}
                     />
-                    {errors.email && <p className="text-red-500 text-xs mt-1 pl-2">{errors.email}</p>}
+                    {errors.email && <p className="text-red-500 text-xs lg:text-sm mt-1 pl-2">{errors.email}</p>}
                   </div>
                 </div>
 
-                <div>
+                <div className="lg:space-y-3">
+                  {/* Desktop label */}
+                  <label className="hidden lg:block text-sm font-bold text-white uppercase tracking-wider">
+                    Your Startup Idea *
+                  </label>
                   <div className="relative">
                     <textarea
-                      name="idea" value={formData.idea} onChange={handleInputChange} rows={6}
-                      className={`idea-input w-full bg-neutral-900 px-5 py-4 border-none rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200 resize-none ${errors.idea ? 'ring-2 ring-red-400' : ''}`}
+                      name="idea" value={formData.idea} onChange={handleInputChange}
+                      rows={6}
+                      className={`idea-input w-full
+                        lg:bg-transparent lg:px-6 lg:py-4 lg:border lg:border-solid lg:rounded-none lg:placeholder-neutral-600 lg:focus:border-white
+                        bg-neutral-900 px-5 py-4 border-none rounded-xl placeholder-neutral-500 focus:ring-2 focus:ring-orange-400
+                        text-white focus:outline-none transition-all duration-200 resize-none
+                        ${errors.idea ? 'lg:border-red-500 ring-2 ring-red-400' : 'lg:border-neutral-700'}`}
                       placeholder="What problem are you solving? Who is it for? Minimum 50 characters"
                       disabled={isSubmitting}
                     />
@@ -167,12 +193,15 @@ export function IdeaSectionHeader() {
                       )}
                     </div>
                   </div>
-                  {errors.idea && <p className="text-red-500 text-xs mt-1 pl-2">{errors.idea}</p>}
+                  {errors.idea && <p className="text-red-500 text-xs lg:text-sm mt-1 pl-2">{errors.idea}</p>}
                 </div>
 
+                {/* Button: desktop = border outline style | mobile = filled pill style */}
                 <button
                   onClick={handleSubmit} disabled={isSubmitting}
-                  className="w-full py-4 px-8 font-bold text-base uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center rounded-full bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98] shadow-lg idea-submit-btn"
+                  className={`w-full font-bold uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center active:scale-[0.98] idea-submit-btn
+                    lg:py-5 lg:px-8 lg:text-xl lg:border lg:border-white lg:bg-black lg:text-white lg:rounded-none lg:hover:bg-white/10 lg:shadow-none
+                    py-4 px-8 text-base rounded-full bg-primary text-primary-foreground hover:opacity-90 shadow-lg`}
                 >
                   {isSubmitting ? (
                     <><div className="animate-spin h-6 w-6 border-b-2 border-current mr-3 rounded-full"></div>Sending...</>
@@ -182,8 +211,8 @@ export function IdeaSectionHeader() {
                 </button>
 
                 {statusInfo && (
-                  <div className={`rounded-xl p-4 ${statusInfo.type === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
-                    <div className={`flex items-start ${statusInfo.type === 'success' ? 'text-green-700' : 'text-red-700'}`}>
+                  <div className={`lg:border lg:p-6 rounded-xl lg:rounded-none p-4 ${statusInfo.type === 'success' ? 'lg:bg-green-950/30 lg:border-green-800 bg-green-50 border border-green-200' : 'lg:bg-red-950/30 lg:border-red-800 bg-red-50 border border-red-200'}`}>
+                    <div className={`flex items-start ${statusInfo.type === 'success' ? 'lg:text-green-400 text-green-700' : 'lg:text-red-400 text-red-700'}`}>
                       <statusInfo.icon className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" />
                       <span>{statusInfo.message}</span>
                     </div>
